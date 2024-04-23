@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!-- favicon -->
-<link rel="shortcut icon" href="/good/asset/images/favicon.ico" />
+<link rel="icon" href="/good/asset/favicon.ico" type="image/x-icon"/>
 <!-- <link rel="icon" href="/good/asset/favicon.ico" type="image/x-icon"> -->
 
 <!-- theme meta -->
