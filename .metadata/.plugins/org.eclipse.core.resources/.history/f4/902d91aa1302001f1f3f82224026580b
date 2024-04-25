@@ -1,0 +1,68 @@
+package com.goodjob;
+
+import java.util.ArrayList;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+
+import com.goodjob.test.TestDAO;
+
+import lombok.Data;
+
+public class AddInfo {
+
+	public static void main(String[] args) {
+		TestDAO dao = new TestDAO();
+
+		ArrayList<String> list = dao.list();
+		System.out.println(list.size());
+		ArrayList<Company> result = new ArrayList<>();
+
+		try {
+			String filePath = "C:\\GoodJob_Heey\\CORPCODE.xml";
+
+			DocumentBuilderFactory dbFactoty = DocumentBuilderFactory.newInstance();
+			DocumentBuilder dBuilder = dbFactoty.newDocumentBuilder();
+
+			Document doc = dBuilder.parse(filePath);
+			// <list> 태그 가져오기
+			NodeList listNodes = doc.getElementsByTagName("list");
+
+			// 각 <list> 태그 안에서 <corp_code>와 <corp_name> 태그 데이터 추출
+			for (String search : list) {
+				int cnt = 0;
+				for (int i = 0; i < listNodes.getLength(); i++) {
+					Element listElement = (Element) listNodes.item(i);
+					String corpCode = listElement.getElementsByTagName("corp_code").item(0).getTextContent();
+					String corpName = listElement.getElementsByTagName("corp_name").item(0).getTextContent();
+
+					if(corpName.contains(search)) {
+						Company com = new Company();
+						com.setCode(corpCode);
+						result.add(com);
+					}
+					cnt++;
+					System.out.println("corp_code: " + corpCode + ", corp_name: " + corpName);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	
+
+}
+
+@Data
+class Company {
+	private String code;
+	private String name;
+	private String est_dt;
+	private String ceo_nm;
+}

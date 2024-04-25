@@ -1,0 +1,113 @@
+package com.goodjob.test;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+
+import com.goodjob.Company;
+import com.test.util.DBUtil;
+
+import lombok.Data;
+
+public class TestDAO {
+	private Connection conn;
+	private Statement stat;
+	private PreparedStatement pstat;
+	private ResultSet rs;
+
+	public TestDAO() {
+		this.conn = DBUtil.open();
+	}
+
+	public ArrayList<Company> list() {
+		try {
+			String sql = "select cp_seq, cp_name from tblcompany";
+
+			stat = conn.createStatement();
+			rs = stat.executeQuery(sql);
+
+			ArrayList<Company> list = new ArrayList<>();
+			while (rs.next()) {
+				Company com = new Company();
+				com.setSeq(rs.getString("cp_seq"));
+				com.setName(rs.getString("cp_name"));
+				list.add(com);
+			}
+			return list;
+
+		} catch (Exception e) {
+			System.out.println("TestDAO.list");
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public int addCode(Company company) {
+		try {
+			String sql = "insert into tblCode values (?,?,?)";
+
+			pstat = conn.prepareStatement(sql);
+			
+			pstat.setString(1, company.getSeq());
+			pstat.setString(2, company.getCode());
+			pstat.setString(3, company.getName());
+			
+			pstat.executeUpdate();
+			pstat.close();
+			return 1;
+			
+		} catch (Exception e) {
+			System.out.println("TestDAO.addCode");
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
+	public ArrayList<Company> comList() {
+		try {
+			String sql = "select distinct seq, LPAD(code, 8, '0') as code, name from tblcode where seq between 6252 and 6771";
+
+			stat = conn.createStatement();
+			rs = stat.executeQuery(sql);
+
+			ArrayList<Company> list = new ArrayList<>();
+			while (rs.next()) {
+				Company com = new Company();
+				com.setSeq(rs.getString("seq"));
+				com.setCode(rs.getString("code"));
+				com.setName(rs.getString("name"));
+				list.add(com);
+			}
+			return list;
+
+		} catch (Exception e) {
+			System.out.println("TestDAO.comList");
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public int updateInfo(Company com) {
+		try {
+			String sql = "update tblCompany set ceo = ?, founded = ? where cp_seq = ?";
+
+			pstat = conn.prepareStatement(sql);
+			
+			pstat.setString(1, com.getCeo_nm());
+			pstat.setString(2, com.getEst_dt());
+			pstat.setString(3, com.getSeq());
+			
+			pstat.executeUpdate();
+			pstat.close();
+			return 1;
+			
+		} catch (Exception e) {
+			System.out.println("TestDAO.addCode");
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	
+}

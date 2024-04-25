@@ -1,0 +1,14 @@
+package com.goodjob;
+
+import java.util.ArrayList;
+
+import com.goodjob.test.TestDAO;
+
+public class SearchInfo {
+	public static void main(String[] args) {
+		TestDAO dao = new TestDAO();
+
+		ArrayList<Company> list = dao.comList();
+		
+	}
+}
