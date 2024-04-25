@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+ <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
@@ -7,6 +7,17 @@
 <meta charset="UTF-8">
 <%@include file="/WEB-INF/views/inc/asset.jsp" %>
 <style>
+#email {
+	width: 50%;
+}
+#domain {
+	width: 25%;
+}
+/* .form-group > mt-4 #domain-list { */
+/* 	width: 10000px; */
+/* 	color: red; */
+/* 	border : 10px solid red; */
+/* } */
 
 </style>
 </head>
@@ -18,24 +29,24 @@
       <div class="min-h-[980px] bg-white py-10 lg:col-6 lg:py-[114px]">
         <div class="mx-auto w-full max-w-[480px]">
           <img class="mb-8" src="images/flower.svg" alt="" />
-          <h1 class="mb-4">Sing Up</h1>
-          <p>Donec sollicitudin molestie malesda sollitudin</p>
-          <div class="signin-options mt-10">
-            <a class="btn btn-outline-white block w-full text-dark" href="#"
-              >Sign Up With Google</a
-            >
-          </div>
+          <h1 class="mb-4">회원 가입</h1>
+          <p>회원가입 해주세요</p>
+<!--           <div class="signin-options mt-10"> -->
+<!--             <a class="btn btn-outline-white block w-full text-dark" href="#" -->
+<!--               >Sign Up With Google</a -->
+<!--             > -->
+<!--           </div> -->
           <div
             class="relative my-8 text-center after:absolute after:left-0 after:top-1/2 after:z-[0] after:w-full after:border-b after:border-border after:content-['']"
           >
             <span class="relative z-[1] inline-block bg-white px-2"
-              >Or Sign Up With Email</span
+              >Sign Up With Email</span
             >
           </div>
 
           <form action="#">
             <div class="form-group">
-              <label for="name" class="form-label">Full Name</label>
+              <label for="name" class="form-label">이름</label>
               <input
                 type="text"
                 id="name"
@@ -43,20 +54,44 @@
                 placeholder="Your Full Name"
               />
             </div>
-            <div class="form-group mt-4">
-              <label for="email" class="form-label">Email Adrdess</label>
+            <div class="form-group">
+              <label for="id" class="form-label">id</label>
               <input
-                type="email"
-                id="email"
+                type="text"
+                id="id"
                 class="form-control"
-                placeholder="Your Email Address"
+                placeholder="Your Full Name"
               />
+              <button>중복확인</button>
             </div>
             <div class="form-group mt-4">
-              <label for="password" class="form-label">Password</label>
+              <label for="email" class="form-label">이메일</label>
+              <input type="email" id="email" class="form-control"  placeholder="Your Email Address"/>
+              @
+              <input type="email" id="domain" class="form-control" placeholder="직접입력"/>
+             <select id="domain-list">
+             	<option value="직접입력">직접입력</option>
+             	<option value="naver.com">naver.com</option>
+             	<option value="gmail.com">gmail.com</option>
+             	<option value="hanmail.net">hanmail.net</option>
+             	<option value="nate.com">nate.com</option>
+             	<option value="yahoo.com">yahoo.com</option>
+             </select>
+            </div>
+            <div class="form-group mt-4">
+              <label for="password" class="form-label">비밀번호</label>
               <input
                 type="password"
                 id="password"
+                class="form-control"
+                placeholder="Your Password"
+              />
+            </div>
+            <div class="form-group mt-4">
+              <label for="password_confirm" class="form-label">비밀번호 확인</label>
+              <input
+                type="password"
+                id="_confirm"
                 class="form-control"
                 placeholder="Your Password"
               />
