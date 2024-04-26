@@ -1,4 +1,0 @@
-INDEX VERSION 1.4+C:\GoodJob\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
-1245598061.index
-3235736408.index
-2510719955.index
