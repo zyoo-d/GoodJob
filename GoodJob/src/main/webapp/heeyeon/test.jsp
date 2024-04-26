@@ -31,7 +31,7 @@
 
 </style>
 </head>
-<%-- <%@include file="/WEB-INF/views/inc/header.jsp" %> --%>
+<%@include file="/WEB-INF/views/inc/header.jsp" %>
 <body>
 	<div id="app">
     <div class="main-wrapper main-wrapper-1">
