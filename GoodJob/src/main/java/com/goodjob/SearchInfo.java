@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -115,6 +116,7 @@ public class SearchInfo {
 						if (((String) ((JSONObject) info).get("sexdstn")).equals("남")) {
 
 							maleNum = ((String) ((JSONObject) info).get("sm"));
+							maleNum = maleNum.replace(",", "");
 							maleYear = ((String) ((JSONObject) info).get("avrg_cnwk_sdytrn"));
 							int months = convertToMonths(maleYear);
 							
@@ -124,6 +126,7 @@ public class SearchInfo {
 
 						} else if (((String) ((JSONObject) info).get("sexdstn")).equals("여")) {
 							femaleNum = ((String) ((JSONObject) info).get("sm"));
+							femaleNum = femaleNum.replace(",", "");
 							femaleYear = ((String) ((JSONObject) info).get("avrg_cnwk_sdytrn"));
 							int months = convertToMonths(femaleYear);
 							
@@ -132,24 +135,21 @@ public class SearchInfo {
 							System.out.printf("%s(여): 인원 %s명, 근속 %d\r\n", com.getName(), femaleNum, months);
 						}
 					}
-					System.out.println(totalNum);
-					System.out.println(totalYear);
-					double month = (double)(totalYear/totalNum);
-					System.out.println(month);
-					
+					/*
+					 * System.out.println(totalNum); System.out.println(totalYear); double temp =
+					 * (double)(totalYear/totalNum); int month = (int)Math.floor(temp);
+					 * System.out.println(month);
+					 * 
+					 * HashMap<String, Integer> map = new HashMap<>(); map.put("seq",
+					 * Integer.parseInt(com.getSeq())); map.put("month", month);
+					 * 
+					 * int end = dao.updateHire(map); System.out.println(end);
+					 */
 				}
 
-				/*
-				 * System.out.println(com.getName()); System.out.println(com.getEst_dt());
-				 * System.out.println(com.getCeo_nm()); break;
-				 * 
-				 * &&(((String)((JSONObject) info).get("fo_bbm")).equals("전사")
-				 * ||((String)((JSONObject) info).get("fo_bbm")).equals("성별합계"))
-				 */
 
-				/*
-				 * int end = dao.updateInfo(com); System.out.println(end);
-				 */
+				
+				 
 			} catch (Exception e) {
 				System.out.println("emain");
 				e.printStackTrace();

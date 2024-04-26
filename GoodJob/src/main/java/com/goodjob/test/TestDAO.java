@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.goodjob.Company;
 import com.goodjob.Finance;
@@ -68,7 +69,7 @@ public class TestDAO {
 
 	public ArrayList<Company> comList() {
 		try {
-			String sql = "select distinct seq, LPAD(code, 8, '0') as code, name from tblcode where seq between 10500 and 11660";
+			String sql = "select distinct seq, LPAD(code, 8, '0') as code, name from tblcode where seq between 3500 and 5000";
 
 			stat = conn.createStatement();
 			rs = stat.executeQuery(sql);
@@ -144,6 +145,26 @@ public class TestDAO {
 			pstat.setString(3, finance.getOl_income());
 			pstat.setString(4, finance.getOl_period());
 			pstat.setString(5, finance.getSeq());
+			
+			pstat.executeUpdate();
+			pstat.close();
+			return 1;
+			
+		} catch (Exception e) {
+			System.out.println("TestDAO.addCode");
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
+	public int updateHire(HashMap<String, Integer> map) {
+		try {
+			String sql = "update tblHire set hire_avr_year = ? where cp_seq = ?";
+
+			pstat = conn.prepareStatement(sql);
+			
+			pstat.setInt(1, map.get("month"));
+			pstat.setInt(2, map.get("seq"));
 			
 			pstat.executeUpdate();
 			pstat.close();
