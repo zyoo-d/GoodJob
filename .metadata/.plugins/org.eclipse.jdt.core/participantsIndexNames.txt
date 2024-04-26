@@ -1,9 +1,0 @@
-INDEX VERSION 1.131
-C:\class\project\jsp.servlet\GoodJob\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\163051812.index
-\GoodJob\src\main\java
-C:\class\project\jsp.servlet\GoodJob\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3277870704.index
-\GoodJob\src\main\java
-C:\class\project\jsp.servlet\GoodJob\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2898453329.index
-\GoodJob\src\main\java
-C:\class\project\jsp.servlet\GoodJob\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\674428454.index
-\GoodJob\src\main\java
