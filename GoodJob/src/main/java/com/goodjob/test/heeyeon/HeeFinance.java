@@ -1,9 +1,9 @@
-package com.goodjob;
+package com.goodjob.test.heeyeon;
 
 import lombok.Data;
 
 @Data
-public class Finance {
+public class HeeFinance {
 	private String fnc_income;
 	private String fnc_sales;
 	private String fnc_ebit;

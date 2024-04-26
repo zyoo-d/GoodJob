@@ -1,9 +1,9 @@
-package com.goodjob;
+package com.goodjob.test.heeyeon;
 
 import lombok.Data;
 
 @Data
-public class Company {
+public class HeeCompany {
 	
 	private String seq;
 	private String code;

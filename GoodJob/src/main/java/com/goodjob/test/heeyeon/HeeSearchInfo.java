@@ -1,4 +1,4 @@
-package com.goodjob;
+package com.goodjob.test.heeyeon;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -10,9 +10,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-import com.goodjob.test.TestDAO;
-
-public class SearchInfo {
+public class HeeSearchInfo {
 	public static void main(String[] args) {
 		// searchCompanyInfo();
 		searchHireInfo();
@@ -20,11 +18,11 @@ public class SearchInfo {
 	}
 
 	private static void searchFinanceInfo() {
-		TestDAO dao = new TestDAO();
+		HeeTestDAO dao = new HeeTestDAO();
 
-		ArrayList<Company> list = dao.comList();
+		ArrayList<HeeCompany> list = dao.comList();
 		// e11f4c31b1b2d90885677aedb28703686d37aecc
-		for (Company com : list) {
+		for (HeeCompany com : list) {
 
 			String path = "https://opendart.fss.or.kr/api/fnlttMultiAcnt.json?crtfc_key=e11f4c31b1b2d90885677aedb28703686d37aecc&corp_code="
 					+ com.getCode() + "&bsns_year=2023&reprt_code=11011";
@@ -39,7 +37,7 @@ public class SearchInfo {
 
 				JSONParser parser = new JSONParser();
 				JSONObject root = (JSONObject) parser.parse(result);
-				Finance finance = new Finance();
+				HeeFinance finance = new HeeFinance();
 				finance.setFnc_period("2023");
 				finance.setP_period("2022");
 				finance.setOl_period("2021");
@@ -82,11 +80,11 @@ public class SearchInfo {
 	}
 
 	private static void searchHireInfo() {
-		TestDAO dao = new TestDAO();
+		HeeTestDAO dao = new HeeTestDAO();
 
-		ArrayList<Company> list = dao.comList();
+		ArrayList<HeeCompany> list = dao.comList();
 		// e11f4c31b1b2d90885677aedb28703686d37aecc
-		for (Company com : list) {
+		for (HeeCompany com : list) {
 
 			String path = "https://opendart.fss.or.kr/api/empSttus.json?crtfc_key=e11f4c31b1b2d90885677aedb28703686d37aecc&corp_code="
 					+ com.getCode() + "&bsns_year=2023&reprt_code=11011";
@@ -159,11 +157,11 @@ public class SearchInfo {
 	}
 
 	private static void searchCompanyInfo() {
-		TestDAO dao = new TestDAO();
+		HeeTestDAO dao = new HeeTestDAO();
 
-		ArrayList<Company> list = dao.comList();
+		ArrayList<HeeCompany> list = dao.comList();
 		// e11f4c31b1b2d90885677aedb28703686d37aecc
-		for (Company com : list) {
+		for (HeeCompany com : list) {
 			// https://opendart.fss.or.kr/api/company.json?crtfc_key=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&corp_code=00126380
 			String path = "https://opendart.fss.or.kr/api/company.json?crtfc_key=e11f4c31b1b2d90885677aedb28703686d37aecc&corp_code="
 					+ com.getCode();

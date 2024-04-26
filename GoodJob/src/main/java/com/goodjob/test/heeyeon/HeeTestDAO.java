@@ -1,4 +1,4 @@
-package com.goodjob.test;
+package com.goodjob.test.heeyeon;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,32 +7,30 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.goodjob.Company;
-import com.goodjob.Finance;
 import com.test.util.DBUtil;
 
 import lombok.Data;
 
-public class TestDAO {
+public class HeeTestDAO {
 	private Connection conn;
 	private Statement stat;
 	private PreparedStatement pstat;
 	private ResultSet rs;
 
-	public TestDAO() {
+	public HeeTestDAO() {
 		this.conn = DBUtil.open();
 	}
 
-	public ArrayList<Company> list() {
+	public ArrayList<HeeCompany> list() {
 		try {
 			String sql = "select cp_seq, cp_name from tblcompany";
 
 			stat = conn.createStatement();
 			rs = stat.executeQuery(sql);
 
-			ArrayList<Company> list = new ArrayList<>();
+			ArrayList<HeeCompany> list = new ArrayList<>();
 			while (rs.next()) {
-				Company com = new Company();
+				HeeCompany com = new HeeCompany();
 				com.setSeq(rs.getString("cp_seq"));
 				com.setName(rs.getString("cp_name"));
 				list.add(com);
@@ -46,7 +44,7 @@ public class TestDAO {
 		return null;
 	}
 
-	public int addCode(Company company) {
+	public int addCode(HeeCompany company) {
 		try {
 			String sql = "insert into tblCode values (?,?,?)";
 
@@ -67,16 +65,16 @@ public class TestDAO {
 		return 0;
 	}
 
-	public ArrayList<Company> comList() {
+	public ArrayList<HeeCompany> comList() {
 		try {
 			String sql = "select distinct seq, LPAD(code, 8, '0') as code, name from tblcode where seq between 3500 and 5000";
 
 			stat = conn.createStatement();
 			rs = stat.executeQuery(sql);
 
-			ArrayList<Company> list = new ArrayList<>();
+			ArrayList<HeeCompany> list = new ArrayList<>();
 			while (rs.next()) {
-				Company com = new Company();
+				HeeCompany com = new HeeCompany();
 				com.setSeq(rs.getString("seq"));
 				com.setCode(rs.getString("code"));
 				com.setName(rs.getString("name"));
@@ -91,7 +89,7 @@ public class TestDAO {
 		return null;
 	}
 
-	public int updateInfo(Company com) {
+	public int updateInfo(HeeCompany com) {
 		try {
 			String sql = "update tblCompany set ceo = ?, founded = ? where cp_seq = ?";
 
@@ -112,7 +110,7 @@ public class TestDAO {
 		return 0;
 	}
 
-	public int addFinance(Finance finance) {
+	public int addFinance(HeeFinance finance) {
 		try {
 			String sql = "insert into tblFinance(fnc_seq, fnc_sales, fnc_ebit, fnc_income, fnc_period, fnc_regdate, cp_seq) values (seqFinance.nextVal, ?,?,?,?, default, ?)";
 

@@ -1,4 +1,4 @@
-package com.goodjob;
+package com.goodjob.test.heeyeon;
 
 import java.util.ArrayList;
 
@@ -9,16 +9,14 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-import com.goodjob.test.TestDAO;
-
 import lombok.Data;
 
-public class AddInfo {
+public class HeeAddInfo {
 
 	public static void main(String[] args) {
-		TestDAO dao = new TestDAO();
+		HeeTestDAO dao = new HeeTestDAO();
 
-		ArrayList<Company> list = dao.list();
+		ArrayList<HeeCompany> list = dao.list();
 		
 		//ArrayList<Company> result = new ArrayList<>();
 		int end= 0;
@@ -33,8 +31,8 @@ public class AddInfo {
 			// <list> 태그 가져오기
 			NodeList listNodes = doc.getElementsByTagName("list");
 			// 각 <list> 태그 안에서 <corp_code>와 <corp_name> 태그 데이터 추출
-			for (Company search : list) {
-				ArrayList<Company> temp = new ArrayList<>();
+			for (HeeCompany search : list) {
+				ArrayList<HeeCompany> temp = new ArrayList<>();
 				
 				for (int i = 0; i < listNodes.getLength(); i++) {
 					Element listElement = (Element) listNodes.item(i);
@@ -42,7 +40,7 @@ public class AddInfo {
 					String corpName = listElement.getElementsByTagName("corp_name").item(0).getTextContent();
 
 					if(!corpName.equals(search.getName()) && corpName.contains(search.getName())) {
-						  Company com = new Company(); 
+						  HeeCompany com = new HeeCompany(); 
 						  com.setCode(corpCode);
 						  com.setName(corpName);
 						  com.setSeq(search.getSeq());
