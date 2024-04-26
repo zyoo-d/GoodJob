@@ -132,17 +132,17 @@ div > label {
               <label for="id" class="form-label">아이디</label>
               <input type="text" id="id" class="form-control" placeholder=" 아이디는 5 ~ 20자 이내로 영어 대소문자, 숫자, '-',  '_'만 입력이 가능합니다. "/>
               <button id="checkId"> 중복확인 </button>
-              <span id="incorrectid"></span>
+              <span id="idError"></span>
             </div>
             <div class="form-group mt-4">
               <label for="password" class="form-label">비밀번호</label>
               <input type="password" id="pw" class="form-control"  placeholder=" 비밀번호는 8-16자로 이내로 영어 대문자, 영어 소문자, 숫자, ‘*’, ‘-’만 입력이 가능합니다. " />
-			  <span id="incorrectPw"></span>            
+			  <span id="pwError"></span>            
             </div>
             <div class="form-group mt-4">
               <label for="password_confirm" class="form-label" id="confirmPw">비밀번호 확인</label>
               <input type="password"  id="pw_confirm" class="form-control" placeholder="비밀번호 확인"/>
-              <span id="differentPw"></span>
+              <span id="pwCheckError"></span>
             </div>
             
             <div class="form-group mt-4">
@@ -167,31 +167,17 @@ div > label {
             
             <div class="form-group mt-4">
               <label for="tel" class="form-label">연락처</label>
-              <input
-                type="text"
-                id="tel"
-                class="form-control"
-                placeholder="연락처를 입력하세요."
-              />
+              <input type="text" id="tel" class="form-control" placeholder="연락처를 입력하세요." />
+              <span id="telError"></span>
             </div>
             
 			<div class="form-group mt-4">
               <label for="address" class="form-label">주소</label>
-              <input
-                type="text"
-                id="address"
-                class="form-control"
-                placeholder="주소를 입력하세요."
-              />
+              <input type="text" id="address" class="form-control" placeholder="주소를 입력하세요."/>
             </div>
             <div class="form-group mt-4">
               <label for="address" class="form-label">닉네임</label>
-              <input
-                type="text"
-                id="nickname"
-                class="form-control"
-                placeholder="닉네임을 입력하세요."
-              />
+              <input type="text" id="nickname" class="form-control" placeholder="닉네임을 입력하세요." />
             </div>
             
             <input
@@ -208,14 +194,17 @@ div > label {
 </section>
 <%@include file="/WEB-INF/views/inc/footer.jsp" %>	
 	<script>
+	
+	var errorId = [ "idError", "pwError", "pwCheckError", "telError" ];
+	
 	$('#id').keydown(function () {
 	    var idLimit = /^[a-zA-Z0-9-_]{5,20}$/; // 정규식 5~20자 (a~z, A~Z, 0~9, -, _만 입력 가능)
 
 	    if (!idLimit.test($('#id').val())) {
-	        $('#incorrectid').html("사용할 수 없는 아이디입니다.");
+	        document.getElementById(errorId[0]).innerHTML = "사용할 수 없는 아이디입니다.";
 	    } else {
 	    	// 정규식 만족 하는 경우
-	        $('#incorrectid').html(""); 
+	    	document.getElementById(errorId[0]).innerHTML = "";
 	    }
 	});
 	
@@ -224,19 +213,20 @@ div > label {
     var pwLimit = /^[a-zA-Z0-9!*-]{10,20}$/; // 정규식 (a~z, A~Z, 0~9, *-! 만 입력 가능)
 
     if (!pwLimit.test($('#pw').val())) {
-        $('#incorrectPw').html("사용할 수 없는 비밀번호입니다.");
+    	document.getElementById(errorId[1]).innerHTML = "사용할 수 없는 비밀번호입니다.";
     } else {
     	// 정규식 만족 하는 경우
-        $('#incorrectPw').html("");
+    	document.getElementById(errorId[1]).innerHTML = "";
     }
 	});
 	
 	//비밀번호가 일치 확인
+	//안될것 같으면 submit시로 변경
 	$('#pw_confirm').keydown(function () {
     	if ($('#pw').val() !== $('#pw_confirm').val()) {
-        	$('#differentPw').html("비밀번호가 일치하지 않습니다.");
+    		document.getElementById(errorId[2]).innerHTML = "비밀번호가 일치하지 않습니다.";
     	} else {
-        	$('#differentPw').html("");
+    		document.getElementById(errorId[2]).innerHTML = "";
     	}
 	});
 	
@@ -245,7 +235,41 @@ div > label {
 		// 이메일 도메인 입력 필드의 내용을 선택된 값으로 업데이트
 		$('#domain').val(selectedDomain);
 	});
+	
+	$('#tel').keydown(function () {
+	    var idLimit = /^01[0|1|6|7|8|9]{1}[0-9]{8}$/; // 정규식 5~20자 (a~z, A~Z, 0~9, -, _만 입력 가능)
 
+	    if (!idLimit.test($('#tel').val())) {
+	    	document.getElementById(errorId[2]).innerHTML = "유효하지 않은 전화번호 입니다.";
+	    } else {
+	    	// 정규식 만족 하는 경우
+	    	document.getElementById(errorId[2]).innerHTML = "";
+	    }
+	});
+	
+	
+	$('#checkId').click(() => {
+	var id = $('#id').val();
+		
+		$.ajax({
+			type: 'POST',
+			url: '/good/checkid.do',
+			data: 'id=' + id,
+			dataType: 'json',
+			success : function() {
+				if (result == 0) {
+					alert('사용 가능한 아이디 입니다.')
+				} else {
+					alert('사용 불가능한 아이디 입니다.')
+				}
+			},
+			error : function(a,b,c) {
+				console.log(a,b,c,);
+			}
+			
+		});
+		
+	});
 	
 	
 	</script>

@@ -1,32 +1,30 @@
 package com.good.user;
 
 import java.io.IOException;
-import javax.servlet.RequestDispatcher;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/signup.do")
-public class Register extends HttpServlet {
+import com.good.user.repository.UserDAO;
 
-	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+@WebServlet("/good/checkid.do")
+public class CheckID extends HttpServlet {
 
-		
-
-		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/good/signup.jsp");
-		dispatcher.forward(req, resp);
-
-	}
-	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
+		UserDAO dao = new UserDAO();
 		String id = req.getParameter("id");
-		String pw = req.getParameter("pw");
-	
+			
+		int result = dao.checkId(id);
 		
+		PrintWriter writer = resp.getWriter();
+		writer.print(result);
+		writer.close();
+
 	}
 }
