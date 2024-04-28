@@ -1,0 +1,118 @@
+.search-element {
+	box-sizing: border-box;
+	width: 250px;
+	display: flex;
+	margin: 0 auto;
+}
+.search-element .form-control {
+	display: flex;
+	height: 45px;
+}
+.search-element .form-control .btn {
+	display: flex;
+}
+#btnSearch {
+	width: 50px;
+	border: 0;
+	padding: 0px 0px 3px 0px;
+}
+.logo {
+	display: flex;
+	position: relative;
+}
+
+.logo>img {
+	width: 120px;
+	margin-bottom: 10px;
+}
+
+.scrap {
+	position: absolute;
+	right: 0;
+	font-size: 30px;
+	cursor: pointer;
+}
+
+#banner {
+	padding: 0px 1.5rem;
+}
+
+#mainCard {
+	padding-top: 0;
+}
+
+#mainCard p {
+	margin: 0;
+}
+
+.infoCard {
+	position: relative;
+}
+
+#mainCard .infoCard h3 {
+	padding-left: 0;
+}
+
+.infoCard p {
+	display: inline-block;
+}
+
+.hiring {
+	position: absolute;
+	right: 0;
+	border: 1px solid tomato;
+	padding: 2px 5px;
+	border-radius: 5px;
+	color: tomato;
+	font-size: 0.7rem;
+}
+
+#filterHire {
+	position: absolute;
+	right: 0;
+	border: 1px solid tomato;
+	padding: 3px 8px 5px 8px;
+	color: tomato;
+	font-size: 0.9rem;
+	margin: 3px 15px 0px 0px;
+	line-height: 1.5;
+	cursor: pointer;
+}
+
+#mainCard h3 {
+	position: relative;
+	padding-left: 15px;
+}
+
+#trend {
+	display: inline-block;
+	z-index: 5;
+	position: fixed;
+	top:100px;
+	left:20px;
+}
+
+#trend > div>div{
+	padding: 30px 28px 15px 28px;
+}
+#trend button{
+	margin: 1rem auto 0px auto;
+}
+@media ( max-width :1300px) {
+	#trend {
+		display: none;
+	}
+}
+@media ( max-width :1410px) {
+	#trend {
+		max-width: 175px;
+	}
+	#trend div, h5, li {
+		font-size: 0.8rem !important;
+	}
+}
+@media ( max-width :1500px) {
+	#trend {
+		max-width: 220px;
+	}
+}
