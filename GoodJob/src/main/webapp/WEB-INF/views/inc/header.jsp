@@ -60,8 +60,7 @@
 				</form>
 			</li>
 			<li class="nav-item mt-3.5 lg:hidden"><a
-				class="btn btn-white btn-sm border-border" href="signin.html">Sing
-					Up Now</a></li>
+				class="btn btn-primary btn-sm mb-2" href="#">로그인</a></li>
 			<li class="nav-item">
 				<div
 					class="order-1 ml-auto hidden items-center md:order-2 md:ml-0 lg:flex">

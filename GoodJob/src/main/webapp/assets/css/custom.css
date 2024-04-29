@@ -6,3 +6,176 @@
  */
 
 /*# sourceMappingURL=custom.css.map */
+#mypageNavbar {
+	background-image: linear-gradient(184.78deg, #535AED 7.64%, #3EB2F8 120.07%);
+	height: 70px;
+	font-size: 1.2rem;
+}
+
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 200;
+    font-style: normal;
+}
+*{
+	font-family: 'Pretendard-Regular' !important;
+	letter-spacing: 0.05rem;
+}
+.fa, .far, .fas {
+    font-family: "Font Awesome 5 Free" !important;
+}
+.fab {
+    font-family: "Font Awesome 5 Brands" !important;
+}
+.card.blue {
+	border-top: 3px solid #7291FF;
+}
+#mypageImg {
+	margin: -25px -55px 0 -20px;
+}
+
+@media ( max-width :800px) {
+	#mypageImg {
+		width: 65px;
+	}
+}
+@media ( max-width :600px) {
+	#mypageImg {
+		display: none;
+	}
+}
+
+.profile-widget-item.left, .left {
+	text-align: left !important;
+}
+
+#mypageWidget {
+	max-height: 300px;
+}
+
+#mypageWidget:after {
+	background-color: transparent;
+}
+
+.mr-2.text-white.cardIcon {
+	flex-shrink: 0;
+	border-radius: 50%;
+	width: 45px;
+	height: 45px;
+	line-height: 42px;
+	text-align: center;
+	font-size: 1.2rem;
+}
+
+#activityList .card-body {
+	padding: 0 !important;
+	min-width: 145px;
+}
+
+#activityList .list-group {
+	height: 100%;
+	justify-content: space-around;
+}
+
+#activityList .list-group-item {
+	border: 0;
+}
+
+#preferMain .card-body {
+	padding: 3px !important;
+	max-height: 280px;
+}
+
+#activityList, #preferMain {
+	margin-bottom: 0 !important;
+	box-shadow: none !important;
+}
+
+#btnTest {
+	margin: 1% 20%;
+}
+
+@media ( min-width :1540px) {
+	#preferChart {
+		width: 330px !important;
+		height: 220px !important;
+		margin: 0 auto;
+	}
+}
+
+#profileWidget {
+	margin: 0 auto;
+}
+
+#btnScrap {
+	margin-right: 5%;
+}
+#mypageMainCard .card-body {
+	cursor: pointer; 
+}
+.bg-custom {
+	background-image: linear-gradient(184.78deg, #535AED 7.64%, #3EB2F8 120.07%) !important;
+}
+#profileWidget a {
+	color: #404040 !important;
+}
+#editInfo * {
+	font-size: 1rem !important;
+}
+.logo {
+	display: flex;
+	position: relative;
+}
+
+.logo>img {
+	width: 120px;
+	margin-bottom: 10px;
+}
+
+#star {
+	position: absolute;
+	right: 0;
+	font-size: 25px;
+	cursor: pointer;
+	color: gold;
+	margin-right: -10px;
+}
+
+.hiring {
+	position: absolute;
+	right: 0;
+	border: 1px solid tomato;
+	padding: 2px 5px;
+	border-radius: 5px;
+	color: tomato;
+	font-size: 0.9rem;
+}
+
+#scrapCards {
+	padding-top: 0;
+}
+
+#scrapCards p {
+	margin: 0;
+}
+
+.infoCard {
+	position: relative;
+}
+
+#scrapCards .infoCard h3 {
+	padding-left: 0;
+}
+
+.infoCard p {
+	display: inline-block;
+}
+
+#scrapCards h3 {
+	position: relative;
+	padding-left: 15px;
+}
+#mypageSidebar * {
+	font-size: 0.9rem;
+}
