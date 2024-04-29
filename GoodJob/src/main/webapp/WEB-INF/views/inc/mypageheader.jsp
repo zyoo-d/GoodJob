@@ -185,8 +185,8 @@
 							class="far fa-comments"></i> <span>활동내역</span></a>
 						<ul class="dropdown-menu">
 							<li><a class="nav-link" href="">기업리뷰</a></li>
-							<li><a class="nav-link" href="">면접스터디</a></li>
 							<li><a class="nav-link" href="">면접후기</a></li>
+							<li><a class="nav-link" href="">면접스터디</a></li>
 							<li><a class="nav-link" href="">여기어때?</a></li>
 						</ul></li>
 					<li class="dropdown"><a href="#" class="nav-link has-dropdown"><i

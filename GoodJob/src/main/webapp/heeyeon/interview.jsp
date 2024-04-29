@@ -4,7 +4,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <style>
-
 </style>
 <head>
 <meta charset="UTF-8">
@@ -26,16 +25,16 @@
 					<div class="breadcrumb-item active">
 						<a href="#">활동내역</a>
 					</div>
-					<div class="breadcrumb-item">기업리뷰</div>
+					<div class="breadcrumb-item">면접후기</div>
 				</div>
 			</div>
 			<div class="section-body">
-				<h2 class="section-title">기업리뷰</h2>
+				<h2 class="section-title">면접후기</h2>
 				<div class="row mt-4">
 					<div class="col-12">
-						<div class="card" id="reviewTable">
-							<div class="card-header" id="reviewHeader">
-								<h4>5개의 리뷰를 작성하셨습니다.</h4>
+						<div class="card" id="interviewTable">
+							<div class="card-header" id="interviewHeader">
+								<h4>5개의 후기를 작성하셨습니다.</h4>
 								<div class="float-right">
 									<form>
 										<div class="input-group">
@@ -62,8 +61,9 @@
 														class="custom-control-label">&nbsp;</label>
 												</div>
 											</th>
-											<th>기업명</th>
-											<th>고용상태</th>
+											<th>기업명/직무</th>
+											<th>면접시기</th>
+											<th>합격여부</th>
 											<th>작성일</th>
 											<th>등록여부</th>
 											<th>수정/삭제</th>
@@ -76,9 +76,10 @@
 														for="checkbox-2" class="custom-control-label">&nbsp;</label>
 												</div>
 											</td>
-											<td>삼성전자</td>
-											<td>퇴사</td>
-											<td>2018-01-20</td>
+											<td>삼성전자/프론트</td>
+											<td>2023년도 상반기</td>
+											<td><div class="badge badge-warning">대기중</div></td>
+											<td>2024-01-20</td>
 											<td><div class="badge badge-warning">심사중</div></td>
 											<td><div class="">
 													<a href="#">수정</a> / <a href="#" class="text-danger">삭제</a>
@@ -92,9 +93,10 @@
 														for="checkbox-3" class="custom-control-label">&nbsp;</label>
 												</div>
 											</td>
-											<td>삼성전자</td>
-											<td>퇴사</td>
-											<td>2018-01-20</td>
+											<td>삼성전자/프론트</td>
+											<td>2023년도 상반기</td>
+											<td><div class="badge badge-warning">대기중</div></td>
+											<td>2024-01-20</td>
 											<td><div class="badge badge-danger">반려</div></td>
 											<td><div class="">
 													<a href="#">수정</a> / <a href="#" class="text-danger">삭제</a>
@@ -108,9 +110,10 @@
 														for="checkbox-4" class="custom-control-label">&nbsp;</label>
 												</div>
 											</td>
-											<td>삼성전자</td>
-											<td>퇴사</td>
-											<td>2018-01-20</td>
+											<td>삼성전자/프론트</td>
+											<td>2023년도 상반기</td>
+											<td><div class="badge badge-warning">대기중</div></td>
+											<td>2024-01-20</td>
 											<td><div class="badge badge-primary">등록 완료</div></td>
 											<td><div class="">
 													<a href="#" class="text-danger">삭제</a>
@@ -124,9 +127,10 @@
 														for="checkbox-5" class="custom-control-label">&nbsp;</label>
 												</div>
 											</td>
-											<td>삼성전자</td>
-											<td>퇴사</td>
-											<td>2018-01-20</td>
+											<td>삼성전자/프론트</td>
+											<td>2023년도 상반기</td>
+											<td><div class="badge badge-warning">대기중</div></td>
+											<td>2024-01-20</td>
 											<td><div class="badge badge-primary">등록 완료</div></td>
 											<td><div class="">
 													<a href="#" class="text-danger">삭제</a>
@@ -140,9 +144,10 @@
 														for="checkbox-6" class="custom-control-label">&nbsp;</label>
 												</div>
 											</td>
-											<td>삼성전자</td>
-											<td>퇴사</td>
-											<td>2018-01-20</td>
+											<td>삼성전자/프론트</td>
+											<td>2023년도 상반기</td>
+											<td><div class="badge badge-warning">대기중</div></td>
+											<td>2024-01-20</td>
 											<td><div class="badge badge-primary">등록 완료</div></td>
 											<td><div class="">
 													<a href="#" class="text-danger">삭제</a>
@@ -150,7 +155,7 @@
 										</tr>
 									</table>
 								</div>
-								<div id="reviewPaging">
+								<div id="interviewPaging">
 									<nav>
 										<ul class="pagination">
 											<li class="page-item disabled"><a class="page-link"

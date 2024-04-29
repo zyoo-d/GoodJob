@@ -179,3 +179,24 @@
 #mypageSidebar * {
 	font-size: 0.9rem;
 }
+#reviewHeader, #interviewHeader, #stdCommentHeader, #studyHeader {
+	justify-content: space-between;
+}
+#reviewHeader .form-control, #interviewHeader .form-control, #stdCommentHeader .form-control,
+#studyHeader .form-control  {
+	border-radius: 0.25rem;
+	border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    font-size: 14px;
+    height: 42px;
+}
+#reviewHeader .btn, #interviewHeader .btn, #stdCommentHeader .btn, #studyHeader .btn {
+	border-radius: 0.25rem;
+	border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    margin-top: 0;
+}
+#reviewPaging, #interviewPaging, #stdCommentPaging, #studyPaging {
+	display: flex;
+    justify-content: center;
+}
