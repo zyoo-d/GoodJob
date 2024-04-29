@@ -89,7 +89,7 @@
 	z-index: 5;
 	position: fixed;
 	top:100px;
-	left:20px;
+	left:2%;
 }
 
 #trend > div>div{
@@ -98,21 +98,27 @@
 #trend button{
 	margin: 1rem auto 0px auto;
 }
-@media ( max-width :1300px) {
+@media ( max-width :1400px) {
 	#trend {
 		display: none;
 	}
 }
-@media ( max-width :1410px) {
+@media ( max-width :1500px) {
 	#trend {
 		max-width: 175px;
+		left: 1%;
 	}
 	#trend div, h5, li {
 		font-size: 0.8rem !important;
 	}
 }
-@media ( max-width :1500px) {
+@media ( min-width :1650px) {
 	#trend {
 		max-width: 220px;
+		left: 3.5%;
 	}
+}
+#mainUpdate {
+	font-size: 0.75rem;
+	padding: 0px 1.2rem !important;
 }

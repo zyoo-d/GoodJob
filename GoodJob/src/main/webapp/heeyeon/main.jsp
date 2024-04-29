@@ -27,7 +27,7 @@
 					<li class="my-1"><a class="" href="#"># 이슈</a></li>
 					<li class="my-1"><a class="" href="#"># 이슈</a></li>
 				</ul>
-				<button class="btn btn-primary block btn-sm">더 보기</button>
+				<button class="btn btn-primary block btn-sm" id="mainUpdate"><i class="fa-solid fa-rotate-right"></i> 업데이트</button>
 			</div>
 		</div>
 	</section>

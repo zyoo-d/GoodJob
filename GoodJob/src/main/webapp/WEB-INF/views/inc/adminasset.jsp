@@ -35,9 +35,19 @@
   
   <!-- JS Libraies -->
   <script src="/good/assets/modules/summernote/summernote-bs4.js"></script>
-
+  <script src="/good/assets/modules/chart.min.js"></script>
+  
   <!-- Page Specific JS File -->
   
+  
   <!-- Template JS File -->
+  
   <script src="/good/assets/js/scripts.js"></script>
   <script src="/good/assets/js/custom.js"></script>
+  
+
+  <!-- JS Libraies -->
+  <script src="/good/assets/modules/jquery.sparkline.min.js"></script>
+  <script src="/good/assets/modules/owlcarousel2/dist/owl.carousel.min.js"></script>
+  <script src="/good/assets/modules/chocolat/dist/js/jquery.chocolat.min.js"></script>
+

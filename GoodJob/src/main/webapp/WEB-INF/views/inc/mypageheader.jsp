@@ -161,20 +161,19 @@
 					</div></li>
 			</ul>
 		</nav>
-		<div class="main-sidebar sidebar-style-2">
+		<div class="main-sidebar sidebar-style-2" id="mypageSidebar">
 			<aside id="sidebar-wrapper">
 				<div class="sidebar-brand">
 					<a href="">IT's GoodJob</a>
 				</div>
 				<div class="sidebar-brand sidebar-brand-sm">
-					<a href="">GoodJob</a>
+					<a href="">GJ</a>
 				</div>
 				<ul class="sidebar-menu">
 					<li class="dropdown"><a href="#" class="nav-link has-dropdown"><i
 							class="far fa-user"></i><span>개인정보</span></a>
 						<ul class="dropdown-menu">
 							<li><a class="nav-link" href="">회원정보수정</a></li>
-							<li><a class="nav-link" href="">비밀번호 변경</a></li>
 							<li><a class="nav-link" href="">회원탈퇴</a></li>
 						</ul></li>
 					<li class="dropdown"><a href="#" class="nav-link has-dropdown"
@@ -191,12 +190,11 @@
 							<li><a class="nav-link" href="">여기어때?</a></li>
 						</ul></li>
 					<li class="dropdown"><a href="#" class="nav-link has-dropdown"><i
-							class="far fa-file-alt"></i> <span>진단/검사</span></a>
+							class="far fa-thumbs-up"></i> <span>굿잡forU</span></a>
 						<ul class="dropdown-menu">
-							<li><a class="nav-link" href="components-article.html">선호도
-									검사하기</a></li>
-							<li><a class="nav-link" href="components-article.html">검사
-									결과보기</a></li>
+							<li><a class="nav-link" href="">선호정보 입력/관리</a></li>
+							<li><a class="nav-link" href="">굿잡forU	검사하기</a></li>
+							<li><a class="nav-link" href="">검사	결과보기</a></li>
 						</ul>
 			</aside>
 		</div>
