@@ -10,6 +10,9 @@ public class UserDTO {
 	private String tel;
 	private String address;
 	private String email;
+	private String domain;
 	private String lv;
 	private String nickname;
+	
+	
 }

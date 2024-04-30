@@ -1,4 +1,4 @@
-package com.goodjob.sample;
+package com.good.user;
 
 import java.io.IOException;
 
@@ -9,17 +9,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/signin.do")
-public class SignIn extends HttpServlet {
-
+@WebServlet("/user/getaccount.do")
+public class GetAccount extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		
-
-		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/signin.jsp");
+		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/user/getaccount.jsp");
 		dispatcher.forward(req, resp);
 
 	}
-
 }

@@ -25,7 +25,8 @@ body > section > div > div > div {
 	margin-bottom: 0px;
 }
 
- .btn-primary { 
+
+#login_submit{ 
      cursor: pointer; 
      border-radius: 50px; 
      border-width: 0px; 
@@ -68,20 +69,20 @@ body > section > div > div > div {
           <p id="login_letter">로그인 후 굿잡을 이용해보세요.</p>
          
 
-          <form action="#">
+          <form method="POST" action="/good/user/signin.do">
             <div class="form-group">
-              <label for="email" class="form-label">아이디</label>
-              <input type="text" id="text" class="form-control" placeholder="아이디"  name="id"/>
+              <label for="id" class="form-label">아이디</label>
+              <input type="text" id="text" name="id" class="form-control" placeholder="아이디"  name="id"/>
             </div>
             <div class="form-group mt-4">
               <label for="password" class="form-label">비밀번호</label>
-              <input type="password"  id="password"  class="form-control" placeholder="비밀번호" name="pw"/>
+              <input type="password"  id="password" name="pw" class="form-control" placeholder="비밀번호" name="pw"/>
             </div>
             <div class="submit-cotainer">
-            <input class="btn btn-primary mt-10 block w-full" type="submit" value="로그인" />
+            <input class="btn btn-primary mt-10 block w-full" type="submit" id="login_submit"value="로그인" />
             <p class="mt-6 text-center">
 				<span>로그인이 안되시나요?</span> <br />
-              <a class="text-dark" href="getacount.html">계정찾기</a> 혹은 <a class="text-dark" href="signup.jsp">회원가입</a>를 이용해보세요.
+              <a class="text-dark" href="/good/user/getaccount.do">계정찾기</a> 혹은 <a class="text-dark" href="/good/user/signup.do">회원가입</a>를 이용해보세요.
             </p>
             </div>
           </form>
@@ -89,7 +90,24 @@ body > section > div > div > div {
       </div>
     </div>
   </div>
+  
+  	<div style="display: flex; justify-content: space-between;">
+		<form method="POST" action="/good/user/signin.do">
+			<input type="hidden" name="id" value="hong123">
+			<input type="hidden" name="pw" value="123123123123">
+			<input type="submit" value="  홍길동   ">
+		</form>
+		<form method="POST" action="/good/user/signin.do">
+			<input type="hidden" name="id" value="admin">
+			<input type="hidden" name="pw" value="123456789">
+			<input type="submit" value="  관리자   " >
+		</form>
+
+	</div>
+  
 </section>	
+
+
 	
 <%@include file="/WEB-INF/views/inc/footer.jsp" %>	
 	<script>

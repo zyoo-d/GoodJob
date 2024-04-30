@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.good.user.repository.UserDAO;
 
-@WebServlet("/good/checkid.do")
+@WebServlet("/checkid.do")
 public class CheckID extends HttpServlet {
 
 	@Override
