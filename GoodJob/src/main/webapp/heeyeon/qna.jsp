@@ -20,7 +20,7 @@
 	<div class="main-content">
 		<section class="section">
 			<div class="section-header">
-				<h1>Mypage</h1>
+				<h1>활동내역</h1>
 				<div class="section-header-breadcrumb">
 					<div class="breadcrumb-item active">
 						<a href="#">활동내역</a>
@@ -36,49 +36,34 @@
 							<div class="card-header" id="studyHeader">
 								<h4>1개의 글을 작성하셨습니다.</h4>
 								<div class="float-right">
-									<form>
-										<div class="input-group">
-											<input type="text" class="form-control" placeholder="Search">
-											<div class="input-group-append">
-												<button class="btn btn-primary">
-													<i class="fas fa-search"></i>
-												</button>
-											</div>
+									<div class="dropdown d-inline mr-2">
+										<button class="btn btn-outline-primary dropdown-toggle" type="button"
+											id="dropdownMenuButton" data-toggle="dropdown"
+											aria-haspopup="true" aria-expanded="true">모든 날짜</button>
+										<div class="dropdown-menu dropsmall" x-placement="bottom-start"
+											style="position: absolute; transform: translate3d(0px, 28px, 0px); top: 0px; left: 0px; will-change: transform;">
+											<a class="dropdown-item dropsmall" href="#">지난 1주</a> <a
+												class="dropdown-item dropsmall" href="#">지난 1개월</a> <a
+												class="dropdown-item dropsmall" href="#">지난 1년</a>
 										</div>
-									</form>
+									</div>
 								</div>
 							</div>
 							<div class="card-body">
 								<div class="table-responsive">
 									<table class="table table-striped text-center">
 										<tr>
-											<th class="text-center pt-2">
-												<div
-													class="custom-checkbox custom-checkbox-table custom-control">
-													<input type="checkbox" data-checkboxes="mygroup"
-														data-checkbox-role="dad" class="custom-control-input"
-														id="checkbox-all"> <label for="checkbox-all"
-														class="custom-control-label">&nbsp;</label>
-												</div>
-											</th>
+											<th>번호</th>
 											<th>제목</th>
-											<th>모집기간</th>
+											<th>내용</th>
 											<th>작성일</th>
-											<th>등록여부</th>
 											<th>수정/삭제</th>
 										</tr>
 										<tr>
-											<td>
-												<div class="custom-checkbox custom-control">
-													<input type="checkbox" data-checkboxes="mygroup"
-														class="custom-control-input" id="checkbox-2"> <label
-														for="checkbox-2" class="custom-control-label">&nbsp;</label>
-												</div>
-											</td>
-											<td>자바 코테 스터디 모집</td>
-											<td>2024-04-20~2024-05-10</td>
+											<td>1</td>
+											<td>쌍용교육센터 어떤가요?</td>
+											<td>제가 지원을 해보려고 하는데...</td>
 											<td>2024-01-20</td>
-											<td><div class="badge badge-warning">심사중</div></td>
 											<td><div class="">
 													<a href="#">수정</a> / <a href="#" class="text-danger">삭제</a>
 												</div></td>
@@ -115,61 +100,42 @@
 							<div class="card-header" id="stdCommentHeader">
 								<h4>2개의 댓글을 작성하셨습니다.</h4>
 								<div class="float-right">
-									<form>
-										<div class="input-group">
-											<input type="text" class="form-control" placeholder="Search">
-											<div class="input-group-append">
-												<button class="btn btn-primary">
-													<i class="fas fa-search"></i>
-												</button>
-											</div>
+									<div class="dropdown d-inline mr-2">
+										<button class="btn btn-outline-primary dropdown-toggle" type="button"
+											id="dropdownMenuButton" data-toggle="dropdown"
+											aria-haspopup="true" aria-expanded="true">모든 날짜</button>
+										<div class="dropdown-menu dropsmall" x-placement="bottom-start"
+											style="position: absolute; transform: translate3d(0px, 28px, 0px); top: 0px; left: 0px; will-change: transform;">
+											<a class="dropdown-item dropsmall" href="#">지난 1주</a> <a
+												class="dropdown-item dropsmall" href="#">지난 1개월</a> <a
+												class="dropdown-item dropsmall" href="#">지난 1년</a>
 										</div>
-									</form>
+									</div>
 								</div>
 							</div>
 							<div class="card-body">
 								<div class="table-responsive">
 									<table class="table table-striped text-center">
 										<tr>
-											<th class="text-center pt-2">
-												<div
-													class="custom-checkbox custom-checkbox-table custom-control">
-													<input type="checkbox" data-checkboxes="mygroup"
-														data-checkbox-role="dad" class="custom-control-input"
-														id="checkbox-all"> <label for="checkbox-all"
-														class="custom-control-label">&nbsp;</label>
-												</div>
-											</th>
-											<th>스터디 제목</th>
-											<th>내용</th>
+											<th>번호</th>
+											<th>게시글 제목</th>
+											<th>댓글 내용</th>
 											<th>작성일</th>
 											<th>수정/삭제</th>
 										</tr>
 										<tr>
-											<td>
-												<div class="custom-checkbox custom-control">
-													<input type="checkbox" data-checkboxes="mygroup"
-														class="custom-control-input" id="checkbox-2"> <label
-														for="checkbox-2" class="custom-control-label">&nbsp;</label>
-												</div>
-											</td>
-											<td>자바 코테 스터디 모집</td>
-											<td>저요! 너무 관심있어...</td>
+											<td>1</td>
+											<td>쌍용교육센터 어떤가요?</td>
+											<td>좋다고 들었습니다!!</td>
 											<td>2024-01-20</td>
 											<td><div class="">
 													<a href="#">수정</a> / <a href="#" class="text-danger">삭제</a>
 												</div></td>
 										</tr>
 										<tr>
-											<td>
-												<div class="custom-checkbox custom-control">
-													<input type="checkbox" data-checkboxes="mygroup"
-														class="custom-control-input" id="checkbox-3"> <label
-														for="checkbox-3" class="custom-control-label">&nbsp;</label>
-												</div>
-											</td>
-											<td>자바 코테 스터디 모집</td>
-											<td>저요! 너무 관심있어...</td>
+											<td>2</td>
+											<td>코테 시험보는곳..</td>
+											<td>너무 어려웠겠네요</td>
 											<td>2024-01-20</td>
 											<td><div class="">
 													<a href="#">수정</a> / <a href="#" class="text-danger">삭제</a>

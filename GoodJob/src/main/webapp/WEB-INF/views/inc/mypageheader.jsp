@@ -164,35 +164,35 @@
 		<div class="main-sidebar sidebar-style-2" id="mypageSidebar">
 			<aside id="sidebar-wrapper">
 				<div class="sidebar-brand">
-					<a href="">IT's GoodJob</a>
+					<a href="/good/heeyeon/mypagemain.jsp">IT's Good Job</a>
 				</div>
 				<div class="sidebar-brand sidebar-brand-sm">
-					<a href="">GJ</a>
+					<a href="/good/heeyeon/mypagemain.jsp">GJ</a>
 				</div>
 				<ul class="sidebar-menu">
 					<li class="dropdown"><a href="#" class="nav-link has-dropdown"><i
 							class="far fa-user"></i><span>개인정보</span></a>
 						<ul class="dropdown-menu">
-							<li><a class="nav-link" href="">회원정보수정</a></li>
-							<li><a class="nav-link" href="">회원탈퇴</a></li>
+							<li><a class="nav-link" href="/good/heeyeon/editinfo.jsp">회원정보수정</a></li>
+							<li><a class="nav-link" href="/good/heeyeon/unregister.jsp">회원탈퇴</a></li>
 						</ul></li>
 					<li class="dropdown"><a href="#" class="nav-link has-dropdown"
 						data-toggle="dropdown"><i class="far fa-star"></i> <span>스크랩</span></a>
 						<ul class="dropdown-menu">
-							<li><a class="nav-link" href="">내 스크랩 보기</a></li>
+							<li><a class="nav-link" href="/good/heeyeon/scrap.jsp">내 스크랩 보기</a></li>
 						</ul></li>
 					<li class="dropdown"><a href="#" class="nav-link has-dropdown"><i
 							class="far fa-comments"></i> <span>활동내역</span></a>
 						<ul class="dropdown-menu">
-							<li><a class="nav-link" href="">기업리뷰</a></li>
-							<li><a class="nav-link" href="">면접후기</a></li>
-							<li><a class="nav-link" href="">면접스터디</a></li>
-							<li><a class="nav-link" href="">여기어때?</a></li>
+							<li><a class="nav-link" href="/good/heeyeon/review.jsp">기업리뷰</a></li>
+							<li><a class="nav-link" href="/good/heeyeon/interview.jsp">면접후기</a></li>
+							<li><a class="nav-link" href="/good/heeyeon/study.jsp">면접스터디</a></li>
+							<li><a class="nav-link" href="/good/heeyeon/qna.jsp">여기어때?</a></li>
 						</ul></li>
 					<li class="dropdown"><a href="#" class="nav-link has-dropdown"><i
 							class="far fa-thumbs-up"></i> <span>굿잡forU</span></a>
 						<ul class="dropdown-menu">
-							<li><a class="nav-link" href="">선호정보 입력/관리</a></li>
+							<li><a class="nav-link" href="">선호근무형태 입력/관리</a></li>
 							<li><a class="nav-link" href="">굿잡forU	검사하기</a></li>
 							<li><a class="nav-link" href="">검사	결과보기</a></li>
 						</ul>

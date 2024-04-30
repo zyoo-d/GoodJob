@@ -21,7 +21,7 @@
 	<div class="main-content">
 		<section class="section">
 			<div class="section-header">
-				<h1>Mypage</h1>
+				<h1>활동내역</h1>
 				<div class="section-header-breadcrumb">
 					<div class="breadcrumb-item active">
 						<a href="#">활동내역</a>
@@ -37,31 +37,35 @@
 							<div class="card-header" id="reviewHeader">
 								<h4>5개의 리뷰를 작성하셨습니다.</h4>
 								<div class="float-right">
-									<form>
-										<div class="input-group">
-											<input type="text" class="form-control" placeholder="Search">
-											<div class="input-group-append">
-												<button class="btn btn-primary">
-													<i class="fas fa-search"></i>
-												</button>
-											</div>
+									<div class="dropdown d-inline mr-2">
+										<button class="btn btn-outline-primary dropdown-toggle" type="button"
+											id="dropdownMenuButton" data-toggle="dropdown"
+											aria-haspopup="true" aria-expanded="true">모든 날짜</button>
+										<div class="dropdown-menu dropsmall" x-placement="bottom-start"
+											style="position: absolute; transform: translate3d(0px, 28px, 0px); top: 0px; left: 0px; will-change: transform;">
+											<a class="dropdown-item dropsmall" href="#">지난 1주</a> <a
+												class="dropdown-item dropsmall" href="#">지난 1개월</a> <a
+												class="dropdown-item dropsmall" href="#">지난 1년</a>
 										</div>
-									</form>
+									</div>
+									<div class="dropdown d-inline mr-2">
+										<button class="btn btn-primary dropdown-toggle" type="button"
+											id="dropdownMenuButton" data-toggle="dropdown"
+											aria-haspopup="true" aria-expanded="true">등록여부</button>
+										<div class="dropdown-menu dropsmall" x-placement="bottom-start"
+											style="position: absolute; transform: translate3d(0px, 28px, 0px); top: 0px; left: 0px; will-change: transform;">
+											<a class="dropdown-item dropsmall" href="#">등록 완료</a> <a
+												class="dropdown-item dropsmall" href="#">심사중</a> <a
+												class="dropdown-item dropsmall" href="#">반려</a>
+										</div>
+									</div>
 								</div>
 							</div>
 							<div class="card-body">
 								<div class="table-responsive">
 									<table class="table table-striped text-center">
 										<tr>
-											<th class="text-center pt-2">
-												<div
-													class="custom-checkbox custom-checkbox-table custom-control">
-													<input type="checkbox" data-checkboxes="mygroup"
-														data-checkbox-role="dad" class="custom-control-input"
-														id="checkbox-all"> <label for="checkbox-all"
-														class="custom-control-label">&nbsp;</label>
-												</div>
-											</th>
+											<th>번호</th>
 											<th>기업명</th>
 											<th>고용상태</th>
 											<th>작성일</th>
@@ -69,13 +73,7 @@
 											<th>수정/삭제</th>
 										</tr>
 										<tr>
-											<td>
-												<div class="custom-checkbox custom-control">
-													<input type="checkbox" data-checkboxes="mygroup"
-														class="custom-control-input" id="checkbox-2"> <label
-														for="checkbox-2" class="custom-control-label">&nbsp;</label>
-												</div>
-											</td>
+											<td>1</td>
 											<td>삼성전자</td>
 											<td>퇴사</td>
 											<td>2018-01-20</td>
@@ -85,13 +83,7 @@
 												</div></td>
 										</tr>
 										<tr>
-											<td>
-												<div class="custom-checkbox custom-control">
-													<input type="checkbox" data-checkboxes="mygroup"
-														class="custom-control-input" id="checkbox-3"> <label
-														for="checkbox-3" class="custom-control-label">&nbsp;</label>
-												</div>
-											</td>
+											<td>2</td>
 											<td>삼성전자</td>
 											<td>퇴사</td>
 											<td>2018-01-20</td>
@@ -101,13 +93,7 @@
 												</div></td>
 										</tr>
 										<tr>
-											<td>
-												<div class="custom-checkbox custom-control">
-													<input type="checkbox" data-checkboxes="mygroup"
-														class="custom-control-input" id="checkbox-4"> <label
-														for="checkbox-4" class="custom-control-label">&nbsp;</label>
-												</div>
-											</td>
+											<td>3</td>
 											<td>삼성전자</td>
 											<td>퇴사</td>
 											<td>2018-01-20</td>
@@ -117,13 +103,7 @@
 												</div></td>
 										</tr>
 										<tr>
-											<td>
-												<div class="custom-checkbox custom-control">
-													<input type="checkbox" data-checkboxes="mygroup"
-														class="custom-control-input" id="checkbox-5"> <label
-														for="checkbox-5" class="custom-control-label">&nbsp;</label>
-												</div>
-											</td>
+											<td>4</td>
 											<td>삼성전자</td>
 											<td>퇴사</td>
 											<td>2018-01-20</td>
@@ -133,13 +113,7 @@
 												</div></td>
 										</tr>
 										<tr>
-											<td>
-												<div class="custom-checkbox custom-control">
-													<input type="checkbox" data-checkboxes="mygroup"
-														class="custom-control-input" id="checkbox-6"> <label
-														for="checkbox-6" class="custom-control-label">&nbsp;</label>
-												</div>
-											</td>
+											<td>5</td>
 											<td>삼성전자</td>
 											<td>퇴사</td>
 											<td>2018-01-20</td>
