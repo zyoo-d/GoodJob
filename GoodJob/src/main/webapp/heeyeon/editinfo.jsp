@@ -5,22 +5,16 @@
 <html lang="en">
 <style>
 </style>
-<head>
-<meta charset="UTF-8">
-<meta
-	content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no"
-	name="viewport">
-<title>마이페이지 &mdash; IT's GOODJOB</title>
 <%@include file="/WEB-INF/views/inc/adminasset.jsp"%>
+<head>
+<%@include file="/WEB-INF/views/inc/mypageheader.jsp"%>
 </head>
-
 <body>
-	<%@include file="/WEB-INF/views/inc/mypageheader.jsp"%>
 	<!-- Main Content -->
 	<div class="main-content">
 		<section class="section">
 			<div class="section-header">
-				<h1>Mypage</h1>
+				<h1>개인정보</h1>
 				<div class="section-header-breadcrumb">
 					<div class="breadcrumb-item active">
 						<a href="#">개인정보</a>
@@ -108,8 +102,8 @@
 						</div>
 
 						<div class="form-group">
-							<button type="submit" class="btn btn-primary btn-lg btn-block">
-								정보 수정</button>
+							<button type="submit" class="btn btn-primary btn-lg btn-block"
+								id="btnEditInfo">정보 수정</button>
 						</div>
 					</form>
 				</div>
@@ -121,6 +115,15 @@
 	<script
 		src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script>
+		$('#btnEditInfo').click(function() {
+			if (!$('#agree').is(':checked')) {
+				alert('수정 사항을 확인하고 동의해 주세요.');
+				return;
+			} else {
+				alert('수정!');
+			}
+		});
+
 		function getAddress() {
 			new daum.Postcode(
 					{

@@ -108,7 +108,7 @@
 		max-width: 175px;
 		left: 1%;
 	}
-	#trend div, h5, li {
+	#trend div+h5+li {
 		font-size: 0.8rem !important;
 	}
 }
