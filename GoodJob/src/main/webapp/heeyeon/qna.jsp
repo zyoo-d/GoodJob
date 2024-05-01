@@ -165,6 +165,11 @@
 		</section>
 	</div>
 	<%@include file="/WEB-INF/views/inc/adminfooter.jsp"%>
-
+<script>
+$('.text-danger').click(function() {
+	$(this).parents().eq(2).remove();
+	//데이터 처리도 해주기
+});
+</script>
 </body>
 </html>
