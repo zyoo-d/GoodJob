@@ -133,7 +133,7 @@
 	margin-bottom: 10px;
 }
 
-#star {
+.fas.fa-star.star {
 	position: absolute;
 	right: 0;
 	font-size: 25px;
@@ -196,4 +196,7 @@ a.dropdown-item.dropsmall {
 .dropdown-menu.dropsmall {
 	width: 85px;
 	min-width: 0;
+}
+.text-lg {
+	font-size: 1rem;
 }

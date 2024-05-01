@@ -5,17 +5,11 @@
 <html lang="en">
 <style>
 </style>
-<head>
-<meta charset="UTF-8">
-<meta
-	content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no"
-	name="viewport">
-<title>마이페이지 &mdash; IT's GOODJOB</title>
 <%@include file="/WEB-INF/views/inc/adminasset.jsp"%>
+<head>
+<%@include file="/WEB-INF/views/inc/mypageheader.jsp"%>
 </head>
-
 <body>
-	<%@include file="/WEB-INF/views/inc/mypageheader.jsp"%>
 	<!-- Main Content -->
 	<div class="main-content">
 		<section class="section">
@@ -37,10 +31,11 @@
 								<h4>5개의 후기를 작성하셨습니다.</h4>
 								<div class="float-right">
 									<div class="dropdown d-inline mr-2">
-										<button class="btn btn-outline-primary dropdown-toggle" type="button"
-											id="dropdownMenuButton" data-toggle="dropdown"
+										<button class="btn btn-outline-primary dropdown-toggle"
+											type="button" id="dropdownMenuButton" data-toggle="dropdown"
 											aria-haspopup="true" aria-expanded="true">모든 날짜</button>
-										<div class="dropdown-menu dropsmall" x-placement="bottom-start"
+										<div class="dropdown-menu dropsmall"
+											x-placement="bottom-start"
 											style="position: absolute; transform: translate3d(0px, 28px, 0px); top: 0px; left: 0px; will-change: transform;">
 											<a class="dropdown-item dropsmall" href="#">지난 1주</a> <a
 												class="dropdown-item dropsmall" href="#">지난 1개월</a> <a
@@ -51,7 +46,8 @@
 										<button class="btn btn-primary dropdown-toggle" type="button"
 											id="dropdownMenuButton" data-toggle="dropdown"
 											aria-haspopup="true" aria-expanded="true">등록여부</button>
-										<div class="dropdown-menu dropsmall" x-placement="bottom-start"
+										<div class="dropdown-menu dropsmall"
+											x-placement="bottom-start"
 											style="position: absolute; transform: translate3d(0px, 28px, 0px); top: 0px; left: 0px; will-change: transform;">
 											<a class="dropdown-item dropsmall" href="#">등록 완료</a> <a
 												class="dropdown-item dropsmall" href="#">심사중</a> <a

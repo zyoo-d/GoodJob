@@ -4,7 +4,6 @@
 
 <!-- favicon -->
 <link rel="icon" href="/good/assets/favicon.ico" type="image/x-icon"/>
-<!-- <link rel="icon" href="/good/asset/favicon.ico" type="image/x-icon"> -->
 
 <!-- theme meta -->
 <meta name="theme-name" content="Pinwheel" />

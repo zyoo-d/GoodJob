@@ -5,17 +5,11 @@
 <html lang="en">
 <style>
 </style>
-<head>
-<meta charset="UTF-8">
-<meta
-	content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no"
-	name="viewport">
-<title>마이페이지 &mdash; IT's GOODJOB</title>
 <%@include file="/WEB-INF/views/inc/adminasset.jsp"%>
+<head>
+<%@include file="/WEB-INF/views/inc/mypageheader.jsp"%>
 </head>
-
 <body>
-	<%@include file="/WEB-INF/views/inc/mypageheader.jsp"%>
 	<!-- Main Content -->
 	<div class="main-content">
 		<section class="section">

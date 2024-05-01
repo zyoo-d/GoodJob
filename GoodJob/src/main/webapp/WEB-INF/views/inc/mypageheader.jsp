@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<title>마이페이지 &mdash; IT's GOODJOB</title>
 <div id="app">
 	<div class="main-wrapper main-wrapper-1">
 		<div class="navbar-bg" id="mypageNavbar"></div>
@@ -192,7 +193,7 @@
 					<li class="dropdown"><a href="#" class="nav-link has-dropdown"><i
 							class="far fa-thumbs-up"></i> <span>굿잡forU</span></a>
 						<ul class="dropdown-menu">
-							<li><a class="nav-link" href="">선호근무형태 입력/관리</a></li>
+							<li><a class="nav-link" href="/good/heeyeon/wish.jsp">선호근무조건 입력/관리</a></li>
 							<li><a class="nav-link" href="">굿잡forU	검사하기</a></li>
 							<li><a class="nav-link" href="">검사	결과보기</a></li>
 						</ul>
