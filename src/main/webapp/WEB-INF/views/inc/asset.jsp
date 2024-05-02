@@ -3,7 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!-- favicon -->
-<link rel="icon" href="/good/assets/favicon.ico" type="image/x-icon"/>
+<link rel="shortcut icon" href="/good/asset/images/favicon.ico" />
+<!-- <link rel="icon" href="/good/asset/favicon.ico" type="image/x-icon"> -->
 
 <!-- theme meta -->
 <meta name="theme-name" content="Pinwheel" />
@@ -65,26 +66,22 @@
 
 <!-- styles -->
 
-  
 <!-- Swiper slider -->
-<link rel="stylesheet" href="/good/assets/plugins/swiper/swiper-bundle.css" />
+<link rel="stylesheet" href="/good/asset/plugins/swiper/swiper-bundle.css" />
 
 <!-- Fontawesome -->
-<link rel="stylesheet" href="/good/assets/plugins/font-awesome/v6/brands.css" />
-<link rel="stylesheet" href="/good/assets/plugins/font-awesome/v6/solid.css" />
-<link rel="stylesheet" href="/good/assets/plugins/font-awesome/v6/fontawesome.css" />
+<link rel="stylesheet" href="/good/asset/plugins/font-awesome/v6/brands.css" />
+<link rel="stylesheet" href="/good/asset/plugins/font-awesome/v6/solid.css" />
+<link rel="stylesheet" href="/good/asset/plugins/font-awesome/v6/fontawesome.css" />
 
 <!-- Main Stylesheet -->
-<link href="/good/assets/styles/main.css" rel="stylesheet" />
-<link href="/good/assets/styles/custom.css" rel="stylesheet" />
-<link href="/good/assets/styles/jiyu.css" rel="stylesheet" />
+<link href="/good/asset/styles/main.css" rel="stylesheet" />
 
 <!-- jQuery -->
-<script src="/good/assets/plugins/jquery/jquery.min.js"></script>
+<script src="/good/asset/plugins/jquery/jquery.min.js"></script>
 <!-- Swiper JS -->
-
-<script src="/good/assets/plugins/swiper/swiper-bundle.js"></script>
-<script src="/good/assets/plugins/shufflejs/shuffle.js"></script>
+<script src="/good/asset/plugins/swiper/swiper-bundle.js"></script>
+<script src="/good/asset/plugins/shufflejs/shuffle.js"></script>
 
 <!-- Main Script -->
-<script src="/good/assets/scripts/main.js"></script>
+<script src="/good/asset/scripts/main.js"></script>

@@ -1,5 +1,6 @@
 package com.good.user;
 
+
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -87,3 +88,4 @@ public class Register extends HttpServlet {
 	}
 	
 }
+
