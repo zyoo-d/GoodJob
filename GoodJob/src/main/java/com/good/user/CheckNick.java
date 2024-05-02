@@ -11,16 +11,16 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.good.user.repository.UserDAO;
 
-@WebServlet("/user/checkid.do")
-public class CheckID extends HttpServlet {
+@WebServlet("/user/checknick.do")
+public class CheckNick extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		UserDAO dao = new UserDAO();
-		String id = req.getParameter("id");
+		String nickname = req.getParameter("nickname");
 			
-		int result = dao.checkId(id);
+		int result = dao.checkNick(nickname);
 		
 		PrintWriter writer = resp.getWriter();
 		writer.print(result);

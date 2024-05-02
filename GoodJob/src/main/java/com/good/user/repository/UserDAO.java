@@ -39,6 +39,28 @@ public class UserDAO {
 		return -1;
 
 	}
+	public int checkNick(String nickname) {
+		try {
+			
+			String sql = "select count(*) as cnt from tblUser where nickname = ?";
+			
+			pstat = conn.prepareStatement(sql);
+			pstat.setString(1, nickname);
+			
+			rs = pstat.executeQuery();
+			
+			
+			if (rs.next()) {
+				return rs.getInt("cnt");
+			}
+			
+		} catch (Exception e) {
+			System.out.println("checkId.doPost");
+			e.printStackTrace();
+		}
+		return -1;
+		
+	}
 
 	public int signUp(UserDTO dto) {
 		try {

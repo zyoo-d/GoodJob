@@ -23,9 +23,22 @@
 	cursor: pointer;
 	
 }
+#checkNick {
+	border : 1px solid black;
+	width: 17%;
+	padding: 3px;
+	border-radius: 10px;
+	border-color: rgb(235 235 235 / var(--tw-border-opacity));
+	cursor: pointer;
+	
+}
 
 #id {
+	width : 80%;
+	margin-right: 5px;
+}
 
+#nickname{
 	width : 80%;
 	margin-right: 5px;
 }
@@ -194,8 +207,8 @@ div > label {
             </div>
             <div class="form-group mt-4">
               <label for="address" class="form-label">닉네임</label>
-              <input type="text" id="nickname" name="nickname" 
-              class="form-control" placeholder="닉네임을 입력하세요." />
+              <input type="text" id="nickname" name="nickname" class="form-control" placeholder="닉네임을 입력하세요." />
+              <input type="button" id="checkNick" value="중복확인">
               <span id="nicknameError"></span>
             </div>
             
@@ -341,10 +354,9 @@ div > label {
 	 // 아이디 중복 확인
 	    $('#checkId').click(function () {
 	        var id = $('#id').val();
-// 	        console.log(id);
 	        $.ajax({
 	            type: 'POST',
-	            url: '/good/checkid.do',
+	            url: '/good/user/checkid.do',
 	            data: 'id=' + id,
 	            dataType: 'json',
 	            success: function (result) {
@@ -352,6 +364,28 @@ div > label {
 	                    alert('사용 가능한 아이디 입니다.');
 	                } else {
 	                    alert('사용 불가능한 아이디 입니다.');
+	                }
+	            },
+	            error: function (a, b, c) {
+	                console.log(a, b, c);
+	            }
+	        });
+	    });
+	 
+	 //닉네임 중복 확인
+	    $('#checkNick').click(function () {
+	        var nickname = $('#nickname').val();
+	        console.log($('#nickname').val());
+	        $.ajax({
+	            type: 'POST',
+	            url: '/good/user/checknick.do',
+	            data: 'nickname=' + nickname,
+	            dataType: 'json',
+	            success: function (result) {
+	                if (result == 0) {
+	                    alert('사용 가능한 닉네임 입니다.');
+	                } else {
+	                    alert('사용 불가능한 닉네임 입니다.');
 	                }
 	            },
 	            error: function (a, b, c) {

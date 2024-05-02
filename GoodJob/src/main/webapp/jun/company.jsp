@@ -9,15 +9,6 @@
 <meta charset="UTF-8">
 <%@include file="/WEB-INF/views/inc/asset.jsp"%>
 <style>
-@font-face {
-	font-family: 'Pretendard-Regular';
-	src:
-		url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff')
-		format('woff');
-	font-weight: 400;
-	font-style: normal;
-}
-
 .main {
 	width: 1100px;
 	margin: 0 auto;
@@ -153,7 +144,7 @@ span {
 
 h3 {
 	font-size: 2.5rem;
-	font-family: Pretendard-Regular;
+	font-family: 'Pretendard-Regular';
 	color: #444;
 }
 
@@ -165,9 +156,11 @@ h3 {
 	font-size: .83rem;
 	font-weight: bold;
 	font-family: 'Pretendard-Regular';
+	margin-bottom: none;
+	margin-top: none;
 }
 
-#summary_content>h3 {
+#summary_content > h3 {
 	font-size: 2rem;
 	font-family: 'Pretendard-Regular';
 }
@@ -181,15 +174,19 @@ h3 {
 }
 
 #comment {
-	margin-bottom: 100px;
 	height: 600px;
 	width: 100%;
+	padding: 10px;
 }
 
 .menu {
 	font-size: 1.5rem;
-	font-family: Pretendard-Regular;
+	font-family: 'Pretendard-Regular';
 	color: #444;
+}
+.menu > button > i {
+	font-size: .9rem;
+	margin-left: 5px;
 }
 
 #recruit {
@@ -228,9 +225,7 @@ h3 {
 	font-size: .8rem;
 }
 
-#comment {
-	padding: 10px;
-}
+
 
 #mychatbox {
 	height: 83%;
@@ -241,6 +236,7 @@ h3 {
 	overflow-y: scroll;
 	margin-bottom: 0;
 }
+
 
 .scrollbar {
 	width: 250px;
@@ -278,15 +274,20 @@ h3 {
 	color: #FAFAFA;
 }
 
-#chat_regdate {
+#comment_content {
 	font-size: .7rem;
-	margin-right: 5px;
+	float: right;
+	color: #525252;
+	font-family: 'Pretendard-Regular';
 }
+/* #chat_regdate { */
+/* 	font-size: .7rem; */
+/* 	margin-right: 5px; */
+/* } */
 
-#singo {
-	font-size: .7rem;
-}
-
+/* #singo { */
+/* 	font-size: .7rem; */
+/* } */
 .tag {
 	font-size: .7rem;
 	height: 20px;
@@ -298,6 +299,7 @@ h3 {
 
 .mt-3 {
 	font-size: 1.2rem;
+		font-family: 'Pretendard-Regular';
 }
 
 .mt-6 {
@@ -425,22 +427,32 @@ h3 {
 	color: #22222;
 }
 
-#add_review {
-	background-color: rgb(83, 90, 237);
-	border: 1px solid rgb(83, 90, 237);
+#add_review  {
+	background-image: linear-gradient(184.78deg, rgb(83, 90, 237) 7.64%, rgb(62, 178, 248) 120.07%);
+	color: white;
 	padding: 5px 20px;
 	border-radius: 10px;
 	font-size: .7rem;
-	color: white;
 	font-family: 'Pretendard-Regular';
 	margin-left: 3px;
-	margin-bottom: 5px;
 	float: right;
+	font-weight: bold;
 }
+
 .fa-star {
 	color: gold;
 }
 
+#chatchat {
+	font-family: 'Pretendard-Regular';
+	font-size: .8rem;
+}
+.score_rating {
+	font-family: 'Pretendard-Regular';
+	font-size: 1rem;
+	color: #525252;
+	font-weight: bold;
+}
 #score_detail {
 	display: grid;
 	grid-template-columns: repeat(2, 2fr);
@@ -451,6 +463,26 @@ h3 {
 	width: 100%;
 	padding: 5px;
 }
+h3 > #scrap {
+	font-size: .8rem;
+	border: 2px solid;
+	padding: 3px 12px;
+	border-radius: 10px;
+}
+
+.go {
+	font-size: .8rem;
+	padding: 5px 15px;
+	border-radius: 10px;
+	background-image: linear-gradient(184.78deg, rgb(83, 90, 237) 7.64%, rgb(62, 178, 248) 120.07%);
+	font-family: 'Pretendard-Regular';
+	color: white;
+}
+#go_container {
+	display: grid;
+	grid-template-columns: repeat(2, 2fr);
+	grid-gap: 10px;
+	}
 </style>
 </head>
 <%@include file="/WEB-INF/views/inc/header.jsp"%>
@@ -460,7 +492,7 @@ h3 {
 			<div id="summary">
 				<div id="company_img"></div>
 				<div id="summary_content">
-					<h3>네이버</h3>
+					<h3>네이버    <button id="scrap"><i class="fa-regular fa-bookmark"></i> 150+</button></h3>
 					<span>응용 소프트웨어 개발 및 공급업</span> <span>100 명</span> <span>소프트웨어개발,공급,전산자료
 						입력,지리정보데이터베이스 구축,전산장비 유지</span> <i class="fa-solid fa-location-dot"><span
 						id="cop_address"> 경기도 성남시 분당구</span></i>
@@ -593,48 +625,56 @@ h3 {
 			</div>
 			<span class="menu">기업 리뷰 보기</span>
 
-				<button id="add_review">리뷰 쓰러가기</button>
+			<button id="add_review">리뷰 쓰러가기</button>
 			<div id="review">
-				<% for (int i=0; i<3; i++) { %>
+				<%
+				for (int i = 0; i < 3; i++) {
+				%>
 				<div id="review_content">
 					<div id="oneline">전체적으로 좋았지만 오래 다니기는 싫은 회사</div>
 					<div id="score">
-						<div id="score_detail">
+						<div class="score_rating"id="score_detail">
 							<div id="salary_score">
-								<span id="salary_review">연봉 </span> <i class="fa-solid fa-star"></i>
-								<i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i>
-								<i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i>
-							</div>
-							<div id="welfare_score">
-								<span id="welfare_review">복지 </span> <i class="fa-solid fa-star"></i>
-								<i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i>
-								<i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i>
-							</div>
-							<div id="ingvt_score">
-								<span id="ingvt_review">근속률 </span> <i class="fa-solid fa-star"></i>
-								<i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i>
-								<i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i>
-							</div>
-							<div id="culture_score">
-								<span id="culture_review">조직문화</span> <i
+								<span id="salary_review">연봉 </span><br /> <i
 									class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i>
 								<i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i>
 								<i class="fa-solid fa-star"></i>
 							</div>
-							<div id="growth_score">
-								<span id="growth_review">성장가능성</span> <i
+							<div class="score_rating" id="welfare_score">
+								<span id="welfare_review">복지 </span> <br />
+								<i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i>
+								<i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i>
+								<i class="fa-solid fa-star"></i>
+							</div>
+							<div  class="score_rating" id="ingvt_score">
+								<span id="ingvt_review">근무 안정성 </span> <br />
+								<i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i>
+								<i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i>
+								<i class="fa-solid fa-star"></i>
+							</div>
+							<div class="score_rating" id="culture_score">
+								<span id="culture_review">조직문화</span> <br /> <i
 									class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i>
 								<i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i>
 								<i class="fa-solid fa-star"></i>
 							</div>
-							<div id="total_score">
-								<span id="total_review">총 평점 </span> <i class="fa-solid fa-star"></i>
+							<div class="score_rating" id="growth_score">
+								<span id="growth_review">성장 가능성 <br /></span> <i
+									class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i>
+								<i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i>
+								<i class="fa-solid fa-star"></i>
+							</div>
+							<div class="score_rating" id="total_score">
+								<span id="total_review">총 평점 </span> <br />
 								<i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i>
 								<i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i>
+								<i class="fa-solid fa-star"></i>
 							</div>
 						</div>
 					</div>
-					<div class="goodbad_title" id="good_title"><i class="fa-regular fa-thumbs-up"></i>  이런 부분은 좋았아요.</div>
+					<div class="goodbad_title" id="good_title">
+						<i class="fa-regular fa-thumbs-up"></i> 이런 부분은 좋았아요.
+					</div>
 					<div class="goodbad">
 						<div id="good">But I must explain to you how all this
 							mistaken idea of denouncing pleasure and praising pain was born
@@ -652,7 +692,9 @@ h3 {
 							who has any right to find fault with a man who chooses to enjoy a
 							pleasure that has no annoying consequences, or one who avoids a
 							pain that produces no resultant pleasure?"</div>
-						<div class="goodbad_title" id="bad_title"><i class="fa-regular fa-thumbs-down"></i>  이 부분은 아쉬웠어요.</div>
+						<div class="goodbad_title" id="bad_title">
+							<i class="fa-regular fa-thumbs-down"></i> 이런 부분은 아쉬웠어요.
+						</div>
 						<div id="bad">"At vero eos et accusamus et iusto odio
 							dignissimos ducimus qui blanditiis praesentium voluptatum
 							deleniti atque corrupti quos dolores et quas molestias excepturi
@@ -670,7 +712,9 @@ h3 {
 
 					</div>
 				</div>
-				<% } %>
+				<%
+				}
+				%>
 			</div>
 		</div>
 		<!--div:company-Info  -->
@@ -713,20 +757,19 @@ h3 {
 				%>
 
 			</div>
-			<span class="menu">실시간 댓글</span>
+			<span class="menu">실시간 댓글<button><i class="fa-solid fa-rotate-right"></i></button></span>
 			<div id="comment">
 				<div class="card chat-box" id="mychatbox">
 					<%
 					for (int i = 0; i < 14; i++) {
 					%>
 					<div class="mb-2">
-						<div id="writer">스타벅스</div>
 						<br />
-						<p class="bg-gray-200 text-gray-700 rounded-lg py-2 px-4">This
-							is a response from the chatbot. ㅁㄴㅇㅁㄴㅇㅁㄴㄴ난This is a response from
-							the chatbot.</p>
+						<p class="bg-gray-200 text-gray-700 rounded-lg py-2 px-4"
+							id="chatchat">This is a response from the chatbot.
+							ㅁㄴㅇㅁㄴㅇㅁㄴㄴ난This is a response from the chatbot.</p>
 						<div id="comment_content">
-							<span id="chat_regdate">2024-04-30 11:24</span>
+							스타벅스 <span id="chat_regdate">2024-04-30 11:24</span>
 							<button id="singo">[ 신고 ]</button>
 						</div>
 					</div>
@@ -745,7 +788,11 @@ h3 {
 						</button>
 					</form>
 				</div>
-
+			</div>
+			<div id="go_container">
+			
+			<button class="go" id="goReview">기업리뷰 바로보기</button>
+			<button class="go" id="goInterview">면접후기 바로보기</button>
 			</div>
 
 
@@ -770,6 +817,7 @@ h3 {
 		window.onload = function() {
 			scrollToBottom();
 		};
+		
 	</script>
 </body>
 </html>

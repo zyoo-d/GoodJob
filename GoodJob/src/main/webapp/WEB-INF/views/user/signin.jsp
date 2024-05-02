@@ -9,21 +9,14 @@
 <meta charset="UTF-8">
 <%@include file="/WEB-INF/views/inc/asset.jsp" %>
 <style>
-@font-face {
-    font-family: 'Pretendard-Regular';
-    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
-    font-weight: 400;
-    font-style: normal;
-}
+
 body > section > div > div > div {
 	margin: 0 auto;
 }
 #login_letter {
 	margin-bottom: 30px;
 }
-.mb-4 {
-	margin-bottom: 0px;
-}
+
 
 
 #login_submit{ 
@@ -33,7 +26,7 @@ body > section > div > div > div {
      background-image: linear-gradient(to top left, var(--tw-gradient-stops)); 
      text-align: center; 
      font-weight: 500; 
-     --tw-text-opacity: 1; 
+     tw-text-opacity: 1; 
      color: rgb(255 255 255 / var(--tw-text-opacity)); 
      background-image: linear-gradient(184.78deg, #535AED 7.64%, #3EB2F8 120.07%); 
      font-family: Pretendard-Regular;
@@ -49,6 +42,7 @@ body > section > div > div > div {
 }
 .mb-4 {
     font-family: Pretendard-Regular;
+    margin-bottom: 0px;
 }
 .form-label {
     font-family: Pretendard-Regular;
@@ -72,11 +66,11 @@ body > section > div > div > div {
           <form method="POST" action="/good/user/signin.do">
             <div class="form-group">
               <label for="id" class="form-label">아이디</label>
-              <input type="text" id="text" name="id" class="form-control" placeholder="아이디"  name="id"/>
+              <input type="text" name="id" class="form-control" placeholder="아이디"  name="id"/>
             </div>
             <div class="form-group mt-4">
               <label for="password" class="form-label">비밀번호</label>
-              <input type="password"  id="password" name="pw" class="form-control" placeholder="비밀번호" name="pw"/>
+              <input type="password" name="pw" class="form-control" placeholder="비밀번호" name="pw"/>
             </div>
             <div class="submit-cotainer">
             <input class="btn btn-primary mt-10 block w-full" type="submit" id="login_submit"value="로그인" />
