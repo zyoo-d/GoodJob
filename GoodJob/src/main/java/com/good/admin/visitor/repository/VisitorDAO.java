@@ -1,6 +1,7 @@
 package com.good.admin.visitor.repository;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -18,29 +19,35 @@ public class VisitorDAO {
 	public VisitorDAO() {
 		this.conn = DBUtil.open();
 	}
-	
+			
 	public int getVisitorsForDate(LocalDate date) {
-		
+		    
 		try {
-
+			
 			String sql = "select visit_count from tblVisitor where visit_date = ?";
-
+			
+			LocalDate nowDate = LocalDate.now();
+			
 			pstat = conn.prepareStatement(sql);
-//			pstat.setString(1, value);
-
+			pstat.setDate(1, Date.valueOf(nowDate));
+			
 			rs = pstat.executeQuery();
-
-			if (rs.next()) {
-//				return rs.getString("columnName");
+			
+			if(rs.next()) {
+				
+				return rs.getInt("visit_count");
+				
 			}
-
+			
 		} catch (Exception e) {
 			System.out.println("VisitorDAO.getVisitorsForDate");
 			e.printStackTrace();
-		}
+		}   
 		return 0;
-		
-	}
+			
+	}		
+		    
+	
 	
 	
 	
