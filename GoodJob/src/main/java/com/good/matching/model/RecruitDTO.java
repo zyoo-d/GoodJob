@@ -2,7 +2,7 @@ package com.good.matching.model;
 
 import lombok.Data;
 
-@
+@Data
 public class RecruitDTO {
 	
 	private String rcrt_seq;
