@@ -1,6 +1,6 @@
 "use strict";
 
-$("#modal-1").fireModal({body: 'Modal body text goes here.'});
+$("#modal-1").fireModal({body: '차단회원 관리.'});
 $("#modal-2").fireModal({body: 'Modal body text goes here.', center: true});
 
 let modal_3_body = '<p>Object to create a button on the modal.</p><pre class="language-javascript"><code>';
@@ -95,4 +95,93 @@ $("#modal-6").fireModal({
 $('.oh-my-modal').fireModal({
   title: 'My Modal',
   body: 'This is cool plugin!'
+});
+
+let modalInputs;
+let selectedUser = {};
+
+$('#btn-block-user').fireModal({
+  body: $('#modal-part'),
+  title: '회원 정보 변경',
+  footerClass: 'text-right',
+  buttons: [
+    {
+      text: '저장',
+      class: 'btn btn-primary',
+      handler: function(modal) {
+        console.log('저장 버튼 클릭됨');
+      }
+    }
+  ],
+  created: function(modal) {
+    modalInputs = {
+      userId: modal.find('#user-id'),
+      blockDate: modal.find('#block-date'),
+      releaseDate: modal.find('#release-date'),
+      reason: modal.find('#block-reason'),
+      status: modal.find('#status')
+    };
+  }
+});
+
+
+$(document).on('change', 'input[type="checkbox"][data-checkboxes="mygroup"]', function() {
+  if ($(this).is(':checked')) {
+    const row = $(this).closest('tr');
+    selectedUser = {
+      id: row.find('td:nth-child(2)').text(), // 아이디 열
+      blockDate: row.find('td:nth-child(3)').text(), // 차단일자 열
+      releaseDate: row.find('td:nth-child(4)').text(), // 해제일자 열
+      reason: row.find('td:nth-child(5)').text(), // 사유 열
+      status: row.find('td:nth-child(6)').text() // 상태 열
+    };
+
+    modalInputs.userId.val(selectedUser.id);
+    modalInputs.blockDate.val(selectedUser.blockDate);
+    modalInputs.releaseDate.val(selectedUser.releaseDate);
+    modalInputs.reason.val(selectedUser.reason);
+    modalInputs.status.val(selectedUser.status);
+  } else {
+    selectedUser = {};
+    modalInputs.userId.val('');
+    modalInputs.blockDate.val('');
+    modalInputs.releaseDate.val('');
+    modalInputs.reason.val('');
+    modalInputs.status.val('정상');
+  }
+
+  const checkedUsers = $('input[type="checkbox"][data-checkboxes="mygroup"]:checked');
+  const userCount = checkedUsers.length;
+  bulkModalInputs.userCount.val(userCount + '명');
+});
+
+
+let bulkModalInputs;
+
+$('#btn-block-alluser').fireModal({
+  body: $('#modal-bulk-part'),
+  title: '일괄 처리',
+  footerClass: 'text-right',
+  buttons: [
+    {
+      text: '일괄 처리',
+      class: 'btn btn-primary',
+      handler: function(modal) {
+        // 일괄 처리 로직 작성
+        console.log('일괄 처리 버튼 클릭됨');
+      }
+    }
+  ],
+  created: function(modal) {
+    bulkModalInputs = {
+      userCount: modal.find('#bulk-user-count'),
+      status: modal.find('#bulk-status'),
+      changeReason: modal.find('#bulk-change-reason')
+    };
+
+    // 체크박스 선택된 유저 수 계산
+    const checkedUsers = $('input[type="checkbox"][data-checkboxes="mygroup"]:checked');
+    const userCount = checkedUsers.length;
+    bulkModalInputs.userCount.val(userCount + '명');
+  }
 });

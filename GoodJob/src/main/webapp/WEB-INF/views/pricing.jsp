@@ -213,6 +213,7 @@
         </div>
       </div>
       <div class="mt-8 md:col-6 lg:col-4 lg:mt-0">
+        
         <div
           class="rounded-xl border border-primary bg-white px-8 py-10 shadow-lg lg:-mt-16"
         >

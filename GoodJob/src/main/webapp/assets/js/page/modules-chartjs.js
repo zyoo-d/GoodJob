@@ -1,37 +1,4 @@
 "use strict";
-var ctx = document.getElementById("preferChart").getContext('2d');
-var preferChart = new Chart(ctx, {
-	type: 'radar',
-  data: {
-  labels: [
-    'Eating',
-    'Drinking',
-    'Sleeping',
-    'Designing',
-    'Coding',
-    'Cycling',
-    'Running'
-  ],
-  datasets: [{
-    label: 'My First Dataset',
-    data: [65, 59, 90, 81, 56, 55, 40],
-    fill: true,
-    backgroundColor: 'rgba(255, 99, 132, 0.2)',
-    borderColor: 'rgb(255, 99, 132)',
-    pointBackgroundColor: 'rgb(255, 99, 132)',
-    pointBorderColor: '#fff',
-    pointHoverBackgroundColor: '#fff',
-    pointHoverBorderColor: 'rgb(255, 99, 132)'
-  }]
-},
-  options: {
-    elements: {
-      line: {
-        borderWidth: 3
-      }
-    }
-  },
-});
 
 var ctx = document.getElementById("myChart").getContext('2d');
 var myChart = new Chart(ctx, {
@@ -157,6 +124,42 @@ var myChart = new Chart(ctx, {
 });
 
 var ctx = document.getElementById("myChart4").getContext('2d');
+var myChart = new Chart(ctx, {
+  type: 'pie',
+  data: {
+    datasets: [{
+      data: [
+        80,
+        50,
+        40,
+        30,
+        100,
+      ],
+      backgroundColor: [
+        '#191d21',
+        '#63ed7a',
+        '#ffa426',
+        '#fc544b',
+        '#6777ef',
+      ],
+      label: 'Dataset 1'
+    }],
+    labels: [
+      'Black',
+      'Green',
+      'Yellow',
+      'Red',
+      'Blue'
+    ],
+  },
+  options: {
+    responsive: true,
+    legend: {
+      position: 'bottom',
+    },
+  }
+});
+var ctx = document.getElementById("myChart5").getContext('2d');
 var myChart = new Chart(ctx, {
   type: 'pie',
   data: {
