@@ -4,7 +4,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <style>
-
 </style>
 <%@include file="/WEB-INF/views/inc/adminasset.jsp"%>
 <head>
@@ -32,10 +31,11 @@
 								<h4>5개의 리뷰를 작성하셨습니다.</h4>
 								<div class="float-right">
 									<div class="dropdown d-inline mr-2">
-										<button class="btn btn-outline-primary dropdown-toggle" type="button"
-											id="dropdownMenuButton" data-toggle="dropdown"
+										<button class="btn btn-outline-primary dropdown-toggle"
+											type="button" id="dropdownMenuButton" data-toggle="dropdown"
 											aria-haspopup="true" aria-expanded="true">모든 날짜</button>
-										<div class="dropdown-menu dropsmall" x-placement="bottom-start"
+										<div class="dropdown-menu dropsmall"
+											x-placement="bottom-start"
 											style="position: absolute; transform: translate3d(0px, 28px, 0px); top: 0px; left: 0px; will-change: transform;">
 											<a class="dropdown-item dropsmall" href="#">지난 1주</a> <a
 												class="dropdown-item dropsmall" href="#">지난 1개월</a> <a
@@ -46,7 +46,8 @@
 										<button class="btn btn-primary dropdown-toggle" type="button"
 											id="dropdownMenuButton" data-toggle="dropdown"
 											aria-haspopup="true" aria-expanded="true">등록여부</button>
-										<div class="dropdown-menu dropsmall" x-placement="bottom-start"
+										<div class="dropdown-menu dropsmall"
+											x-placement="bottom-start"
 											style="position: absolute; transform: translate3d(0px, 28px, 0px); top: 0px; left: 0px; will-change: transform;">
 											<a class="dropdown-item dropsmall" href="#">등록 완료</a> <a
 												class="dropdown-item dropsmall" href="#">심사중</a> <a
@@ -146,6 +147,11 @@
 		</section>
 	</div>
 	<%@include file="/WEB-INF/views/inc/adminfooter.jsp"%>
-
+	<script>
+		$('.text-danger').click(function() {
+			$(this).parents().eq(2).remove();
+			//데이터 처리도 해주기
+		});
+	</script>
 </body>
 </html>

@@ -199,8 +199,7 @@
 	--tw-ring-color: #535AED;
 }
 </style>
-<script src="https://kit.fontawesome.com/d2e20c7551.js"
-	crossorigin="anonymous"></script>
+
 </head>
 <%@include file="/WEB-INF/views/inc/header.jsp"%>
 
