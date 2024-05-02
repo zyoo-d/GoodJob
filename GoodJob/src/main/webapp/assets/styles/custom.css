@@ -1,3 +1,7 @@
+.navbar.container {
+	max-width: 1100px;
+}
+
 .search-element {
 	box-sizing: border-box;
 	width: 250px;
@@ -1171,7 +1175,7 @@ textarea:focus {
 .add-comment {
 	display: flex;
 	align-items: center;
-	justify-content: center;
+	justify-content: space-between;
 	background: #FFFFFF;
 	padding: 10px 20px;
 	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
