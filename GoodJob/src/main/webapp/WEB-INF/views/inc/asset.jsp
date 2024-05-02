@@ -77,6 +77,7 @@
 <!-- Main Stylesheet -->
 <link href="/good/assets/styles/main.css" rel="stylesheet" />
 <link href="/good/assets/styles/custom.css" rel="stylesheet" />
+<link href="/good/assets/styles/jiyu.css" rel="stylesheet" />
 
 <!-- jQuery -->
 <script src="/good/assets/plugins/jquery/jquery.min.js"></script>

@@ -4,9 +4,12 @@ var cleavePN = new Cleave('.phone-number', {
   phone: true,
   phoneRegionCode: 'us'
 });
-var cleaveC = new Cleave('.currency', {
-  numeral: true,
-  numeralThousandsGroupStyle: 'thousand'
+var cleaveCCells = document.querySelectorAll('.currency');
+cleaveCCells.forEach(function(cell) {
+  new Cleave(cell, {
+    numeral: true,
+    numeralThousandsGroupStyle: 'thousand'
+  });
 });
 var cleavePC = new Cleave('.purchase-code', {
   delimiter: '-',

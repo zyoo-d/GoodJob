@@ -6,197 +6,154 @@
  */
 
 /*# sourceMappingURL=custom.css.map */
-#mypageNavbar {
-	background-image: linear-gradient(184.78deg, #535AED 7.64%, #3EB2F8 120.07%);
-	height: 70px;
-	font-size: 1.2rem;
-}
-
 @font-face {
     font-family: 'Pretendard-Regular';
-    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
-    font-weight: 200;
+    src: url('/good/assets/fonts/Pretendard-Medium.woff') format('woff');
+    font-weight: 100;
     font-style: normal;
 }
-*{
-	font-family: 'Pretendard-Regular' !important;
-	letter-spacing: 0.05rem;
-}
-.fa, .far, .fas {
-    font-family: "Font Awesome 5 Free" !important;
-}
-.fab {
-    font-family: "Font Awesome 5 Brands" !important;
-}
-.card.blue {
-	border-top: 3px solid #7291FF;
-}
-#mypageImg {
-	margin: -25px -55px 0 -20px;
+/* 공통 */
+body{
+    font-family: 'Pretendard-Regular' !important;
 }
 
-@media ( max-width :800px) {
-	#mypageImg {
-		width: 65px;
-	}
-}
-@media ( max-width :600px) {
-	#mypageImg {
-		display: none;
-	}
+.input-group > a {
+  margin-left: 10px;
 }
 
-.profile-widget-item.left, .left {
-	text-align: left !important;
+h4{
+  color: rgb(52, 57, 94) !important;
 }
 
-#mypageWidget {
-	max-height: 300px;
+#main-logo{
+	font-size: 16px;
 }
 
-#mypageWidget:after {
-	background-color: transparent;
+
+.btn-group-spacing .btn {
+  margin-right: 0.5rem;
 }
 
-.mr-2.text-white.cardIcon {
-	flex-shrink: 0;
-	border-radius: 50%;
-	width: 45px;
-	height: 45px;
-	line-height: 42px;
-	text-align: center;
-	font-size: 1.2rem;
+.btn-group-spacing .btn:last-child {
+  margin-right: 0;
 }
 
-#activityList .card-body {
-	padding: 0 !important;
-	min-width: 145px;
+/* index */
+#index-data-info{
+  padding-top: 10px; padding-bottom: 10px;
 }
 
-#activityList .list-group {
-	height: 100%;
-	justify-content: space-around;
+#index-data-info + div{
+  padding-bottom: 0; padding-top: 15px;
 }
 
-#activityList .list-group-item {
-	border: 0;
+
+
+
+/* survey(설문조사목록) */
+.survey-container {
+  width: 80%;
+  margin: 0 auto;
 }
 
-#preferMain .card-body {
-	padding: 3px !important;
-	max-height: 280px;
+.survey-group {
+  margin-bottom: 30px;
+  border: 1px solid #e3eaef;
+  padding: 20px;
+  border-radius: 3px;
+  width: 90%;
+  margin: 0 auto 30px; /* 마진 하단 추가 */
 }
 
-#activityList, #preferMain {
-	margin-bottom: 0 !important;
-	box-shadow: none !important;
+.survey-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
-#btnTest {
-	margin: 1% 20%;
+.survey-header h4 {
+  font-weight: 600;
+  color: #34395e;
+  font-size: 16px;
+  margin: 0;
 }
 
-@media ( min-width :1540px) {
-	#preferChart {
-		width: 330px !important;
-		height: 220px !important;
-		margin: 0 auto;
-	}
+.survey-buttons button {
+  margin-left: 5px;
 }
 
-#profileWidget {
-	margin: 0 auto;
+.survey-buttons > a{
+  margin-left: 10px;
 }
 
-#btnScrap {
-	margin-right: 5%;
-}
-#mypageMainCard .card-body {
-	cursor: pointer; 
-}
-.bg-custom {
-	background-image: linear-gradient(184.78deg, #535AED 7.64%, #3EB2F8 120.07%) !important;
-}
-#profileWidget a {
-	color: #404040 !important;
-}
-#editInfo * {
-	font-size: 1rem !important;
-}
-.logo {
-	display: flex;
-	position: relative;
+.survey-answers {
+  margin-top: 10px;
 }
 
-.logo>img {
-	width: 120px;
-	margin-bottom: 10px;
+.survey-answer {
+  padding: 5px 10px;
+  background-color: #f9f9f9;
+  border-radius: 3px;
+  margin-right: 10px;
+  display: inline-block;
+  cursor: pointer;
 }
 
-.fas.fa-star.star {
-	position: absolute;
-	right: 0;
-	font-size: 25px;
-	cursor: pointer;
-	color: gold;
-	margin-right: -10px;
+.survey-answer:hover {
+  background-color: #e3eaef;
 }
 
-.hiring {
-	position: absolute;
-	right: 0;
-	border: 1px solid tomato;
-	padding: 2px 5px;
-	border-radius: 5px;
-	color: tomato;
-	font-size: 0.9rem;
+ .nav-item >.nav-link {
+  font-size: 20px;
+  padding: 10px 20px;
 }
 
-#scrapCards {
-	padding-top: 0;
+
+/* addcompany(기업등록) */
+#addcompany-card > div > h4 {
+  font-size: 1.3rem;
+  color: rgb(52, 57, 94);
+}
+#addcompany-card{
+  background-color: #FAFDFB; 
+  box-shadow: none;
+}
+#addcompany-btn{
+  margin-left: 10px; 
+  font-size: 14px;
+}
+#addcompany-card > card-body{
+  padding-top: 0px;
+}
+#addcompany-info{
+  height: 680px;
+}
+#addcompany-logo{
+  width: 150px; 
+  height: 150px; 
+  border: 1px solid #E4E6FC;
+}
+#addcompany-logo-preview{
+  max-width: 100%; 
+  max-height: 100%; 
+  display: none;
+}
+#addcompany-logo-icon{
+  font-size: 3rem;
 }
 
-#scrapCards p {
-	margin: 0;
+/* review(리뷰목록) */
+
+/* userblock(유저 신고관리) */
+.userblock-card{
+  background-color: #FAFDFB; box-shadow: none; margin-bottom: 10px;
 }
 
-.infoCard {
-	position: relative;
+.userblock-card > .card-body{
+  padding-top: 0; padding-bottom: 0;
 }
 
-#scrapCards .infoCard h3 {
-	padding-left: 0;
-}
-
-.infoCard p {
-	display: inline-block;
-}
-
-#scrapCards h3 {
-	position: relative;
-	padding-left: 15px;
-}
-#mypageSidebar * {
-	font-size: 0.9rem;
-}
-#reviewHeader, #interviewHeader, #stdCommentHeader, #studyHeader {
-	justify-content: space-between;
-}
-#reviewHeader .btn, #interviewHeader .btn, #stdCommentHeader .btn, #studyHeader .btn {
-	border-radius: 0.25rem;
-    margin-top: 0;
-}
-#reviewPaging, #interviewPaging, #stdCommentPaging, #studyPaging {
-	display: flex;
-    justify-content: center;
-}
-a.dropdown-item.dropsmall {
-	padding: 10px 15px;
-}
-.dropdown-menu.dropsmall {
-	width: 85px;
-	min-width: 0;
-}
-.text-lg {
-	font-size: 1rem;
+#btn-block-alluser{
+  margin-left: 20px;
 }

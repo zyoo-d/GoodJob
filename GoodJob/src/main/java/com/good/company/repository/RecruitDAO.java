@@ -25,7 +25,7 @@ public class RecruitDAO {
 		//queryParamNoReturn
 				try {
 
-					String sql = "insert into tblRecruit values (seqRecruit().nextVal, ?, ?, ?, ?, ?, ?)";
+					String sql = "insert into tblRecruit values (seqRecruit.nextVal, ?, ?, ?, ?, ?, ?)";
 
 					pstat = conn.prepareStatement(sql);
 					pstat.setString(1, dto.getRcrt_address());
