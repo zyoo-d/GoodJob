@@ -1,5 +1,18 @@
 package com.good.user.model;
 
-public class UserDTO {
+import lombok.Data;
 
+@Data
+public class UserDTO {
+	private String id;
+	private String pw;
+	private String name;
+	private String tel;
+	private String address;
+	private String email;
+	private String domain;
+	private String lv;
+	private String nickname;
+	
+	
 }
