@@ -29,7 +29,7 @@
 .scrap {
 	position: absolute;
 	right: 0;
-	font-size: 30px;
+	font-size: 20px;
 	cursor: pointer;
 }
 
@@ -126,4 +126,7 @@
   background: linear-gradient(184.78deg, #535AED 7.64%, #004F8B 120.07%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+.no-shadow:hover {
+	--tw-shadow: none;
 }
