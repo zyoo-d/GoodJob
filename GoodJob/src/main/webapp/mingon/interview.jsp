@@ -7,6 +7,9 @@
 <meta charset="UTF-8">
 <%@include file="/WEB-INF/views/inc/asset.jsp"%>
 <style>
+.itvDetail.show {
+  display: block;
+}
 .itvCard {
 	margin: auto;
 	height: auto;
@@ -219,15 +222,15 @@
 
 	<%@include file="/WEB-INF/views/inc/footer.jsp"%>
 	<script>
-  const arrows = document.querySelectorAll('.dw');
-  arrows.forEach(arrow => {
-    arrow.addEventListener('click', () => {
-      const detailContent = arrow.parentNode.parentNode.nextElementSibling;
-      if (detailContent) {
-        detailContent.style.display = detailContent.style.display === 'none' ? 'block' : 'none';
-      }
-    });
-  });
+	const arrows = document.querySelectorAll('.dw');
+	arrows.forEach(arrow => {
+	  arrow.addEventListener('click', () => {
+	    const detailContent = arrow.parentNode.parentNode.nextElementSibling;
+	    if (detailContent) {
+	      detailContent.classList.toggle('show'); // 클래스 토글링
+	    }
+	  });
+	});
 </script>
 
 
