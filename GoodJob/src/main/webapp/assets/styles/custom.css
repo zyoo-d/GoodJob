@@ -122,8 +122,3 @@
 	font-size: 0.75rem;
 	padding: 0px 1.2rem !important;
 }
-.gradiTitle span {
-  background: linear-gradient(184.78deg, #535AED 7.64%, #004F8B 120.07%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
