@@ -133,7 +133,7 @@
 	margin-bottom: 10px;
 }
 
-#star {
+.fas.fa-star.star {
 	position: absolute;
 	right: 0;
 	font-size: 25px;
@@ -178,4 +178,25 @@
 }
 #mypageSidebar * {
 	font-size: 0.9rem;
+}
+#reviewHeader, #interviewHeader, #stdCommentHeader, #studyHeader {
+	justify-content: space-between;
+}
+#reviewHeader .btn, #interviewHeader .btn, #stdCommentHeader .btn, #studyHeader .btn {
+	border-radius: 0.25rem;
+    margin-top: 0;
+}
+#reviewPaging, #interviewPaging, #stdCommentPaging, #studyPaging {
+	display: flex;
+    justify-content: center;
+}
+a.dropdown-item.dropsmall {
+	padding: 10px 15px;
+}
+.dropdown-menu.dropsmall {
+	width: 85px;
+	min-width: 0;
+}
+.text-lg {
+	font-size: 1rem;
 }

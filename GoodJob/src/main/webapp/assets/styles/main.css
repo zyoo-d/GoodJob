@@ -17,6 +17,7 @@
     font-weight: 400;
     font-style: normal;
 }
+
 *,
 ::before,
 ::after {
@@ -626,7 +627,7 @@ select {
   h4,
   h5,
   h6 {
-  font-family: Merriweather, sans-serif;
+  font-family: 'Pretendard-Regular', Merriweather, sans-serif;
   font-weight: 700;
   line-height: 1.25;
   --tw-text-opacity: 1;
@@ -1039,7 +1040,7 @@ select {
 .form-label {
   margin-bottom: 0.5rem;
   display: block;
-  font-family: Merriweather, sans-serif;
+  font-family: 'Pretendard-Regular', Merriweather, sans-serif;
   --tw-text-opacity: 1;
   color: rgb(85 85 85 / var(--tw-text-opacity));
 }
@@ -1725,7 +1726,7 @@ select:invalid {
 }
 .footer h6 {
   margin-bottom: 1rem;
-  font-family: Poppins, sans-serif;
+  font-family: 'Pretendard-Regular', Poppins, sans-serif;
   font-weight: 600;
 }
 @media (min-width: 1024px) {
@@ -1750,7 +1751,7 @@ select:invalid {
 .gradient-number span {
   -webkit-background-clip: text;
           background-clip: text;
-  font-family: Poppins, sans-serif;
+  font-family: 'Pretendard-Regular', Poppins, sans-serif;
   font-size: 2.25rem;
   line-height: 2.5rem;
   font-weight: 700;
@@ -2101,7 +2102,7 @@ select:invalid {
   padding-left: 1.5rem;
 }
 .features-tab-item h2 {
-  font-family: Poppins, sans-serif;
+  font-family: 'Pretendard-Regular', Poppins, sans-serif;
   font-size: 1.5rem;
   line-height: 2rem;
   font-weight: 700;
@@ -3159,7 +3160,7 @@ input#nav-toggle:checked ~ #nav-menu {
   text-align: center;
 }
 .font-primary {
-  font-family: Poppins, sans-serif;
+  font-family: 'Pretendard-Regular', Poppins, sans-serif;
 }
 .text-2xl {
   font-size: 1.5rem;
