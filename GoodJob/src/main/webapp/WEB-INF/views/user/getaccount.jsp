@@ -9,14 +9,6 @@
 <title>계정 찾기</title>
 <%@include file="/WEB-INF/views/inc/asset.jsp"%>
 <style>
-@font-face {
-	font-family: 'Pretendard-Regular';
-	src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff')
-		format('woff');
-	font-weight: 400;
-	font-style: normal;
-}
-
 .mb-4 {
 	font-family: Pretendard-Regular;
 	margin-bottom: 0px;
@@ -86,7 +78,7 @@
 
 /* 폼 요소 스타일 */
 input[type="text"] {
-	font-family: Pretendard-Regular;
+	font-family: 'Pretendard-Regular';
 	font-size: 1rem;
 	border-radius: 10px;
 	margin-bottom: 10px;
@@ -98,7 +90,7 @@ input[type="text"] {
 	text-align: center;
 }
 
-#btn_getAccount {
+.btn_getAccount {
 	background-image: linear-gradient(184.78deg, rgb(83, 90, 237) 7.64%,
 	rgb(62, 178, 248) 120.07%);
 	color: white;
@@ -137,32 +129,33 @@ input[type="text"] {
 						</div>
 					</div>
 
-					<form method="POST" action="/user/getId.do">
+<!-- 					<form method="POST" action="/user/getId.do"> -->
 						<div id="idContent" class="form-content">
-							<label for="name" class="form-label">이름</label> <input
-								type="text" id="name" value="등록한 이름을 입력하세요." /> <label
-								for="birth" class="form-label">연락처</label> <input type="text"
-								id="tel" value="등록한 연락처를 입력하세요." />
+							<label for="name" class="form-label">이름</label> 
+							<input type="text" id="name" placeholder="등록한 이름을 입력하세요." /> 
+							<label for="birth" class="form-label">연락처</label> 
+								<input type="text" id="tel" placeholder="등록한 연락처를 입력하세요." />
 							<div>
-								<input type="submit" id="btn_getAccount" value="아이디 찾기" />
+								<input type="submit" class="btn_getAccount" id="btn_getId"value="아이디 찾기" />
 							</div>
 						</div>
-						</form>
-						<form method="POST" action="/user/getPw.do">
+<!-- 						</form> -->
+<!-- 						<form method="POST" action="/user/getPw.do"> -->
 						<div id="pwContent" class="form-content">
 							<label for="id" class="form-label">아이디</label> <input type="text"
-								id="id" value="등록한 아이디를 입력하세요." /> <label for="tel"
+								id="id" placeholder="등록한 아이디를 입력하세요." /> <label for="tel"
 								class="form-label">연락처</label> <input type="text" id="tel"
-								value="등록한 연락처를 입력하세요." />
+								placeholder="등록한 연락처를 입력하세요." />
 							<div>
-								<input type="submit" id="btn_getAccount" value="비밀번호찾기" />
+								<input type="submit" class="btn_getAccount" id="btn_getPw" value="비밀번호찾기" />
 							</div>
 						</div>
-					</form>
+<!-- 					</form> -->
 					
 				</div>
 			</div>
 		</div>
+		<span id="find"></span>
 	</section>
 
 	<%@include file="/WEB-INF/views/inc/footer.jsp"%>
@@ -208,6 +201,30 @@ input[type="text"] {
 			}
 		}
 		
+		$('#btn_getId').click(function () {
+			
+			var name = $('#name').val();
+			var tel = $('#tel').val();
+			
+	        $.ajax({
+	            type: 'POST',
+	            url: '/good/user/getid.do',
+	            data:  'name=' + name + '&tel=' + tel,
+	            dataType: 'json',
+	            success: function (result) {
+	            	
+	                if (result == null) {
+	                	$('#find').text('일치하는 정보가 없습니다.');
+	                	
+	                } else {
+						$('#find').text(result);
+	                }
+	            },
+	            error: function (a, b, c) {
+	                console.log(a, b, c);
+	            }
+	        });
+		});
 
 
 	</script>
