@@ -58,7 +58,7 @@ body > section > div > div > div > div > form > input {
 	font-family: Pretendard-Regular;
 }
 
-.btn-primary{ 
+#btn_signup{ 
      cursor: pointer; 
      border-radius: 50px; 
      border-width: 0px; 
@@ -199,7 +199,7 @@ div > label {
               <span id="nicknameError"></span>
             </div>
             
-            <input class="btn btn-primary mt-10 block w-full" type="submit" value="회원가입"/>
+            <input class="btn btn-primary mt-10 block w-full" id="btn_signup" type="submit" value="회원가입"/>
           </form>
         </div>
       </div>

@@ -23,6 +23,7 @@
 	margin: 0 auto;
 	background-color: #FAFAFA;
 	display: flex;
+	padding-top: 20px;
 }
 
 .company-info {
@@ -49,10 +50,11 @@
 	margin-bottom: 10px;
 	padding: 10px;
 }
-.card-title {
 
+.card-title {
 	font-size: 1.2rem;
 }
+
 #news {
 	width: 100%;
 }
@@ -89,9 +91,7 @@ span {
 
 #summary {
 	width: 100%;
-	background-color: blue;
 	padding: 20px;
-	border: 1px solid rgb(83, 90, 237);
 }
 
 #income-info {
@@ -115,9 +115,11 @@ span {
 	font-size: .6rem;
 	font-family: 'Pretendard-Regular';
 }
+
 #news-title {
-	font-size: 1rem;
+	font-size: 1.1rem;
 }
+
 #summary, #salary, #income-info, #comment, #recruit, #keyword, #review {
 	border-radius: 15px;
 	border-color: rgb(234, 237, 244);
@@ -159,20 +161,22 @@ h3 {
 	display: inline-grid;
 }
 
-#summary_content > span{
-	font-size: .8rem;
+#summary_content>span {
+	font-size: .83rem;
 	font-weight: bold;
+	font-family: 'Pretendard-Regular';
 }
 
-#summary_content > h3{
+#summary_content>h3 {
 	font-size: 2rem;
-	font-family: Pretendard-Regular;
+	font-family: 'Pretendard-Regular';
 }
 
-#summary_content > i{
+#summary_content>i {
 	font-size: .8rem;
 }
-#cop_address{
+
+#cop_address {
 	font-size: .8rem;
 }
 
@@ -206,18 +210,22 @@ h3 {
 }
 
 .form-control {
-	width: 72%;
+	width: 80%;
 	margin: 5px;
+	margin-right: 0;
 }
 
 #chat-form>button {
-	width: 20%;
-	margin-right: 0;
+	width: 40px;
+	border-radius: 4px;
+	padding: 0;
 	text-align: center;
+	margin-right: 0;
+	margin-left: 0;
 }
 
-.chat-form {
-	margin: 0 auto;
+#chat-form>button>i {
+	font-size: .8rem;
 }
 
 #comment {
@@ -269,6 +277,7 @@ h3 {
 	float: right;
 	color: #FAFAFA;
 }
+
 #chat_regdate {
 	font-size: .7rem;
 	margin-right: 5px;
@@ -277,6 +286,7 @@ h3 {
 #singo {
 	font-size: .7rem;
 }
+
 .tag {
 	font-size: .7rem;
 	height: 20px;
@@ -314,6 +324,7 @@ h3 {
 	color: white;
 	font-size: 2rem;
 }
+
 .count {
 	font-size: 1.4rem;
 }
@@ -343,29 +354,102 @@ h3 {
 #review {
 	padding: 10px;
 }
+
 #review_content {
-	border: 1px solid #4444;
+	border-bottom: 1px solid #4444;
 	padding: 10px;
 	margin: 10px;
-	border-radius: 15px;
+	margin-bottom: 20px;
+	padding-bottom: 40px;
 }
 
 #oneline {
-	font-size: 1.2rem;
+	font-size: 1.5rem;
 	font-family: 'Pretendard-Regular';
-	color: #444;
+	color: black;
+	font-weight: bolder;
 }
 
-.pentagram {    
-    position: relative;
-    display: inline-block;
-    width: 0px;
-    height: 0px;
-    margin: 50px 0;
-    color: #ffd67a;    
-    border-right: 80px solid transparent;
-    border-left: 80px solid transparent;
-    border-bottom: 56px  solid #ffd67a;    
+#good {
+	padding: 10px;
+	border: 1px solid #4454;
+	border-radius: 10px;
+	margin-bottom: 10px;
+	border-bottom-left-radius: 12px;
+	border-bottom-right-radius: 12px;
+	border-bottom-width: 0px;
+	border-style: solid;
+	border-left-width: 0px;
+	border-right-width: 0px;
+	border-top-left-radius: 12px;
+	border-top-right-radius: 12px;
+	box-shadow: rgba(0, 0, 0, 0.1) 0px 15px 34px 0px;
+	box-sizing: border-box;
+}
+
+#bad {
+	padding: 10px;
+	border: 1px solid #4454;
+	border-radius: 10px;
+	margin-bottom: 10px;
+	border-bottom-left-radius: 12px;
+	border-bottom-right-radius: 12px;
+	border-bottom-width: 0px;
+	border-style: solid;
+	border-left-width: 0px;
+	border-right-width: 0px;
+	border-top-left-radius: 12px;
+	border-top-right-radius: 12px;
+	box-shadow: rgba(0, 0, 0, 0.1) 0px 15px 34px 0px;
+	box-sizing: border-box;
+}
+
+#bad_title {
+	font-family: 'Pretendard-Regular';
+	font-size: 1.1rem;
+	font-weight: bold;
+	color: #595959;
+}
+
+#good_title {
+	margin-top: 10px;
+	font-family: 'Pretendard-Regular';
+	font-size: 1.1rem;
+	font-weight: bold;
+	color: #595959;
+}
+
+.goodbad>div {
+	font-family: 'Pretendard-Regular';
+	font-size: 1rem;
+	color: #22222;
+}
+
+#add_review {
+	background-color: rgb(83, 90, 237);
+	border: 1px solid rgb(83, 90, 237);
+	padding: 5px 20px;
+	border-radius: 10px;
+	font-size: .7rem;
+	color: white;
+	font-family: 'Pretendard-Regular';
+	margin-left: 3px;
+	margin-bottom: 5px;
+	float: right;
+}
+.fa-star {
+	color: gold;
+}
+
+#score_detail {
+	display: grid;
+	grid-template-columns: repeat(2, 2fr);
+	grid-gap: 0;
+}
+
+#score_detail>div {
+	width: 100%;
+	padding: 5px;
 }
 </style>
 </head>
@@ -378,8 +462,8 @@ h3 {
 				<div id="summary_content">
 					<h3>네이버</h3>
 					<span>응용 소프트웨어 개발 및 공급업</span> <span>100 명</span> <span>소프트웨어개발,공급,전산자료
-						입력,지리정보데이터베이스 구축,전산장비 유지</span> <i class="fa-solid fa-location-dot"><span id="cop_address">
-							경기도 성남시 분당구</span></i>
+						입력,지리정보데이터베이스 구축,전산장비 유지</span> <i class="fa-solid fa-location-dot"><span
+						id="cop_address"> 경기도 성남시 분당구</span></i>
 				</div>
 			</div>
 
@@ -416,19 +500,6 @@ h3 {
 			<div id="income-info">
 
 				<div class="card-body">
-					<!-- 					<div class="chartjs-size-monitor" -->
-					<!-- 						style="position: absolute; inset: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"> -->
-					<!-- 						<div class="chartjs-size-monitor-expand" -->
-					<!-- 							style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"> -->
-					<!-- 							<div -->
-					<!-- 								style="position: absolute; width: 1000000px; height: 1000000px; left: 0; top: 0"></div> -->
-					<!-- 						</div> -->
-					<!-- 						<div class="chartjs-size-monitor-shrink" -->
-					<!-- 							style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"> -->
-					<!-- 							<div -->
-					<!-- 								style="position: absolute; width: 200%; height: 200%; left: 0; top: 0"></div> -->
-					<!-- 						</div> -->
-					<!-- 					</div> -->
 					<canvas id="myChart" height="200" width="762"
 						style="display: block; width: 300px; height: 500px;"
 						class="chartjs-render-monitor"></canvas>
@@ -512,7 +583,7 @@ h3 {
 			<span class="menu">기업 키워드</span>
 			<div id="keyword">
 				<%
-				for (int i = 0; i < 15; i++) {
+				for (int i = 0; i < 7; i++) {
 				%>
 				<div>🍽️밥이 맛있어요!</div>
 				<div>😱꼰대가 많아도 너무 많아요!</div>
@@ -521,16 +592,85 @@ h3 {
 				%>
 			</div>
 			<span class="menu">기업 리뷰 보기</span>
+
+				<button id="add_review">리뷰 쓰러가기</button>
 			<div id="review">
+				<% for (int i=0; i<3; i++) { %>
 				<div id="review_content">
-					<span id="oneline">모든것이 좋았던 회사</span>
+					<div id="oneline">전체적으로 좋았지만 오래 다니기는 싫은 회사</div>
 					<div id="score">
 						<div id="score_detail">
-						<span id="salary">연봉</span>
-						<div class="pentagram"></div>
+							<div id="salary_score">
+								<span id="salary_review">연봉 </span> <i class="fa-solid fa-star"></i>
+								<i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i>
+								<i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i>
+							</div>
+							<div id="welfare_score">
+								<span id="welfare_review">복지 </span> <i class="fa-solid fa-star"></i>
+								<i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i>
+								<i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i>
+							</div>
+							<div id="ingvt_score">
+								<span id="ingvt_review">근속률 </span> <i class="fa-solid fa-star"></i>
+								<i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i>
+								<i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i>
+							</div>
+							<div id="culture_score">
+								<span id="culture_review">조직문화</span> <i
+									class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i>
+								<i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i>
+								<i class="fa-solid fa-star"></i>
+							</div>
+							<div id="growth_score">
+								<span id="growth_review">성장가능성</span> <i
+									class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i>
+								<i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i>
+								<i class="fa-solid fa-star"></i>
+							</div>
+							<div id="total_score">
+								<span id="total_review">총 평점 </span> <i class="fa-solid fa-star"></i>
+								<i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i>
+								<i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i>
+							</div>
 						</div>
 					</div>
+					<div class="goodbad_title" id="good_title"><i class="fa-regular fa-thumbs-up"></i>  이런 부분은 좋았아요.</div>
+					<div class="goodbad">
+						<div id="good">But I must explain to you how all this
+							mistaken idea of denouncing pleasure and praising pain was born
+							and I will give you a complete account of the system, and expound
+							the actual teachings of the great explorer of the truth, the
+							master-builder of human happiness. No one rejects, dislikes, or
+							avoids pleasure itself, because it is pleasure, but because those
+							who do not know how to pursue pleasure rationally encounter
+							consequences that are extremely painful. Nor again is there
+							anyone who loves or pursues or desires to obtain pain of itself,
+							because it is pain, but because occasionally circumstances occur
+							in which toil and pain can procure him some great pleasure. To
+							take a trivial example, which of us ever undertakes laborious
+							physical exercise, except to obtain some advantage from it? But
+							who has any right to find fault with a man who chooses to enjoy a
+							pleasure that has no annoying consequences, or one who avoids a
+							pain that produces no resultant pleasure?"</div>
+						<div class="goodbad_title" id="bad_title"><i class="fa-regular fa-thumbs-down"></i>  이 부분은 아쉬웠어요.</div>
+						<div id="bad">"At vero eos et accusamus et iusto odio
+							dignissimos ducimus qui blanditiis praesentium voluptatum
+							deleniti atque corrupti quos dolores et quas molestias excepturi
+							sint occaecati cupiditate non provident, similique sunt in culpa
+							qui officia deserunt mollitia animi, id est laborum et dolorum
+							fuga. Et harum quidem rerum facilis est et expedita distinctio.
+							Nam libero tempore, cum soluta nobis est eligendi optio cumque
+							nihil impedit quo minus id quod maxime placeat facere possimus,
+							omnis voluptas assumenda est, omnis dolor repellendus. Temporibus
+							autem quibusdam et aut officiis debitis aut rerum necessitatibus
+							saepe eveniet ut et voluptates repudiandae sint et molestiae non
+							recusandae. Itaque earum rerum hic tenetur a sapiente delectus,
+							ut aut reiciendis voluptatibus maiores alias consequatur aut
+							perferendis doloribus asperiores repellat."</div>
+
+					</div>
 				</div>
+				<% } %>
 			</div>
 		</div>
 		<!--div:company-Info  -->
@@ -545,7 +685,8 @@ h3 {
 				%>
 				<div class="card">
 					<div class="card-content">
-						<h1 class="h4 card-title" id="news-title">AI로 ‘옥순이만’ 골라본다…KT “AI로 콘텐츠 경험 혁신”</h1>
+						<h1 class="h4 card-title" id="news-title">AI로 ‘옥순이만’ 골라본다…KT
+							“AI로 콘텐츠 경험 혁신”</h1>
 						<p id="article">KT가 인공지능(AI)으로 영상을 제작·편집하는 미디어 특화 솔루션 ‘매직플랫폼’을
 							도입해 미디어·콘텐츠 혁신에 나선다.</p>
 						<div class="card-footer mt-6 flex space-x-4">
