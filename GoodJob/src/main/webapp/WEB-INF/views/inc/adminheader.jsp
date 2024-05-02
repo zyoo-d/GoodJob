@@ -38,7 +38,7 @@
       <div class="main-sidebar sidebar-style-2">
         <aside id="sidebar-wrapper">
           <div class="sidebar-brand">
-            <a href="/good/gijun/index.jsp">It's Good Job</a>
+            <a href="/good/gijun/index.jsp" id="main-logo">It's Good Job</a>
           </div>
           <div class="sidebar-brand sidebar-brand-sm">
             <a href="/good/gijun/index.jsp">St</a>
