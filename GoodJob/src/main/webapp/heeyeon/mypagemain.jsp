@@ -52,19 +52,19 @@
 								<div class="profile-widget-item left card" id="activityList">
 									<div class="card-body">
 										<ul class="list-group">
-											<a href="#"><li
+											<a href="/good/heeyeon/review.jsp"><li
 												class="list-group-item d-flex justify-content-between align-items-center">
 													기업리뷰 <span class="badge badge-primary badge-pill">14</span>
 											</li></a>
-											<a href="#"><li
+											<a href="/good/heeyeon/study.jsp"><li
 												class="list-group-item d-flex justify-content-between align-items-center">
 													면접스터디 <span class="badge badge-primary badge-pill">2</span>
 											</li></a>
-											<a href="#"><li
+											<a href="/good/heeyeon/interview.jsp"><li
 												class="list-group-item d-flex justify-content-between align-items-center">
 													면접후기 <span class="badge badge-primary badge-pill">1</span>
 											</li></a>
-											<a href="#"><li
+											<a href="/good/heeyeon/qna.jsp"><li
 												class="list-group-item d-flex justify-content-between align-items-center">
 													여기어때? <span class="badge badge-primary badge-pill">1</span>
 											</li></a>

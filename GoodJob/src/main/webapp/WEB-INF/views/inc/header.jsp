@@ -4,8 +4,8 @@
 <header class="header">
 	<nav class="navbar container">
 		<!-- logo -->
-		<div class="order-0">
-			<a href=""> <!-- <img src="images/logo.svg" height="30" width="147" alt="logo" /> -->
+		<div class="order-0 mb-2 pl-5">
+			<a href=""> <img src="/good/assets/logo.png" height="30" width="147" alt="logo" />
 			</a>
 		</div>
 		<!-- navbar toggler -->
@@ -27,7 +27,7 @@
 		</label>
 		<!-- /navbar toggler -->
 		<ul id="nav-menu"
-			class="navbar-nav order-2 hidden w-full flex-[0_0_100%] lg:order-1 lg:flex lg:w-auto lg:flex-auto lg:justify-center lg:space-x-5">
+			class="navbar-nav order-2 hidden flex-[0_0_100%] lg:order-1 lg:flex lg:w-auto lg:flex-auto lg:justify-center space-x-4">
 			<li class="nav-item"><a href="" class="nav-link active">기업</a></li>
 			<li class="nav-item"><a href="" class="nav-link">채용</a></li>
 			<li class="nav-item"><a href="" class="nav-link">굿잡forU</a></li>
@@ -59,20 +59,38 @@
 					</div>
 				</form>
 			</li>
+			<c:if test="${empty id}">
 			<li class="nav-item mt-3.5 lg:hidden"><a
-				class="btn btn-primary btn-sm mb-2" href="#">로그인</a></li>
+				class="btn btn-primary no-shadow btn-sm mb-2" href="/good/user/signin.do">로그인</a></li>
 			<li class="nav-item">
 				<div
 					class="order-1 ml-auto hidden items-center md:order-2 md:ml-0 lg:flex">
-					<a class="btn btn-primary btn-sm" href="">로그인</a>
+					<a class="btn btn-primary no-shadow btn-sm" href="/good/user/signin.do">로그인</a>
 				</div>
 			</li>
 			<li class="nav-item">
 				<div
 					class="order-1 ml-auto hidden items-center md:order-2 md:ml-0 lg:flex">
-					<a class="btn btn-outline-primary btn-sm" href="">회원가입</a>
+					<a class="btn btn-outline-primary btn-sm" href="/good/user/signup.do">회원가입</a>
 				</div>
 			</li>
+			</c:if>
+			<c:if test="${not empty id}">
+			<li class="nav-item mt-3.5 lg:hidden"><a
+				class="btn btn-primary  no-shadowbtn-sm mb-2" href="">로그아웃</a></li>
+			<li class="nav-item">
+				<div
+					class="order-1 ml-auto hidden items-center md:order-2 md:ml-0 lg:flex">
+					<a class="btn btn-primary no-shadow btn-sm" href="">마이페이지</a>
+				</div>
+			</li>
+			<li class="nav-item">
+				<div
+					class="order-1 ml-auto hidden items-center md:order-2 md:ml-0 lg:flex">
+					<a class="btn btn-outline-primary btn-sm" href="">로그아웃</a>
+				</div>
+			</li>
+			</c:if>
 		</ul>
 	</nav>
 </header>
