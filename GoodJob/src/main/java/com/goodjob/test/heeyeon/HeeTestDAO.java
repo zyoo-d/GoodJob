@@ -67,7 +67,7 @@ public class HeeTestDAO {
 
 	public ArrayList<HeeCompany> comList() {
 		try {
-			String sql = "select distinct seq, LPAD(code, 8, '0') as code, name from tblcode";
+			String sql = "select distinct seq, LPAD(code, 8, '0') as code, name from tblcode where seq < 2103";
 
 			stat = conn.createStatement();
 			rs = stat.executeQuery(sql);

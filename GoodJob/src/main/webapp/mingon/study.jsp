@@ -51,11 +51,7 @@
 							</div>
 						</div>
 					</div>
-				</div>
-
-				<div class="comment-list">
-					<h4>댓글</h4>
-					<div class="">
+					<div class="comment-list">
 						<form>
 							<div class="add-comment">
 								<span><input type="text" placeholder="댓글을 입력하세요"></span>

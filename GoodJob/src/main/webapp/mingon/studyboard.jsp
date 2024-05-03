@@ -21,9 +21,9 @@
 					<div class="card-content">
 						<div class="px-4 text-center">
 							<h1 class="mt-3 gradiTitle">
-								<span>스터디 스케줄 게시판</span>
+								<span>스터디 게시판</span>
 							</h1>
-							<p class="mt-6">다양한 면접 스터디를 가입.개설 해주세요.</p>
+							<p class="mt-6">다양한 면접 스터디를 가입,개설 해주세요.</p>
 						</div>
 
 						<div>
