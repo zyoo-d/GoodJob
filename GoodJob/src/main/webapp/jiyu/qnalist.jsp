@@ -20,7 +20,7 @@
 
 <section class="page-hero pt-16 pb-6">
 		<div class="container">
-			<div class="z-custom card" id="itvWriteQnA">
+			<div class="card" id="itvWriteQnA">
 				<div class="card-content-wrapper">
 					<div class="card-content">
 						<div class="px-4 text-center">
@@ -66,8 +66,9 @@
 
               <div class="list_body">
                 <div id="rec-48103333" class="list_item">
-                  <div class="qna-list box_item row mx-0 rounded-[20px] bg-white px-10 shadow-lg">
-                    <div class="qna-list-index">
+                <!--  -->
+                  <div class="qna-list box_item row mx-0 rounded-[20px] bg-white px-10 shadow-lg">         
+                  <div class="qna-list-index">
                       1
                     </div>
                     <div class="com-title">
@@ -96,6 +97,132 @@
                       </div>
                     </div>
                   </div>
+                  <!--  -->
+                                  <!--  -->
+                  <div class="qna-list box_item row mx-0 rounded-[20px] bg-white px-10 shadow-lg">         
+                  <div class="qna-list-index">
+                      1
+                    </div>
+                    <div class="com-title">
+                      <div class="recruit-present-info">
+                        <div class="com-name">
+                          <a href="#" class="str_tit_com" target="_blank"></a>
+                          <span>네이버</span>
+                        </div>
+                      </div>
+                      <div class="col notification_info">
+                        <div class="qnalist job_tit">
+                          <a class="str_tit_title new" id="rec_link_48103333" onclick="" href="#" target="_blank" onmousedown=""><span>이 회사 어때요?</span></a>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="com-info">
+                      <div class="col recruit_info">
+                        <ul>
+                          <li>
+                            <p class="writer">zyxxx</p>
+                          </li>
+                          <li>
+                            <p class="qna-add-date">2024-04-30</p>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <!--  -->                <!--  -->
+                  <div class="qna-list box_item row mx-0 rounded-[20px] bg-white px-10 shadow-lg">         
+                  <div class="qna-list-index">
+                      1
+                    </div>
+                    <div class="com-title">
+                      <div class="recruit-present-info">
+                        <div class="com-name">
+                          <a href="#" class="str_tit_com" target="_blank"></a>
+                          <span>네이버</span>
+                        </div>
+                      </div>
+                      <div class="col notification_info">
+                        <div class="qnalist job_tit">
+                          <a class="str_tit_title new" id="rec_link_48103333" onclick="" href="#" target="_blank" onmousedown=""><span>이 회사 어때요?</span></a>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="com-info">
+                      <div class="col recruit_info">
+                        <ul>
+                          <li>
+                            <p class="writer">zyxxx</p>
+                          </li>
+                          <li>
+                            <p class="qna-add-date">2024-04-30</p>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <!--  -->                <!--  -->
+                  <div class="qna-list box_item row mx-0 rounded-[20px] bg-white px-10 shadow-lg">         
+                  <div class="qna-list-index">
+                      1
+                    </div>
+                    <div class="com-title">
+                      <div class="recruit-present-info">
+                        <div class="com-name">
+                          <a href="#" class="str_tit_com" target="_blank"></a>
+                          <span>네이버</span>
+                        </div>
+                      </div>
+                      <div class="col notification_info">
+                        <div class="qnalist job_tit">
+                          <a class="str_tit_title new" id="rec_link_48103333" onclick="" href="#" target="_blank" onmousedown=""><span>이 회사 어때요?</span></a>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="com-info">
+                      <div class="col recruit_info">
+                        <ul>
+                          <li>
+                            <p class="writer">zyxxx</p>
+                          </li>
+                          <li>
+                            <p class="qna-add-date">2024-04-30</p>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <!--  -->                <!--  -->
+                  <div class="qna-list box_item row mx-0 rounded-[20px] bg-white px-10 shadow-lg">         
+                  <div class="qna-list-index">
+                      1
+                    </div>
+                    <div class="com-title">
+                      <div class="recruit-present-info">
+                        <div class="com-name">
+                          <a href="#" class="str_tit_com" target="_blank"></a>
+                          <span>네이버</span>
+                        </div>
+                      </div>
+                      <div class="col notification_info">
+                        <div class="qnalist job_tit">
+                          <a class="str_tit_title new" id="rec_link_48103333" onclick="" href="#" target="_blank" onmousedown=""><span>이 회사 어때요?</span></a>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="com-info">
+                      <div class="col recruit_info">
+                        <ul>
+                          <li>
+                            <p class="writer">zyxxx</p>
+                          </li>
+                          <li>
+                            <p class="qna-add-date">2024-04-30</p>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <!--  -->
                 </div>
               </div>
             </section>
