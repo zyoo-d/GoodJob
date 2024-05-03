@@ -81,34 +81,25 @@
             <div
               class="changelogs-content rounded-xl bg-white p-6 shadow-lg lg:p-10"
             >
-              <span class="changelogs-tag bg-[#3A9CFF]">Changed</span>
-              <ul>
-                <li>
-                  Enhance or improve <span>User experience</span>, our Site, or
-                  our Service.
-                </li>
-                <li>Process transactions.</li>
-                <li>
-                  Send emails about our
-                  <span>Site or respond to</span> inquiries.
-                </li>
-                <li>
-                  Send emails and updates about Conclude,
-                  <span>including to amended legal</span> documents
-                </li>
-              </ul>
-              <span class="changelogs-tag bg-[#00CE92]">Added</span>
-              <ul>
-                <li>
-                  Enhance or improve <span>User experience</span>, our Site, or
-                  our Service.
-                </li>
-                <li>Process transactions.</li>
-                <li>
-                  Send emails about our
-                  <span>Site or respond to</span> inquiries.
-                </li>
-              </ul>
+                 <div class="card">
+          <div class="card-content">
+            <div class="card-tags">
+              <a class="tag" href="#">Development</a>
+            </div>
+            <h3 class="h4 card-title">
+              <a href="blog-single.html"
+                >The Ultimate Guide to Google My Business</a
+              >
+            </h3>
+            <p>
+              Mauris blandit aliquet elit, eget tincidunt nibh dolor sit amet,
+            </p>
+            <div class="card-footer mt-6 flex space-x-4">
+
+
+            </div>
+          </div>
+        </div>
             </div>
           </div>
         </div>

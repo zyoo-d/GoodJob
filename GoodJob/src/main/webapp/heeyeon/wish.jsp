@@ -8,199 +8,8 @@
 <meta charset="UTF-8">
 <%@include file="/WEB-INF/views/inc/asset.jsp"%>
 <style>
-.optionRegion {
-	margin-top: 20px;
-	display: flex;
-	border: 1px solid #dee2e6;
-	border-radius: 4px;
-	overflow: hidden;
-}
-
-.region-list {
-	width: 200px;
-	max-height: 240px;
-	padding: 10px;
-	background-color: #f8f9fa;
-	overflow-y: auto;
-	color: #606060;
-}
-
-.region-list ul {
-	list-style-type: none;
-	padding: 0;
-	margin: 0;
-	display: grid;
-	grid-template-columns: repeat(2, 1fr);
-	grid-gap: 5px;
-}
-
-.region-list li {
-	cursor: pointer;
-	padding: 5px;
-	border-radius: 4px;
-	transition: background-color 0.3s;
-}
-
-.region-list li:hover {
-	background-color: #e9ecef;
-}
-
-.location-list {
-	flex-grow: 1;
-	max-height: 240px;
-	padding: 10px;
-	background-color: #fff;
-	overflow-y: auto;
-	font-size: 0.85rem;
-}
-
-.location-list input[type='checkbox'] {
-	height: 0.9rem;
-	width: 0.9rem;
-	margin-bottom: 1.5px;
-}
-
-.location-list input[type='checkbox']:focus, #welfareCheckboxes input[type='checkbox']:focus { 
-	--tw-ring-shadow: none;
-}
-
-.location-list #locationCheckboxes {
-	display: grid;
-	grid-template-columns: repeat(4, 1fr);
-	grid-gap: 10px;
-	text-align: left;
-}
-
-.location-list label {
-	display: block;
-}
-
-@media screen and (max-width: 768px) {
-	.location-list #locationCheckboxes {
-		grid-template-columns: repeat(2, 1fr);
-	}
-}
-
-@media screen and (max-width: 480px) {
-	.location-list #locationCheckboxes {
-		grid-template-columns: 1fr;
-	}
-}
-
-.tag-group {
-	padding: 10px;
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-between;
-	height: 40px;
-}
-
-.tag-group label {
-	font-size: 0.8rem;
-	display: inline-block;
-	padding: 3px 8px;
-	background-color: #f1f1f1;
-	border-radius: 4px;
-	cursor: pointer;
-	margin: 0 2px;
-}
-
-.tag-group input[type="checkbox"] {
-	display: none;
-}
-
-.tag-group input[type="checkbox"]:checked+label {
-	background-color: #007bff;
-	color: #fff;
-}
-
-.table_scroll {
-	max-height: 250px;
-	overflow-y: auto;
-	margin-top: 1.25rem;
-	border: 1px solid #ccc;
-	border-collapse: collapse;
-	border-radius: 4px;
-}
-
-.default_table {
-	width: 100%;
-	border-collapse: collapse;
-}
-
-.default_table th, .default_table td {
-	padding: 10px;
-	border: 1px solid #ccc;
-	vertical-align: top;
-}
-
-.default_table th {
-	background-color: #f5f5f5;
-	font-weight: bold;
-	text-align: center;
-	color: #606060;
-}
-
-.default_table td {
-	font-size: 14px;
-}
-
-.chk_list {
-	list-style-type: none;
-	padding: 0;
-	margin: 0;
-}
-
-.chk_item {
-	margin-bottom: 5px;
-}
-
-.clear {
-	cursor: pointer;
-	font-size: 0.85rem;
-	color: #606060;
-}
-
-.gradiTitle span {
-  background: linear-gradient(184.78deg, #535AED 7.64%, #004F8B 120.07%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-.preferTitle {
-	color: #292929;
-}
-
-#userDetail {
-	display: grid;
-	font-size: 0.9rem;
-	grid-template-columns: repeat(3, 1fr);
-    grid-gap: 10px;
-}
-#userDetail h6 {
-	line-height: 2;
-}
-#userDetail select {
-	font-size: 0.9rem;
-	padding-right: 2rem;
-	padding-bottom: 0.3rem;
-	padding-top: 0.3rem;
-    border-radius: 2.5px;
-    width: 90%;
-}
-#userDetail input[type='number']{
-	font-size: 0.9rem;
-    border-radius: 2.5px;
-	width: 90%;
-	height: 35px;
-	padding: 0 0 0 0.75rem;
-}
-
-#userDetail select:focus, #userDetail input[type='number']:focus{
-	--tw-ring-color: #535AED;
-}
 </style>
-<script src="https://kit.fontawesome.com/d2e20c7551.js"
-	crossorigin="anonymous"></script>
+
 </head>
 <%@include file="/WEB-INF/views/inc/header.jsp"%>
 
@@ -214,55 +23,62 @@
 						class="integration-single-container rounded-xl bg-white py-16 px-5 shadow-lg md:px-10 tab"
 						data-tab-group="service-tab">
 						<div class="px-4 text-center">
-							<h1 class="mt-3 gradiTitle"><span>선호근무조건</span></h1>
-							<p class="mt-6">굿잡forU 추천은 고객님이 선호하는 근무 환경, 위치 등 다양한 요소를 고려합니다.<br> 고객님의 선호사항을 자세히 알려주시면, 그에 맞춰 최적의 기업을 추천드리겠습니다.</p>						</div>
+							<h1 class="mt-3 gradiTitle">
+								<span>선호근무조건</span>
+							</h1>
+							<p class="mt-6">
+								굿잡forU 추천은 고객님이 선호하는 근무 환경, 위치 등 다양한 요소를 고려합니다.<br> 고객님의
+								선호사항을 자세히 알려주시면, 그에 맞춰 최적의 기업을 추천드리겠습니다.
+							</p>
+						</div>
 
 						<div class="mt-8 border-y border-border py-10" id="userDetail">
 							<div>
-							<h6 class="text-left preferTitle">
-								<i class="fa-solid fa-user-graduate"></i> 학력 선택
-							</h6>
-							<select>
-								<option value="0">학력무관</option>
-								<option value="1">고등학교졸업</option>
-								<option value="2">대학교(2,3년)</option>
-								<option value="3">대학교졸업(4년)</option>
-								<option value="4">석사졸업</option>
-								<option value="5">박사졸업</option>
-								<option value="6">고등학교졸업이상</option>
-								<option value="7">대학교(2,3년)이상</option>
-								<option value="8">대학교졸업(4년)이상</option>
-								<option value="9">석사졸업이상</option>
-							</select>
+								<h6 class="text-left preferTitle">
+									<i class="fa-solid fa-user-graduate"></i> 학력 선택
+								</h6>
+								<select>
+									<option value="0">학력무관</option>
+									<option value="1">고등학교졸업</option>
+									<option value="2">대학교(2,3년)</option>
+									<option value="3">대학교졸업(4년)</option>
+									<option value="4">석사졸업</option>
+									<option value="5">박사졸업</option>
+									<option value="6">고등학교졸업이상</option>
+									<option value="7">대학교(2,3년)이상</option>
+									<option value="8">대학교졸업(4년)이상</option>
+									<option value="9">석사졸업이상</option>
+								</select>
 							</div>
 							<div>
-							<h6 class="text-left preferTitle">
-								<i class="fa-solid fa-briefcase"></i> 경력 선택
-							</h6>
-							<input type="number" min="0" max="40" step="1" placeholder="숫자만 입력(0 ~)" required>
+								<h6 class="text-left preferTitle">
+									<i class="fa-solid fa-briefcase"></i> 경력 선택
+								</h6>
+								<input type="number" min="0" max="40" step="1"
+									placeholder="숫자만 입력(0 ~)" required>
 							</div>
 							<div>
-							<h6 class="text-left preferTitle">
-								<i class="fa-solid fa-hand-holding-dollar"></i> 희망연봉
-							</h6>
-							<select>
-								<option value="0">회사내규에 따름</option>
-								<option value="9">2,600만원 이상</option>
-								<option value="10">2,800만원 이상</option>
-								<option value="11">3,000만원 이상</option>
-								<option value="12">3,200만원 이상</option>
-								<option value="13">3,400만원 이상</option>
-								<option value="14">3,600만원 이상</option>
-								<option value="15">3,800만원 이상</option>
-								<option value="16">4,000만원 이상</option>
-								<option value="17">5,000만원 이상</option>
-								<option value="18">6,000만원 이상</option>
-								<option value="19">7,000만원 이상</option>
-								<option value="20">8,000~9,000만원</option>
-								<option value="21">9,000~1억원</option>
-								<option value="22">1억원 이상</option>
-								<option value="99">면접후 결정</option>
-							</select>
+								<h6 class="text-left preferTitle">
+									<i class="fa-solid fa-hand-holding-dollar"></i> 희망연봉
+								</h6>
+								<select>
+									<option value="0">회사내규에 따름</option>
+									<option value="9">2,600만원 이상</option>
+									<option value="10">2,800만원 이상</option>
+									<option value="11">3,000만원 이상</option>
+									<option value="12">3,200만원 이상</option>
+									<option value="13">3,400만원 이상</option>
+									<option value="14">3,600만원 이상</option>
+									<option value="15">3,800만원 이상</option>
+									<option value="16">4,000만원 이상</option>
+									<option value="17">5,000만원 이상</option>
+									<option value="18">6,000만원 이상</option>
+									<option value="19">7,000만원 이상</option>
+									<option value="20">8,000~9,000만원</option>
+									<option value="21">9,000~1억원</option>
+									<option value="22">1억원 이상</option>
+									<option value="99">면접후 결정</option>
+								</select>
 							</div>
 
 						</div>
@@ -273,7 +89,7 @@
 								<i class="fa-solid fa-location-dot"></i> 선호근무지역(최대 3개)
 							</h5>
 							<div class="optionRegion">
-								<div class="region-list">
+								<div class="region-list wish">
 									<ul>
 										<li onclick="showLocations('서울')">서울</li>
 										<li onclick="showLocations('경기')">경기</li>
@@ -805,7 +621,7 @@
 						</div>
 						<!-- 선호복리후생 End -->
 						<div class="px-4 text-center">
-						<button class="btn btn-primary w-full" type="submit">제출하기</button>
+							<button class="btn btn-primary w-full" type="submit">제출하기</button>
 						</div>
 					</div>
 				</div>
