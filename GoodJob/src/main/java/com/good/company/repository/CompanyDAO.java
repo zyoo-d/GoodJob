@@ -48,6 +48,34 @@ public class CompanyDAO {
 		
 		return null;
 	}
-	
+	public ArrayList<CompanyDTO> listCompany() {
+		
+		try {
+					
+					String sql = "sql";
+					
+					pstat = conn.prepareStatement(sql);
+					pstat.setString(1, value);
+					
+					rs = pstat.executeQuery();
+					
+					ArrayList<dto> list = new ArrayList<dto>();
+					
+					while (rs.next()) {
+						
+						dto dto = new dto();
+						
+						setter
+						
+						list.add(dto);				
+					}	
+					
+					return list;
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+		
+	}
 	
 }
