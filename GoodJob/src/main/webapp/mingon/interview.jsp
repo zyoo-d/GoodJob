@@ -8,6 +8,7 @@
 <%@include file="/WEB-INF/views/inc/asset.jsp"%>
 <style>
 
+
 </style>
 </head>
 <%@include file="/WEB-INF/views/inc/header.jsp"%>
@@ -43,127 +44,160 @@
 					</form>
 				</div>
 
-
-
-
-
 				<div class="mb-8 md:col-6">
-
-
 					<div class="card itvCard">
-
 						<div class="card-content-wrapper">
-
-
-							<div class="card-content">
-
-								<div class="itvdropdownContent">
-									<div class="itvImgBox">
-										<img
-											src="https://blog.kakaocdn.net/dn/HDY7T/btrY2our4Rw/Fw6bz0QroBUp1YxglkkwEK/img.webp"
-											id="itvImg" alt="" />
-									</div>
-									<div class="card-tags">
-										<a class="tag" href="#">합격 후기</a> <i
-											class="fa-solid fa-arrow-down-short-wide dw"></i>
-
-									</div>
-									<div class="itvContentFooter">
-										<h3 class="h4 card-title">
-											<p>네이버 하반기 공채 면접</p>
-										</h3>
-										<p>면접내용 요약면접내용</p>
-									</div>
+							<div class="itvdropdownContent">
+								<div class="itvImgBox">
+									<img
+										src="https://blog.kakaocdn.net/dn/HDY7T/btrY2our4Rw/Fw6bz0QroBUp1YxglkkwEK/img.webp"
+										id="itvImg" alt="" />
+										
+								</div>
+								<div class="itvCardTags">
+									<a class="tag" href="#">불합격</a> <i
+										class="fa-solid fa-arrow-down-short-wide dw"></i>
 
 								</div>
-
-								<div class="itvDetail">
-									<div class="itvDetailEmo"></div>
-									<div class="itvDetailInfo">
-										<strong>면접 유형</strong>
-											   <span>태그</span>
-									</div>
-									<div class="itvDetailInfo">
-										<strong>면접 인원</strong>
-											   <span>태그</span>
-									</div>
-									<div class="itvDetailInfo">
-										<strong>전형 및 면접 진행 방식</strong>
-											   <span>내용</span>
-									</div>
-									<div class="itvDetailInfo">
-										<strong>면접 질문</strong>
-											   <span>내용</span>
-									</div>
-
+								<div class="itvContentFooter">
+									<h3 class="h4 card-title">
+										<p>회사 이름</p>
+									</h3>
+									<p> 경력 면접일자 전반적 평가 난이도 </p>
 								</div>
-
 
 							</div>
+
+							<div class="itvDetail">
+								<div class="itvDetailEmo"></div>
+								<div class="itvDetailInfo">
+									<strong class="itvDetailInfoTitle">면접 유형</strong> <span>태그</span>
+								</div>
+								<div class="itvDetailInfo">
+									<strong class="itvDetailInfoTitle">면접 인원</strong> <span>태그</span>
+								</div>
+								<div class="itvDetailInfo">
+									<strong class="itvDetailInfoTitle">면접 질문</strong>
+									<p>가장 생각나는 질문 1가지</p>
+								</div>
+								<div class="itvDetailInfo">
+									<strong class="itvDetailInfoTitle">TIP 및 특이사항</strong>
+									<p>1차 면접은 1대 다 면접인지 몰랐기 때문에 많은 긴장을 하고 갔으나 압박 면접은 아니었고 회사
+										분위기가 젊다 보니 그들과 잘 어우러질 수 있는지를 좀 많이 본 것 같고 2차 면접은 대표가 최종 결정을 하는
+										면접 으로 크파가 원하는 멤버 상에 부합하는지를 많이 보는것 같다.</p>
+								</div>
+
+							</div>
+
+
+
 						</div>
 					</div>
 					<div class="card itvCard">
-
 						<div class="card-content-wrapper">
-
-
-							<div class="card-content">
-
-								<div class="itvdropdownContent">
-									<div class="itvImgBox">
-										<img
-											src="https://blog.kakaocdn.net/dn/HDY7T/btrY2our4Rw/Fw6bz0QroBUp1YxglkkwEK/img.webp"
-											id="itvImg" alt="" />
-									</div>
-									<div class="card-tags">
-										<a class="tag" href="#">합격 후기</a> <i
-											class="fa-solid fa-arrow-down-short-wide dw"></i>
-
-									</div>
-									<div class="itvContentFooter">
-										<h3 class="h4 card-title">
-											<p>네이버 하반기 공채 면접</p>
-										</h3>
-										<p>면접내용 요약면접내용</p>
-									</div>
+							<div class="itvdropdownContent">
+								<div class="itvImgBox">
+									<img
+										src="https://blog.kakaocdn.net/dn/HDY7T/btrY2our4Rw/Fw6bz0QroBUp1YxglkkwEK/img.webp"
+										id="itvImg" alt="" />
+								</div>
+								<div class="itvCardTags">
+									<a class="tag" href="#">합격</a> <i
+										class="fa-solid fa-arrow-down-short-wide dw"></i>
 
 								</div>
-
-								<div class="itvDetail">
-									<div class="itvDetailEmo"></div>
-									<div class="itvDetailInfo">
-										<strong>면접 유형</strong>
-										<p>내용</p>
-									</div>
-									<div class="itvDetailInfo">
-										<strong>면접 인원</strong>
-										<p>내용</p>
-									</div>
-									<div class="itvDetailInfo">
-										<strong>전형 및 면접 진행 방식</strong>
-										<p>내용</p>
-									</div>
-									<div class="itvDetailInfo">
-										<strong>면접 질문</strong>
-										<p>내용</p>
-									</div>
-
+								<div class="itvContentFooter">
+									<h3 class="h4 card-title">
+										<p>네이버 하반기 공채 면접</p>
+									</h3>
+									<p>면접내용 요약면접내용</p>
 								</div>
-
 
 							</div>
+
+							<div class="itvDetail">
+								<div class="itvDetailEmo"></div>
+								<div class="itvDetailInfo">
+									<strong class="itvDetailInfoTitle">면접 유형</strong> <span>태그</span>
+								</div>
+								<div class="itvDetailInfo">
+									<strong class="itvDetailInfoTitle">면접 인원</strong> <span>태그</span>
+								</div>
+								<div class="itvDetailInfo">
+									<strong class="itvDetailInfoTitle">면접 질문</strong>
+									<p>가장 생각나는 질문 1가지</p>
+								</div>
+								<div class="itvDetailInfo">
+									<strong class="itvDetailInfoTitle">TIP 및 특이사항</strong>
+									<p>1차 면접은 1대 다 면접인지 몰랐기 때문에 많은 긴장을 하고 갔으나 압박 면접은 아니었고 회사
+										분위기가 젊다 보니 그들과 잘 어우러질 수 있는지를 좀 많이 본 것 같고 2차 면접은 대표가 최종 결정을 하는
+										면접 으로 크파가 원하는 멤버 상에 부합하는지를 많이 보는것 같다.</p>
+								</div>
+
+							</div>
+
+
+
 						</div>
 					</div>
-				
+					<div class="card itvCard">
+						<div class="card-content-wrapper">
+							<div class="itvdropdownContent">
+								<div class="itvImgBox">
+									<img
+										src="https://blog.kakaocdn.net/dn/HDY7T/btrY2our4Rw/Fw6bz0QroBUp1YxglkkwEK/img.webp"
+										id="itvImg" alt="" />
+								</div>
+								<div class="itvCardTags">
+									<a class="tag" href="#">합격</a> <i
+										class="fa-solid fa-arrow-down-short-wide dw"></i>
+
+								</div>
+								<div class="itvContentFooter">
+									<h3 class="h4 card-title">
+										<p>네이버 하반기 공채 면접</p>
+									</h3>
+									<p>면접내용 요약면접내용</p>
+								</div>
+
+							</div>
+
+							<div class="itvDetail">
+								<div class="itvDetailEmo"></div>
+								<div class="itvDetailInfo">
+									<strong class="itvDetailInfoTitle">면접 유형</strong> <span>태그</span>
+								</div>
+								<div class="itvDetailInfo">
+									<strong class="itvDetailInfoTitle">면접 인원</strong> <span>태그</span>
+								</div>
+								<div class="itvDetailInfo">
+									<strong class="itvDetailInfoTitle">면접 질문</strong>
+									<p>가장 생각나는 질문 1가지</p>
+								</div>
+								<div class="itvDetailInfo">
+									<strong class="itvDetailInfoTitle">TIP 및 특이사항</strong>
+									<p>1차 면접은 1대 다 면접인지 몰랐기 때문에 많은 긴장을 하고 갔으나 압박 면접은 아니었고 회사
+										분위기가 젊다 보니 그들과 잘 어우러질 수 있는지를 좀 많이 본 것 같고 2차 면접은 대표가 최종 결정을 하는
+										면접 으로 크파가 원하는 멤버 상에 부합하는지를 많이 보는것 같다.</p>
+								</div>
+
+							</div>
+
+
+
+						</div>
+					</div>
+
+
 
 
 
 				</div>
-					   <div class="moving-btn studyAdd">
-                            <a href="#" class="btn btnList">글쓰기</a>
-                </div>
+				<div class="moving-btn studyAdd">
+					<a href="#" class="btn btnList">글쓰기</a>
+				</div>
 			</div>
-		
+
 		</div>
 
 	</section>
