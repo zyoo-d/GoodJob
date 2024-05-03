@@ -55,7 +55,7 @@
 	<section class="section key-feature relative" id="mainCard">
 		<div class="container">
 			<h3 class="mt-10">
-				요즘 뜨는 기업!<span class="material-symbols-outlined" id="filterHire">done채용중</span>
+				요즘 뜨는 기업!<span class="" id="filterHire"><i class="fa-solid fa-check"></i> 채용중</span>
 			</h3>
 			<div
 				class="key-feature-grid mt-5 grid grid-cols-2 gap-7 md:grid-cols-3 xl:grid-cols-4">
