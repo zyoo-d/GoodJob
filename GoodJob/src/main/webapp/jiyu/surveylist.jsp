@@ -7,8 +7,7 @@
     <%@include file="/WEB-INF/views/inc/asset.jsp" %>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <style>
-
-    </style>
+ </style>
 </head>
 <%@include file="/WEB-INF/views/inc/header.jsp" %>
 <body>
@@ -17,7 +16,7 @@
         <div class="container">
             <div class="card" id="itvWriteQnA">
                 <div class="card-content-wrapper">
-                    <div class="px-4 text-center sizing">
+                    <div class="survey-line px-4 text-center sizing">
                         <h1 class="mt-3 gradiTitle"><span>Survey for GoodJob!</span></h1>
                          <p class="survey-list mt-6">설문조사 결과를 토대로 000님의 맞춤 기업을 추천해드립니다.<br>
                          성실하게 설문조사에 응하실 경우 보다 정확한 정보가 제공됩니다.</p>
@@ -49,5 +48,8 @@
     </div>
     </section>
     </div>
+    	<%@include file="/WEB-INF/views/inc/footer.jsp"%>
+    <script>
+    </script>
 </body>
 </html>

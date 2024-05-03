@@ -265,8 +265,8 @@
 
 .com-tag {
     display: flex;
-    flex-direction: column; /* Ensures the children are stacked vertically */
-    height: inherit; /* Set a fixed height if needed, or make sure it inherits properly */
+    flex-direction: column; 
+    height: inherit; 
 }
 
 .click-tag {
@@ -278,14 +278,19 @@
 }
 
 .submit-info {
-    width: 100%; /* Ensure the container takes full width */
-    text-align: center; /* Center-align the text inside the container */
-    padding: 20px; /* Optional: Adds padding around the text for better spacing */
-    margin-top: 20px; /* Optional: Adds space above the container if needed */
+    width: 100%;
+    text-align: center;
+    padding: 20px; 
+    margin-top: 20px; 
 }
 
 
+.survey-line {
 
+	border-bottom: 1px solid #EEE;
+
+}
+   
 
 
 
@@ -728,13 +733,16 @@
     margin: 0;
 }
 
-.view-form.qnaview .company {
+.view-form.qnaview .company{
     color: #525DED;
     font-size: 1.3rem;
+    padding-bottom: 3px;
 }
 
-.view-form.qnaview .title {
+.view-form.qnaview .title, .qna-view-form.qnaview .title{
     margin-top: 5px;
+    padding-bottom: 3px;
+
 }
 
 

@@ -19,11 +19,11 @@
 
 	<!-- ./end floating assets -->
 
-	<section class="page-hero pt-16 pb-6">
+<section class="page-hero pt-16 pb-6">
 		<div class="container">
 			<div class="z-custom card" id="itvWriteQnA">
-				<div class="">
-					<div class="">
+				<div class="card-content-wrapper">
+					<div class="card-content">
 						<div class="px-4 text-center">
 							<h1 class="mt-3 gradiTitle">
 								<span>기업검색</span>
@@ -282,6 +282,7 @@
 			</ul>
 		</nav>
 	</section>
+	<%@include file="/WEB-INF/views/inc/footer.jsp"%>
 	<script>
 		document.addEventListener("DOMContentLoaded", function() {
 			document.getElementById("detail-search-btn").addEventListener(
@@ -478,6 +479,7 @@
 			$(this).next().addBack().remove();
 		});
 		/* 선호근무지역 End */
+
 	</script>
 </body>
 

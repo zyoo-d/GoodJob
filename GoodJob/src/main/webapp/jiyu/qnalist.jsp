@@ -19,11 +19,12 @@
 <!-- ./end floating assets -->
 
 <section class="page-hero pt-16 pb-6">
-  <div class="container">
-    <div class="z-custom card" id="itvWriteQnA">
-      <div class="">
-        <div class="card-content">
-          <div class="px-4 text-center">
+		<div class="container">
+			<div class="z-custom card" id="itvWriteQnA">
+				<div class="card-content-wrapper">
+					<div class="card-content">
+						<div class="px-4 text-center">
+
             <h1 class="mt-3 gradiTitle"><span>여기어때</span></h1>
             <p class="qanlist mt-6">자유롭게 회사정보를 공유해보세요.</p>
           </div>
@@ -45,7 +46,7 @@
               </button>
             </form>
           </div>
-
+</div>
           <div id="default_list_wrap" style="position:relative">
             <section class="list_recruiting">
               <div class="list-header">
@@ -106,7 +107,7 @@
                 </div>
               </div>
             </section>
-          </div>
+
         </div>
       </div>
     </div>
@@ -130,7 +131,10 @@
 			</ul>
 		</nav>
 </section>
+	<%@include file="/WEB-INF/views/inc/footer.jsp"%>
+<script>
 
+</script>
 </body>
 
 </html>

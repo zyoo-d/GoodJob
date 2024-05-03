@@ -559,50 +559,7 @@
 										</div>
 									</div>
 								</div>
-								<!-- 채용공고end -->							<!-- 채용공고start -->
-								<div class="box_item row mx-0 rounded-[20px] bg-white px-10 shadow-lg">
-									<div class="com-title">
-										<div class="recruit-present-info">
-											<div class="com-name">
-												<span>네이버</span>
-											</div>
-											<div class="col support_info">
-												<p class="support_detail">
-													<span class="date">~05.16(목)</span> <span class="deadlines">39분전 등록</span>
-												</p>
-											</div>
-										</div>
-										<div class="col notification_info">
-											<div class="job_tit">
-												<a class="str_tit_title new" id="rec_link_48103333"
-													onclick="" href="#" target="_blank" onmousedown=""> <span><h3>신입직원공개채용(일반행정)</h3></span></a>
-											</div>
-											<div class="job_meta">
-												<span class="job-keyword">java</span> <span
-													class="job-keyword">엔지니어</span> <span class="job-keyword">빅데이터</span>
-											</div>
-										</div>
-									</div>
-									<div class="com-info">
-										<div class="col recruit_info">
-											<ul>
-												<li>
-													<p class="work_place">서울 서초구</p>
-												</li>
-												<li>
-													<p class="career">신입</p>
-												</li>
-												<li>
-													<p class="education">학력무관</p>
-												</li>
-												<li>
-													<p class="salary">면접 후 협의</p>
-												</li>
-											</ul>
-										</div>
-									</div>
-								</div>
-								<!-- 채용공고end -->							<!-- 채용공고start -->
+								<!-- 채용공고end -->	<!-- 채용공고start -->
 								<div class="box_item row mx-0 rounded-[20px] bg-white px-10 shadow-lg">
 									<div class="com-title">
 										<div class="recruit-present-info">
@@ -761,6 +718,7 @@
 			</ul>
 		</nav>
 	</section>
+		<%@include file="/WEB-INF/views/inc/footer.jsp"%>
 	<script>
 		document.addEventListener("DOMContentLoaded", function() {
 			document.getElementById("detail-search-btn").addEventListener(

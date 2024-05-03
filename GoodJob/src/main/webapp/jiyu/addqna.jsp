@@ -49,7 +49,7 @@
         </div>
     </section>
 </div>
-<%@include file="/WEB-INF/views/inc/footer.jsp" %>
+	<%@include file="/WEB-INF/views/inc/footer.jsp"%>
 <script>
     function fetchRelatedContent(searchTerm, dropdownId) {
         const relatedContent = [
