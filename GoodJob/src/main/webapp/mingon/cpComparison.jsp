@@ -39,9 +39,9 @@
 <%@include file="/WEB-INF/views/inc/header.jsp"%>
 <body>
 
-
+	<section class="page-hero pt-16 pb-6">
 	<div class="container">
-		<div class="card comCard">
+		<div class="card" id="itvWriteQnA">
 		<div class="px-4 text-center">
 		<h1 class="mt-3 gradiTitle">
 			<span>기업 비교</span>
@@ -172,7 +172,7 @@
 
 		</div>
 	</div>
-
+</section>
 
 
 
