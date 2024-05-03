@@ -2341,11 +2341,11 @@ input#nav-toggle:checked ~ #nav-menu {
 }
 .btn-outline-primary:hover {
   --tw-bg-opacity: 0.5;
-  background-color: rgba(246,246,246,0.85);
+  /* background-color: rgba(246,246,246,0.85); */
   --tw-text-opacity: 1;
   color: #535AED;
   font-weight: 700;
-  --tw-shadow: 0px 5px 20px rgba(83,90,237,0.3);
+  /* --tw-shadow: 0px 5px 20px rgba(83,90,237,0.3); */
   --tw-shadow-colored: 0px 5px 30px var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
@@ -2368,7 +2368,7 @@ input#nav-toggle:checked ~ #nav-menu {
   transition-duration: 150ms;
   --tw-content: "";
   content: var(--tw-content);
-    background-image: linear-gradient(184.78deg, #535AED 7.64%, #3EB2F8 120.07%);
+  /*   background-image: linear-gradient(184.78deg, #535AED 7.64%, #3EB2F8 120.07%); */
 }
 .btn-outline-white {
   border-radius: 50px;

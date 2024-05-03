@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!-- favicon -->
-<link rel="icon" href="/good/assets/favicon.ico" type="image/x-icon"/>
+<link rel="icon" href="/good/assets/favicon.ico" type="image/x-icon" />
 
 <!-- theme meta -->
 <meta name="theme-name" content="Pinwheel" />
@@ -62,22 +62,29 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700;900&display=swap"
 	rel="stylesheet" />
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
 <!-- styles -->
 
-  
+
 <!-- Swiper slider -->
-<link rel="stylesheet" href="/good/assets/plugins/swiper/swiper-bundle.css" />
+<link rel="stylesheet"
+	href="/good/assets/plugins/swiper/swiper-bundle.css" />
 
 <!-- Fontawesome -->
-<link rel="stylesheet" href="/good/assets/plugins/font-awesome/v6/brands.css" />
-<link rel="stylesheet" href="/good/assets/plugins/font-awesome/v6/solid.css" />
-<link rel="stylesheet" href="/good/assets/plugins/font-awesome/v6/fontawesome.css" />
+<script src="https://kit.fontawesome.com/d2e20c7551.js"
+	crossorigin="anonymous"></script>
+<link rel="stylesheet"
+	href="/good/assets/plugins/font-awesome/v6/brands.css" />
+<link rel="stylesheet"
+	href="/good/assets/plugins/font-awesome/v6/solid.css" />
+<link rel="stylesheet"
+	href="/good/assets/plugins/font-awesome/v6/fontawesome.css" />
 
 <!-- Main Stylesheet -->
 <link href="/good/assets/styles/main.css" rel="stylesheet" />
 <link href="/good/assets/styles/custom.css" rel="stylesheet" />
-<link href="/good/assets/styles/jiyu.css" rel="stylesheet" />
 
 <!-- jQuery -->
 <script src="/good/assets/plugins/jquery/jquery.min.js"></script>
