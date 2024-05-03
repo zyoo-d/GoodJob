@@ -12,9 +12,9 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import com.good.company.model.CompanyDTO;
+import com.good.company.model.RecruitDTO;
 import com.good.company.repository.CompanyDAO;
 import com.good.company.repository.RecruitDAO;
-import com.good.matching.model.RecruitDTO;
 
 public class AddTest {
 	public static void main(String[] args) {

@@ -302,7 +302,7 @@
 }
 
 .default_table th, .default_table td {
-	padding: 10px;
+	padding: 10px 20px;
 	border: 1px solid #ccc;
 	vertical-align: top;
 }

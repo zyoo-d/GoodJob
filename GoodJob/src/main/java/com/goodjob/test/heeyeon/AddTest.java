@@ -16,8 +16,8 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+import com.good.company.model.RecruitDTO;
 import com.good.company.repository.RecruitDAO;
-import com.good.matching.model.RecruitDTO;
 
 public class AddTest {
 	public static void main(String[] args) {
@@ -32,7 +32,7 @@ public class AddTest {
 				String text = URLEncoder.encode(com.getName(), "UTF-8");
 				String result = "";
 				String apiURL = "https://oapi.saramin.co.kr/job-search?access-key=kGgodXZQ5kfDGTdZ1KRRvu0P2hr5jJAz2Bxm41owVOyPud5yqs1oW&keywords="
-						+ text + "&job_type=1&edu_lv=&count=110&job_mid_cd=2";
+						+ text + "&stock=kospi+kosdaq+konex&job_type=1&edu_lv=&count=110&job_mid_cd=2";
 
 				URL url = new URL(apiURL);
 				HttpURLConnection con = (HttpURLConnection) url.openConnection();

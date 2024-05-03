@@ -1,4 +1,4 @@
-package com.good.matching.model;
+package com.good.company.model;
 
 import lombok.Data;
 
