@@ -61,7 +61,7 @@
 						<form>
 							<div class="add-comment">
 								<span><input type="text" placeholder="댓글을 입력하세요"></span>
-								<button type="button" class="btn btnAddComment"">
+								<button type="button" class="btn btnAddComment">
 									<span class="material-symbols-outlined">done_outline</span>
 								</button>
 							</div>

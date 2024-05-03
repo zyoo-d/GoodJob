@@ -7,58 +7,7 @@
 <meta charset="UTF-8">
 <%@include file="/WEB-INF/views/inc/asset.jsp"%>
 <style>
-.itvDetail.show {
-  display: block;
-}
-.itvCard {
-	margin: auto;
-	height: auto;
-	width: 1000px;
-	margin-bottom: 30px;
-	min-height: auto;
-}
 
-#itvImg {
-	width: 150px;
-	height: 150px;
-}
-
-.card-tags i {
-	position: relative;
-	top: 210px;
-}
-
-.card-content-wrapper {
-	flex-basis: calc(50% - 10px); /* 50% width with spacing */
-	margin-bottom: 20px; /* Adjust spacing between rows */
-}
-
-.itvCpname {
-	height: 40px;
-}
-
-.itvDetail {
-	display: none;
-	color: blue;
-}
-
-.itvdropdownContent {
-	display: flex;
-	flex-wrap: wrap;
-	align-content: stretch;
-	justify-content: flex-start;
-	margin-bottom: 20px;
-}
-
-.itvContentFooter {
-	display: flex;
-	justify-content: space-around;
-	flex-direction: column;
-}
-
-.card-tags i {
-	cursor: pointer;
-}
 </style>
 </head>
 <%@include file="/WEB-INF/views/inc/header.jsp"%>
@@ -132,19 +81,19 @@
 									<div class="itvDetailEmo"></div>
 									<div class="itvDetailInfo">
 										<strong>면접 유형</strong>
-										<p>내용</p>
+											   <span>태그</span>
 									</div>
 									<div class="itvDetailInfo">
 										<strong>면접 인원</strong>
-										<p>내용</p>
+											   <span>태그</span>
 									</div>
 									<div class="itvDetailInfo">
 										<strong>전형 및 면접 진행 방식</strong>
-										<p>내용</p>
+											   <span>내용</span>
 									</div>
 									<div class="itvDetailInfo">
 										<strong>면접 질문</strong>
-										<p>내용</p>
+											   <span>내용</span>
 									</div>
 
 								</div>

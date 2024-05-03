@@ -9,27 +9,7 @@
 <%@include file="/WEB-INF/views/inc/asset.jsp"%>
 
 <style>
-.cpCimg img {
-	max-width: 100px; /* 최대 너비 설정 */
-	max-height: 100px; /* 최대 높이 설정 */
-}
 
-.cpcCpChart {
-	width: 800px;
-	height: 400px;
-	margin: auto;
-	margin-top: 40px;
-	margin-bottom: 50px;
-}
-
-.cpCMember h3 {
-	margin-top: 40px;
-	margin-bottom: 30px;
-}
-
-.cpCMember p {
-	margin-bottom: 60px;
-}
 </style>
 </head>
 <%@include file="/WEB-INF/views/inc/header.jsp"%>
@@ -42,36 +22,16 @@
 						<span>기업 비교</span>
 					</h1>
 					<p class="mt-6">비교하고 싶은 기업을 지정해보세요.</p>
+					
+						<div class="moving-btn">
+					<a href="#" class="btn btnList">기업 다시 비교하기</a>
+				</div>
 				</div>
 
 
-	<section class="page-hero pt-16 pb-6">
-	<div class="container">
-		<div class="card" id="itvWriteQnA">
-		<div class="px-4 text-center">
-		<h1 class="mt-3 gradiTitle">
-			<span>기업 비교</span>
-		</h1>
-		<p class="mt-6">비교하고 싶은 기업을 지정해보세요.</p>
-	</div>
-
+	
 	<div>
-		<form id="searchForm" method="GET" action="/toy/board/list.do">
-			<div class="InpBox">
-				<select class="sorting">
-					<option value="subject">기업</option>
-					<option value="subject">제목</option>
-					<option value="content">내용</option>
-				</select>
-			</div>
-			<input type="text" name="input" class="input" id="search-input"
-				placeholder="검색어를 입력하세요">
-			<button type="button" class="search" id="search-btn">
-				<span class="material-symbols-outlined"> <span
-					class="material-symbols-outlined">search</span>
-				</span>
-			</button>
-		</form>
+
 	</div>
 
 				<div class="my-5 border-b border-border">
