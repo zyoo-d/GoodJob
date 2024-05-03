@@ -7,25 +7,7 @@
     <%@include file="/WEB-INF/views/inc/asset.jsp" %>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <style>
-.addqna-form {
-    display: flex;
-    align-items: center;
-    width: 100%; 
-    margin-bottom: 8px;
-}
 
-#write-company, #write-title {
-    margin-right: 8px;
-    white-space: nowrap;
-    font-size:18px;
-    border: 1px solid #ddd;
-    padding: 7px;
-}
-
-
-#write-form{
-	width:100%;
-}
     </style>
 </head>
 <%@include file="/WEB-INF/views/inc/header.jsp" %>

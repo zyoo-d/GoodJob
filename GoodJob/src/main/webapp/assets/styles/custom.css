@@ -481,13 +481,25 @@ textarea:focus {
 .textarea-group {
 	margin-bottom: 0;
 }
-
-.textarea-group textarea, .view-form .company, .view-form .title {
+.textarea-group textarea {
 	width: 100%;
-	padding: 10px;
-	border: 1px solid #ddd;
-	border-radius: 5px;
-	resize: none;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    resize: none;
+	
+	
+	
+}
+
+
+
+.view-form .company, .view-form .title {
+    width: 100%;
+    padding: 11.5px;
+    border: 1px solid #ddd;
+    border-radius: 0 5px 5px 0;
+    resize: none;
 }
 
 .view-form .company, .view-form .title {
@@ -703,14 +715,14 @@ textarea:focus {
 
 /**/
 .InpBox {
-	margin-right: 5px;
-	border: 1px solid #BFBFBF;
-	border-radius: 6px;
-	overflow: hidden;
-	background-color: white;
-	position: relative;
-	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-	width: auto;
+    margin: 5px 15px;
+    border: 1px solid #BFBFBF;
+    border-radius: 6px;
+    overflow: hidden;
+    background-color: white;
+    position: relative;
+    /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); */
+    width: auto;
 }
 
 .InpBox select {
@@ -775,15 +787,15 @@ textarea:focus {
 }
 /*검색폼*/
 #searchForm {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	background: #FFFFFF;
-	padding: 10px 20px;
-	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-	border-radius: 25px;
-	width: 50%;
-	margin: 20px auto;
+display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #FFFFFF;
+    /* padding: 10px 20px; */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    width: 50%;
+    margin: 20px auto;
 }
 
 #searchForm .input {
@@ -830,7 +842,28 @@ textarea:focus {
 #detail-search-btn:hover, #btn-detail:hover {
 	background-color: #5566cc;
 }
+.addqna-form {
+    display: flex;
+    align-items: center;
+    width: 100%; 
+    margin-bottom: 8px;
+}
 
+#write-company, #write-title {
+    /* margin-right: 8px; */
+    white-space: nowrap;
+    font-size: 20px;
+    border: 1px solid #ddd;
+    padding: 7px 14px;;
+    border: 1px solid #ddd;
+    border-radius: 5px 0 0 5px;
+    border-right: hidden;
+}
+
+
+#write-form{
+	width:100%;
+}
 /*드롭다운 형식 검색*/
 .dropdown-content.addqna {
 	position: absolute;
