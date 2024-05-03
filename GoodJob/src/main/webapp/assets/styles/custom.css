@@ -64,23 +64,15 @@
 .hiring {
 	position: absolute;
 	right: 0;
-	border: 1px solid tomato;
-	padding: 2px 5px;
-	border-radius: 5px;
-	color: tomato;
-	font-size: 0.7rem;
+	bottom: 3px;
 }
 
 #filterHire {
 	position: absolute;
 	right: 0;
-	border: 1px solid tomato;
-	padding: 3px 8px 5px 8px;
-	color: tomato;
-	font-size: 0.9rem;
+	font-size: 1rem;
 	margin: 3px 15px 0px 0px;
-	line-height: 1.5;
-	cursor: pointer;
+	height: 2.2rem;
 }
 
 #mainCard h3 {

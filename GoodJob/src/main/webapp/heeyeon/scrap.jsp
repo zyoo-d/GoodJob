@@ -30,7 +30,7 @@
 							<div class="card-body">
 								<div class="logo">
 									<img class="" src="/good/assets/images/logo/default.jpg" alt="" />
-									<i class="fas fa-star star"></i>
+									<i class="fas fa-bookmark scrap"></i>
 								</div>
 								<div class="infoCard">
 									<h3 class="mt-0">회사명1</h3>
@@ -45,7 +45,7 @@
 							<div class="card-body">
 								<div class="logo">
 									<img class="" src="/good/assets/images/logo/default.jpg" alt="" />
-									<i class="fas fa-star star"></i>
+									<i class="fas fa-bookmark scrap"></i>
 								</div>
 								<div class="infoCard">
 									<h3 class="mt-0">회사명2</h3>
@@ -60,7 +60,7 @@
 							<div class="card-body">
 								<div class="logo">
 									<img class="" src="/good/assets/images/logo/default.jpg" alt="" />
-									<i class="fas fa-star star"></i>
+									<i class="fas fa-bookmark scrap"></i>
 								</div>
 								<div class="infoCard">
 									<h3 class="mt-0">회사명3</h3>
@@ -75,7 +75,7 @@
 							<div class="card-body">
 								<div class="logo">
 									<img class="" src="/good/assets/images/logo/default.jpg" alt="" />
-									<i class="fas fa-star star"></i>
+									<i class="fas fa-bookmark scrap"></i>
 								</div>
 								<div class="infoCard">
 									<h3 class="mt-0">회사명4</h3>
@@ -91,7 +91,7 @@
 	</div>
 	<%@include file="/WEB-INF/views/inc/adminfooter.jsp"%>
 	<script>
-		$('.fas.fa-star.star').click(function() {
+		$('.fas.fa-bookmark.scrap').click(function() {
 			$(this).parents().eq(3).remove();
 			//데이터 처리도 해주기
 		});
