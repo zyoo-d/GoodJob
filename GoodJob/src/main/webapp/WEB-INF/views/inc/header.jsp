@@ -4,8 +4,8 @@
 <header class="header">
 	<nav class="navbar container">
 		<!-- logo -->
-		<div class="order-0 mb-2 pl-5">
-			<a href=""> <img src="/good/assets/logo.png" height="30" width="147" alt="logo" />
+		<div class="order-0 mb-2 mr-3">
+			<a href="/good/main.do"> <img src="/good/assets/logo.png" height="30" width="147" alt="logo" />
 			</a>
 		</div>
 		<!-- navbar toggler -->
@@ -59,6 +59,8 @@
 					</div>
 				</form>
 			</li>
+			
+			<!-- 로그인 전 -->
 			<c:if test="${empty id}">
 			<li class="nav-item mt-3.5 lg:hidden"><a
 				class="btn btn-primary no-shadow btn-sm mb-2" href="/good/user/signin.do">로그인</a></li>
@@ -75,6 +77,8 @@
 				</div>
 			</li>
 			</c:if>
+			
+			<!-- 로그인 후 -->
 			<c:if test="${not empty id}">
 			<li class="nav-item mt-3.5 lg:hidden"><a
 				class="btn btn-primary  no-shadowbtn-sm mb-2" href="">로그아웃</a></li>
