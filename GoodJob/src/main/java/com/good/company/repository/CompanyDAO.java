@@ -49,5 +49,32 @@ public class CompanyDAO {
 		return null;
 	}
 	
+	/**
+	 * 등록된 기업수 불러오는 메서드
+	 * @return 기업수
+	 */
+	public int countCompanys() {
+		
+		try {
+
+			String sql = "select count(*) as cnt from tblCompany";
+
+			stat = conn.createStatement();
+			rs = stat.executeQuery(sql);
+
+			if (rs.next()) {
+				return rs.getInt("cnt");
+			}
+
+		} catch (Exception e) {
+			System.out.println("등록된 기업수 로드 실패");
+			e.printStackTrace();
+		}
+		
+		return 0;
+		
+	}
+	
+	
 	
 }

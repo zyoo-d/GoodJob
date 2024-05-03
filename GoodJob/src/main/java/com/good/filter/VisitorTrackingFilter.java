@@ -22,8 +22,8 @@ public class VisitorTrackingFilter implements Filter{
 		
 		HttpServletRequest resq = (HttpServletRequest)request;
 		String ipAddress = resq.getRemoteAddr();
-		
 		if(IpTracker.trackIp(ipAddress)) {
+			System.out.println("IP:" + ipAddress + " 방문자수 증가");
 			VisitorTracker.getInstance().incrementVisitors();
 		}
 		
