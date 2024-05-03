@@ -1279,3 +1279,139 @@ textarea:focus {
 .write-date {
 	font-size: 12px;
 }
+
+/* 민곤님 css */
+.itvDetail.show {
+  display: block;
+}
+.itvCard {
+	margin: auto;
+	height: auto;
+	width: 1000px;
+	margin-bottom: 30px;
+	min-height: auto;
+}
+
+#itvImg {
+	width: 150px;
+	height: 150px;
+}
+
+.card-tags i {
+	position: relative;
+	top: 210px;
+	cursor: pointer;
+}
+
+
+.itvDetail {
+	display: none;
+	color: blue;
+}
+
+.itvdropdownContent {
+	display: flex;
+	flex-wrap: wrap;
+	align-content: stretch;
+	justify-content: flex-start;
+	margin-bottom: 20px;
+}
+
+.itvContentFooter {
+	display: flex;
+	justify-content: space-around;
+	flex-direction: column;
+}
+
+
+.itvDetailInfo {
+	margin-bottom: 15px;
+}
+
+
+.cpCimg img {
+	max-width: 100px;
+	max-height: 100px;
+}
+
+.cpcCpChart {
+	width: 800px;
+	height: 400px;
+	margin: auto;
+	margin-top: 40px;
+	margin-bottom: 50px;
+}
+
+.cpCMember h3 {
+	margin-top: 50px;
+	margin-bottom: 30px;
+}
+
+.cpCMember p {
+	margin-top: 20px;
+	margin-bottom: 50px;
+}
+
+.cpcComCard {
+	border-top: 1px solid  #ccc;
+	padding: 20px;
+	margin-bottom: 50px;
+}
+
+.min-h-400 {
+	min-height: 400px;
+}
+
+.cpsChart {
+	width: 350px;
+	height: 350px;
+	margin: auto;
+}
+
+.cpsContent h3 {
+	margin-bottom: 20px;
+}
+
+.cpsContent p {
+	margin-bottom: 50px;
+}
+
+.cpsCompanyInfo img {
+	width: 60px;
+    height: 60px;
+    margin-bottom: 10px;
+}
+
+.smallradarChart {
+	width: 200px;
+	height: 200px;
+	margin: auto;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 20px;
+}
+
+.cpsCard {
+	display: flex;
+	flex-direction: column;
+}
+
+.cpsContent p {
+	margin-bottom: 50px;
+}
+
+.comContent img {
+	width: 70px;
+	height: 70px;
+}
+
+.cpComInfo {
+	height: 380px;
+}
+
+.cpComFont {
+	width: 106px;
+	height: 23px;
+}
+
