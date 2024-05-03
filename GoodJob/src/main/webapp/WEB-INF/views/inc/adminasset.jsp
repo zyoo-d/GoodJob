@@ -10,7 +10,7 @@
 	content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no"
 	name="viewport">
 
-  <link rel="stylesheet" href="/good/assets/css/custom.css">
+  <link rel="stylesheet" href="/good/assets/css/admincustom.css">
 <!-- General CSS Files -->
   <link rel="stylesheet" href="/good/assets/modules/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="/good/assets/modules/fontawesome/css/all.min.css">

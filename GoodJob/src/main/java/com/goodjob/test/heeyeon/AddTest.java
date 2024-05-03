@@ -89,7 +89,7 @@ public class AddTest {
 					// ing > 1만 체크해야함
 					Long ing = (Long) ((JSONObject) recruit).get("active");
 
-					if (ing == 1 && cp_name.equals(com.getName())) {
+					if (ing == 1 && cp_name.contains(com.getName())) {
 						RecruitDAO redao = new RecruitDAO();
 						String nextseq = redao.getNextSeq();
 
