@@ -184,7 +184,11 @@
 	border-radius: 4px;
 	overflow: hidden;
 }
-
+.optionRegion.com-list, .optionRegion.rcrt-list{
+		display: block;
+		width: 100%;
+		border:none;
+}
 .region-list {
 	width: 100%; /* 전체 너비 사용 */
 	max-height: 240px;
@@ -400,23 +404,23 @@
 
 .com-tag {
     display: flex;
-    flex-direction: column; /* Ensures the children are stacked vertically */
-    height: inherit; /* Set a fixed height if needed, or make sure it inherits properly */
+    flex-direction: column;
+    height: inherit;
 }
 
 .click-tag {
-    flex: 8; /* Takes up 80% of the space */
+    flex: 8;
 }
 
 .add-tag-text {
-    flex: 2; /* Takes up 20% of the space */
+    flex: 2; 
 }
 
 .submit-info {
-    width: 100%; /* Ensure the container takes full width */
-    text-align: center; /* Center-align the text inside the container */
-    padding: 20px; /* Optional: Adds padding around the text for better spacing */
-    margin-top: 20px; /* Optional: Adds space above the container if needed */
+    width: 100%;
+    text-align: center; 
+    padding: 20px;
+    margin-top: 20px;
 }
 
 /*-------------------------------------------------------------*/
@@ -487,7 +491,6 @@ textarea:focus {
 }
 
 .view-form .company, .view-form .title {
-	margin-top: 5px;
 	font-size: 18px;
 	color: #595959;
 }
@@ -635,7 +638,9 @@ textarea:focus {
 	border-left: 2px solid #ccc;
 	padding-left: 20px;
 }
-
+.section.com-detail {
+	padding-bottom:0;
+}
 .support_detail {
 	text-align: right;
 	display: flex;
@@ -873,10 +878,10 @@ textarea:focus {
 
 .view-form.addqna {
 	position: relative;
+	width:100%
 }
 
 .view-form.addqna .company, .view-form.addqna .title {
-	margin-top: 5px;
 	font-size: 18px;
 	color: #595959;
 }

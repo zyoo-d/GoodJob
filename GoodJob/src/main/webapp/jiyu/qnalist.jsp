@@ -53,22 +53,14 @@
                 <div class="list-title">
                   <p><span class="material-symbols-outlined">subject</span></p><p>조회된 게시글은 총 <span id="list-cnt">1234</span>건입니다.</p>
                 </div>
-                <div class="list_info">
-                  <div class="InpBox">
-                    <select class="sorting" name="page_count" id="page_count">
-                      <option value="20" selected>20개씩</option>
-                      <option value="30">30개씩</option>
-                      <option value="50">50개씩</option>
-                      <option value="100">100개씩</option>
-                    </select>
-                  </div>
+
                   <div class="InpBox">
                     <select class="sorting" name="sort" id="sort">
                       <option value="RD" selected>최신순</option>
                       <option value="EA">과거순</option>
                       <option value="EA">댓글순</option>
                     </select>
-                  </div>
+  
                 </div>
               </div>
 

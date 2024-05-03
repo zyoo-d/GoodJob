@@ -49,7 +49,7 @@
 							</form>
 						</div>
 						<div>
-							<section class="integration-single z-custom section pt-0"
+							<section class="integration-single z-custom section pt-0 com-detail"
 								style="display: none;" id="detailSection">
 
 								<div class="container">
@@ -113,7 +113,7 @@
 												<h5 class="text-left preferTitle">
 													<i class="fa-solid fa-location-dot"></i> 지역으로 조회하기(최대 3건)
 												</h5>
-												<div class="optionRegion">
+												<div class="optionRegion rcrt-list">
 													<div class="region-list">
 														<ul>
 															<li onclick="showLocations('서울')">서울</li>
@@ -151,7 +151,7 @@
 											<!-- 선호근무지역 End -->
 											<!-- 선호직무 -->
 											<div data-tab-group="service-tab" class="">
-												<div class="px-4 text-center">
+												<div class="text-center">
 													<h5 class="text-left">🖤선호직무</h5>
 													<div class="optionJob mt-4">
 														<dl class="row_item">
@@ -234,15 +234,7 @@
 									조회된 채용공고는 총 <span id="list-cnt">1234</span>건입니다.
 								</p>
 							</div>
-							<div class="list_info">
-								<div class="InpBox">
-									<select class="sorting" name="page_count" id="page_count">
-										<option value="20" selected>20개씩</option>
-										<option value="30">30개씩</option>
-										<option value="50">50개씩</option>
-										<option value="100">100개씩</option>
-									</select>
-								</div>
+						
 								<div class="InpBox">
 									<select class="sorting" name="sort" id="sort">
 										<option value="RD" selected>최신순</option>
@@ -250,7 +242,7 @@
 									</select>
 								</div>
 
-							</div>
+					
 						</div>
 
 

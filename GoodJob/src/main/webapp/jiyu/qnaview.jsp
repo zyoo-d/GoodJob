@@ -62,9 +62,9 @@
                      
 
             <div class="comment-list">
-              <h4>댓글</h4>
 
-              <div class="">
+
+
               <form>
               <div class="add-comment">    
 	              
@@ -118,9 +118,7 @@
 		</div>
               
               </form>
-            
-      
-        </div>
+
       </div>
     </div>
 </div>

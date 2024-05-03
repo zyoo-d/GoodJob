@@ -48,7 +48,7 @@
 							</form>
 						</div>
 						<div>
-							<section class="integration-single section pt-0"
+							<section class="integration-single section pt-0 com-detail"
 								style="display: none;" id="detailSection">
 
 								<div class="container">
@@ -89,7 +89,7 @@
 												<h5 class="text-left preferTitle">
 													<i class="fa-solid fa-location-dot"></i> 지역으로 조회하기(최대 3건)
 												</h5>
-												<div class="optionRegion">
+												<div class="optionRegion com-list">
 													<div class="region-list">
 														<ul>
 															<li onclick="showLocations('서울')">서울</li>
@@ -127,7 +127,7 @@
 											<!-- 선호근무지역 End -->
 											<!-- 선호직무 -->
 											<div data-tab-group="service-tab" class="">
-												<div class="px-4 text-center">
+												<div class="mt-8 text-center">
 													<h5 class="text-left">🖤선호직무</h5>
 													<div class="optionJob mt-4">
 														<dl class="row_item">

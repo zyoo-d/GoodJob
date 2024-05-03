@@ -68,7 +68,6 @@ textarea {
     justify-content: space-between;
     padding: 30px;
     margin-bottom: 15px;
-        border-top: 1px solid #eee;
     border-bottom: 1px solid #eee;
 }
 .com-image {
@@ -225,7 +224,7 @@ textarea {
                         <p class="mt-6">작성해 주신 기업리뷰는 다른 구직자분들께 큰 도움이 될 거예요</p>
                     </div>
 
-                  
+                  <hr>
         	<div class="list_body">
 							<div class="list_item">
 							
@@ -270,7 +269,7 @@ textarea {
                 <div class="stars" data-category="welfare"></div>
             </div>
                         <div class="category">
-                <label>근무안정성</label>
+                <label>조직안정성</label>
                 <div class="stars" data-category="retention"></div>
             </div>
             <div class="category">
@@ -328,7 +327,7 @@ textarea {
             <h3>이런 부분은 아쉬웠어요</h3>
             <textarea name="" placeholder="해당 기업에서 근무하면서 아쉬웠던 점을 작성해주세요!"></textarea>
         </div>
-        
+        <hr>
 				<div class="submit-info">
                 <p>면접 후기에 대한 저작권은 (주)사람인에 있습니다.<br> 등록하신 콘텐츠는 임의로 삭제하실 수 없습니다.</p>
                 </div>
