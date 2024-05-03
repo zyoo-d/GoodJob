@@ -6,8 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <%@include file="/WEB-INF/views/inc/asset.jsp"%>
-<link rel="stylesheet"
-	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <style>
 
 </style>
@@ -63,7 +61,7 @@
 					class="flex flex-col justify-between rounded-lg bg-white p-5 shadow-lg">
 					<div class="logo">
 						<img class="" src="/good/assets/images/logo/default.jpg" alt="" />
-						<span class="material-symbols-outlined scrap">star</span>
+						<i class="fa-regular fa-bookmark scrap"></i>
 					</div>
 					<div class="infoCard">
 						<h3 class="h4 text-xl lg:text-2xl">회사명</h3>
@@ -76,7 +74,7 @@
 					class="flex flex-col justify-between rounded-lg bg-white p-5 shadow-lg">
 					<div class="logo">
 						<img class="" src="/good/assets/images/logo/default.jpg" alt="" />
-						<span class="material-symbols-outlined scrap">star</span>
+						<i class="fa-regular fa-bookmark scrap"></i>
 					</div>
 					<div class="infoCard">
 						<h3 class="h4 text-xl lg:text-2xl">회사명</h3>
@@ -89,7 +87,7 @@
 					class="flex flex-col justify-between rounded-lg bg-white p-5 shadow-lg">
 					<div class="logo">
 						<img class="" src="/good/assets/images/logo/default.jpg" alt="" />
-						<span class="material-symbols-outlined scrap">star</span>
+						<i class="fa-regular fa-bookmark scrap"></i>
 					</div>
 					<div class="infoCard">
 						<h3 class="h4 text-xl lg:text-2xl">회사명</h3>
@@ -102,7 +100,7 @@
 					class="flex flex-col justify-between rounded-lg bg-white p-5 shadow-lg">
 					<div class="logo">
 						<img class="" src="/good/assets/images/logo/default.jpg" alt="" />
-						<span class="material-symbols-outlined scrap">star</span>
+						<i class="fa-regular fa-bookmark scrap"></i>
 					</div>
 					<div class="infoCard">
 						<h3 class="h4 text-xl lg:text-2xl">회사명</h3>
@@ -115,7 +113,7 @@
 					class="flex flex-col justify-between rounded-lg bg-white p-5 shadow-lg">
 					<div class="logo">
 						<img class="" src="/good/assets/images/logo/default.jpg" alt="" />
-						<span class="material-symbols-outlined scrap">star</span>
+						<i class="fa-regular fa-bookmark scrap"></i>
 					</div>
 					<div class="infoCard">
 						<h3 class="h4 text-xl lg:text-2xl">회사명</h3>
@@ -128,33 +126,7 @@
 					class="flex flex-col justify-between rounded-lg bg-white p-5 shadow-lg">
 					<div class="logo">
 						<img class="" src="/good/assets/images/logo/default.jpg" alt="" />
-						<span class="material-symbols-outlined scrap">star</span>
-					</div>
-					<div class="infoCard">
-						<h3 class="h4 text-xl lg:text-2xl">회사명</h3>
-						<p class="desciption">제약회사</p>
-						<span class="hiring">채용중</span>
-					</div>
-
-				</div>
-				<div
-					class="flex flex-col justify-between rounded-lg bg-white p-5 shadow-lg">
-					<div class="logo">
-						<img class="" src="/good/assets/images/logo/default.jpg" alt="" />
-						<span class="material-symbols-outlined scrap">star</span>
-					</div>
-					<div class="infoCard">
-						<h3 class="h4 text-xl lg:text-2xl">회사명</h3>
-						<p class="desciption">제약회사</p>
-						<span class="hiring">채용중</span>
-					</div>
-
-				</div>
-				<div
-					class="flex flex-col justify-between rounded-lg bg-white p-5 shadow-lg">
-					<div class="logo">
-						<img class="" src="/good/assets/images/logo/default.jpg" alt="" />
-						<span class="material-symbols-outlined scrap">star</span>
+						<i class="fa-regular fa-bookmark scrap"></i>
 					</div>
 					<div class="infoCard">
 						<h3 class="h4 text-xl lg:text-2xl">회사명</h3>

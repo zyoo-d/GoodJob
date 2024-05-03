@@ -6,10 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <%@include file="/WEB-INF/views/inc/asset.jsp"%>
-<link rel="stylesheet"
-	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <style>
-
 </style>
 </head>
 <%@include file="/WEB-INF/views/inc/header.jsp"%>
@@ -26,7 +23,7 @@
 						</div>
 						<div class="card-content">
 							<div class="row mb-8">
-								<div class="form-group mt-8 md:col-6 lg:col-4">
+								<div class="form-group card-img mt-8 md:col-6 lg:col-4">
 									<div class="view-form">
 										<div>
 											<input type="text" class="title" placeholder="🔍제목을 입력하세요.">
@@ -37,8 +34,10 @@
 											<div id="searchResults1" class="dropdown-content"></div>
 										</div>
 										<div class="studyDate">
-											<p>🗓️스터디 모임 마감 기간 <input type="date" class="company" /></p>
-											
+											<p>
+												🗓️스터디 모임 마감 기간 <input type="date" class="company" />
+											</p>
+
 										</div>
 									</div>
 								</div>
