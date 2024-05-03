@@ -4,8 +4,8 @@
 <header class="header">
 	<nav class="navbar container">
 		<!-- logo -->
-		<div class="order-0">
-			<a href=""> <!-- <img src="images/logo.svg" height="30" width="147" alt="logo" /> -->
+		<div class="order-0 mb-2 pl-5">
+			<a href=""> <img src="/good/assets/logo.png" height="30" width="147" alt="logo" />
 			</a>
 		</div>
 		<!-- navbar toggler -->
@@ -27,7 +27,7 @@
 		</label>
 		<!-- /navbar toggler -->
 		<ul id="nav-menu"
-			class="navbar-nav order-2 hidden w-full flex-[0_0_100%] lg:order-1 lg:flex lg:w-auto lg:flex-auto lg:justify-center lg:space-x-5">
+			class="navbar-nav order-2 hidden flex-[0_0_100%] lg:order-1 lg:flex lg:w-auto lg:flex-auto lg:justify-center space-x-4">
 			<li class="nav-item"><a href="" class="nav-link active">기업</a></li>
 			<li class="nav-item"><a href="" class="nav-link">채용</a></li>
 			<li class="nav-item"><a href="" class="nav-link">굿잡forU</a></li>

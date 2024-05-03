@@ -38,35 +38,31 @@ public class RecruitDAO {
 		return null;
 	}
 
-	public int addRecruit(RecruitDTO dto) {
-		//queryParamNoReturn
-				try {
-
-					String sql = "insert into tblRecruit values (seqRecruit.nextVal, ?, ?, ?, ?, ?, ?)";
-
-					pstat = conn.prepareStatement(sql);
-					pstat.setString(1, dto.getRcrt_address());
-					pstat.setString(2, dto.getRcrt_career());
-					pstat.setString(3, dto.getRcrt_salary());
-					pstat.setString(4, dto.getStartdate());
-					pstat.setString(5, dto.getEnddate());
-					pstat.setString(6, dto.getCp_seq());
-
-					return pstat.executeUpdate();
-
-				} catch (Exception e) {
-					System.out.println("addRecruit");
-					e.printStackTrace();
-				}
-				
-				return 0;
-			}
+	/*
+	 * public int addRecruit(RecruitDTO dto) { //queryParamNoReturn try {
+	 * 
+	 * String sql =
+	 * "insert into tblRecruit values (seqRecruit.nextVal, ?, ?, ?, ?, ?, ?)";
+	 * 
+	 * pstat = conn.prepareStatement(sql); pstat.setString(1,
+	 * dto.getRcrt_address()); pstat.setString(2, dto.getRcrt_career());
+	 * pstat.setString(3, dto.getRcrt_salary()); pstat.setString(4,
+	 * dto.getStartdate()); pstat.setString(5, dto.getEnddate()); pstat.setString(6,
+	 * dto.getCp_seq());
+	 * 
+	 * return pstat.executeUpdate();
+	 * 
+	 * } catch (Exception e) { System.out.println("addRecruit");
+	 * e.printStackTrace(); }
+	 * 
+	 * return 0; }
+	 */
 	public ArrayList<RecruitDTO> RecruitList() {
 		try {
 			String sql = "select * from tblRecruit";
-			
+
 			ArrayList<RecruitDTO> list = new ArrayList<>();
-			
+
 			while (rs.next()) {
 				RecruitDTO dto = new RecruitDTO();
 				dto.setRcrt_seq(rs.getString("rcrt_seq"));
@@ -87,8 +83,8 @@ public class RecruitDAO {
 			String sql = "insert into tblJobRcrt (rcrt_seq, job_seq) values (?,?)";
 
 			pstat = conn.prepareStatement(sql);
-			pstat.setString(1, map.get("seq"));		
-			pstat.setString(2, map.get("code"));		
+			pstat.setString(1, map.get("seq"));
+			pstat.setString(2, map.get("code"));
 
 			pstat.executeUpdate();
 			pstat.close();
@@ -106,7 +102,7 @@ public class RecruitDAO {
 			String sql = "insert into tblRecruit (RCRT_SEQ, RCRT_NAME, RCRT_LINK, STARTDATE,ENDDATE,MIN_CAREER,MAX_CAREER,EDU_SEQ, SALARY_SEQ, CP_SEQ) values (?,?,?,?,?,?,?,?,?,?)";
 
 			pstat = conn.prepareStatement(sql);
-			pstat.setString(1, dto.getRcrt_seq());		
+			pstat.setString(1, dto.getRcrt_seq());
 			pstat.setString(2, dto.getRcrt_name());
 			pstat.setString(3, dto.getRcrt_link());
 			pstat.setString(4, dto.getStartdate());
@@ -116,7 +112,7 @@ public class RecruitDAO {
 			pstat.setString(8, dto.getEdu_seq());
 			pstat.setString(9, dto.getSalary_seq());
 			pstat.setString(10, dto.getCp_seq());
-			
+
 			pstat.executeUpdate();
 			pstat.close();
 			return 1;

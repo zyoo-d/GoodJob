@@ -8,211 +8,6 @@
 <meta charset="UTF-8">
 <%@include file="/WEB-INF/views/inc/asset.jsp"%>
 <style>
-#itvImg {
-	width: 150px;
-	height: 150px;
-}
-
-.card-tags i {
-	position: relative;
-	top: 110px;
-}
-
-#itvAddBtn {
-	float: right;
-	bottom: 20px;
-}
-
-.itvIconContainer select {
-	margin-left: 10px;
-	width: 200px;
-}
-
-#itvWriteContainer {
-	margin: auto;
-	width: 1000px;
-}
-
-.itvCpContent {
-	display: flex;
-	justify-content: flex-start;
-	gap: 20px;
-	align-items: center;
-}
-
-#itvWriteContainer .card {
-	margin-bottom: 20px;
-}
-
-.itvCpname {
-	height: 40px;
-	width: 70%;
-}
-
-.itvBtnList {
-	display: flex;
-	justify-content: flex-end;
-	gap: 10px;
-}
-
-.itvDetail {
-	display: none;
-	color: red;
-}
-
-.optionJob {
-	border: 1px solid #dee2e6;
-	border-radius: 4px;
-	overflow: hidden;
-}
-
-.row_item {
-	display: flex;
-	border-bottom: 1px solid #ccc;
-}
-
-.row_item:last-child {
-	border-bottom: none;
-}
-
-.category-list {
-	width: 150px;
-	padding: 10px;
-	background-color: #f1f1f1;
-	border-right: 1px solid #ccc;
-	text-align: center;
-}
-
-.category-list p {
-	margin: 0;
-	cursor: pointer;
-	font-weight: 600;
-	font-size: 0.9rem;
-}
-
-.tag-group {
-	padding: 10px;
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-between;
-	height: 40px;
-}
-
-.tag-group label {
-	font-size: 0.8rem;
-	display: inline-block;
-	padding: 3px 8px;
-	background-color: #f1f1f1;
-	border-radius: 4px;
-	cursor: pointer;
-	margin: 0 2px;
-}
-
-.tag-group input[type="checkbox"] {
-	display: none;
-}
-
-.tag-group input[type="checkbox"]:checked+label {
-	background-color: #007bff;
-	color: #fff;
-}
-
-.jobList {
-	flex-grow: 1;
-	padding: 10px;
-	display: flex;
-	flex-wrap: wrap;
-	gap: 10px;
-}
-
-.jobList label {
-	font-size: 0.8rem;
-	display: inline-block;
-	padding: 3px 8px;
-	background-color: #f1f1f1;
-	border-radius: 4px;
-	cursor: pointer;
-}
-
-.jobList input[type="checkbox"] {
-	display: none;
-}
-
-.jobList input[type="checkbox"]:checked+label {
-	background-color: #007bff;
-	color: #fff;
-}
-
-.jobList {
-	display: inline-block;
-	margin-left: 5px;
-	cursor: pointer;
-}
-
-#itvWriteQnA select {
-	font-size: 0.9rem;
-	padding-bottom: 0.3rem;
-	padding-top: 0.3rem;
-	border-radius: 2.5px;
-}
-
-.space-btw {
-	display: flex;
-	gap: 13%;
-}
-
-.itv-toolbar {
-	display: flex;
-	justify-content: space-between;
-	margin: 10px 5px;
-	background: #F2F2F2;
-	padding: 5px 20px;
-	border-radius: 30px;
-	gap: 10px;
-	margin: 10px 5px;
-	background: #F2F2F2;
-	padding: 5px 20px;
-	border-radius: 30px;
-	background: #F2F2F2;
-	padding: 5px 20px;
-	border-radius: 30px;
-	padding: 5px 20px;
-	border-radius: 30px;
-	border-radius: 30px;
-}
-
-.itv-toolbar input[type="radio"] {
-	display: none;
-}
-
-.itv-toolbar label {
-	color: #595959;
-	padding: 3px 15px;
-	border-radius: 20px;
-	display: inline-block;
-	position: relative;
-	cursor: pointer;
-	font-size: 0.9rem;
-}
-
-.itv-toolbar input[type="radio"]:checked+label {
-	background: linear-gradient(184.78deg, #7476FA 7.64%, #0071BC 120.07%);
-	color: #FFF;
-}
-
-.itv-toolbar label:hover {
-	background: linear-gradient(184.78deg, #7476FA 7.64%, #0071BC 120.07%);
-	color: #FFF;
-}
-
-.form-control.h-1 {
-	height: inherit;
-}
-
-.itv-label {
-	font-weight: 600;
-	color: #707070;
-}
 </style>
 </head>
 <%@include file="/WEB-INF/views/inc/header.jsp"%>
@@ -238,61 +33,6 @@
 										class="form-control itvCpname" type="text"
 										placeholder="회사명을 입력해주세요." /> <input
 										class="btn btn-primary block btn-sm" type="submit" value="검색" />
-								</div>
-							</div>
-							<div>
-								<label class="itv-label">선호직무</label>
-								<div class="optionJob mt-2">
-									<dl class="row_item">
-										<dt class="category-list">
-											<p>
-												직무·직업<span class="toggle-button"
-													onclick="toggleTagList(event)">+</span>
-											</p>
-										</dt>
-										<dd class="jobList">
-											<input type="checkbox" id="tag1" value="데이터엔지니어"> <label
-												for="tag1">데이터엔지니어</label> <input type="checkbox" id="tag2"
-												value="프론트엔드"> <label for="tag2">프론트엔드</label>
-										</dd>
-									</dl>
-
-									<dl class="row_item">
-										<dt class="category-list">
-											<p>
-												전문분야<span class="toggle-button"
-													onclick="toggleTagList(event)">+</span>
-											</p>
-										</dt>
-										<dd class="jobList">
-											<input type="checkbox" id="tag3" value="자바"> <label
-												for="tag3">자바</label> <input type="checkbox" id="tag4"
-												value="AWS"> <label for="tag4">AWS</label> <input
-												type="checkbox" id="tag5" value="Python"> <label
-												for="tag5">Python</label>
-										</dd>
-									</dl>
-
-									<dl class="row_item">
-										<dt class="category-list">
-											<p>
-												기술스택<span class="toggle-button"
-													onclick="toggleTagList(event)">+</span>
-											</p>
-										</dt>
-										<dd class="jobList">
-											<input type="checkbox" id="tag6" value="React"> <label
-												for="tag6">React</label> <input type="checkbox" id="tag7"
-												value="웹개발"> <label for="tag7">웹개발</label> <input
-												type="checkbox" id="tag8" value="ABAP"> <label
-												for="tag8">ABAP</label>
-										</dd>
-									</dl>
-								</div>
-								<div class="tag-group">
-									<span id="lctag"> </span> <span class="clear"
-										onclick="clearLocations()"><i
-										class="fa-solid fa-rotate-right"></i> 지역 초기화</span>
 								</div>
 							</div>
 							<div class="space-btw mt-2">
@@ -376,7 +116,7 @@
 								</div>
 							</div>
 							<div class="mt-6">
-								<label class="itv-label" for="name">면접 인원 필수 (다중 선택 가능)</label>
+								<label class="itv-label" for="name">면접 인원 필수</label>
 								<div class="itvCpContent">
 									<label> <input type="radio" name="option" checked>
 										1:1 면접
@@ -386,46 +126,27 @@
 										면접
 									</label>
 								</div>
-
-
-
-							</div>
-							<div class="mt-6">
-								<label class="itv-label" for="name">전형 및 면접 진행방식</label>
-								<div class="form-group itvCpContent">
-									<input class="form-control h-1" type="text"
-										placeholder="서류 합격 후 어떤 전형과 면접을 경험하셨나요?" />
-								</div>
-
-
 							</div>
 						</div>
-
-
 						<div class="border-b border-border py-10">
-
 							<h5>합격 정보 입력</h5>
 							<div class="mt-6">
-								<label class="itv-label" for="name">면접 질문(최소 2개)</label>
-								<div class="form-group">
+								<label class="itv-label" for="name">가장 기억에 남는 면접 질문</label>
+								<div class="form-group mt-2">
 									<form>
 										<input class="form-control h-1" type="text"
-											placeholder="ex) 회사를 선택한 이유" /> <input
-											class="form-control h-1" type="text"
-											placeholder="ex) 경력에 대한 상세한 질문" /> <input
-											class="form-control h-1" type="text"
-											placeholder="ex) 회사를 선택한 이유" />
+											placeholder="ex) 회사를 선택한 이유" /> 
 									</form>
 								</div>
 							</div>
-							<div class="card-content">
+							<div class="form-group mt-6">
 								<label class="itv-label" for="name">면접 TIP 및 특이 사항</label>
-								<div class="form-group itvCpContent">
+								<div class="form-group itvCpContent mt-2">
 									<input class="form-control h-1" type="text"
 										placeholder="분위기, 준비 TIP을 공유해주세요." />
 								</div>
 							</div>
-							<div class="card-content">
+							<div class="form-group mt-6">
 								<label class="itv-label" for="name">합격 여부</label>
 								<div class="form-group itvCpContent">
 									<div class="itv-toolbar">
@@ -449,6 +170,7 @@
 					</div>
 				</div>
 			</div>
+		</div>
 	</section>
 	<%@include file="/WEB-INF/views/inc/footer.jsp"%>
 	<script>
