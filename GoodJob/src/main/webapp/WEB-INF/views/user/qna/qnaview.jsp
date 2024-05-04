@@ -22,7 +22,7 @@
 
 <section class="page-hero pt-16 pb-6">
   <div class="container">
-    <div class="card" id="itvWriteQnA">
+    <div class="z-custom card" id="itvWriteQnA">
      <div class="card-content-wrapper">
 					<div class="card-content">
 						<div class="px-4 text-center">
@@ -62,9 +62,9 @@
                      
 
             <div class="comment-list">
+              <h4>댓글</h4>
 
-
-
+              <div class="">
               <form>
               <div class="add-comment">    
 	              
@@ -118,7 +118,9 @@
 		</div>
               
               </form>
-
+            
+      
+        </div>
       </div>
     </div>
 </div>

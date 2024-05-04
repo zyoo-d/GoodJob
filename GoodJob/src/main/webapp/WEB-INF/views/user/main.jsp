@@ -7,7 +7,6 @@
 <meta charset="UTF-8">
 <%@include file="/WEB-INF/views/inc/asset.jsp"%>
 <style>
-
 </style>
 <%@include file="/WEB-INF/views/inc/header.jsp"%>
 </head>
@@ -25,7 +24,9 @@
 					<li class="my-1"><a class="" href="#"># 이슈</a></li>
 					<li class="my-1"><a class="" href="#"># 이슈</a></li>
 				</ul>
-				<button class="btn btn-primary block btn-sm" id="mainUpdate"><i class="fa-solid fa-rotate-right"></i> 업데이트</button>
+				<button class="btn btn-primary block btn-sm" id="mainUpdate">
+					<i class="fa-solid fa-rotate-right"></i> 업데이트
+				</button>
 			</div>
 		</div>
 	</section>
@@ -53,7 +54,8 @@
 	<section class="section key-feature relative" id="mainCard">
 		<div class="container">
 			<h3 class="mt-10">
-				요즘 뜨는 기업!<span class="" id="filterHire"><i class="fa-solid fa-check"></i> 채용중</span>
+				요즘 뜨는 기업!<span><a id="filterHire" class="tag"
+					href="#"><i class="fa-solid fa-check"></i> 채용중</a></span>
 			</h3>
 			<div
 				class="key-feature-grid mt-5 grid grid-cols-2 gap-7 md:grid-cols-3 xl:grid-cols-4">
@@ -66,7 +68,7 @@
 					<div class="infoCard">
 						<h3 class="h4 text-xl lg:text-2xl">회사명</h3>
 						<p class="desciption">제약회사</p>
-						<span class="hiring">채용중</span>
+						<a class="hiring tag" href="#">채용중</a>
 					</div>
 
 				</div>
@@ -79,7 +81,7 @@
 					<div class="infoCard">
 						<h3 class="h4 text-xl lg:text-2xl">회사명</h3>
 						<p class="desciption">제약회사</p>
-						<span class="hiring">채용중</span>
+						<a class="hiring tag" href="#">채용중</a>
 					</div>
 
 				</div>
@@ -92,46 +94,7 @@
 					<div class="infoCard">
 						<h3 class="h4 text-xl lg:text-2xl">회사명</h3>
 						<p class="desciption">제약회사</p>
-						<span class="hiring">채용중</span>
-					</div>
-
-				</div>
-				<div
-					class="flex flex-col justify-between rounded-lg bg-white p-5 shadow-lg">
-					<div class="logo">
-						<img class="" src="/good/assets/images/logo/default.jpg" alt="" />
-						<i class="fa-regular fa-bookmark scrap"></i>
-					</div>
-					<div class="infoCard">
-						<h3 class="h4 text-xl lg:text-2xl">회사명</h3>
-						<p class="desciption">제약회사</p>
-						<span class="hiring">채용중</span>
-					</div>
-
-				</div>
-				<div
-					class="flex flex-col justify-between rounded-lg bg-white p-5 shadow-lg">
-					<div class="logo">
-						<img class="" src="/good/assets/images/logo/default.jpg" alt="" />
-						<i class="fa-regular fa-bookmark scrap"></i>
-					</div>
-					<div class="infoCard">
-						<h3 class="h4 text-xl lg:text-2xl">회사명</h3>
-						<p class="desciption">제약회사</p>
-						<span class="hiring">채용중</span>
-					</div>
-
-				</div>
-				<div
-					class="flex flex-col justify-between rounded-lg bg-white p-5 shadow-lg">
-					<div class="logo">
-						<img class="" src="/good/assets/images/logo/default.jpg" alt="" />
-						<i class="fa-regular fa-bookmark scrap"></i>
-					</div>
-					<div class="infoCard">
-						<h3 class="h4 text-xl lg:text-2xl">회사명</h3>
-						<p class="desciption">제약회사</p>
-						<span class="hiring">채용중</span>
+						<a class="hiring tag" href="#">채용중</a>
 					</div>
 
 				</div>
