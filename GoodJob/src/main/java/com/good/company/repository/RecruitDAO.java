@@ -7,7 +7,7 @@ import java.sql.Statement;
 import java.util.HashMap;
 import java.util.ArrayList;
 
-import com.good.matching.model.RecruitDTO;
+import com.good.company.model.RecruitDTO;
 import com.test.util.DBUtil;
 
 public class RecruitDAO {
