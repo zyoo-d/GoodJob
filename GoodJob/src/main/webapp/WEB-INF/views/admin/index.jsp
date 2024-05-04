@@ -29,7 +29,7 @@
                     <h4>일일 방문자</h4>
                   </div>
                   <div class="card-body">
-                  	
+                  	${visit_count}
                   </div>
                 </div>
               </div>
@@ -66,7 +66,7 @@
                     <h4>등록된 기업수</h4>
                   </div>
                   <div class="card-body">
-                    4,732
+                    ${countCompanys}
                   </div>
                 </div>
               </div>
