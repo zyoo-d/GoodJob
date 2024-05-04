@@ -847,9 +847,11 @@ display: flex;
     font-size: 20px;
     border: 1px solid #ddd;
     padding: 7px 14px;;
-    border: 1px solid #ddd;
     border-radius: 5px 0 0 5px;
     border-right: hidden;
+    background-color: #E0E3EA;
+    min-width: 80px;
+    text-align: center;
 }
 
 
@@ -885,7 +887,7 @@ display: flex;
 }
 
 .dropdown-content.addqna .dropdown-item:hover {
-	background-color: #f9f9f9;
+	background-color: #e5e7eb;
 }
 
 .view-form.qnaview p {
