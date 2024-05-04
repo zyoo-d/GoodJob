@@ -27,22 +27,24 @@
 							</div>
 							<div id="write-form">
 								<div class="form-group mt-8">
+									<!-- 기업 검색창 -->
 									<div class="view-form addqna">
 										<div class="addqna-form">
 											<span id="write-title">제목</span> <input type="text"
 												class="title write-title" placeholder="✏️제목을 입력하세요.">
 										</div>
 										<div class="addqna-form">
+											<div id="searchResults1" class="dropdown-content addqna"></div>
 											<span id="write-company">기업</span> <input type="text"
 												id="searchInputCompany" class="company"
 												placeholder="🔍기업명을 입력하세요.">
-											<div id="searchResults1" class="dropdown-content addqna"></div>
-										</div>
-										<div class="addqna-form">
-											<span id="write-company">마감일</span> <input type="date"
-												class="company" id="dateselect" />
 										</div>
 									</div>
+									<!-- 여기까지 복사해서 쓰시면 됩니다 -->
+										<div class="view-form addqna addqna-form">
+											<span id="write-title">마감일</span> <input type="date"
+												class="title write-title" id="dateselect" />
+										</div>
 								</div>
 								<div class="textarea-group">
 									<textarea cols="30" rows="10" placeholder="내용을 입력하세요."></textarea>
@@ -89,7 +91,7 @@
 					});
 				},
 				error : function(){
-					$('#searchResults1').append('<div class="dropdown-item">잘못된 입력입니다.</div>');
+					$('#searchResults1').append('<div class="dropdown-item">오류</div>');
 				}
 			});
 			}
