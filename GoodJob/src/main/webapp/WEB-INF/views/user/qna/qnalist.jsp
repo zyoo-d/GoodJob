@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <%@include file="/WEB-INF/views/inc/asset.jsp" %>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<script src="https://kit.fontawesome.com/cc6d0ced3f.js" crossorigin="anonymous"></script>
 <style>
 
 </style>
@@ -50,7 +51,7 @@
             <section class="list_recruiting">
               <div class="list-header">
                 <div class="list-title">
-                  <p><span class="material-symbols-outlined">subject</span></p><p>조회된 게시글은 총 <span id="list-cnt">1234</span>건입니다.</p>
+                  <p><span class="material-symbols-outlined">subject</span></p><p>조회된 게시글은 총 <span id="list-cnt">${listCount}</span>건입니다.</p>
                 </div>
                 <div class="list_info">
                   <div class="InpBox">
@@ -98,6 +99,9 @@
                           </li>
                           <li>
                             <p class="qna-add-date">2024-04-30</p>
+                          </li>
+                          <li>
+                            <p class="views-comments"><i class="fa-regular fa-eye"></i>400<i class="fa-regular fa-comment"></i>20</p>
                           </li>
                         </ul>
                       </div>
