@@ -25,7 +25,7 @@ public class ListStudy extends HttpServlet {
 		String page = req.getParameter("page");
 		int nowPage = 0; // 현재 페이지 번호
 		int totalCount = 0; // 총 게시물 수
-		int pageSize = 10; // 한 페이지에서 출력할 게시물 수
+		int pageSize = 12; // 한 페이지에서 출력할 게시물 수
 		int totalPage = 0; // 총 페이지 수
 		int begin = 0; // 페이징 시작 위치
 		int end = 0; // 페이징 끝 위치
@@ -104,14 +104,14 @@ public class ListStudy extends HttpServlet {
 			sb.append(
 					"<li class='page-item z-custom'><a class='page-link' href='#!'><span class='material-symbols-outlined paging-icon z-custom'>keyboard_double_arrow_left</span></a></li>");
 			sb.append(String.format(
-					"<li class='page-item z-custom'><a class='page-link' href='/good/user/listStudy.do?page=%d&column=%s&word=%s'><span class='material-symbols-outlined paging-icon z-custom'>navigate_before</span></a></li>",
+					"<li class='page-item z-custom'><a class='page-link' href='/good/user/liststudy.do?page=%d&column=%s&word=%s'><span class='material-symbols-outlined paging-icon z-custom'>navigate_before</span></a></li>",
 					n - 1, column, word));
 		} else if (n > 5) {
 			sb.append(String.format(
-					"<li class='page-item z-custom'><a class='page-link' href='/good/user/listStudy.do?page=%d&column=%s&word=%s'><span class='material-symbols-outlined paging-icon z-custom'>keyboard_double_arrow_left</span></a></li>",
+					"<li class='page-item z-custom'><a class='page-link' href='/good/user/liststudy.do?page=%d&column=%s&word=%s'><span class='material-symbols-outlined paging-icon z-custom'>keyboard_double_arrow_left</span></a></li>",
 					n - 5, column, word));
 			sb.append(String.format(
-					"<li class='page-item z-custom'><a class='page-link' href='/good/user/listStudy.do?page=%d&column=%s&word=%s'><span class='material-symbols-outlined paging-icon z-custom'>navigate_before</span></a></li>",
+					"<li class='page-item z-custom'><a class='page-link' href='/good/user/liststudy.do?page=%d&column=%s&word=%s'><span class='material-symbols-outlined paging-icon z-custom'>navigate_before</span></a></li>",
 					n - 1, column, word));
 		}
 
@@ -123,7 +123,7 @@ public class ListStudy extends HttpServlet {
 						n));
 			} else {
 				sb.append(String.format(
-						"<li class='page-item z-custom'><a class='page-link' href='/good/user/listStudy.do?page=%d&column=%s&word=%s'>%d</a></li>",
+						"<li class='page-item z-custom'><a class='page-link' href='/good/user/liststudy.do?page=%d&column=%s&word=%s'>%d</a></li>",
 						n, column, word, n));
 			}
 			loop++;
@@ -138,16 +138,16 @@ public class ListStudy extends HttpServlet {
 					"<li class='page-item z-custom'><a class='page-link' href='#!'><span class='material-symbols-outlined paging-icon z-custom'>keyboard_double_arrow_right</span></a></li>");
 		} else if (n >= totalPage - 5) {
 			sb.append(String.format(
-					"<li class='page-item z-custom'><a class='page-link' href='/good/user/listStudy.do?page=%d&column=%s&word=%s'><span class='material-symbols-outlined paging-icon z-custom'>navigate_next</span></a></li>",
+					"<li class='page-item z-custom'><a class='page-link' href='/good/user/liststudy.do?page=%d&column=%s&word=%s'><span class='material-symbols-outlined paging-icon z-custom'>navigate_next</span></a></li>",
 					n, column, word));
 			sb.append(
 					"<li class='page-item z-custom'><a class='page-link' href='#!'><span class='material-symbols-outlined paging-icon z-custom'>keyboard_double_arrow_right</span></a></li>");
 		} else {
 			sb.append(String.format(
-					"<li class='page-item z-custom'><a class='page-link' href='/good/user/listStudy.do?page=%d&column=%s&word=%s'><span class='material-symbols-outlined paging-icon z-custom'>navigate_next</span></a></li>",
+					"<li class='page-item z-custom'><a class='page-link' href='/good/user/liststudy.do?page=%d&column=%s&word=%s'><span class='material-symbols-outlined paging-icon z-custom'>navigate_next</span></a></li>",
 					n, column, word));
 			sb.append(String.format(
-					"<li class='page-item z-custom'><a class='page-link' href='/good/user/listStudy.do?page=%d&column=%s&word=%s'><span class='material-symbols-outlined paging-icon z-custom'>keyboard_double_arrow_right</span></a></li>",
+					"<li class='page-item z-custom'><a class='page-link' href='/good/user/liststudy.do?page=%d&column=%s&word=%s'><span class='material-symbols-outlined paging-icon z-custom'>keyboard_double_arrow_right</span></a></li>",
 					n + 5, column, word));
 		}
 

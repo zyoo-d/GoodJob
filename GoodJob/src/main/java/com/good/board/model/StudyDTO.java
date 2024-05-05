@@ -15,4 +15,5 @@ public class StudyDTO {
 	private String cp_name;
 	private String id;
 	private String nickname;
+	private String rnum;
 }

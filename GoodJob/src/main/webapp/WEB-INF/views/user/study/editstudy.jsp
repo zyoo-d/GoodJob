@@ -75,8 +75,13 @@
 					</div>
 
 					<div class="moving-btn">
-						<a href="/good/user/viewstudy.do?std_seq=${dto.std_seq}"
-							class="btn btnBefore">이전으로</a>
+						<c:if test="${mypage=='N'}">
+							<a href="/good/user/viewstudy.do?std_seq=${dto.std_seq}"
+								class="btn btnBefore">이전으로</a>
+						</c:if>
+						<c:if test="${mypage=='Y'}">
+							<a href="/good/user/mypage/mystudy.do" class="btn btnBefore">이전으로</a>
+						</c:if>
 						<button type="submit" class="btn btnList">수정하기</button>
 					</div>
 				</form>

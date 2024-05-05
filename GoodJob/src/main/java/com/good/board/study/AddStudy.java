@@ -1,6 +1,7 @@
 package com.good.board.study;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -18,9 +19,24 @@ public class AddStudy extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/user/study/addstudy.jsp");
-		dispatcher.forward(req, resp);
+		HttpSession session = req.getSession();
+		String id = (String)session.getAttribute("id");
+		
+		if(id == null || id.equals("")) {
+			resp.setCharacterEncoding("UTF-8");
+			PrintWriter writer = resp.getWriter();
+			writer.println("<html><head><meta charset=\"UTF-8\"><title>Access Denied</title></head><body>");
+			writer.println("<script type='text/javascript'>");
+			writer.println("alert('로그인 후 이용 가능합니다.');");
+			writer.println("location.href = \"/good/user/liststudy.do\";");
+			writer.println("</script>");
+			writer.println("</body></html>");
+			writer.close();
+		} else {
+			RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/user/study/addstudy.jsp");
+			dispatcher.forward(req, resp);
+		}
+		
 
 	}
 	
@@ -47,8 +63,18 @@ public class AddStudy extends HttpServlet {
 		
 		int result = dao.addStudy(dto);
 		
-		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/user/study/addstudy.jsp");
-		dispatcher.forward(req, resp);
+		if(result==1) {
+			resp.sendRedirect("/good/user/liststudy.do");
+		} else {
+			resp.setCharacterEncoding("UTF-8");
+			PrintWriter writer = resp.getWriter();
+			writer.println("<html><head><meta charset=\"UTF-8\"><title>Access Denied</title></head><body>");
+			writer.println("<script type='text/javascript'>");
+			writer.println("alert('게시글 업로드에 실패했습니다.');");
+			writer.println("</script>");
+			writer.println("</body></html>");
+			writer.close();
+		}
 		
 	}
 

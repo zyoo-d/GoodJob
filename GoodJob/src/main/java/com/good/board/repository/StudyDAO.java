@@ -22,7 +22,7 @@ public class StudyDAO {
 
 	public int addStudy(StudyDTO dto) {
 		try {
-			String sql = "INSERT INTO tblstudy (STD_SEQ, STD_TITLE, STD_CONTENT, STD_ING, STD_REGDATE, CP_SEQ, ID, STD_DUEDATE) VALUES (seqStudy.NEXTVAL, ?, ?, 'N', SYSDATE, ?, ?, TO_DATE(?, 'YYYY-MM-DD'))";
+			String sql = "INSERT INTO tblstudy (STD_SEQ, STD_TITLE, STD_CONTENT, STD_ING, STD_REGDATE, CP_SEQ, ID, STD_DUEDATE) VALUES (seqStudy.NEXTVAL, ?, ?, 'N', sysdate, ?, ?, TO_DATE(?, 'YYYY-MM-DD'))";
 
 			pstat = conn.prepareStatement(sql);
 			pstat.setString(1, dto.getStd_title());
@@ -30,7 +30,7 @@ public class StudyDAO {
 			pstat.setString(3, dto.getCp_seq());
 			pstat.setString(4, dto.getId());
 			pstat.setString(5, dto.getStd_duedate());
-			
+
 			int result = pstat.executeUpdate();
 			pstat.close();
 			return result;
@@ -79,12 +79,14 @@ public class StudyDAO {
 	public ArrayList<StudyDTO> listStudy(HashMap<String, String> map) {
 		try {
 			String where = "";
-			if(map.get("search").equals("y")) {
+			if (map.get("search").equals("y")) {
 				where = String.format("where %s like '%%%s%%'", map.get("column"), map.get("word"));
 			}
 
-			String sql = String.format("select * from (select a.*, rownum as rnum from vwstudy a %s) where rnum between %s and %s order by std_regdate desc", where, map.get("begin"), map.get("end"));
-			
+			String sql = String.format(
+					"select * from (select a.*, rownum as rnum from vwstudy a %s) where rnum between %s and %s order by std_regdate desc",
+					where, map.get("begin"), map.get("end"));
+
 			stat = conn.createStatement();
 			rs = stat.executeQuery(sql);
 
@@ -117,16 +119,16 @@ public class StudyDAO {
 	public int getTotalCount(HashMap<String, String> map) {
 		try {
 			String where = "";
-			if(map.get("search").equals("y")) {
+			if (map.get("search").equals("y")) {
 				where = String.format("where %s like '%%%s%%'", map.get("column"), map.get("word"));
 			}
 
-			String sql = String.format("select count(*) as cnt from vwStudy %s", where); 
+			String sql = String.format("select count(*) as cnt from vwStudy %s", where);
 
 			stat = conn.createStatement();
 			rs = stat.executeQuery(sql);
 
-			if(rs.next()) {
+			if (rs.next()) {
 				return rs.getInt("cnt");
 			}
 		} catch (Exception e) {
@@ -214,6 +216,40 @@ public class StudyDAO {
 		}
 		return 0;
 	}
-	
-	
+
+	public ArrayList<StudyDTO> myStudy(HashMap<String, String> map) {
+		try {
+			String sql = String.format(
+					"select * from (select a.*, rownum as rnum from (select * from vwstudy where id = '%s' order by std_regdate desc) a) where rnum between %s and %s", map.get("id"), map.get("begin"), map.get("end"));
+
+			stat = conn.createStatement();
+			rs = stat.executeQuery(sql);
+
+			ArrayList<StudyDTO> list = new ArrayList<>();
+			while (rs.next()) {
+				StudyDTO dto = new StudyDTO();
+				dto.setStd_seq(rs.getString("std_seq"));
+				dto.setStd_title(rs.getString("std_title"));
+				dto.setStd_content(rs.getString("std_content"));
+				dto.setStd_ing(rs.getString("std_ing"));
+				dto.setStd_regdate(rs.getString("std_regdate"));
+				dto.setStd_duedate(rs.getString("std_duedate"));
+				dto.setStd_views(rs.getString("std_views"));
+				dto.setCp_seq(rs.getString("cp_seq"));
+				dto.setCp_name(rs.getString("cp_name"));
+				dto.setId(rs.getString("id"));
+				dto.setNickname(rs.getString("nickname"));
+				dto.setRnum(rs.getString("rnum"));
+
+				list.add(dto);
+			}
+			return list;
+
+		} catch (Exception e) {
+			System.out.println("StudyDAO.myStudy");
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 }

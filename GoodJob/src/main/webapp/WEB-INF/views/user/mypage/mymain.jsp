@@ -58,7 +58,7 @@
 											</li></a>
 											<a href="/good/heeyeon/study.jsp"><li
 												class="list-group-item d-flex justify-content-between align-items-center">
-													스터디 <span class="badge badge-primary badge-pill">${stdCnt}</span>
+													스터디 <span class="badge badge-primary badge-pill">${stdCnt>0?stdCnt:'-'}</span>
 											</li></a>
 											<a href="/good/heeyeon/interview.jsp"><li
 												class="list-group-item d-flex justify-content-between align-items-center">
@@ -123,7 +123,7 @@
 										<i class="fas fa-question"></i>
 									</div>
 									<div class="media-body">
-									<input type="hidden" name="link" value="">
+									<input type="hidden" name="link" value="/good/user/qna/listqna.do">
 										<h6 class="mt-0">여기어때?</h6>
 										<p class="mb-0">이 기업이 어떤지 궁금할 땐 여기어때에서 물어보세요!</p>
 									</div>

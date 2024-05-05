@@ -22,7 +22,12 @@ public class EditStudy extends HttpServlet {
 		// 인증받지 못한 사용자 or 권한이 없는 사용자 > 거부
 		
 		if(AuthStudy.check(req, resp)) { return; }
-
+		String mypage = req.getParameter("mypage");
+		
+		if (mypage == null || mypage.equals("")) {
+			mypage = "N";
+		} 
+		
 		String std_seq = req.getParameter("std_seq");
 		StudyDAO dao = new StudyDAO();
 		StudyDTO dto = dao.getStudy(std_seq);
@@ -31,6 +36,7 @@ public class EditStudy extends HttpServlet {
 		dto.setStd_duedate(date);
 		
 		req.setAttribute("dto", dto);
+		req.setAttribute("mypage", mypage);
 
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/user/study/editstudy.jsp");
 		dispatcher.forward(req, resp);

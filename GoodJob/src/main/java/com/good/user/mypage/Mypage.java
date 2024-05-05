@@ -25,7 +25,7 @@ public class Mypage extends HttpServlet {
 		int stdCnt = dao.getCount(id);
 		
 		req.setAttribute("stdCnt", stdCnt);
-		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/user/mypage/main.jsp");
+		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/user/mypage/mymain.jsp");
 		dispatcher.forward(req, resp);
 
 	}

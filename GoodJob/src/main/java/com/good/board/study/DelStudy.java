@@ -21,13 +21,22 @@ public class DelStudy extends HttpServlet {
 		if (AuthStudy.check(req, resp)) {
 			return;
 		}
-
+		
+		
+		String mypage = req.getParameter("mypage");
 		String seq = req.getParameter("std_seq");
+		
+		if (mypage == null || mypage.equals("")) {
+			mypage = "N";
+		} 
+		
 		StudyDAO dao = new StudyDAO(); 
 
 		int result = dao.delStudy(seq);
 		
-		if(result==1) {
+		if(result==1 && mypage.equals("Y")) {
+			resp.sendRedirect("/good/user/mypage/mystudy.do");
+		} else if (result==1&& mypage.equals("N")) {
 			resp.sendRedirect("/good/user/liststudy.do");
 		} else {
 			resp.setCharacterEncoding("UTF-8");

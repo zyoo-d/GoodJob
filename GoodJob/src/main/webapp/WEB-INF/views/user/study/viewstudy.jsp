@@ -7,6 +7,9 @@
 <meta charset="UTF-8">
 <%@include file="/WEB-INF/views/inc/asset.jsp"%>
 <style>
+#btnDelStudy {
+	cursor: pointer;
+}
 </style>
 </head>
 <%@include file="/WEB-INF/views/inc/header.jsp"%>
@@ -47,7 +50,7 @@
 									<p class="write-date">${dto.std_regdate}</p>
 									<c:if test="${not empty id && (dto.id==id || lv == '2')}">
 									<a href="/good/user/editstudy.do?std_seq=${dto.std_seq}">(수정</a>
-									<button type="button" id="btnDelStudy">/ 삭제)</button>
+									<input type="button" id="btnDelStudy" value="/ 삭제)">
 									</c:if>
 								</div>
 							</div>
