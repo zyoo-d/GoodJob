@@ -18,6 +18,7 @@
 	<!-- ./end floating assets -->
 
 <section class="page-hero pt-16 pb-6">
+<form  method="GET" action="/good/user/company/companylist.do">
 		<div class="container">
 			<div class="card" id="itvWriteQnA">
 				<div class="card-content-wrapper">
@@ -30,19 +31,19 @@
 						</div>
 
 						<div>
-							<form id="searchForm" method="GET" action="/good/user/company/companylist.do">
-
-								<input type="text" name="input" class="input" id="search-input" placeholder="기업명으로 검색하세요.">
+							<div id="searchForm">
+								<input type="text" name="word" class="input" id="search-input" placeholder="기업명으로 검색하세요.">
 								<button type="submit" class="search" id="search-btn">
 									<span class="material-symbols-outlined">search</span>
 									
 								</button>
-							</form>
-							<form>
+						</div>
+							
 								<button type="button" class="btn btnList w-full"
 									id="detail-search-btn">평균연봉 / 지역 / 업종으로 상세조회하기</button>
-							</form>
+							
 						</div>
+				
 						<div>
 							<section class="integration-single section pt-0 com-detail"
 								style="display: none;" id="detailSection">
@@ -191,10 +192,12 @@
 								</div>
 							</section>
 						</div>
+					
+						
 					</div>
 
 				</div>
-
+			
 				<div id="default_list_wrap" style="position: relative">
 					<section class="list_recruiting">
 						<div class="list-header">
@@ -213,9 +216,13 @@
 									 검색된 기업은 총 <span id="list-cnt">${totalCount}</span>건입니다.
 								</p>
 								</c:if>
+						
 							<div class="checkbox-wrapper">
-    <input type="checkbox" id="hiring-only" class="sorting filter-checkbox" value="채용중" checked>
-    <label for="hiring-only" class="filter-label">채용중인 기업만 조회하기</label>
+       <!-- 체크박스와 레이블 -->
+    
+    <input type="checkbox" id="hiring-only" class="sorting filter-checkbox" name="hiring" checked>
+    <label for="hiring-only" class="filter-label">채용중인 기업</label>
+	<button type="submit" style="border:1px solid #ccc; margin-left:3px; padding: 1px 3px; border-radius:8px; font-size:14px;">검색</button>
    
 </div>
 							</div>
@@ -225,10 +232,10 @@
  <button type="button" id="compare-btn" class="compare-button">기업 맞춤 비교</button>
 								<div class="InpBox">
 									<select class="sorting" name="sort" id="sort">
-										<option value="EA">평균연봉</option>
-										<option value="EA">스크랩</option>
-										<option value="EA">리뷰수</option>
-										<option value="RD" selected>매출액</option>
+										<option value="salary-avg">평균연봉</option>
+										<option value="scraps-cnt">스크랩</option>
+										<option value="riview-cnt">리뷰수</option>
+										<option value="sales" selected>매출액</option>
 									</select>
 								</div>
 
@@ -245,20 +252,20 @@
 								<div class="box_item row mx-0 rounded-[20px] bg-white px-10 shadow-lg">
    
     <div class="com-list com-image">
-        <img src="/good/asset/images/logo/네이버.jpg" alt="Company Logo" style="width: 100px; height: 100px;"> <!-- 예시 이미지 경로 -->
+        <img src="${dto.image}" onerror="this.src='/good/asset/images/default.jpg'" alt="Company Logo" style="width: 100px; height: 100px;"> <!-- 예시 이미지 경로 -->
     </div>
 
     <div class="com-title">
         <div class="recruit-present-info">
             <div class="com-name">
 
-                <span>지원가능한 채용공고 <b>3</b>건</span>
+                <span>지원가능한 채용공고 <b>${dto.com_rcrt_cnt}</b>건</span>
             </div>
         </div>
         <div class="col notification_info">
         
        <div class="job_tit" style="display: flex; align-items: flex-start;center;">
-    <a class="str_tit_title new" href="#" target="_blank">
+    <a href="/good/user/company/companyview.do?cp_seq=${dto.cp_seq}&word=${map.word}&search=${map.search}&hiring=${map.hiring}&page=${nowPage}" class="str_tit_title new" target="_blank">
         <h2>${dto.cp_name}</h2>
     </a>
     <button id="scrap" style="margin-left:8px;">
@@ -279,7 +286,7 @@
                 <li><p class="work_place"><b>기업위치 </b>${dto.cp_address}</p></li>
                 <li><p class="career"><b>총매출액 </b>${dto.fnc_sales}</p></li>
                 <li><p class="education"><b>평균연봉</b> ${dto.hire_avr_salary}만원</p></li>
-                <li><p class="salary"><b>스크랩수</b> 1025건</p></li>
+                <li><p class="salary"><b>스크랩수</b> ${dto.com_scrap_cnt}건</p></li>
             </ul>
         </div>
     </div>
@@ -294,28 +301,28 @@
 
 
 		</div>
+				</form>
+
+		
 
 
 
 		<nav class="PageBox z-custom" aria-label="Page navigation example">
-			<ul class="pagination z-custom">
-				<li class="page-item z-custom"><a class="page-link" href="#"><span
-						class="material-symbols-outlined paging-icon z-custom">keyboard_double_arrow_left</span></a></li>
-				<li class="page-item z-custom"><a class="page-link " href="#"><span
-						class="material-symbols-outlined paging-icon z-custom">navigate_before</span></a></li>
-				<li class="page-item z-custom"><a class="page-link" href="#">1</a></li>
-				<li class="page-item z-custom"><a class="page-link" href="#">2</a></li>
-				<li class="page-item z-custom"><a class="page-link" href="#">3</a></li>
-				<li class="page-item z-custom"><a class="page-link" href="#">4</a></li>
-				<li class="page-item z-custom"><a class="page-link" href="#">5</a></li>
-				<li class="page-item z-custom"><a class="page-link" href="#"><span
-						class="material-symbols-outlined paging-icon z-custom">navigate_next</span></a></li>
-				<li class="page-item  z-custom"><a class="page-link" href="#"><span
-						class="material-symbols-outlined paging-icon z-custom">keyboard_double_arrow_right</span></a></li>
-			</ul>
+			<ul class="pagination z-custom">${pagebar}</ul>
 		</nav>
 	</section>
+	
 	<%@include file="/WEB-INF/views/inc/footer.jsp"%>
+	
+	<script type="text/javascript">
+	<c:if test="${map.search == 'y'}">
+	//검색중 상태 유지
+	$('input[name=word]').val('${map.word}');
+	$('select[name=column]').val('${map.column}');
+	$('input[name=hiring]').val('${map.hiring}');
+	</c:if>
+	</script>
+	
 	<script>
 		document.addEventListener("DOMContentLoaded", function() {
 			document.getElementById("detail-search-btn").addEventListener(
@@ -488,8 +495,7 @@
 								var tagname = target.parent().text().trim();
 								var tagId = target.val();
 
-								lctag
-										.append('<input type="checkbox" id="' + tagId + '" value="' + tagname + '">'
+								lctag.append('<input type="checkbox" id="' + tagId + '" value="' + tagname + '">'
 												+ '<label for="' + tagId + '">'
 												+ tagname
 												+ ' <i class="fa-solid fa-xmark"></i></label>');
@@ -512,6 +518,35 @@
 			$(this).next().addBack().remove();
 		});
 		/* 선호근무지역 End */
+
+		/**/
+		$(document).ready(function() {
+			
+			if (localStorage.getItem('hiringChecked') === 'y') {
+		        $('#hiring-only').prop('checked', true);
+		    } else {
+		        $('#hiring-only').prop('checked', false);
+		    }
+    $('#hiring-only').change(function() {
+        var isChecked = $(this).is(':checked') ? 'y' : 'n';
+        localStorage.setItem('hiringChecked', isChecked);
+        
+        $.ajax({
+            url: '/good/user/company/companylist.do', // 서버의 URL로 수정해야 합니다.
+            type: 'GET', // 또는 POST, 서버 구현에 따라 달라집니다.
+            data: { hiring: isChecked },
+            success: function(response) {
+                // 결과를 페이지에 표시하는 코드
+                $('#results').html(response); // 'results'는 결과를 표시할 요소의 ID입니다.
+            },
+            error: function(xhr, status, error) {
+                // 오류 처리 코드
+                console.error("Request Failed: " + status + ", " + error);
+            }
+        });
+    });
+});
+
 
 	</script>
 </body>

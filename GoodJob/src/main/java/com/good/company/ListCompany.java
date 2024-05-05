@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import com.good.company.model.CompanyDTO;
 import com.good.company.repository.CompanyDAO;
+import com.good.company.repository.RecruitDAO;
 
 	@WebServlet("/user/company/companylist.do")
 	public class ListCompany extends HttpServlet {
@@ -45,33 +46,44 @@ import com.good.company.repository.CompanyDAO;
 			begin = ((nowPage-1)*pageSize)+1;
 			end = begin + pageSize -1;
 			
-			//기업명 검색
-			String column = req.getParameter("column");
-			String word = req.getParameter("word");
-			String search = "n"; //(y:검색후)
 			
-			if((column == null && word == null) || (word.equals(""))) {
+
+			// 검색 기록 가져오기
+			String column = (req.getParameter("column") != null ? req.getParameter("column") : "");
+			String word = (req.getParameter("word") != null ? req.getParameter("word") : "");
+			String search = "n"; // 목록보기(n), 검색하기(y)
+
+			if ((column == null && word == null) || word.equals("")) {
 				search = "n";
 			} else {
 				search = "y";
 			}
 			
-			HashMap<String,String> map = new HashMap<String,String>();
-			if(column == null) column="";
-			if(word == null) word="";
 			
+			String hiring = req.getParameter("hiring");
+			if(hiring != null) {
+				hiring = "y";
+			}else {
+				hiring = "n";
+			}
+			
+			
+			HashMap<String, String> map = new HashMap<>();
+
 			map.put("search", search);
 			map.put("column", column);
 			map.put("word", word);
+			map.put("begin", begin + "");
+			map.put("end", end + "");
+			map.put("hiring",hiring);
 			
-			map.put("begin", begin+"");
-			map.put("end", end+"");
 			
 			HttpSession session = req.getSession();
 			
 			//목록 출력
 			CompanyDAO dao = new CompanyDAO();
 			ArrayList<CompanyDTO> comListInfo = dao.comListInfo(map);
+			
 			
 			
 			for (CompanyDTO dto : comListInfo) {
@@ -122,68 +134,81 @@ import com.good.company.repository.CompanyDAO;
 				//평균연봉
 			    int avg_salary = dto.getHire_avr_salary();
 			    dto.setHire_avr_salary((int)Math.round((float)avg_salary/10000));//(단위:만원)  
-			    
-			    //이미지
-			    String comlogo = dto.getImage();
-			    if(comlogo == null) {
-			    	comlogo = "/good/asset/img/logo/default.jpg";
-			    }else {
-			    	comlogo.replaceAll("images","img");
-			    }
-			    
-			    
+
 			}
 			
-			if (search =="y") {
-				totalCount = dao.searchCompanyCount(map);
-			} else {
-				totalCount = dao.countCompanys();
-			}
+			//총게시물수
 			
-			//총페이지수
-			totalPage = (int)Math.ceil((double)totalCount/pageSize);
-				
-			
-			//페이지바 작업
+			totalCount = dao.searchCompanyCount(map);
+			totalPage = (int) Math.ceil((double) totalCount / pageSize);
+
+			// 페이지 바 작업
 			StringBuilder sb = new StringBuilder();
-			loop = 1;
-			n = ((nowPage - 1) / blockSize) * blockSize + 1; //페이지 번호 역할
-			
-			System.out.println("확인: " + column);
-			
-			
-			//이전 5페이지
+
+
+			loop = 1; // 루프 변수(10바퀴)
+			n = ((nowPage - 1) / blockSize) * blockSize + 1; // 페이지 번호 역할
+
+			// 이전 5페이지
 			if (n == 1) {
-				sb.append(String.format(" <a href='#!'>[이전 %d페이지]</a> ", blockSize));
-			} else {
-				sb.append(String.format(" <a href='/toy/board/list.do?page=%d&column=%s&word=%s'>[이전 %d페이지]</a> ", n - 1, column, word, blockSize));
+				sb.append(
+						"<li class='page-item z-custom'><a class='page-link' href='#!'><span class='material-symbols-outlined paging-icon z-custom'>keyboard_double_arrow_left</span></a></li>");
+				sb.append(
+						"<li class='page-item z-custom'><a class='page-link' href='#!'><span class='material-symbols-outlined paging-icon z-custom'>navigate_before</span></a></li>");
+			} else if (n <= 5) {
+				sb.append(
+						"<li class='page-item z-custom'><a class='page-link' href='#!'><span class='material-symbols-outlined paging-icon z-custom'>keyboard_double_arrow_left</span></a></li>");
+				sb.append(String.format(
+						"<li class='page-item z-custom'><a class='page-link' href='/good/user/company/companylist.do?page=%d&hiring=%s&word=%s'><span class='material-symbols-outlined paging-icon z-custom'>navigate_before</span></a></li>",
+						n - 1, hiring, word));
+			} else if (n > 5) {
+				sb.append(String.format(
+						"<li class='page-item z-custom'><a class='page-link' href='/good/user/company/companylist.do?page=%d&hiring=%s&word=%s'><span class='material-symbols-outlined paging-icon z-custom'>keyboard_double_arrow_left</span></a></li>",
+						n - 5, hiring, word));
+				sb.append(String.format(
+						"<li class='page-item z-custom'><a class='page-link' href='/good/user/company/companylist.do?page=%d&hiring=%s&word=%s'><span class='material-symbols-outlined paging-icon z-custom'>navigate_before</span></a></li>",
+						n - 1, hiring, word));
 			}
-			
-			
-			
+
 			while (!(loop > blockSize || n > totalPage)) {
-				
 				if (n == nowPage) {
-					sb.append(String.format(" <a href='#!' style='color: tomato;'>%d</a> ", n));
+
+					sb.append(String.format(
+							"<li class='page-item z-custom'><a class='page-link' href='#!' style='background-color: #6777EE; color: #FFF; border-color: #6777EE;'>%d</a></li>",
+							n));
 				} else {
-					sb.append(String.format(" <a href='/toy/board/list.do?page=%d&column=%s&word=%s'>%d</a> ", n, column, word, n));
+					sb.append(String.format(
+							"<li class='page-item z-custom'><a class='page-link' href='/good/user/company/companylist.do?page=%d&hiring=%s&word=%s'>%d</a></li>",
+							n, hiring, word, n));
 				}
-				
 				loop++;
 				n++;
 			}
-			
-			
-			//다음 5페이지
+
+			// 다음 5페이지
 			if (n >= totalPage) {
-				sb.append(String.format(" <a href='#!'>[다음 %d페이지]</a> ", blockSize));
+				sb.append(
+						"<li class='page-item z-custom'><a class='page-link' href='#!'><span class='material-symbols-outlined paging-icon z-custom'>navigate_next</span></a></li>");
+				sb.append(
+						"<li class='page-item z-custom'><a class='page-link' href='#!'><span class='material-symbols-outlined paging-icon z-custom'>keyboard_double_arrow_right</span></a></li>");
+			} else if (n >= totalPage - 5) {
+				sb.append(String.format(
+						"<li class='page-item z-custom'><a class='page-link' href='/good/user/company/companylist.do?page=%d&hiring=%s&word=%s'><span class='material-symbols-outlined paging-icon z-custom'>navigate_next</span></a></li>",
+						n, hiring, word));
+				sb.append(
+						"<li class='page-item z-custom'><a class='page-link' href='#!'><span class='material-symbols-outlined paging-icon z-custom'>keyboard_double_arrow_right</span></a></li>");
 			} else {
-				sb.append(String.format(" <a href='/toy/board/list.do?page=%d&column=%s&word=%s'>[다음 %d페이지]</a> ", n, column, word, blockSize));
+				sb.append(String.format(
+						"<li class='page-item z-custom'><a class='page-link' href='/good/user/company/companylist.do?page=%d&hiring=%s&word=%s'><span class='material-symbols-outlined paging-icon z-custom'>navigate_next</span></a></li>",
+						n, hiring, word));
+				sb.append(String.format(
+						"<li class='page-item z-custom'><a class='page-link' href='/good/user/company/companylist.do?page=%d&hiring=%s&word=%s'><span class='material-symbols-outlined paging-icon z-custom'>keyboard_double_arrow_right</span></a></li>",
+						n + 5, hiring, word));
 			}
 			
 			
 			req.setAttribute("comListInfo" , comListInfo);
-			req.setAttribute("map" , map); //페이지 begin. end
+			req.setAttribute("map" , map); //페이지 begin. end hiring
 			
 			//페이징
 			req.setAttribute("nowPage", nowPage); //페이지 번호

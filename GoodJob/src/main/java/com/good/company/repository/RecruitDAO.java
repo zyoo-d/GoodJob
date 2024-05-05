@@ -123,4 +123,28 @@ public class RecruitDAO {
 		}
 		return 0;
 	}
+	
+	public int countComRcrt(String cp_seq) {
+		
+		try {
+
+			String sql = "select count(*) as cnt from tblRecruit where cp_seq = ?";
+
+			pstat = conn.prepareStatement(sql);
+			pstat.setString(1, cp_seq);
+			
+			rs = pstat.executeQuery();
+
+			if (rs.next()) {
+				return rs.getInt("cnt");
+			}
+
+		} catch (Exception e) {
+			System.out.println("등록된 기업수 로드 실패");
+			e.printStackTrace();
+		}
+		
+		return 0;
+		
+	}
 }
