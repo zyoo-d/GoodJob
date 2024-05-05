@@ -6,8 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <%@include file="/WEB-INF/views/inc/asset.jsp"%>
-<link rel="stylesheet"
-	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <style>
 
 </style>
@@ -177,25 +175,18 @@
 									<span class="material-symbols-outlined">subject</span>
 								</p>
 								<p>
-									조회된 기업은 총 <span id="list-cnt">1234</span>건입니다.
+									조회된 기업은 총 <span id="list-cnt">${totalCount}</span>건입니다.
 								</p>
 							<div class="checkbox-wrapper">
     <input type="checkbox" id="hiring-only" class="sorting filter-checkbox" value="채용중" checked>
     <label for="hiring-only" class="filter-label">채용중인 기업만 조회하기</label>
+   
 </div>
 							</div>
+							
 							</div>
 							<div class="list_info">
-							
-							
-								<div class="InpBox">
-									<select class="sorting" name="page_count" id="page_count">
-										<option value="20" selected>20개씩</option>
-										<option value="30">30개씩</option>
-										<option value="50">50개씩</option>
-										<option value="100">100개씩</option>
-									</select>
-								</div>
+ <button type="button" id="compare-btn" class="compare-button">기업 맞춤 비교</button>
 								<div class="InpBox">
 									<select class="sorting" name="sort" id="sort">
 										<option value="EA">평균연봉</option>
@@ -223,15 +214,20 @@
     <div class="com-title">
         <div class="recruit-present-info">
             <div class="com-name">
+
                 <span>지원가능한 채용공고 <b>3</b>건</span>
             </div>
         </div>
         <div class="col notification_info">
-            <div class="job_tit">
-                <a class="str_tit_title new" href="#" target="_blank">
-                    <h2>네이버</h2>
-                </a>
-            </div>
+        
+       <div class="job_tit" style="display: flex; align-items: flex-start;center;">
+    <a class="str_tit_title new" href="#" target="_blank">
+        <h2>네이버</h2>
+    </a>
+    <button id="scrap" style="margin-left:8px;">
+        <i class="fa-regular fa-bookmark"></i>
+    </button>
+</div>
             <div class="job_meta">
                 <span class="job-keyword">복지가좋은</span>
                 <span class="job-keyword">미래가기대되는</span>
