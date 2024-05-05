@@ -17,7 +17,7 @@
 	<section class="page-hero pt-16 pb-6">
 		<div class="container">
 			<div class="card" id="itvWriteQnA">
-				<form method="POST" action="/good/user/qna/addqna.do">
+				<form method="POST" action="/good/user/qna/editqna.do">
 				<div class="card-content-wrapper">
 					<div class="card-content">
 						<div class="px-4 text-center">
@@ -39,19 +39,19 @@
 										<div class="view-form addqna">
 											<div class="addqna-form">
 												<span id="write-title">제목</span> <input type="text"
-													class="title write-title" placeholder="✏️제목을 입력하세요." name="qna_title">
+													class="title write-title" placeholder="✏️제목을 입력하세요." name="qna_title" value="${dto.qna_title }">
 											</div>
 											<div class="addqna-form">
 												<div id="searchResults1" class="dropdown-content addqna"></div>
 												<span id="write-company">기업</span> <input type="text"
 													id="searchInputCompany" class="company"
-													placeholder="🔍기업명을 입력하세요." name="cp_name">
+													placeholder="🔍기업명을 입력하세요." name="cp_name" value="${dto.cp_name }">
 											</div>
 										</div>
 								</div>
 							</div>
 							<div class="textarea-group">
-								<textarea cols="30" rows="10" placeholder="내용을 입력하세요." name="qna_content"></textarea>
+								<textarea cols="30" rows="10" placeholder="내용을 입력하세요." name="qna_content">${dto.qna_content}</textarea>
 							</div>
 
 						</div>
@@ -60,9 +60,10 @@
 				</div>
 
 				<div class="moving-btn">
-					<button type="button" class="btn btnBefore">이전으로</button> 
-					<button type="submit" class="btn btnList">등록하기</button>
+					<button type="button" class="btn btnBefore" onclick="history.back()">이전으로</button> 
+					<button type="submit" class="btn btnList">수정하기</button>
 				</div>
+				<input type="hidden" name="qna_seq" value="${dto.qna_seq}" />
 				</form>
 			</div>
 		</div>

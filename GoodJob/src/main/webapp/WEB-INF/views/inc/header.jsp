@@ -44,7 +44,7 @@
 						class="nav-dropdown-link">면접스터디</a></li>
 					<li class="nav-dropdown-item"><a href=""
 						class="nav-dropdown-link">면접후기</a></li>
-					<li class="nav-dropdown-item"><a href=""
+					<li class="nav-dropdown-item"><a href="/good/user/qna/listqna.do"
 						class="nav-dropdown-link">여기어때?</a></li>
 				</ul></li>
 			<li class="nav-item"><a href="" class="nav-link">공지사항</a></li>

@@ -5,13 +5,11 @@
 <head>
     <meta charset="UTF-8">
     <%@include file="/WEB-INF/views/inc/asset.jsp" %>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <style>
 
 
 .comment-section {
     margin-top: 20px;
-
 }
 
 .category {
@@ -69,21 +67,21 @@ textarea {
     justify-content: space-between;
     padding: 30px;
     margin-bottom: 15px;
+    border-bottom: 1px solid #eee;
 }
 .com-image {
-    flex-shrink: 0; /* 이미지 크기 유지 */
-    width: 100px; /* 이미지 너비 설정 */
-    height: 100px; /* 이미지 높이 설정 */
-    margin-right: 20px; /* 오른쪽 여백 추가 */
+    flex-shrink: 0; 
+    width: 100px;
+    height: 100px;
+    margin-right: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .com-image img {
-    width: 100%; /* 이미지 자체 크기 조정 */
-    height: auto; /* 높이 자동 조정 */
-    border-radius: 50%; /* 이미지를 원형으로 표시 */
+    width: 100%;
+    height: auto;
 }
 .com-title {
 	flex: 6;
@@ -107,16 +105,16 @@ textarea {
 }
 
 .tag_meta {
-    display: flex; /* Use flexbox to manage layout */
-    flex-wrap: wrap; /* Allow items to wrap to the next line */
-    margin: 15px 3px; /* Adjusted margin for spacing around the container */
-    align-items: center; /* Align items in the middle vertically */
-    gap: 10px 5px; /* Space between items vertically and horizontally */
+    display: flex;
+    flex-wrap: wrap; 
+    margin: 15px 3px;
+    align-items: center;
+    gap: 10px 5px; 
 }
 
 .job_meta, .tag_meta {
     margin-top: 15px;
-    padding: 5px 0; /* Padding to ensure spacing inside the container */
+    padding: 5px 0;
 }
 
 .job_meta .job-keyword, .tag_meta .tag-keyword {
@@ -127,47 +125,47 @@ textarea {
     border-radius: 5px;
     background-color: #fff;
     transition: background-color 0.3s, color 0.3s;
-    cursor: pointer; /* Optional: Makes it clear they are interactive */
-    display: inline-block; /* Ensures items flow correctly with flexbox */
-    margin-bottom: 5px; /* Ensure consistent vertical spacing between lines */
+    cursor: pointer; 
+    display: inline-block;
+    margin-bottom: 5px;
 }
 .ps-com {
     display: flex;
-    flex-wrap: wrap; /* Ensures items can wrap onto the next line */
-    padding: 10px; /* Adds padding inside the container */
+    flex-wrap: wrap;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+
 }
 
 .ps-com > div {
-    flex: 1 1 50%; /* Grow and shrink normally, initial basis at 50% */
-    padding: 10px; /* Adds padding inside each child div for spacing */
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Optional shadow for better visibility */
+    flex: 1 1 50%;
+    padding: 10px; 
     padding-left:20px;
 }
 
 .comment-section {
-    flex-basis: 100%; /* Takes full width to ensure it breaks to a new line */
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    flex-basis: 100%; 
     margin-top: 20px;
 }
 
 /*태그 추가*/
 .add-tag {
     position: relative;
-    max-width: 400px; /* Control the width of the input area */
-    margin: 20px auto; /* Center align the container */
+    max-width: 400px;
+    margin: 20px auto;
     display: flex;
     align-items: center;
     border-radius: 20px;
     box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    background: #fff; /* Background color */
+    background: #fff;
 }
 
 .add-tag input[type="text"] {
     flex-grow: 1;
     border: none;
     padding: 10px 20px;
-    border-radius: 20px 0 0 20px; /* Rounded corners on the left side */
-    font-size: 16px; /* Font size adjustment for better readability */
+    border-radius: 20px 0 0 20px;
+    font-size: 16px;
 }
 .add-tag input:focus {
 	outline: none;
@@ -183,21 +181,21 @@ textarea {
     outline: none;
     position: absolute;
     right: 0;
-    border-radius: 0 20px 20px 0; /* Rounded corners on the right side */
+    border-radius: 0 20px 20px 0; 
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .add-tag button:hover {
-    background-color: #3656CB; /* Slight background color change on hover */
+    background-color: #3656CB;
 }
 
 
 .tag-list {
-    padding-left: 20px; /* Padding for the tag list */
-    max-width: 400px; /* Matching the width of the input */
-    margin: 10px auto; /* Align with the input field */
+    padding-left: 20px;
+    max-width: 400px; 
+    margin: 10px auto;
 }
 
 .tag-list .tag-keyword {
@@ -214,24 +212,24 @@ textarea {
 </head>
 <%@include file="/WEB-INF/views/inc/header.jsp" %>
 <body>
+<div id="itvWriteContainer">
 	<section class="page-hero pt-16 pb-6">
 		<div class="container">
-			<div class="z-custom card" id="itvWriteQnA">
+			<div class="card" id="itvWriteQnA">
 				<div class="card-content-wrapper">
-					<div class="card-content">
-						<div class="px-4 text-center">
+					
+                    <div class="px-4 text-center sizing">
                         <h1 class="mt-3 gradiTitle"><span>기업리뷰등록</span></h1>
                         <p class="mt-6">작성해 주신 기업리뷰는 다른 구직자분들께 큰 도움이 될 거예요</p>
                     </div>
-                    </div>
-                  
 
+                  <hr>
         	<div class="list_body">
-							<div id="rec-48103333" class="list_item">
+							<div class="list_item">
 							
 							<!-- 채용공고start -->
 						
-								<div class="box_item row mx-0 bg-white px-10">
+								<div class="box_item mx-0 bg-white px-10">
     <!-- 추가된 이미지 컨테이너 -->
     <div class="com-image">
         <img src="company-logo.png" alt="Company Logo">
@@ -270,7 +268,7 @@ textarea {
                 <div class="stars" data-category="welfare"></div>
             </div>
                         <div class="category">
-                <label>근무안정성</label>
+                <label>조직안정성</label>
                 <div class="stars" data-category="retention"></div>
             </div>
             <div class="category">
@@ -328,7 +326,7 @@ textarea {
             <h3>이런 부분은 아쉬웠어요</h3>
             <textarea name="" placeholder="해당 기업에서 근무하면서 아쉬웠던 점을 작성해주세요!"></textarea>
         </div>
-        
+        <hr>
 				<div class="submit-info">
                 <p>면접 후기에 대한 저작권은 (주)사람인에 있습니다.<br> 등록하신 콘텐츠는 임의로 삭제하실 수 없습니다.</p>
                 </div>
@@ -341,7 +339,7 @@ textarea {
      
         
     </section>
-
+</div>
 <%@include file="/WEB-INF/views/inc/footer.jsp" %>
 <script>
 function addTag() {
