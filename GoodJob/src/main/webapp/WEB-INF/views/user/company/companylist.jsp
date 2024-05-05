@@ -6,8 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <%@include file="/WEB-INF/views/inc/asset.jsp"%>
-<link rel="stylesheet"
-	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <style>
 
 </style>
@@ -19,11 +17,11 @@
 
 	<!-- ./end floating assets -->
 
-	<section class="page-hero pt-16 pb-6">
+<section class="page-hero pt-16 pb-6">
 		<div class="container">
-			<div class="z-custom card" id="itvWriteQnA">
-				<div class="">
-					<div class="">
+			<div class="card" id="itvWriteQnA">
+				<div class="card-content-wrapper">
+					<div class="card-content">
 						<div class="px-4 text-center">
 							<h1 class="mt-3 gradiTitle">
 								<span>기업검색</span>
@@ -32,23 +30,21 @@
 						</div>
 
 						<div>
-							<form id="searchForm" method="" action="">
+							<form id="searchForm" method="GET" action="/good/user/company/companylist.do">
 
-								<input type="text" name="input" class="input" id="search-input"
-									placeholder="기업명으로 검색하세요.">
-								<button type="button" class="search" id="search-btn">
-									<span class="material-symbols-outlined"> <span
-										class="material-symbols-outlined">search</span>
-									</span>
+								<input type="text" name="input" class="input" id="search-input" placeholder="기업명으로 검색하세요.">
+								<button type="submit" class="search" id="search-btn">
+									<span class="material-symbols-outlined">search</span>
+									
 								</button>
 							</form>
 							<form>
 								<button type="button" class="btn btnList w-full"
-									id="detail-search-btn">평균연봉 / 지역 / 직무로 상세조회하기</button>
+									id="detail-search-btn">평균연봉 / 지역 / 업종으로 상세조회하기</button>
 							</form>
 						</div>
 						<div>
-							<section class="integration-single section pt-0"
+							<section class="integration-single section pt-0 com-detail"
 								style="display: none;" id="detailSection">
 
 								<div class="container">
@@ -56,7 +52,7 @@
 
 										<div class="justify-center">
 
-											<div class="mt-8 border-border py-10" id="userDetail">
+											<div class="border-border py-10" id="userDetail">
 												
 												<div>
 													<h6 class="text-left preferTitle">
@@ -89,7 +85,7 @@
 												<h5 class="text-left preferTitle">
 													<i class="fa-solid fa-location-dot"></i> 지역으로 조회하기(최대 3건)
 												</h5>
-												<div class="optionRegion">
+												<div class="optionRegion com-list">
 													<div class="region-list">
 														<ul>
 															<li onclick="showLocations('서울')">서울</li>
@@ -122,34 +118,65 @@
 															class="fa-solid fa-rotate-right"></i> 지역 초기화</span>
 													</div>
 												</div>
-
 											</div>
 											<!-- 선호근무지역 End -->
 											<!-- 선호직무 -->
 											<div data-tab-group="service-tab" class="">
-												<div class="px-4 text-center">
-													<h5 class="text-left">🖤선호직무</h5>
+												<div class="text-center">
+													<h5 class="text-left">🖤선호업종</h5>
 													<div class="optionJob mt-4">
 														<dl class="row_item">
-															<dt class="category-list">
-																<h6>
-																	직무·직업<span class="toggle-button"
-																		onclick="toggleTagList(event)">+</span>
-																</h6>
+															<dt class="category-list industry">
+																<h6>데이터•정보</h6>
+																
+														
 															</dt>
 															<dd class="tag-group">
-																<input type="checkbox" id="tag1" value="데이터엔지니어">
-																<label for="tag1">데이터엔지니어</label> <input type="checkbox"
-																	id="tag2" value="프론트엔드"> <label for="tag2">프론트엔드</label>
+																
+																<input type="checkbox" id="tag1" value="723000"> <label for="tag1">자료처리</label>
+																<input type="checkbox" id="tag2" value="723001"> <label for="tag2">호스팅•관련서비스</label>
+																<input type="checkbox" id="tag3" value="724000"> <label for="tag3">데이터베이스•온라인정보제공</label>
+																<input type="checkbox" id="tag4" value="724001"> <label for="tag4">뉴스제공</label>
+																<input type="checkbox" id="tag5" value="724002"> <label for="tag5">그 외 기타 정보 서비스</label>
+
 															</dd>
 														</dl>
-
+														<dl class="row_item">
+															<dt class="category-list industry">
+															<h6>소프트웨어
+																</h6>
+															</dt>
+														<dd class="tag-group">
+																
+																<input type="checkbox" id="tag6" value="722000"><label for="tag6">응용소프트웨어</label>
+																<input type="checkbox" id="tag7" value="722001"> <label for="tag7">유선 온라인 게임</label>
+																<input type="checkbox" id="tag8" value="722002"> <label for="tag8">모바일 게임</label>
+																<input type="checkbox" id="tag9" value="722003"> <label for="tag9">기타 게임</label>
+																<input type="checkbox" id="tag10" value="722004"> <label for="tag10">시스템 소프트웨어</label>
+																<input type="checkbox" id="tag11" value="722005"> <label for="tag11">컴퓨터 프로그래밍</label>
+																
+														
+														</dd>
+														</dl>
+														<dl class="row_item">
+															<dt class="category-list industry">
+															<h6>시설•구축
+																</h6>
+															</dt>
+														<dd class="tag-group">
+																<input type="checkbox" id="tag12" value="721000"> <label for="tag12">컴퓨터시스템 통합 자문•구축 서비스</label>
+																<input type="checkbox" id="tag13" value="721001"> <label for="tag13">컴퓨터시설 관리</label>
+																<input type="checkbox" id="tag14" value="725000"> <label for="tag14">컴퓨터•주변 기기 수리</label>
+																<input type="checkbox" id="tag15" value="729000"> <label for="tag15">기타 정보 기술•컴퓨터 운영 서비스</label>
+														
+														</dd>
+														</dl>
 														
 													</div>
 													<div class="tag-group">
 														<span id="lctag"> </span> <span class="clear"
 															onclick="clearLocations()"><i
-															class="fa-solid fa-rotate-right"></i> 직무 초기화</span>
+															class="fa-solid fa-rotate-right"></i> 업종 초기화</span>
 													</div>
 												</div>
 
@@ -176,26 +203,26 @@
 								<p>
 									<span class="material-symbols-outlined">subject</span>
 								</p>
+								<c:if test="${map.search !='y'}">
 								<p>
-									조회된 기업은 총 <span id="list-cnt">1234</span>건입니다.
+									전체 기업은 총 <span id="list-cnt">${totalCount}</span>건입니다.
 								</p>
+								</c:if>
+								<c:if test="${map.search=='y'}">
+								<p>
+									 검색된 기업은 총 <span id="list-cnt">${totalCount}</span>건입니다.
+								</p>
+								</c:if>
 							<div class="checkbox-wrapper">
     <input type="checkbox" id="hiring-only" class="sorting filter-checkbox" value="채용중" checked>
     <label for="hiring-only" class="filter-label">채용중인 기업만 조회하기</label>
+   
 </div>
 							</div>
+							
 							</div>
 							<div class="list_info">
-							
-							
-								<div class="InpBox">
-									<select class="sorting" name="page_count" id="page_count">
-										<option value="20" selected>20개씩</option>
-										<option value="30">30개씩</option>
-										<option value="50">50개씩</option>
-										<option value="100">100개씩</option>
-									</select>
-								</div>
+ <button type="button" id="compare-btn" class="compare-button">기업 맞춤 비교</button>
 								<div class="InpBox">
 									<select class="sorting" name="sort" id="sort">
 										<option value="EA">평균연봉</option>
@@ -213,25 +240,31 @@
 							<div id="rec-48103333" class="list_item">
 							
 							<!-- 채용공고start -->
+						<c:forEach items="${comListInfo}" var="dto">
 						
 								<div class="box_item row mx-0 rounded-[20px] bg-white px-10 shadow-lg">
    
     <div class="com-list com-image">
-        <img src="../assets/img/logo/네이버.jpg" alt="Company Logo" style="width: 100px; height: 100px;"> <!-- 예시 이미지 경로 -->
+        <img src="/good/asset/images/logo/네이버.jpg" alt="Company Logo" style="width: 100px; height: 100px;"> <!-- 예시 이미지 경로 -->
     </div>
 
     <div class="com-title">
         <div class="recruit-present-info">
             <div class="com-name">
+
                 <span>지원가능한 채용공고 <b>3</b>건</span>
             </div>
         </div>
         <div class="col notification_info">
-            <div class="job_tit">
-                <a class="str_tit_title new" href="#" target="_blank">
-                    <h2>네이버</h2>
-                </a>
-            </div>
+        
+       <div class="job_tit" style="display: flex; align-items: flex-start;center;">
+    <a class="str_tit_title new" href="#" target="_blank">
+        <h2>${dto.cp_name}</h2>
+    </a>
+    <button id="scrap" style="margin-left:8px;">
+        <i class="fa-regular fa-bookmark"></i>
+    </button>
+</div>
             <div class="job_meta">
                 <span class="job-keyword">복지가좋은</span>
                 <span class="job-keyword">미래가기대되는</span>
@@ -243,15 +276,15 @@
     <div class="com-list com-info">
         <div class="col recruit_info">
             <ul>
-                <li><p class="work_place"><b>기업위치</b> 서울 서초구</p></li>
-                <li><p class="career"><b>총매출액</b> </p></li>
-                <li><p class="education"><b>평균연봉</b> 5,000만원</p></li>
+                <li><p class="work_place"><b>기업위치 </b>${dto.cp_address}</p></li>
+                <li><p class="career"><b>총매출액 </b>${dto.fnc_sales}</p></li>
+                <li><p class="education"><b>평균연봉</b> ${dto.hire_avr_salary}만원</p></li>
                 <li><p class="salary"><b>스크랩수</b> 1025건</p></li>
             </ul>
         </div>
     </div>
 </div>
-								<!-- 채용공고end -->
+		</c:forEach>						<!-- 채용공고end -->
 								
 							</div>
 						</div>
@@ -282,6 +315,7 @@
 			</ul>
 		</nav>
 	</section>
+	<%@include file="/WEB-INF/views/inc/footer.jsp"%>
 	<script>
 		document.addEventListener("DOMContentLoaded", function() {
 			document.getElementById("detail-search-btn").addEventListener(
@@ -478,6 +512,7 @@
 			$(this).next().addBack().remove();
 		});
 		/* 선호근무지역 End */
+
 	</script>
 </body>
 

@@ -1,3 +1,5 @@
+package com.good.company.recruit;
+
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
