@@ -83,7 +83,7 @@ public class StudyDAO {
 				where = String.format("where %s like '%%%s%%'", map.get("column"), map.get("word"));
 			}
 
-			String sql = String.format("select * from (select a.*, rownum as rnum from vwstudy a %s) where rnum between %s and %s", where, map.get("begin"), map.get("end"));
+			String sql = String.format("select * from (select a.*, rownum as rnum from vwstudy a %s) where rnum between %s and %s order by std_regdate desc", where, map.get("begin"), map.get("end"));
 			
 			stat = conn.createStatement();
 			rs = stat.executeQuery(sql);
@@ -167,6 +167,49 @@ public class StudyDAO {
 
 		} catch (Exception e) {
 			System.out.println("StudyDAO.editStudy");
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
+	public int delStudy(String seq) {
+		try {
+			/*
+			 * String sql = "delete from tblComment where bseq = ?"; pstat =
+			 * conn.prepareStatement(sql); pstat.setString(1, seq); pstat.executeUpdate();
+			 * 
+			 * sql = "delete from tblTagging where bseq = ?"; pstat =
+			 * conn.prepareStatement(sql); pstat.setString(1, seq); pstat.executeUpdate();
+			 */
+
+			String sql = "delete from tblStudy where std_seq = ?";
+			pstat = conn.prepareStatement(sql);
+			pstat.setString(1, seq);
+
+			return pstat.executeUpdate();
+
+		} catch (Exception e) {
+			System.out.println("BoardDAO.del");
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
+	public int getCount(String id) {
+		try {
+			String sql = "select count(*) as cnt from tblstudy where id = ?";
+
+			pstat = conn.prepareStatement(sql);
+			pstat.setString(1, id);
+
+			rs = pstat.executeQuery();
+
+			if (rs.next()) {
+				return rs.getInt("cnt");
+			}
+
+		} catch (Exception e) {
+			System.out.println("StudyDAO.getCount");
 			e.printStackTrace();
 		}
 		return 0;

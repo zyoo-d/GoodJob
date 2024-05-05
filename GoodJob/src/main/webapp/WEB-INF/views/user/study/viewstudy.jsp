@@ -47,7 +47,7 @@
 									<p class="write-date">${dto.std_regdate}</p>
 									<c:if test="${not empty id && (dto.id==id || lv == '2')}">
 									<a href="/good/user/editstudy.do?std_seq=${dto.std_seq}">(수정</a>
-									<button type="button" class="" value="삭제">/ 삭제)</button>
+									<button type="button" id="btnDelStudy">/ 삭제)</button>
 									</c:if>
 								</div>
 							</div>
@@ -109,7 +109,11 @@
 
 	<%@include file="/WEB-INF/views/inc/footer.jsp"%>
 	<script>
-		
+		$('#btnDelStudy').click(function() {
+			if (confirm("게시글을 삭제하시겠습니까?")) {
+				location.href = "/good/user/delstudy.do?std_seq=${dto.std_seq}";
+			}
+		});
 	</script>
 </body>
 </html>

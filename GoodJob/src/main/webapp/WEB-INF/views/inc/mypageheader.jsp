@@ -165,10 +165,10 @@
 		<div class="main-sidebar sidebar-style-2" id="mypageSidebar">
 			<aside id="sidebar-wrapper">
 				<div class="sidebar-brand">
-					<a href="/good/heeyeon/mypagemain.jsp">IT's Good Job</a>
+					<a href="/good/user/mypage/main.do">IT's Good Job</a>
 				</div>
 				<div class="sidebar-brand sidebar-brand-sm">
-					<a href="/good/heeyeon/mypagemain.jsp">GJ</a>
+					<a href="/good/user/mypage/main.do">GJ</a>
 				</div>
 				<ul class="sidebar-menu">
 					<li class="dropdown"><a href="#" class="nav-link has-dropdown"><i
