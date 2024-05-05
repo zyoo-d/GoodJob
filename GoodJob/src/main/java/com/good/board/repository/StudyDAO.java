@@ -44,7 +44,7 @@ public class StudyDAO {
 
 	public StudyDTO getStudy(String seq) {
 		try {
-			String sql = "select * from tblstudy where std_seq = ?";
+			String sql = "select * from vwstudy where std_seq = ?";
 
 			pstat = conn.prepareStatement(sql);
 			pstat.setString(1, seq);
@@ -62,7 +62,9 @@ public class StudyDAO {
 				dto.setStd_duedate(rs.getString("std_duedate"));
 				dto.setStd_views(rs.getString("std_views"));
 				dto.setCp_seq(rs.getString("cp_seq"));
+				dto.setCp_name(rs.getString("cp_name"));
 				dto.setId(rs.getString("id"));
+				dto.setNickname(rs.getString("nickname"));
 
 				return dto;
 			}
@@ -99,6 +101,7 @@ public class StudyDAO {
 				dto.setCp_seq(rs.getString("cp_seq"));
 				dto.setCp_name(rs.getString("cp_name"));
 				dto.setId(rs.getString("id"));
+				dto.setNickname(rs.getString("nickname"));
 
 				list.add(dto);
 			}
@@ -128,6 +131,42 @@ public class StudyDAO {
 			}
 		} catch (Exception e) {
 			System.out.println("StudyDAO.getTotalCount");
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
+	public void updateReadcount(String seq) {
+		try {
+			String sql = "update tblStudy set std_views = std_views +1 where std_seq = ?";
+
+			pstat = conn.prepareStatement(sql);
+			pstat.setString(1, seq);
+
+			pstat.executeUpdate();
+
+		} catch (Exception e) {
+			System.out.println("BoardDAO.updateReadcount");
+			e.printStackTrace();
+		}
+	}
+
+	public int editStudy(StudyDTO dto) {
+		try {
+			String sql = "update tblStudy set std_title = ?, std_content = ?, std_ing = ?, cp_seq = ?, std_duedate = ? where std_seq = ?";
+
+			pstat = conn.prepareStatement(sql);
+			pstat.setString(1, dto.getStd_title());
+			pstat.setString(2, dto.getStd_content());
+			pstat.setString(3, dto.getStd_ing());
+			pstat.setString(4, dto.getCp_seq());
+			pstat.setString(5, dto.getStd_duedate());
+			pstat.setString(6, dto.getStd_seq());
+
+			return pstat.executeUpdate();
+
+		} catch (Exception e) {
+			System.out.println("StudyDAO.editStudy");
 			e.printStackTrace();
 		}
 		return 0;

@@ -14,4 +14,5 @@ public class StudyDTO {
 	private String cp_seq;
 	private String cp_name;
 	private String id;
+	private String nickname;
 }

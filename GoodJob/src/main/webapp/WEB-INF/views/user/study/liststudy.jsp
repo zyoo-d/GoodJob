@@ -8,6 +8,9 @@
 <meta charset="UTF-8">
 <%@include file="/WEB-INF/views/inc/asset.jsp"%>
 <style>
+	.studycard {
+		cursor: pointer;
+	}
 </style>
 </head>
 
@@ -24,7 +27,7 @@
 							<h1 class="mt-3 gradiTitle">
 								<span>스터디 게시판</span>
 							</h1>
-							<p class="mt-6">다양한 면접 스터디를 가입,개설 해주세요.</p>
+							<p class="mt-6">함께 할 준비 되셨나요? 고난과 도전을 함께 이겨내며 모두가 목표를 달성할 수 있는 그 날까지! IT's 굿잡 스터디에서 함께 실력을 쌓아가요.</p>
 						</div>
 
 						<div>
@@ -83,9 +86,8 @@
 									<div class="row mt-14">
 
 										<c:forEach items="${list}" var="dto">
-
 											<div class="mb-8 sm:col-6 lg:col-4">
-												<div class="rounded-xl bg-white p-6 shadow-lg lg:p-8">
+												<div class="rounded-xl bg-white p-6 shadow-lg lg:p-8 studycard">
 													<div class="relative inline-block comment-edit">
 														<p class="education">
 															<i class="fa-solid fa-calendar-days"></i> ~
@@ -95,13 +97,18 @@
 															<a class="tag" href="#">모집중</a>
 														</c:if>
 													</div>
-													<h4 class="my-6 line_limit">${dto.cp_name}</h4>
-													<p class="mt-6">${dto.std_title}</p>
+														<h4 class="my-6 line_limit">${dto.cp_name}</h4>
+														<p class="">${dto.std_title}</p>
+														<p class="views-comments views mt-2">
+															<i class="fa-regular fa-eye"></i>${dto.std_views}<i
+																class="fa-regular fa-comment"></i>20
+														</p>
+													<input type="hidden" name="std_seq" value="${dto.std_seq}">
 												</div>
 											</div>
 										</c:forEach>
 										<div class="moving-btn studyAdd">
-											<a href="#" class="btn btnList">글쓰기</a>
+											<a href="/good/user/addstudy.do" class="btn btnList">글쓰기</a>
 										</div>
 									</div>
 								</div>
@@ -124,6 +131,11 @@
 		$('input[name=word]').val('${map.word}');
 		$('select[name=column]').val('${map.column}');
 		</c:if>
+
+		$('.studycard').click(function() {
+			var std_seq = $(this).find('input[name=std_seq]').val();
+			location.href = '/good/user/viewstudy.do?std_seq=' + std_seq+'&column=${map.column}&word=${map.word}&search=${map.search}&page=${nowPage}';
+		});
 	</script>
 </body>
 

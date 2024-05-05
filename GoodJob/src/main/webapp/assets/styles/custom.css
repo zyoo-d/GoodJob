@@ -1271,7 +1271,7 @@ display: flex;
 	text-align: left;
 }
 
-#comment .commentContent {
+#comment .commentContent, .views {
 	font-size: 16px;
 	text-align: right;
 }
