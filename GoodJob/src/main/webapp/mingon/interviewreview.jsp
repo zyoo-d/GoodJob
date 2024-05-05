@@ -44,7 +44,7 @@
 					</form>
 				</div>
 
-				<div class="mb-8 md:col-6">
+				<div class="mb-8 md:col-6" id="interview-list">
 					<div class="card itvCard">
 						<div class="card-content-wrapper">
 							<div class="itvdropdownContent">
@@ -213,6 +213,59 @@
 	      detailContent.classList.toggle('show'); // 클래스 토글링
 	    }
 	  });
+	});
+	
+	$(document).ready(function() {
+	    $.ajax({
+	        url: "/good/interview.do",
+	        type: "get",
+	        dataType: "json",
+	        success: function(result) {
+	        	console.log(result)
+	            const interviewListContainer = document.getElementById('interview-list');
+	            
+	            for (var i = 0; i < data.length; i++) {
+	                var interview = data[i];
+	                var html = '<div class="card itvCard">' +
+	                           '<div class="card-content-wrapper">' +
+	                           '<div class="itvdropdownContent">' +
+	                           '<div class="itvCardTags">' +
+	                           '<a class="tag" href="#">'  + '</a>' +
+	                           '<i class="fa-solid fa-arrow-down-short-wide dw"></i>' +
+	                           '</div>' +
+	                           '<div class="itvContentFooter">' +
+	                           '<h3 class="h4 card-title">' +
+	                           '<p>' + interview.ITV_CPNAME + '</p>' +
+	                           '</h3>' +
+	                           '<p>' + interview.ITV_CAREER + ' ' + interview.ITV_MEETDATE + ' 전반적 평가 ' + interview.ITV_DIFFICULTY + '</p>' +
+	                           '</div>' +
+	                           '</div>' +
+	                           '<div class="itvDetail">' +
+	                           '<div class="itvDetailEmo"></div>' +
+	                           '<div class="itvDetailInfo">' +
+	                           '<strong class="itvDetailInfoTitle">면접 유형</strong> <span>태그</span>' +
+	                           '</div>' +
+	                           '<div class="itvDetailInfo">' +
+	                           '<strong class="itvDetailInfoTitle">면접 인원</strong> <span>태그</span>' +
+	                           '</div>' +
+	                           '<div class="itvDetailInfo">' +
+	                           '<strong class="itvDetailInfoTitle">면접 질문</strong>' +
+	                           '<p>' + interview.ITV_QUESTION + '</p>' +
+	                           '</div>' +
+	                           '<div class="itvDetailInfo">' +
+	                           '<strong class="itvDetailInfoTitle">TIP 및 특이사항</strong>' +
+	                           '<p>' + interview.ITV_TIP + '</p>' +
+	                           '</div>' +
+	                           '</div>' +
+	                           '</div>' +
+	                           '</div>';
+	                interviewListContainer.innerHTML += html;
+	            }
+	        },
+	        error: function(jqXHR, textStatus, errorThrown) {
+	            console.log("Ajax 오류 발생: " + textStatus + " : " + errorThrown);
+	        }
+	    });
 	});
 </script>
 
