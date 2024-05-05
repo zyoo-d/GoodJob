@@ -1,6 +1,7 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,6 +10,27 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <style>
 
+#qna-title{
+	margin: 10px 0;
+}
+
+.view-count i {
+    margin-left: 5px;
+    
+}
+#report-form{
+	display: inline;
+}
+
+.report-btn {
+    margin-left: 10px; /* 신고 버튼과 다른 요소 사이 간격 */
+    padding: 5px 10px; /* 버튼 패딩 */
+    background-color: rgb(54, 86, 203); /* 버튼 배경색 */
+    border: none; /* 버튼 테두리 제거 */
+    cursor: pointer; /* 커서 모양 변경 */
+    color: #fff;
+    border-radius: 5px;
+}
 
 </style>
 </head>
@@ -22,7 +44,7 @@
 
 <section class="page-hero pt-16 pb-6">
   <div class="container">
-    <div class="z-custom card" id="itvWriteQnA">
+    <div class="card" id="itvWriteQnA">
      <div class="card-content-wrapper">
 					<div class="card-content">
 						<div class="px-4 text-center">
@@ -35,25 +57,37 @@
             <div class="row mb-8">
               <div class="form-group mt-8 md:col-6 lg:col-4">
 				<div class="qna-view-form qnaview">
-				<p class="company">네이버</p>
-				<div class="title"><h2>제목입니다.</h2></div>
+				<p class="company">${dto.cp_name}</p>
+				<div class="title" id="qna-title">
+					<h3>${dto.qna_title}</h3>
+				</div>
 				</div>
 
               </div>
               <div class="textarea-group">
-                <textarea cols="30" rows="10" readonly>내용입니다.내용입니다.내용입니다.</textarea>
+                <textarea cols="30" rows="10" readonly>${dto.qna_content}</textarea>
               </div>
               
-	<div class="writer-info">
-					<p class="writer">zyww</p>
-					<p class="write-date">(2024-05-01)</p>
-					<button type="button" class="" value="수정">(수정</button>
-					<button type="button" class="" value="삭제">/ 삭제)</button>
+			<div class="writer-info">
+					<p class="writer">${dto.id}</p>
+					<p class="write-date"><fmt:formatDate value="${dto.qna_regdate}" pattern="yyyy-MM-dd HH:mm:ss"/></p>
+					<c:if test="${not empty id && (dto.id == id || lv == '2') }">
+					<button type="button" class="" value="수정" onclick="location.href='/good/user/qna/editqna.do?qna_seq=${dto.qna_seq}';">(수정</button>
+					<button type="button" class="" value="삭제" onclick="location.href='/good/user/qna/delqna.do?qna_seq=${dto.qna_seq}';">/ 삭제)</button>
+					</c:if>
+					<p class="view-count"><i class="fa-regular fa-eye"></i> 400</p>
+					<form action="#" method="POST" id="report-form">
+						<input type="hidden" name="member_id" value="${dto.id}"> 
+						<input type="hidden" name="post_id" value="${dto.qna_seq}">
+						<button type="submit" class="report-btn">신고</button>
+					</form>
+					
+					
 				</div>
 				 </div>
            <div class="moving-btn">
   <a href="#" class="btn btnBefore">이전글</a>
-  <a href="#" class="btn btnList">목록으로</a>
+  <a href="/good/user/qna/listqna.do" class="btn btnList">목록으로</a>
   <a href="#" class="btn btnNext">다음글</a>
 </div>
  </div>
@@ -62,9 +96,9 @@
                      
 
             <div class="comment-list">
-              <h4>댓글</h4>
 
-              <div class="">
+
+
               <form>
               <div class="add-comment">    
 	              
@@ -118,19 +152,20 @@
 		</div>
               
               </form>
-            
-      
-        </div>
+
       </div>
     </div>
 </div>
+
 </section>
 
 
 
-<%@include file="/WEB-INF/views/inc/footer.jsp" %>
-<script>
 
+
+<%@include file="/WEB-INF/views/inc/footer.jsp" %>
+
+<script>
 </script>
 </body>
 </html>

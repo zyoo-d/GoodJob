@@ -54,7 +54,7 @@ public class Login extends HttpServlet {
 			//접속 기록 추가하기
 			
 			
-			resp.sendRedirect("/good/index.do");
+			resp.sendRedirect("/good/main.do");
 			
 		} else {
 			//실패 처리

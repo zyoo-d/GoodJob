@@ -444,6 +444,8 @@
 	display: inline-block;
 }
 
+
+
 textarea {
 	width: 90%;
 	resize: none;
@@ -727,6 +729,12 @@ textarea:focus {
 	margin-bottom: 50px;
 }
 
+.list-header > .moving-btn{
+	margin-top: 0px;
+	margin-bottom: 0px;
+	margin-left: 15px;
+}
+
 .moving-btn .btn {
 	border-radius: 5px;
 	width: 100px;
@@ -734,6 +742,16 @@ textarea:focus {
 }
 
 .moving-btn a, .moving-btn button {
+	padding: 5px 10px;
+	border: none;
+	border-radius: 5px;
+	background-color: #3656CB;
+	color: #fff;
+	cursor: pointer;
+	transition: background-color 0.3s;
+	line-height: 30px;
+}
+.moving-btn button {
 	padding: 5px 10px;
 	border: none;
 	border-radius: 5px;
@@ -806,6 +824,7 @@ textarea:focus {
 
 .list-title {
 	margin-left: 10px;
+	margin-top: 10px;
 }
 
 .com-list.list-title {
