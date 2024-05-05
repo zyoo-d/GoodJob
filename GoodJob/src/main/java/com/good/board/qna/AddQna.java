@@ -1,3 +1,5 @@
+package com.good.board.qna;
+
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
