@@ -10,6 +10,8 @@ public class StudyDTO {
 	private String std_ing;
 	private String std_duedate;
 	private String std_regdate;
+	private String std_views;
 	private String cp_seq;
+	private String cp_name;
 	private String id;
 }
