@@ -360,6 +360,10 @@
 	margin: 0;
 	cursor: pointer;
 }
+.category-list.industry {
+	min-width: 180px;
+	max-width:180px;
+}
 
 .tag-group input[type="checkbox"] {
 	display: none;
@@ -439,6 +443,8 @@
 .add-qna-write {
 	display: inline-block;
 }
+
+
 
 textarea {
 	width: 90%;
@@ -583,7 +589,34 @@ textarea:focus {
 	border-bottom: 1px solid #ccc;
 	margin-bottom: 15px;
 }
+.compare-button {
+    margin: 3px; /* Adjust spacing between the label and button */
+    position: relative; /* Set relative positioning for the tooltip to position correctly */
 
+	cursor: pointer;
+	font-size: 0.9rem;
+    border-radius: 5px;
+	padding: 0.3rem 10px;
+	
+	background-color: #FFF;
+    color: #6777EE;
+        border: 1px solid #6777EE;
+}
+
+.compare-button:hover::after {
+    content: "3개의 기업을 선택하여 비교할 수 있습니다";
+    position: absolute;
+    white-space: nowrap;
+    background-color: #f4f4f4;
+    color: #535353;
+    padding: 5px 10px;
+    margin-left: 5px;
+    border-radius: 6px;
+    top: -40px;
+    left: 50%; 
+    transform: translateX(-50%);
+    z-index: 1;
+}
 .com-name {
 	font-size: 1.1rem;
 	color: #707070;
@@ -696,6 +729,12 @@ textarea:focus {
 	margin-bottom: 50px;
 }
 
+.list-header > .moving-btn{
+	margin-top: 0px;
+	margin-bottom: 0px;
+	margin-left: 15px;
+}
+
 .moving-btn .btn {
 	border-radius: 5px;
 	width: 100px;
@@ -703,6 +742,16 @@ textarea:focus {
 }
 
 .moving-btn a, .moving-btn button {
+	padding: 5px 10px;
+	border: none;
+	border-radius: 5px;
+	background-color: #3656CB;
+	color: #fff;
+	cursor: pointer;
+	transition: background-color 0.3s;
+	line-height: 30px;
+}
+.moving-btn button {
 	padding: 5px 10px;
 	border: none;
 	border-radius: 5px;
@@ -775,6 +824,7 @@ textarea:focus {
 
 .list-title {
 	margin-left: 10px;
+	margin-top: 10px;
 }
 
 .com-list.list-title {
