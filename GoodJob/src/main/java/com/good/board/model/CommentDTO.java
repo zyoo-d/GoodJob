@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import lombok.Data;
 
 @Data
-public class StdCommentDTO {
+public class CommentDTO {
 	
 	private String STD_CM_CONTENT;  //댓글 내용
 	private String STD_CM_REGDATE; // 댓글 작성일
