@@ -153,7 +153,7 @@
 						class="rounded-circle mr-1"></a>
 					<div class="dropdown-menu dropdown-menu-right">
 						<a href="/good/user/mypage/main.do" class="dropdown-item has-icon">
-							<i class="fas fa-cog"></i> Settings
+							<i class="fas fa-cog"></i> Mypage
 						</a>
 						<div class="dropdown-divider"></div>
 						<a href="#" class="dropdown-item has-icon text-danger"> <i
@@ -193,9 +193,9 @@
 					<li class="dropdown"><a href="#" class="nav-link has-dropdown"><i
 							class="far fa-thumbs-up"></i> <span>굿잡forU</span></a>
 						<ul class="dropdown-menu">
-							<li><a class="nav-link" href="/good/heeyeon/wish.jsp">선호근무조건 입력/관리</a></li>
-							<li><a class="nav-link" href="">굿잡forU	검사하기</a></li>
-							<li><a class="nav-link" href="">검사	결과보기</a></li>
+							<li><a class="nav-link" href="/good/user/matching/viewwish.do">선호근무조건 입력/관리</a></li>
+							<li><a class="nav-link" href="">굿잡forU 검사하기</a></li>
+							<li><a class="nav-link" href="">검사 결과보기</a></li>
 						</ul>
 			</aside>
 		</div>

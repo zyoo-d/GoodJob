@@ -24,7 +24,7 @@ public class AddStudy extends HttpServlet {
 		String id = (String)session.getAttribute("id");
 		
 		if(id == null || id.equals("")) {
-			Alert.needLogin(resp, "/good/user/study/liststudy.do");
+			Alert.needLogin(resp, "/good/user/signin.do");
 		} else {
 			RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/user/study/addstudy.jsp");
 			dispatcher.forward(req, resp);
