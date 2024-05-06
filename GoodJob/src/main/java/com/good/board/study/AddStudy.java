@@ -1,6 +1,7 @@
 package com.good.board.study;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,17 +11,24 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.good.alert.Alert;
 import com.good.board.model.StudyDTO;
 import com.good.board.repository.StudyDAO;
 
-@WebServlet("/user/addstudy.do")
+@WebServlet("/user/study/addstudy.do")
 public class AddStudy extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/user/study/addstudy.jsp");
-		dispatcher.forward(req, resp);
+		HttpSession session = req.getSession();
+		String id = (String)session.getAttribute("id");
+		
+		if(id == null || id.equals("")) {
+			Alert.needLogin(resp, "/good/user/study/liststudy.do");
+		} else {
+			RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/user/study/addstudy.jsp");
+			dispatcher.forward(req, resp);
+		}
 
 	}
 	
@@ -47,8 +55,11 @@ public class AddStudy extends HttpServlet {
 		
 		int result = dao.addStudy(dto);
 		
-		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/user/study/addstudy.jsp");
-		dispatcher.forward(req, resp);
+		if(result==1) {
+			resp.sendRedirect("/good/user/study/liststudy.do");
+		} else {
+			Alert.fail(resp);
+		}
 		
 	}
 

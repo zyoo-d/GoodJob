@@ -18,7 +18,7 @@
 				<h1>Mypage</h1>
 			</div>
 			<div class="section-body">
-				<h2 class="section-title">OOO님, 안녕하세요.</h2>
+				<h2 class="section-title">${name}님, 안녕하세요.</h2>
 				<div class="col-10 col-md-10 col-lg-10" id="profileWidget">
 					<div class="card profile-widget">
 						<div class="profile-widget-header">
@@ -56,9 +56,9 @@
 												class="list-group-item d-flex justify-content-between align-items-center">
 													기업리뷰 <span class="badge badge-primary badge-pill">14</span>
 											</li></a>
-											<a href="/good/heeyeon/study.jsp"><li
+											<a href="/good/user/mypage/mystudy.do"><li
 												class="list-group-item d-flex justify-content-between align-items-center">
-													스터디 <span class="badge badge-primary badge-pill">2</span>
+													스터디 <span class="badge badge-primary badge-pill">${stdCnt>0?stdCnt:'-'}</span>
 											</li></a>
 											<a href="/good/heeyeon/interview.jsp"><li
 												class="list-group-item d-flex justify-content-between align-items-center">
@@ -92,6 +92,7 @@
 										<i class="fas fa-book-open"></i>
 									</div>
 									<div class="media-body">
+									<input type="hidden" name="link" value="/good/user/study/liststudy.do">
 										<h6 class="mt-0">스터디</h6>
 										<p class="mb-0">스터디하며 함께 취업 준비해요!</p>
 									</div>
@@ -122,6 +123,7 @@
 										<i class="fas fa-question"></i>
 									</div>
 									<div class="media-body">
+									<input type="hidden" name="link" value="/good/user/qna/listqna.do">
 										<h6 class="mt-0">여기어때?</h6>
 										<p class="mb-0">이 기업이 어떤지 궁금할 땐 여기어때에서 물어보세요!</p>
 									</div>
@@ -134,7 +136,7 @@
 							<div class="card-body">
 								<div class="media">
 									<div class="mr-2 bg-custom text-white cardIcon">
-										<i class="fas fa-question"></i>
+										<i class="fas fa-building"></i>
 									</div>
 									<div class="media-body">
 										<h6 class="mt-0">기업비교</h6>
@@ -150,5 +152,11 @@
 	</div>
 	<%@include file="/WEB-INF/views/inc/adminfooter.jsp"%>
 	<script src="/good/assets/js/page/modules-chartjs.js"></script>
+	<script>
+		$('.card-body').click(function() {
+			window.location.href = $(this).find('input[name="link"]').val();
+		});
+
+	</script>
 </body>
 </html>
