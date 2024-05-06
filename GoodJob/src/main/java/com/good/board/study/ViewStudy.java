@@ -14,7 +14,7 @@ import com.good.board.model.CommentDTO;
 import com.good.board.model.StudyDTO;
 import com.good.board.repository.StudyDAO;
 
-@WebServlet("/user/viewstudy.do")
+@WebServlet("/user/study/viewstudy.do")
 public class ViewStudy extends HttpServlet {
 
 	@Override

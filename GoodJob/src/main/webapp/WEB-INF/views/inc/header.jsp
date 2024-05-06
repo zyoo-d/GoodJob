@@ -13,18 +13,10 @@
 		<input id="nav-toggle" type="checkbox" class="hidden" /> <label
 			id="show-button" for="nav-toggle"
 			class="order-1 flex cursor-pointer items-center lg:order-1 lg:hidden">
-			<svg class="h-6 fill-current" viewBox="0 0 20 20">
-						<title>Menu Open</title>
-						<path d="M0 3h20v2H0V3z m0 6h20v2H0V9z m0 6h20v2H0V0z"></path>
-					</svg>
+			<title>Menu Open</title>
 		</label> <label id="hide-button" for="nav-toggle"
 			class="order-2 hidden cursor-pointer items-center lg:order-1">
-			<svg class="h-6 fill-current" viewBox="0 0 20 20">
-						<title>Menu Close</title>
-						<polygon
-					points="11 9 22 9 22 11 11 11 11 22 9 22 9 11 -2 11 -2 9 9 9 9 -2 11 -2"
-					transform="rotate(45 10 10)"></polygon>
-					</svg>
+			<title>Menu Close</title>
 		</label>
 		<!-- /navbar toggler -->
 		<ul id="nav-menu"
@@ -34,16 +26,12 @@
 			<li class="nav-item"><a href="#!" class="nav-link">굿잡forU</a></li>
 			<li class="nav-item nav-dropdown group relative"><span
 				id="communav" class="nav-link inline-flex items-center"> 커뮤니티
-					<svg class="h-4 w-4 fill-current" viewBox="0 0 20 20">
-								<path
-							d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-							</svg>
 			</span>
 				<ul
 					class="nav-dropdown-list hidden group-hover:block lg:invisible lg:absolute lg:block lg:opacity-0 lg:group-hover:visible lg:group-hover:opacity-100"
 					id="commu-menu">
 					<li class="nav-dropdown-item"><a
-						href="/good/user/liststudy.do" class="nav-dropdown-link">스터디</a></li>
+						href="/good/user/study/liststudy.do" class="nav-dropdown-link">스터디</a></li>
 					<li class="nav-dropdown-item"><a href="#!"
 						class="nav-dropdown-link">면접후기</a></li>
 					<li class="nav-dropdown-item"><a
@@ -90,7 +78,8 @@
 				<li class="nav-item">
 					<div
 						class="order-1 ml-auto hidden items-center md:order-2 md:ml-0 lg:flex">
-						<a class="btn btn-primary no-shadow btn-sm" href="/good/user/mypage/main.do">마이페이지</a>
+						<a class="btn btn-primary no-shadow btn-sm"
+							href="/good/user/mypage/main.do">마이페이지</a>
 					</div>
 				</li>
 				<li class="nav-item">
@@ -108,17 +97,18 @@
 			function() {
 				var currentPath = window.location.pathname;
 
-				$('#nav-menu a').each(function() {
-					var linkPath = new URL($(this).attr('href'),
+				$('#nav-menu a').each(
+						function() {
+							var linkPath = new URL($(this).attr('href'),
 									window.location.origin).pathname;
 
-					if (currentPath.indexOf(linkPath) === 0) { 
-						$(this).addClass('active');
+							if (currentPath.indexOf(linkPath) === 0) {
+								$(this).addClass('active');
 
-						if ($(this).parents("#commu-menu").length) {
-							$('#communav').addClass('active');
-						}
-					}
-				});
+								if ($(this).parents("#commu-menu").length) {
+									$('#communav').addClass('active');
+								}
+							}
+						});
 			});
 </script>

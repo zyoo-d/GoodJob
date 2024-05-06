@@ -84,9 +84,7 @@ public class StudyDAO {
 			}
 
 			String sql = String.format(
-					"select * from (select a.*, rownum as rnum from vwstudy a %s) where rnum between %s and %s order by std_regdate desc",
-					where, map.get("begin"), map.get("end"));
-
+					"select * from (select a.*, rownum as rnum from (select * from vwstudy %s order by %s) a) where rnum between %s and %s", where, map.get("sort"), map.get("begin"), map.get("end"));
 			stat = conn.createStatement();
 			rs = stat.executeQuery(sql);
 

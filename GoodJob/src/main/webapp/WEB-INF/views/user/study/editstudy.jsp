@@ -7,12 +7,6 @@
 <meta charset="UTF-8">
 <%@include file="/WEB-INF/views/inc/asset.jsp"%>
 <style>
-.min-w-70 {
-	min-width: 90px;
-	font-size: 0.9rem;
-	cursor: pointer;
-	text-align: center;
-}
 </style>
 </head>
 <%@include file="/WEB-INF/views/inc/header.jsp"%>
@@ -21,7 +15,7 @@
 	<section class="page-hero pt-16 pb-6">
 		<div class="container">
 			<div class="card" id="itvWriteQnA">
-				<form method="post" action="/good/user/editstudy.do">
+				<form method="post" action="/good/user/study/editstudy.do">
 					<div class="card-content-wrapper">
 						<div class="card-content">
 							<div class="px-4 text-center">
@@ -57,7 +51,7 @@
 											class="title write-title" id="std_duedate" name="std_duedate"
 											value="${dto.std_duedate}" required />
 
-										<div class="tag ml-4 min-w-70" id="ingBox">
+										<div class="tag ml-4 min-w-90" id="ingBox">
 											<c:if test="${dto.std_ing=='N'}">모집중</c:if>
 											<c:if test="${dto.std_ing=='Y'}">모집완료</c:if>
 										</div>
@@ -76,7 +70,7 @@
 
 					<div class="moving-btn">
 						<c:if test="${mypage=='N'}">
-							<a href="/good/user/viewstudy.do?std_seq=${dto.std_seq}"
+							<a href="/good/user/study/viewstudy.do?std_seq=${dto.std_seq}"
 								class="btn btnBefore">이전으로</a>
 						</c:if>
 						<c:if test="${mypage=='Y'}">
@@ -100,15 +94,7 @@
 			$(this).text('모집중');
 		}
 	});
-	/* $('#std_duedate').change(function(){
-		$('#std_duedate').val("");
-		$('#std_duedate').val($(this).val());
-	});
 
-	$('#std_title').change(function(){
-		$('#std_title').val("");
-		$('#std_title').val($(this).val());
-	}); */
 	//마감일 선택시 오늘 이전 날짜 선택 불가하게 min 설정
 	let today = new Date();
 	let timezoneOffset = today.getTimezoneOffset() * 60000;

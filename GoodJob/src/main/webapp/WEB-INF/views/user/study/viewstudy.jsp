@@ -7,13 +7,9 @@
 <meta charset="UTF-8">
 <%@include file="/WEB-INF/views/inc/asset.jsp"%>
 <style>
-#btnDelStudy {
-	cursor: pointer;
-}
 </style>
 </head>
 <%@include file="/WEB-INF/views/inc/header.jsp"%>
-
 <body>
 	<div id="itvWriteContainer">
 		<section class="page-hero pt-16 pb-6">
@@ -30,7 +26,7 @@
 							<div class="row mb-8">
 								<div class="form-group mt-8">
 									<div class="qna-view-form qnaview recruit-present-info">
-										<p class="company"> ${dto.cp_name}</p>
+										<p class="company">${dto.cp_name}</p>
 										<p>🗓️ 모집 마감일 : ~ ${dto.std_duedate}</p>
 									</div>
 									<div class="recruit-present-info mb-2">
@@ -49,13 +45,15 @@
 
 									<p class="write-date">${dto.std_regdate}</p>
 									<c:if test="${not empty id && (dto.id==id || lv == '2')}">
-									<a href="/good/user/editstudy.do?std_seq=${dto.std_seq}">(수정</a>
-									<input type="button" id="btnDelStudy" value="/ 삭제)">
+										<a href="/good/user/study/editstudy.do?std_seq=${dto.std_seq}">(수정</a>
+										<input type="button" id="btnDelStudy" value="/ 삭제)">
 									</c:if>
 								</div>
 							</div>
 							<div class="moving-btn">
-								<a href="/good/user/liststudy.do?column=${column}&word=${word}&page=${page}" class="btn btnList">목록으로</a>
+								<a
+									href="/good/user/study/liststudy.do?column=${column}&word=${word}&page=${page}"
+									class="btn btnList">목록으로</a>
 							</div>
 						</div>
 					</div>
@@ -112,11 +110,13 @@
 
 	<%@include file="/WEB-INF/views/inc/footer.jsp"%>
 	<script>
-		$('#btnDelStudy').click(function() {
-			if (confirm("게시글을 삭제하시겠습니까?")) {
-				location.href = "/good/user/delstudy.do?std_seq=${dto.std_seq}";
-			}
-		});
+		$('#btnDelStudy')
+				.click(
+						function() {
+							if (confirm("게시글을 삭제하시겠습니까?")) {
+								location.href = "/good/user/study/delstudy.do?std_seq=${dto.std_seq}";
+							}
+						});
 	</script>
 </body>
 </html>

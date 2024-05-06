@@ -14,7 +14,7 @@ import com.good.alert.Alert;
 import com.good.board.model.StudyDTO;
 import com.good.board.repository.StudyDAO;
 
-@WebServlet("/user/editstudy.do")
+@WebServlet("/user/study/editstudy.do")
 public class EditStudy extends HttpServlet {
 
 	@Override
@@ -68,7 +68,7 @@ public class EditStudy extends HttpServlet {
 		int result = dao.editStudy(dto);
 		
 		if(result==1) {
-			resp.sendRedirect("/good/user/viewstudy.do?std_seq="+std_seq);
+			resp.sendRedirect("/good/user/study/viewstudy.do?std_seq="+std_seq);
 		} else {
 			Alert.fail(resp);
 		}

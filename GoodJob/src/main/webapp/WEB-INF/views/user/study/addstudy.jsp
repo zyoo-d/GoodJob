@@ -11,11 +11,10 @@
 </head>
 <%@include file="/WEB-INF/views/inc/header.jsp"%>
 <body>
-
 	<section class="page-hero pt-16 pb-6">
 		<div class="container">
 			<div class="card" id="itvWriteQnA">
-				<form method="post" action="/good/user/addstudy.do">
+				<form method="post" action="/good/user/study/addstudy.do">
 					<div class="card-content-wrapper">
 						<div class="card-content">
 							<div class="px-4 text-center">
@@ -31,7 +30,8 @@
 									<div class="view-form addqna">
 										<div class="addqna-form">
 											<span id="write-title">제목</span> <input type="text"
-												class="title write-title" placeholder="✏️제목을 입력하세요." id="std_title" name="std_title" required>
+												class="title write-title" placeholder="✏️제목을 입력하세요."
+												id="std_title" name="std_title" required>
 										</div>
 										<div class="addqna-form">
 											<div id="searchResults1" class="dropdown-content addqna"></div>
@@ -43,22 +43,24 @@
 										</div>
 									</div>
 									<!-- 여기까지 복사해서 쓰시면 됩니다 -->
-										<div class="view-form addqna addqna-form">
-											<span id="write-title">마감일</span> <input type="date"
-												class="title write-title" id="std_duedate" name="std_duedate" required/>
-										</div>
+									<div class="view-form addqna addqna-form">
+										<span id="write-title">마감일</span> <input type="date"
+											class="title write-title" id="std_duedate" name="std_duedate"
+											required />
+									</div>
 								</div>
 								<div class="textarea-group">
-									<textarea cols="30" rows="10" placeholder="내용을 입력하세요." id="std_content" name="std_content" required></textarea>
+									<textarea cols="30" rows="10" placeholder="내용을 입력하세요."
+										id="std_content" name="std_content" required></textarea>
 								</div>
 							</div>
 
 						</div>
 					</div>
-	
+
 					<div class="moving-btn">
-						<a href="/good/user/liststudy.do" class="btn btnBefore">이전으로</a> <button type="submit"
-							class="btn btnList">등록하기</button>
+						<a href="/good/user/study/liststudy.do" class="btn btnBefore">이전으로</a>
+						<button type="submit" class="btn btnList">등록하기</button>
 					</div>
 				</form>
 			</div>

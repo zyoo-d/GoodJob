@@ -65,7 +65,7 @@
 												<td>~ ${dto.std_duedate}</td>
 												<td>${dto.std_regdate}</td>
 												<td><div class="">
-														<a href="/good/user/editstudy.do?mypage=Y&std_seq=${dto.std_seq}">수정</a>
+														<a href="/good/user/study/editstudy.do?mypage=Y&std_seq=${dto.std_seq}">수정</a>
 														/ <a href="#" class="text-danger">삭제</a>
 													<input type="hidden" name="std_seq" value="${dto.std_seq}">
 													</div></td>
@@ -166,7 +166,7 @@
 		$('.text-danger').click(function() {
 			if (confirm('게시물을 삭제하시겠습니까?')) {
 				var stdSeqValue = $(this).closest('div').find('input[type="hidden"]').val();
-				location.href = "/good/user/delstudy.do?mypage=Y&std_seq="+stdSeqValue;
+				location.href = "/good/user/study/delstudy.do?mypage=Y&std_seq="+stdSeqValue;
 				$(this).parents().eq(2).remove();
 			};
 			

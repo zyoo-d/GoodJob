@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.good.alert.Alert;
 import com.good.board.repository.StudyDAO;
 
-@WebServlet("/user/delstudy.do")
+@WebServlet("/user/study/delstudy.do")
 public class DelStudy extends HttpServlet {
 
 	@Override
@@ -38,7 +38,7 @@ public class DelStudy extends HttpServlet {
 		if(result==1 && mypage.equals("Y")) {
 			resp.sendRedirect("/good/user/mypage/mystudy.do");
 		} else if (result==1&& mypage.equals("N")) {
-			resp.sendRedirect("/good/user/liststudy.do");
+			resp.sendRedirect("/good/user/study/liststudy.do");
 		} else {
 			Alert.fail(resp);
 		}

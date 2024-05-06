@@ -15,7 +15,7 @@ import com.good.alert.Alert;
 import com.good.board.model.StudyDTO;
 import com.good.board.repository.StudyDAO;
 
-@WebServlet("/user/addstudy.do")
+@WebServlet("/user/study/addstudy.do")
 public class AddStudy extends HttpServlet {
 
 	@Override
@@ -24,7 +24,7 @@ public class AddStudy extends HttpServlet {
 		String id = (String)session.getAttribute("id");
 		
 		if(id == null || id.equals("")) {
-			Alert.needLogin(resp, "/good/user/liststudy.do");
+			Alert.needLogin(resp, "/good/user/study/liststudy.do");
 		} else {
 			RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/user/study/addstudy.jsp");
 			dispatcher.forward(req, resp);
@@ -56,7 +56,7 @@ public class AddStudy extends HttpServlet {
 		int result = dao.addStudy(dto);
 		
 		if(result==1) {
-			resp.sendRedirect("/good/user/liststudy.do");
+			resp.sendRedirect("/good/user/study/liststudy.do");
 		} else {
 			Alert.fail(resp);
 		}

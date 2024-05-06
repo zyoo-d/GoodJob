@@ -1509,3 +1509,14 @@ display: flex;
 	height: 23px;
 }
 
+/* 희연 */
+.min-w-90 {
+	min-width: 90px;
+	font-size: 0.9rem;
+	cursor: pointer;
+	text-align: center;
+}
+
+.studycard, #btnDelStudy {
+	cursor: pointer;
+}

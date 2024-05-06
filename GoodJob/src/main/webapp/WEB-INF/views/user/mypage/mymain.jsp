@@ -56,7 +56,7 @@
 												class="list-group-item d-flex justify-content-between align-items-center">
 													기업리뷰 <span class="badge badge-primary badge-pill">14</span>
 											</li></a>
-											<a href="/good/heeyeon/study.jsp"><li
+											<a href="/good/user/mypage/mystudy.do"><li
 												class="list-group-item d-flex justify-content-between align-items-center">
 													스터디 <span class="badge badge-primary badge-pill">${stdCnt>0?stdCnt:'-'}</span>
 											</li></a>
@@ -92,7 +92,7 @@
 										<i class="fas fa-book-open"></i>
 									</div>
 									<div class="media-body">
-									<input type="hidden" name="link" value="/good/user/liststudy.do">
+									<input type="hidden" name="link" value="/good/user/study/liststudy.do">
 										<h6 class="mt-0">스터디</h6>
 										<p class="mb-0">스터디하며 함께 취업 준비해요!</p>
 									</div>
