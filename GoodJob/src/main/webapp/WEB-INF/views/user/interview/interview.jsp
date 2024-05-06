@@ -49,7 +49,7 @@
 								<div class="itvdropdownContent">
 									<div class="itvImgBox">
 										<img
-											src="/good/asset/img/logo/엑스엘게임즈.jpg"
+											src="${interview.IMAGE}"
 											id="itvImg" alt="" />
 
 									</div>
@@ -62,7 +62,7 @@
 
 											<p>${interview.ITV_CPNAME}</p>
 										</h3>
-										<p>${interview.ITV_CAREER}${interview.ITV_MEETDATE} 전반적 평가
+										<p>${interview.ITV_CAREER}${interview.ITV_MEETDATE} 전반적 평가 : 
 											${interview.ITV_DIFFICULTY}</p>
 									</div>
 								</div>

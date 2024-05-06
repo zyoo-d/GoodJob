@@ -18,7 +18,6 @@ public class Interview extends HttpServlet {
 		  InterviewDAO dao = new InterviewDAO();
 	        ArrayList<InterviewDTO> list = dao.list();
 	        
-	        
 
 	        // request 객체에 데이터 저장
 	        req.setAttribute("interviewList", list);
