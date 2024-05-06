@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
 import com.good.board.model.StudyDTO;
 import com.good.board.repository.StudyDAO;
 
-@WebServlet("/user/liststudy.do")
+@WebServlet("/user/study/liststudy.do")
 public class ListStudy extends HttpServlet {
 
 	@Override
@@ -25,7 +25,7 @@ public class ListStudy extends HttpServlet {
 		String page = req.getParameter("page");
 		int nowPage = 0; // 현재 페이지 번호
 		int totalCount = 0; // 총 게시물 수
-		int pageSize = 10; // 한 페이지에서 출력할 게시물 수
+		int pageSize = 12; // 한 페이지에서 출력할 게시물 수
 		int totalPage = 0; // 총 페이지 수
 		int begin = 0; // 페이징 시작 위치
 		int end = 0; // 페이징 끝 위치
@@ -52,6 +52,29 @@ public class ListStudy extends HttpServlet {
 			search = "y";
 		}
 
+		// 정렬 기준
+		String sort = req.getParameter("sort");
+
+		if (sort == null || sort.equals("")) {
+			sort = "latest"; // 기본 정렬 순서
+		}
+
+		String orderBy = "";
+		switch (sort) {
+		case "latest":
+			orderBy = "std_seq desc";
+			break;
+		case "oldest":
+			orderBy = "std_seq asc";
+			break;
+		/*
+		 * case "comments": orderBy = "comment_count desc"; break;
+		 */
+		default:
+			orderBy = "std_seq desc";
+			break;
+		}
+
 		HashMap<String, String> map = new HashMap<>();
 
 		map.put("search", search);
@@ -59,6 +82,7 @@ public class ListStudy extends HttpServlet {
 		map.put("word", word);
 		map.put("begin", begin + "");
 		map.put("end", end + "");
+		map.put("sort", orderBy);
 
 		// 조회수 관련
 		HttpSession session = req.getSession();
@@ -77,8 +101,8 @@ public class ListStudy extends HttpServlet {
 			// 제목 > 태그 > 이스케이프
 			subject = subject.replace(">", "&gt;").replace("<", "&lt;");
 			dto.setStd_title(subject);
-			
-			//날짜 자르기
+
+			// 날짜 자르기
 			String date = dto.getStd_duedate().substring(0, 10);
 			dto.setStd_duedate(date);
 		}
@@ -89,7 +113,6 @@ public class ListStudy extends HttpServlet {
 
 		// 페이지 바 작업
 		StringBuilder sb = new StringBuilder();
-
 
 		loop = 1; // 루프 변수(10바퀴)
 		n = ((nowPage - 1) / blockSize) * blockSize + 1; // 페이지 번호 역할
@@ -104,14 +127,14 @@ public class ListStudy extends HttpServlet {
 			sb.append(
 					"<li class='page-item z-custom'><a class='page-link' href='#!'><span class='material-symbols-outlined paging-icon z-custom'>keyboard_double_arrow_left</span></a></li>");
 			sb.append(String.format(
-					"<li class='page-item z-custom'><a class='page-link' href='/good/user/listStudy.do?page=%d&column=%s&word=%s'><span class='material-symbols-outlined paging-icon z-custom'>navigate_before</span></a></li>",
+					"<li class='page-item z-custom'><a class='page-link' href='/good/user/study/liststudy.do?page=%d&column=%s&word=%s'><span class='material-symbols-outlined paging-icon z-custom'>navigate_before</span></a></li>",
 					n - 1, column, word));
 		} else if (n > 5) {
 			sb.append(String.format(
-					"<li class='page-item z-custom'><a class='page-link' href='/good/user/listStudy.do?page=%d&column=%s&word=%s'><span class='material-symbols-outlined paging-icon z-custom'>keyboard_double_arrow_left</span></a></li>",
+					"<li class='page-item z-custom'><a class='page-link' href='/good/user/study/liststudy.do?page=%d&column=%s&word=%s'><span class='material-symbols-outlined paging-icon z-custom'>keyboard_double_arrow_left</span></a></li>",
 					n - 5, column, word));
 			sb.append(String.format(
-					"<li class='page-item z-custom'><a class='page-link' href='/good/user/listStudy.do?page=%d&column=%s&word=%s'><span class='material-symbols-outlined paging-icon z-custom'>navigate_before</span></a></li>",
+					"<li class='page-item z-custom'><a class='page-link' href='/good/user/study/liststudy.do?page=%d&column=%s&word=%s'><span class='material-symbols-outlined paging-icon z-custom'>navigate_before</span></a></li>",
 					n - 1, column, word));
 		}
 
@@ -123,7 +146,7 @@ public class ListStudy extends HttpServlet {
 						n));
 			} else {
 				sb.append(String.format(
-						"<li class='page-item z-custom'><a class='page-link' href='/good/user/listStudy.do?page=%d&column=%s&word=%s'>%d</a></li>",
+						"<li class='page-item z-custom'><a class='page-link' href='/good/user/study/liststudy.do?page=%d&column=%s&word=%s'>%d</a></li>",
 						n, column, word, n));
 			}
 			loop++;
@@ -138,16 +161,16 @@ public class ListStudy extends HttpServlet {
 					"<li class='page-item z-custom'><a class='page-link' href='#!'><span class='material-symbols-outlined paging-icon z-custom'>keyboard_double_arrow_right</span></a></li>");
 		} else if (n >= totalPage - 5) {
 			sb.append(String.format(
-					"<li class='page-item z-custom'><a class='page-link' href='/good/user/listStudy.do?page=%d&column=%s&word=%s'><span class='material-symbols-outlined paging-icon z-custom'>navigate_next</span></a></li>",
+					"<li class='page-item z-custom'><a class='page-link' href='/good/user/study/liststudy.do?page=%d&column=%s&word=%s'><span class='material-symbols-outlined paging-icon z-custom'>navigate_next</span></a></li>",
 					n, column, word));
 			sb.append(
 					"<li class='page-item z-custom'><a class='page-link' href='#!'><span class='material-symbols-outlined paging-icon z-custom'>keyboard_double_arrow_right</span></a></li>");
 		} else {
 			sb.append(String.format(
-					"<li class='page-item z-custom'><a class='page-link' href='/good/user/listStudy.do?page=%d&column=%s&word=%s'><span class='material-symbols-outlined paging-icon z-custom'>navigate_next</span></a></li>",
+					"<li class='page-item z-custom'><a class='page-link' href='/good/user/study/liststudy.do?page=%d&column=%s&word=%s'><span class='material-symbols-outlined paging-icon z-custom'>navigate_next</span></a></li>",
 					n, column, word));
 			sb.append(String.format(
-					"<li class='page-item z-custom'><a class='page-link' href='/good/user/listStudy.do?page=%d&column=%s&word=%s'><span class='material-symbols-outlined paging-icon z-custom'>keyboard_double_arrow_right</span></a></li>",
+					"<li class='page-item z-custom'><a class='page-link' href='/good/user/study/liststudy.do?page=%d&column=%s&word=%s'><span class='material-symbols-outlined paging-icon z-custom'>keyboard_double_arrow_right</span></a></li>",
 					n + 5, column, word));
 		}
 

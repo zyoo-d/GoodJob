@@ -48,10 +48,6 @@
 <!-- og-image -->
 <meta property="og:image" content="" />
 
-<!-- twitter-image -->
-<meta name="twitter:image" content="" />
-<meta name="twitter:card" content="summary_large_image" />
-
 <!-- google font css -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
