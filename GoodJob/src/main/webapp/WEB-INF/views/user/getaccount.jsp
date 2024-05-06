@@ -85,6 +85,14 @@ input[type="text"] {
 	width: 100%;
 	border-color: rgb(235, 235, 235);
 }
+input[type="text"] {
+	font-family: 'Pretendard-Regular';
+	font-size: 1rem;
+	border-radius: 10px;
+	margin-bottom: 10px;
+	width: 100%;
+	border-color: rgb(235, 235, 235);
+}
 
 .form-content>div {
 	text-align: center;
@@ -129,7 +137,6 @@ input[type="text"] {
 						</div>
 					</div>
 
-<!-- 					<form method="POST" action="/user/getId.do"> -->
 						<div id="idContent" class="form-content">
 							<label for="name" class="form-label">이름</label> 
 							<input type="text" id="name" placeholder="등록한 이름을 입력하세요." /> 
@@ -138,24 +145,35 @@ input[type="text"] {
 							<div>
 								<input type="submit" class="btn_getAccount" id="btn_getId"value="아이디 찾기" />
 							</div>
+							<span id="yourid"></span>
 						</div>
-<!-- 						</form> -->
-<!-- 						<form method="POST" action="/user/getPw.do"> -->
+<!-- 						<form action="/good/user/changepw.do" method="POST"> -->
 						<div id="pwContent" class="form-content">
-							<label for="id" class="form-label">아이디</label> <input type="text"
-								id="id" placeholder="등록한 아이디를 입력하세요." /> <label for="tel"
-								class="form-label">연락처</label> <input type="text" id="tel"
-								placeholder="등록한 연락처를 입력하세요." />
+							<label for="id" class="form-label">아이디</label> 
+							<input type="text" id="id" placeholder="등록한 아이디를 입력하세요." /> 
+							<label for="tel" class="form-label">연락처</label> 
+								<input type="text" id="getPw_tel" placeholder="등록한 연락처를 입력하세요." />
 							<div>
-								<input type="submit" class="btn_getAccount" id="btn_getPw" value="비밀번호찾기" />
+								<input type="button" class="btn_getAccount" id="btn_getPw" value="비밀번호찾기" />
 							</div>
+							<span id="yourpw"></span>
 						</div>
+						
+						
+<!-- 						<div id="changpw" class="form-content"> -->
+<!-- 							<label for="id" class="form-label">비밀번호</label>  -->
+<!-- 							<input type="password" id="pw" name="pw" placeholder="비밀번호 제약사항" />  -->
+<!-- 							<label for="tel" class="form-label">비밀번호 확인</label>  -->
+<!-- 							<input type="password" id="password" placeholder="비밀번호 확인" /> -->
+<!-- 							<div> -->
+<!-- 								<input type="submit" class="btn_getAccount" id="btn_changePw" value="비밀번호찾기" /> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
 <!-- 					</form> -->
 					
 				</div>
 			</div>
 		</div>
-		<span id="find"></span>
 	</section>
 
 	<%@include file="/WEB-INF/views/inc/footer.jsp"%>
@@ -212,12 +230,12 @@ input[type="text"] {
 	            data:  'name=' + name + '&tel=' + tel,
 	            dataType: 'json',
 	            success: function (result) {
-	            	
-	                if (result == null) {
-	                	$('#find').text('일치하는 정보가 없습니다.');
+	            	console.log(result.result);
+	                if (result.result == null) {
+	                	$('#yourid').text('일치하는 정보가 없습니다.');
 	                	
 	                } else {
-						$('#find').text(result);
+						$('#yourid').text('해당 id는 ' + result.result + '입니다.');
 	                }
 	            },
 	            error: function (a, b, c) {
@@ -225,6 +243,36 @@ input[type="text"] {
 	            }
 	        });
 		});
+		
+		$('#btn_getPw').click(function () {
+			
+			var id = $('#id').val();
+			var tel = $('#getPw_tel').val();
+			console.log(id);
+			console.log('tel :' + tel);
+			
+	        $.ajax({
+	            type: 'POST',
+	            url: '/good/user/getpw.do',
+	            data:  'id=' + id + '&tel=' + tel,
+	            dataType: 'json',
+	            success: function (result) {
+	            	console.log(result.result);
+	                if (result.result == 0) {
+	                	$('#yourpw').text('일치하는 정보가 없습니다.');
+	                	
+	                } else {
+	                	$('#yourpw').text('일치하는 정보가 있습니다.');
+	                	let url = '/good/user/changepw.do?id='+ id;
+	                	location.replace(url);
+	                }
+	            },
+	            error: function (a, b, c) {
+	                console.log(a, b, c);
+	            }
+	        });
+		});
+		
 
 
 	</script>

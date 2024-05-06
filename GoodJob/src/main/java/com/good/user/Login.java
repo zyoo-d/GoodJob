@@ -49,12 +49,9 @@ public class Login extends HttpServlet {
 			
 			session.setAttribute("id", id); //인증 티켓	
 			session.setAttribute("name", result.getName());
-			session.setAttribute("lv", result.getLv());
+			session.setAttribute("lv", result.getLv());		
 			
-			//접속 기록 추가하기
-			
-			
-			resp.sendRedirect("/good/index.do");
+			resp.sendRedirect("/good/main.do");
 			
 		} else {
 			//실패 처리

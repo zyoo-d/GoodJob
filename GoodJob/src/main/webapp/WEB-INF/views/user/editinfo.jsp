@@ -27,15 +27,15 @@
 					<h4>회원정보수정</h4>
 				</div>
 				<div class="card-body">
-					<form method="POST">
+					<form method="POST" action="/good/user/editinfo.do">
 						<div class="row">
 							<div class="form-group col-6">
 								<label for="id">ID</label> <input id="id" type="text"
-									class="form-control" name="id" readonly>
+									class="form-control" name="id" value="${id}"readonly>
 							</div>
 							<div class="form-group col-6">
 								<label for="name">이름</label> <input id="name" type="text"
-									class="form-control" name="name" readonly>
+									class="form-control" name="name" value="${name}" readonly>
 							</div>
 						</div>
 
@@ -57,13 +57,13 @@
 						</div>
 						<div class="form-group">
 							<label for="email">Email</label> <input id="email" type="email"
-								class="form-control" name="email" required>
+								class="form-control" name="email" placeholder="${email}" required>
 						</div>
 						<div class="form-group">
 							<label for="address">주소</label>
 							<div class="input-group mb-3">
 								<input type="text" class="form-control" id="address"
-									name="address" required readonly>
+									name="address"  placeholder="${address}" required readonly>
 								<div class="input-group-append">
 									<button class="btn btn-outline-primary" type="button"
 										onclick="getAddress();">주소 찾기</button>
@@ -73,17 +73,17 @@
 						<div class="row">
 							<div class="form-group col-6">
 								<label>학력 정보(선택)</label>
-								<div
-									class="selectric-wrapper selectric-form-control selectric-selectric selectric-below">
+<div class="selectric-wrapper selectric-form-control selectric-selectric selectric-below">
 									<div class="selectric-hide-select">
-										<select class="form-control selectric" tabindex="-1">
-											<option>고교 졸업 이하</option>
-											<option>고등학교 졸업</option>
-											<option>대학 졸업(2,3년제)</option>
-											<option>대학 졸업(4년제)</option>
-											<option>대학원 석사 졸업</option>
-											<option>대학원 박사 졸업</option>
-											<option>박사 졸업 이상</option>
+										<select class="form-control selectric" tabindex="-1"
+											name="education">
+											<option value="1">고교 졸업 이하</option>
+											<option value="2">고등학교 졸업</option>
+											<option value="3">대학 졸업(2,3년제)</option>
+											<option value="4">대학 졸업(4년제)</option>
+											<option value="5">대학원 석사 졸업</option>
+											<option value="6">대학원 박사 졸업</option>
+											<option value="7">박사 졸업 이상</option>
 										</select>
 									</div>
 								</div>

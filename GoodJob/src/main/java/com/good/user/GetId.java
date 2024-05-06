@@ -31,8 +31,12 @@ public class GetId extends HttpServlet {
 		
 		String result = dao.getId(dto);
 		
+		JSONObject obj = new JSONObject();
+		
+		obj.put("result", result);
+		
 		PrintWriter writer = resp.getWriter();
-		writer.print(result);
+		writer.print(obj);
 		writer.close();
 		
 	}
