@@ -36,10 +36,14 @@ public class StdComment extends HttpServlet {
         StdCommentDTO dto = new StdCommentDTO();
         StdCommentDAO dao = new StdCommentDAO();
         
-        
+        //댓글번호 > 시퀀스
         dto.setID(id);
         dto.setSTD_CM_CONTENT(setSTD_CM_CONTENT);
         dto.setSTD_CM_REGDATE(setSTD_CM_REGDATE);
+        dto.setSTD_SEQ(?);
+        dto.setSTD_CM_BSEQ(null 허용);
+        
+        
         //글번호
         
         
