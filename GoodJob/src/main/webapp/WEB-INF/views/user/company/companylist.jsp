@@ -206,12 +206,12 @@
 								<p>
 									<span class="material-symbols-outlined">subject</span>
 								</p>
-								<c:if test="${map.search !='y'}">
+								<c:if test="${map.search =='n' && map.hiring == 'n'}">
 								<p>
 									전체 기업은 총 <span id="list-cnt">${totalCount}</span>건입니다.
 								</p>
 								</c:if>
-								<c:if test="${map.search=='y'}">
+								<c:if test="${map.search=='y' || map.hiring=='y'}">
 								<p>
 									 검색된 기업은 총 <span id="list-cnt">${totalCount}</span>건입니다.
 								</p>
@@ -220,7 +220,7 @@
 							<div class="checkbox-wrapper">
        <!-- 체크박스와 레이블 -->
     
-    <input type="checkbox" id="hiring-only" class="sorting filter-checkbox" name="hiring" checked>
+    <input type="checkbox" id="hiring-only" class="sorting filter-checkbox" name="hiring">
     <label for="hiring-only" class="filter-label">채용중인 기업</label>
 	<button type="submit" style="border:1px solid #ccc; margin-left:3px; padding: 1px 3px; border-radius:8px; font-size:14px;">검색</button>
    
@@ -265,7 +265,7 @@
         <div class="col notification_info">
         
        <div class="job_tit" style="display: flex; align-items: flex-start;center;">
-    <a href="/good/user/company/companyview.do?cp_seq=${dto.cp_seq}&word=${map.word}&search=${map.search}&hiring=${map.hiring}&page=${nowPage}" class="str_tit_title new" target="_blank">
+    <a href="/good/user/company/companyview.do?cp_seq=${dto.cp_seq}&word=${map.word}&search=${map.search}&hiring=${map.hiring}&page=${nowPage}" class="str_tit_title new">
         <h2>${dto.cp_name}</h2>
     </a>
     <button id="scrap" style="margin-left:8px;">
@@ -302,9 +302,6 @@
 
 		</div>
 				</form>
-
-		
-
 
 
 		<nav class="PageBox z-custom" aria-label="Page navigation example">

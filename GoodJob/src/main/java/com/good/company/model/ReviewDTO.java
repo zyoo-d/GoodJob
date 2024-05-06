@@ -10,11 +10,11 @@ public class ReviewDTO {
 	 private String cp_seq;//
 	 private String id;//
 	 private String cp_rv_seq;//
-	 private int salary_score;//
-	 private int welfare_score;//
-	 private int lngvt_score;//
-	 private int culture_score;//
-	 private int growth_score;//
+	 private double salary_score;//
+	 private double welfare_score;//
+	 private double lngvt_score;//
+	 private double culture_score;//
+	 private double growth_score;//
 	 private String linereview;//
 	 private String good;//
 	 private String bad;//

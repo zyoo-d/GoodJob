@@ -15,4 +15,8 @@ public class RecruitDTO {
 	private String edu_seq;
 	private String salary_seq;
 	private String cp_seq;
+	private String cp_address;
+	
+	private String edu_type;
+	private String salary_type;
 }

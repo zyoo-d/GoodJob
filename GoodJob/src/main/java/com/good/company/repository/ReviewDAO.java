@@ -35,14 +35,13 @@ public class ReviewDAO {
 				String cp_seq = input;
 				
 				pstat.setString(1, cp_seq);
-				
 				rs = pstat.executeQuery();
 					
 				while (rs.next()) {
 				
 					int cnt = rs.getInt("cnt");
 					System.out.println(cnt);
-					return 0;
+					return cnt;
 				}
 
 			} catch (Exception e) {
@@ -54,7 +53,11 @@ public class ReviewDAO {
 			
 		}
 		
-		
+		/**
+		 * 지유)기업리뷰 목록과 태그를 조회하는 메서드
+		 * @param cp_seq
+		 * @return
+		 */
 		public ArrayList<ReviewDTO> listReview(String cp_seq){
 			
 			try {
@@ -66,7 +69,7 @@ public class ReviewDAO {
 			
 			rs = pstat.executeQuery();
 			
-			ArrayList<ReviewDTO> rlist = new ArrayList<ReviewDTO>(); 
+			ArrayList<ReviewDTO> listReview = new ArrayList<ReviewDTO>(); 
 			while (rs.next()) {
 		
 				ReviewDTO dto = new ReviewDTO();
@@ -99,9 +102,9 @@ public class ReviewDAO {
 				}
 				
 				dto.setTag_keyword(tlist);
-				rlist.add(dto);			
+				listReview.add(dto);			
 				}	
-				return rlist;
+				return listReview;
 				
 			} catch (Exception e) {
 				System.out.println("ReviewDAO.rlist");

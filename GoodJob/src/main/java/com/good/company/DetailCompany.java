@@ -13,8 +13,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.good.company.model.CompanyDTO;
+import com.good.company.model.RecruitDTO;
 import com.good.company.model.ReviewDTO;
 import com.good.company.repository.CompanyDAO;
+import com.good.company.repository.RecruitDAO;
 import com.good.company.repository.ReviewDAO;
 
 @WebServlet("/user/company/companyview.do")
@@ -28,6 +30,7 @@ public class DetailCompany extends HttpServlet {
 		String cp_seq = req.getParameter("cp_seq");
 		String word = req.getParameter("word");
 		String page = req.getParameter("page");
+		
 		String search = req.getParameter("search");
 		String hiring = req.getParameter("hiring");
 		
@@ -80,30 +83,32 @@ public class DetailCompany extends HttpServlet {
 	    ReviewDAO rdao =  new ReviewDAO();
 	    
 	    ArrayList<ReviewDTO> listReview = rdao.listReview(cp_seq);
-	    String cp_rv_seq ="";
-    	String id ="";
+	    //String cp_rv_seq ="";
+    	//String id ="";
     	
 	    HashMap<String, String> tmap = new HashMap<>();
-	    for(ReviewDTO rdto : listReview) {
+	    //for(ReviewDTO rdto : listReview) {
 	    	
-	    	cp_rv_seq = rdto.getCp_rv_seq();
-	    	id = rdto.getId();
-
+	    	//cp_rv_seq = rdto.getCp_rv_seq();
+	    	//id = rdto.getId();
 	    	tmap.put("cp_seq",cp_seq );
-	    	
-	    	
-	    }
+	    //}
 	    
-		
-		//ArrayList<ReviewDTO> tagList = rdao.tagList(tmap);
-		
-		
-		
 	    
+	    //채용공고목록
+	    RecruitDAO rcdao = new RecruitDAO(); 
+	    ArrayList<RecruitDTO> comRecruitList = rcdao.comRecruitList(cp_seq);
+		
+		//ArrayList<ReviewDTO> tagList = rdao.tagList(tmap);	  
+	  
 		req.setAttribute("dto", dto);
 		req.setAttribute("word", word);
 		req.setAttribute("page", page);
 		req.setAttribute("listReview", listReview);
+		req.setAttribute("comRecruitList",comRecruitList);
+		req.setAttribute("search", search);
+		req.setAttribute("hiring", hiring);
+		
 		//req.setAttribute("tagList", tagList);
 
 

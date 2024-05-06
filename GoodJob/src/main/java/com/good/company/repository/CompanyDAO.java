@@ -198,6 +198,11 @@ public class CompanyDAO {
 		
 	}
 
+	/**
+	 * 검색결과에 따른 기업수를 부러오는 메서드
+	 * @param map
+	 * @return
+	 */
 	public int searchCompanyCount(HashMap<String, String> map) {
 		
 		try {
@@ -205,12 +210,12 @@ public class CompanyDAO {
 			String where ="";
 			String sql = "";
 			
-			if (map.get("search").equals("y")) {
-				
-				where = String.format("where cp_name like '%%%s%%'",map.get("word"));
-				sql = String.format("select count(*) as search_cnt  from vwComListInfo %s" , where);
-				
-			}
+//			if (map.get("search").equals("y")) {
+//				
+//				where = String.format("where cp_name like '%%%s%%'",map.get("word"));
+//				sql = String.format("select count(*) as search_cnt from vwComListInfo %s" , where);
+//				
+//			}
 			
 			if(map.get("search").equals("y") && map.get("hiring").equals("y")) {
 				
@@ -234,7 +239,6 @@ public class CompanyDAO {
 			
 			
 			pstat = conn.prepareStatement(sql);
-
 			rs = pstat.executeQuery();
 
 			if (rs.next()) {

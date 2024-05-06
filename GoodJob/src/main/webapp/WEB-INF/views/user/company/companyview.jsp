@@ -196,7 +196,7 @@ h3 {
 #recruit {
 	display: flex;
 	flex-wrap: wrap; /* 내용이 넘칠 경우 줄 바꿈 */
-	justify-content: space-evenly; /* 요소들 사이의 간격을 균등하게 설정 */
+	justify-content: space-space; /* 요소들 사이의 간격을 균등하게 설정 */
 	padding: 10px;
 	position: relative;
 	padding-top: 20px;
@@ -543,6 +543,7 @@ h3 > #scrap {
 					<canvas id="myChart" height="200" width="762"
 						style="display: block; width: 300px; height: 500px;"
 						class="chartjs-render-monitor"></canvas>
+						
 					<div class="statistic-details mt-sm-4">
 						<div class="statistic-details-item">
 							<span class="text-muted"><span class="text-primary"><i
@@ -558,23 +559,22 @@ h3 > #scrap {
 			<span class="menu">해당 기업 공고</span>
 			<!-- 채용정보 -->
 			<div id="recruit">
-			<%-- <c:if test="${dto.com_rcrt_cnt != 0}"> --%>
-				 <c:forEach var="i" begin="1" end="${dto.com_rcrt_cnt}">
-        							
+		
+			
+        			<c:forEach items="${comRecruitList}" var="rcdto">
 				<div
 					class="rounded-xl border border-primary bg-white px-8 py-10 shadow-lg lg:-mt-16"
 					width="300px">
 					<div class="flex items-center justify-between" id="recruit_card">
 						<div>
-							<h2 class="h3">네이버</h2>
-							<p class="mt-3 text-2xl text-dark">2024 하반기 신입사원 모집</p>
+							<h2 class="h3">${rdto.cp_name}</h2>
+							<p class="mt-3 text-2xl text-dark">${rcdto.rcrt_name}</p>
 						</div>
-						<!-- 						<span -->
-						<!-- 							class="bg-gradient inline-flex h-16 w-16 items-center justify-center rounded-full"> -->
-						<!-- 							<img src="images/icons/price-card-icon-2.svg" alt="" /> -->
-						<!-- 						</span> -->
+										
 					</div>
-					<p class="mt-6">마감일 - 2024-05-30</p>
+					 <c:if test="${not empty rcdto.enddate}">
+					<p class="mt-6">마감일 ${rcdto.enddate}</p>
+					</c:if>
 					<div class="my-6 border-y border-border py-6">
 						<h4 class="h6">이런 사람을 원해요!</h4>
 						<ul class="mt-6">
@@ -584,39 +584,44 @@ h3 > #scrap {
 									xmlns="http://www.w3.org/2000/svg">
                   <path d="M2 5.42857L6.36364 10L14 2"
 										stroke="currentColor" stroke-width="3" stroke-linecap="round" />
-                </svg> 대학교 4년제 졸업</li>
+                </svg> ${rcdto.edu_type}</li>
 							<li class="mb-3 flex items-center text-sm"><svg
 									class="mr-2.5 text-primary" width="16" height="13"
 									viewBox="0 0 16 13" fill="none"
 									xmlns="http://www.w3.org/2000/svg">
                   <path d="M2 5.42857L6.36364 10L14 2"
 										stroke="currentColor" stroke-width="3" stroke-linecap="round" />
-                </svg> 최소 경력</li>
+                </svg> 최소 경력 ${rcdto.min_career}년</li>
 							<li class="mb-3 flex items-center text-sm"><svg
 									class="mr-2.5 text-primary" width="16" height="13"
 									viewBox="0 0 16 13" fill="none"
 									xmlns="http://www.w3.org/2000/svg">
                   <path d="M2 5.42857L6.36364 10L14 2"
 										stroke="currentColor" stroke-width="3" stroke-linecap="round" />
-                </svg> 최대 경력</li>
+									
+										
+                							</svg> 최대 경력 <c:if test="${rcdto.max_career == '0'}">무관</c:if>
+                							<c:if test="${rcdto.max_career != '0'}">${rcdto.max_career}년</c:if></li>
+                							
+										
 							<li class="flex items-center text-sm"><svg
 									class="mr-2.5 text-primary" width="16" height="13"
 									viewBox="0 0 16 13" fill="none"
 									xmlns="http://www.w3.org/2000/svg">
                   <path d="M2 5.42857L6.36364 10L14 2"
 										stroke="currentColor" stroke-width="3" stroke-linecap="round" />
-                </svg> 경기도 성남시 분당구</li>
+                </svg> ${rcdto.cp_address}</li>
 						</ul>
 					</div>
 					<div class="text-center">
 						<a
 							class="btn btn-primary h-[48px] w-full rounded-[50px] leading-[30px]"
-							href="#">지원하러 가기</a>
+							href="${rcdto.rcrt_link}">지원하러 가기</a>
 
 					</div>
 				</div>
-			
-    							 </c:forEach>
+			</c:forEach>
+    							<%--  </c:forEach> --%>
 		
 				<c:if test="${dto.com_rcrt_cnt ==0}">
 					<span class="px-8 py-10 lg:-mt-16 h-[48px]" style="color:#595959; font-size:18px;">
@@ -630,11 +635,15 @@ h3 > #scrap {
 			<c:forEach items="${listReview}" var="tdto">
 			
 				<div>${tdto.tag_keyword}</div>
+			
 			</c:forEach>
 			</div>
 			<span class="menu">기업 리뷰 보기</span>
 
-			<button id="add_review">리뷰 쓰러가기</button>
+			<a id="add_review"
+				href="/good/user/company/review/addreview.do?cp_seq=${dto.cp_seq}&word=${map.word}&search=${map.search}&hiring=${map.hiring}&page=${nowPage}">리뷰 쓰러가기</a>
+			
+			
 			
 			<div id="review">
 			<c:forEach items="${listReview}" var="rdto">
@@ -702,12 +711,7 @@ h3 > #scrap {
                         
                         </section>
 	
-	
-	
-	
-	
-	
-	
+
 		
 		<!--div:company-Info  -->
 

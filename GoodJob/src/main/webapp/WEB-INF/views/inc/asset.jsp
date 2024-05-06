@@ -5,6 +5,9 @@
 <!-- favicon -->
 <link rel="icon" href="/good/assets/favicon.ico" type="image/x-icon" />
 
+<!-- tagify -->
+<link rel="stylesheet" href="/good/assets/styles/tagify.css">
+
 <!-- theme meta -->
 <meta name="theme-name" content="Pinwheel" />
 <meta name="msapplication-TileColor" content="#000000" />

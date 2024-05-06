@@ -7,4 +7,6 @@ public class ScrapDTO {
 
 	private String ID;
 	private String sp_seq;
+	
+	private String cp_seq;
 }
