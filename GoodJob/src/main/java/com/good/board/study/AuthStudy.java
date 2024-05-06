@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.good.alert.Alert;
 import com.good.board.model.StudyDTO;
 import com.good.board.repository.StudyDAO;
 
@@ -24,18 +25,10 @@ public class AuthStudy {
 		// id!=dto.id && lv !=2
 		if (session.getAttribute("id") == null || (!session.getAttribute("id").toString().equals(dto.getId())
 				&& !session.getAttribute("lv").toString().equals("2"))) {
-			resp.setCharacterEncoding("UTF-8");
-			PrintWriter writer = resp.getWriter();
-			writer.println("<html><head><meta charset=\"UTF-8\"><title>Access Denied</title></head><body>");
-			writer.println("<script type='text/javascript'>");
-			writer.println("alert('권한이 없습니다.');");
-			writer.println("</script>");
-			writer.println("</body></html>");
-			writer.close();
+			Alert.noPermission(resp);
 
 			return true;
 		}
-
 		return false;
 	}
 }

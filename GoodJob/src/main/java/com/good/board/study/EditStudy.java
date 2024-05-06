@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.good.alert.Alert;
 import com.good.board.model.StudyDTO;
 import com.good.board.repository.StudyDAO;
 
@@ -69,14 +70,7 @@ public class EditStudy extends HttpServlet {
 		if(result==1) {
 			resp.sendRedirect("/good/user/viewstudy.do?std_seq="+std_seq);
 		} else {
-			resp.setCharacterEncoding("UTF-8");
-			PrintWriter writer = resp.getWriter();
-			writer.println("<html><head><meta charset=\"UTF-8\"><title>Access Denied</title></head><body>");
-			writer.println("<script type='text/javascript'>");
-			writer.println("alert('수정을 실패했습니다.');");
-			writer.println("</script>");
-			writer.println("</body></html>");
-			writer.close();
+			Alert.fail(resp);
 		}
 		
 	}

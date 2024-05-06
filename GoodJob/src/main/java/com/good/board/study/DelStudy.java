@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.good.alert.Alert;
 import com.good.board.repository.StudyDAO;
 
 @WebServlet("/user/delstudy.do")
@@ -39,14 +40,7 @@ public class DelStudy extends HttpServlet {
 		} else if (result==1&& mypage.equals("N")) {
 			resp.sendRedirect("/good/user/liststudy.do");
 		} else {
-			resp.setCharacterEncoding("UTF-8");
-			PrintWriter writer = resp.getWriter();
-			writer.println("<html><head><meta charset=\"UTF-8\"><title>Access Denied</title></head><body>");
-			writer.println("<script type='text/javascript'>");
-			writer.println("alert('삭제를 실패했습니다.');");
-			writer.println("</script>");
-			writer.println("</body></html>");
-			writer.close();
+			Alert.fail(resp);
 		}
 
 	}
