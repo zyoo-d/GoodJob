@@ -23,7 +23,6 @@ public class Edit extends HttpServlet {
 		    
 		    // 세션에서 사용자 ID 가져오기
 		    String id = (String) session.getAttribute("id");
-		    System.out.println(id);
 		    
 		    UserDAO dao = new UserDAO();
 		    

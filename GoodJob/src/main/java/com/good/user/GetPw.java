@@ -25,7 +25,7 @@ public class GetPw extends HttpServlet {
 		String tel = req.getParameter("tel");
 		
 		System.out.println("id :" + id);
-		System.out.println(tel);
+		System.out.println("tel :" + tel);
 		
 		UserDTO dto = new UserDTO();
 		UserDAO dao = new UserDAO();

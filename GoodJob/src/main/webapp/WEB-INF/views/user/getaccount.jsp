@@ -140,7 +140,7 @@ input[type="text"] {
 						<div id="idContent" class="form-content">
 							<label for="name" class="form-label">이름</label> 
 							<input type="text" id="name" placeholder="등록한 이름을 입력하세요." /> 
-							<label for="birth" class="form-label">연락처</label> 
+							<label for="tel" class="form-label">연락처</label> 
 								<input type="text" id="tel" placeholder="등록한 연락처를 입력하세요." />
 							<div>
 								<input type="submit" class="btn_getAccount" id="btn_getId"value="아이디 찾기" />
@@ -159,31 +159,35 @@ input[type="text"] {
 							<span id="yourpw"></span>
 						</div>
 						
+						<div id="changepw" class="form-content">
+							<label for="id" class="form-label"></label> 
+							<input type="password" id="pw" name="pw" placeholder="비밀번호" /> 
+							<label for="pw" class="form-label">비밀번호 확인</label> 
+							<input type="password" id="password" placeholder="비밀번호 확인" />
+							<div>
+								<input type="button" class="btn_getAccount" id="btn_changePw" value="비밀번호 재설정2" />
+							</div>
+						</div>
 						
-<!-- 						<div id="changpw" class="form-content"> -->
-<!-- 							<label for="id" class="form-label">비밀번호</label>  -->
-<!-- 							<input type="password" id="pw" name="pw" placeholder="비밀번호 제약사항" />  -->
-<!-- 							<label for="tel" class="form-label">비밀번호 확인</label>  -->
-<!-- 							<input type="password" id="password" placeholder="비밀번호 확인" /> -->
-<!-- 							<div> -->
-<!-- 								<input type="submit" class="btn_getAccount" id="btn_changePw" value="비밀번호찾기" /> -->
-<!-- 							</div> -->
-<!-- 						</div> -->
-<!-- 					</form> -->
+						
+
 					
 				</div>
 			</div>
 		</div>
 	</section>
-
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 	<%@include file="/WEB-INF/views/inc/footer.jsp"%>
 	<script>
 		document.addEventListener("DOMContentLoaded", function() {
 			// 초기에는 idContent와 pwContent를 모두 숨기기
 			const idContent = document.getElementById('idContent');
 			const pwContent = document.getElementById('pwContent');
+			const changepw = document.getElementById('changepw');
 			idContent.style.display = 'none';
 			pwContent.style.display = 'none';
+			changepw.style.display = 'none';
+
 			 // 버튼 그룹 내의 모든 버튼
 		    const buttons = document.querySelectorAll('.button-group button');
 		    
@@ -206,10 +210,12 @@ input[type="text"] {
 		function showContent(menu) {
 			const idContent = document.getElementById('idContent');
 			const pwContent = document.getElementById('pwContent');
+		    const changepw = document.getElementById('changepw');
 
 			// 모든 내용을 숨기기
 			idContent.style.display = 'none';
 			pwContent.style.display = 'none';
+			changepw.style.display = 'none';
 
 			// 선택한 메뉴에 따라 해당 내용을 보여주기
 			if (menu === 'id') {
@@ -248,8 +254,6 @@ input[type="text"] {
 			
 			var id = $('#id').val();
 			var tel = $('#getPw_tel').val();
-			console.log(id);
-			console.log('tel :' + tel);
 			
 	        $.ajax({
 	            type: 'POST',
@@ -262,15 +266,43 @@ input[type="text"] {
 	                	$('#yourpw').text('일치하는 정보가 없습니다.');
 	                	
 	                } else {
-	                	$('#yourpw').text('일치하는 정보가 있습니다.');
-	                	let url = '/good/user/changepw.do?id='+ id;
-	                	location.replace(url);
+	        	        $('#id').prop('readonly', true);
+	        	        $('#tel').prop('readonly', true);
+	                	$('#changepw').show();
+	                    
 	                }
 	            },
 	            error: function (a, b, c) {
 	                console.log(a, b, c);
 	            }
 	        });
+
+		});
+		
+		$('#btn_changePw').click(function () {
+			
+			var id = $('#id').val();
+			var pw = $('#pw').val();
+			
+	        $.ajax({
+	            type: 'POST',
+	            url: '/good/user/changepw.do',
+	            data:  'id=' + id + '&pw=' + pw,
+	            dataType: 'json',
+	            success: function (result) {
+	            	console.log(result.result);
+	                if (result.result == 0) {
+	                	alert('완려ㅛ');
+	                	
+	                } else {
+	                	alert('완려ㅛ');
+	                }
+	            },
+	            error: function (a, b, c) {
+	                console.log(a, b, c);
+	            }
+	        });
+
 		});
 		
 

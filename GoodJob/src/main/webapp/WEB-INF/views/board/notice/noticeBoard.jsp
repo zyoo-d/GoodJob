@@ -66,7 +66,6 @@
 											<select class="sorting" name="sort" id="sort">
 												<option value="RD" selected>최신순</option>
 												<option value="EA">과거순</option>
-												<option value="EA">댓글순</option>
 											</select>
 										</div>
 									</div>
