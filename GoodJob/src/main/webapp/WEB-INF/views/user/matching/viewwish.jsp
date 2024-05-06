@@ -632,6 +632,7 @@
 	<script>
 		/* 선호근무지역 Start */
 		//선호근무지역 생성기
+		var runOnce = false;
 		function showLocations(region) {
 			var locationCheckboxes = document
 					.getElementById('locationCheckboxes');
@@ -734,8 +735,10 @@
 
 			//수정시 기존 선택지를 가져와서 체크
 			var wish = '${wish}';
-			if (wish === '1') {
+
+			if (wish === '1' && !runOnce) {
 				var lcCodes = <c:out value='${dto.lc_code}' default='[]' />;
+				runOnce = true;
 
 				locations
 						.forEach(function(location) {

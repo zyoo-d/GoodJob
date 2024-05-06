@@ -112,4 +112,59 @@ public class WishDAO {
 		return null;
 	}
 
+	public int editWish(WishDTO dto) {
+		try {
+			String sql = "update tblUserDetail set edu_seq = ?, salary_seq = ?, career = ? where id = ?";
+
+			pstat = conn.prepareStatement(sql);
+			pstat.setString(1, dto.getEdu_seq());
+			pstat.setString(2, dto.getSalary_seq());
+			pstat.setString(3, dto.getCareer());
+			pstat.setString(4, dto.getId());
+
+			pstat.executeUpdate();
+			pstat.close();
+			
+			sql = "delete tblwishlocation where id = ?";
+			pstat = conn.prepareStatement(sql);
+			pstat.setString(1, dto.getId());
+			pstat.executeUpdate();
+			pstat.close();
+			
+			ArrayList<String> temp = dto.getLc_code();
+			for (String lc : temp) {
+				sql = "insert into tblwishlocation values (?,?)";
+				pstat = conn.prepareStatement(sql);
+				pstat.setString(1, lc);
+				pstat.setString(2, dto.getId());
+				pstat.executeUpdate();
+				pstat.close();
+			}
+			
+			sql = "delete tblwishwelfare where id = ?";
+			pstat = conn.prepareStatement(sql);
+			pstat.setString(1, dto.getId());
+			pstat.executeUpdate();
+			pstat.close();
+			
+			temp.clear();
+			temp = dto.getWel_seq();
+			for (String wel : temp) {
+				sql = "insert into tblwishwelfare values (?,?)";
+				pstat = conn.prepareStatement(sql);
+				pstat.setString(1, dto.getId());
+				pstat.setString(2, wel);
+				pstat.executeUpdate();
+				pstat.close();
+			}
+			
+			return 1;
+
+		} catch (Exception e) {
+			System.out.println("WishDAO.editWish");
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
 }

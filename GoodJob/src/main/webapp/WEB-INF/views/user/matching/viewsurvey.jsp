@@ -19,31 +19,31 @@
                 <div class="card-content-wrapper">
                     <div class="px-4 text-center sizing">
                         <h1 class="mt-3 gradiTitle"><span>Survey for GoodJob!</span></h1>
-                         <p class="survey-list mt-6">설문조사 결과를 토대로 000님의 맞춤 기업을 추천해드립니다.<br>
+                         <p class="survey-list mt-6">설문조사 결과를 토대로 ${name}님의 맞춤 기업을 추천해드립니다.<br>
                          성실하게 설문조사에 응하실 경우 보다 정확한 정보가 제공됩니다.</p>
  
                     </div>
     <form class="survey-form">
     <!-- 질문시작 -->
+    <c:forEach items="${list}" var="dto">
         <div class="survey section">
-            <h2>Q<span class="survey-num">1 </span>맞춤기업 확인을 위한 질문입니다.</h2>
+            <h2>Q<span class="survey-num">${dto.sv_seq} </span>${dto.sv_content}</h2>
                    <div class="survey radio-toolbar">
-            <input type="radio" id="opinion1" name="opinion" value="1">
-            <label for="opinion1">매우아니다</label>
-            <input type="radio" id="opinion2" name="opinion" value="2">
-            <label for="opinion2">아니다</label>
-            <input type="radio" id="opinion3" name="opinion" value="3">
-            <label for="opinion3">보통이다</label>
-            <input type="radio" id="opinion4" name="opinion" value="4">
-            <label for="opinion4">그렇다</label>
-            <input type="radio" id="opinion5" name="opinion" value="5">
-            <label for="opinion5">매우그렇다</label>
+            <input type="radio" id="${dto.sv_category}${dto.sv_seq}" name="opinion" value="5">
+            <label for="${dto.sv_category}${dto.sv_seq}">매우그렇다</label>
+            <input type="radio" id="${dto.sv_category}${dto.sv_seq}" name="opinion" value="2">
+            <label for="${dto.sv_category}${dto.sv_seq}">그렇다</label>
+            <input type="radio" id="${dto.sv_category}${dto.sv_seq}" name="opinion" value="-2">
+            <label for="${dto.sv_category}${dto.sv_seq}">아니다</label>
+            <input type="radio" id="${dto.sv_category}${dto.sv_seq}" name="opinion" value="-5">
+            <label for="${dto.sv_category}${dto.sv_seq}">매우아니다</label>
         </div>
     </div>
+    </c:forEach>
     <!-- 질문끝 -->
     
-    </form>
         <button type="submit" class="btn btn-primary btn-survey-check">다음</button>
+    </form>
     </div>
     </div>
     </div>

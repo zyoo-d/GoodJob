@@ -25,7 +25,7 @@
 			<li class="nav-item"><a href="#!" class="nav-link">채용</a></li>
 			<li class="nav-item">
 			<c:if test="${wish==null||wish=='0'}"><a href="/good/user/matching/viewwish.do" class="nav-link">굿잡forU</a></c:if>
-			<c:if test="${wish=='1'}"><a href="/good/user/matching/viewwish.do" class="nav-link">굿잡forU</a></c:if>
+			<c:if test="${wish=='1'&&prefer=='0'}"><a href="/good/user/matching/viewsurvey.do" class="nav-link">굿잡forU</a></c:if>
 			<%-- <c:if test="${wish}=='0'"><a href="/good/user/matching/viewwish.do" class="nav-link">굿잡forU</a></c:if> --%>
 			</li>
 			<li class="nav-item nav-dropdown group relative"><span
