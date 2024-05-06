@@ -152,7 +152,7 @@
 						alt="image" src="/good/assets/img/avatar/avatar-1.png"
 						class="rounded-circle mr-1"></a>
 					<div class="dropdown-menu dropdown-menu-right">
-						<a href="features-settings.html" class="dropdown-item has-icon">
+						<a href="/good/user/mypage/main.do" class="dropdown-item has-icon">
 							<i class="fas fa-cog"></i> Settings
 						</a>
 						<div class="dropdown-divider"></div>
@@ -165,10 +165,10 @@
 		<div class="main-sidebar sidebar-style-2" id="mypageSidebar">
 			<aside id="sidebar-wrapper">
 				<div class="sidebar-brand">
-					<a href="/good/heeyeon/mypagemain.jsp">IT's Good Job</a>
+					<a href="/good/main.do">IT's Good Job</a>
 				</div>
 				<div class="sidebar-brand sidebar-brand-sm">
-					<a href="/good/heeyeon/mypagemain.jsp">GJ</a>
+					<a href="/good/main.do">GJ</a>
 				</div>
 				<ul class="sidebar-menu">
 					<li class="dropdown"><a href="#" class="nav-link has-dropdown"><i
@@ -187,7 +187,7 @@
 						<ul class="dropdown-menu">
 							<li><a class="nav-link" href="/good/heeyeon/review.jsp">기업리뷰</a></li>
 							<li><a class="nav-link" href="/good/heeyeon/interview.jsp">면접후기</a></li>
-							<li><a class="nav-link" href="/good/heeyeon/study.jsp">면접스터디</a></li>
+							<li><a class="nav-link" href="/good/user/mypage/mystudy.do">스터디</a></li>
 							<li><a class="nav-link" href="/good/heeyeon/qna.jsp">여기어때?</a></li>
 						</ul></li>
 					<li class="dropdown"><a href="#" class="nav-link has-dropdown"><i

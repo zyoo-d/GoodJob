@@ -8,7 +8,9 @@ public class TestClass {
 		
 		
 		LocalDate nowDate = LocalDate.now();
-		System.out.println(nowDate);
+
+		VisitorDAO dao = new VisitorDAO();
+		dao.insertTblVisitor(nowDate);
 
 	}//main
 

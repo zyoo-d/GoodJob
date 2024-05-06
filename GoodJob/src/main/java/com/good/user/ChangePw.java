@@ -20,8 +20,6 @@ public class ChangePw extends HttpServlet {
 
 		String id = req.getParameter("id");
 		
-		System.out.println("get" + id);
-		
 		req.setAttribute("id", id);
 		
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/user/changepw.jsp");

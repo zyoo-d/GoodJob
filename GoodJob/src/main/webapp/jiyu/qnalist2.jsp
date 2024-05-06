@@ -864,6 +864,7 @@
     </ul>
   </nav>
 </section>
+	<%@include file="/WEB-INF/views/inc/footer.jsp"%>
 <script>
 document.addEventListener("DOMContentLoaded", function() {
     document.getElementById("detail-search-btn").addEventListener("click", function() {

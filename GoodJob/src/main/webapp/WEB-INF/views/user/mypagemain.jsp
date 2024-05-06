@@ -58,7 +58,7 @@
 											</li></a>
 											<a href="/good/heeyeon/study.jsp"><li
 												class="list-group-item d-flex justify-content-between align-items-center">
-													면접스터디 <span class="badge badge-primary badge-pill">2</span>
+													스터디 <span class="badge badge-primary badge-pill">2</span>
 											</li></a>
 											<a href="/good/heeyeon/interview.jsp"><li
 												class="list-group-item d-flex justify-content-between align-items-center">
@@ -84,7 +84,7 @@
 				</div>
 
 				<div class="row" id="mypageMainCard">
-					<div class="col-12 col-md-4 col-lg-4">
+					<div class="col-12 col-md-6 col-lg-3">
 						<div class="card blue">
 							<div class="card-body">
 								<div class="media">
@@ -92,14 +92,14 @@
 										<i class="fas fa-book-open"></i>
 									</div>
 									<div class="media-body">
-										<h6 class="mt-0">면접스터디</h6>
+										<h6 class="mt-0">스터디</h6>
 										<p class="mb-0">스터디하며 함께 취업 준비해요!</p>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-					<div class="col-12 col-md-4 col-lg-4">
+					<div class="col-12 col-md-6 col-lg-3">
 						<div class="card blue">
 							<div class="card-body">
 								<div class="media">
@@ -114,7 +114,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-12 col-md-4 col-lg-4">
+					<div class="col-12 col-md-6 col-lg-3">
 						<div class="card blue">
 							<div class="card-body">
 								<div class="media">
@@ -124,6 +124,21 @@
 									<div class="media-body">
 										<h6 class="mt-0">여기어때?</h6>
 										<p class="mb-0">이 기업이 어떤지 궁금할 땐 여기어때에서 물어보세요!</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-12 col-md-6 col-lg-3">
+						<div class="card blue">
+							<div class="card-body">
+								<div class="media">
+									<div class="mr-2 bg-custom text-white cardIcon">
+										<i class="fas fa-question"></i>
+									</div>
+									<div class="media-body">
+										<h6 class="mt-0">기업비교</h6>
+										<p class="mb-0">스크랩한 기업들 중 더 자세히 비교해드릴게요! </p>
 									</div>
 								</div>
 							</div>

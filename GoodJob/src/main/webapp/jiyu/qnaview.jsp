@@ -6,7 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <%@include file="/WEB-INF/views/inc/asset.jsp" %>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <style>
 
 
@@ -22,7 +21,7 @@
 
 <section class="page-hero pt-16 pb-6">
   <div class="container">
-    <div class="z-custom card" id="itvWriteQnA">
+    <div class="card" id="itvWriteQnA">
      <div class="card-content-wrapper">
 					<div class="card-content">
 						<div class="px-4 text-center">
@@ -62,9 +61,9 @@
                      
 
             <div class="comment-list">
-              <h4>댓글</h4>
 
-              <div class="">
+
+
               <form>
               <div class="add-comment">    
 	              
@@ -118,9 +117,7 @@
 		</div>
               
               </form>
-            
-      
-        </div>
+
       </div>
     </div>
 </div>
