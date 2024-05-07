@@ -59,7 +59,6 @@ public class NoticeDAO {
 			rs = pstat.executeQuery();
 
 			if (rs.next()) {
-
 				return rs.getInt("cnt");
 			}
 
@@ -75,6 +74,7 @@ public class NoticeDAO {
 		try {
 
 			String where = "";
+			System.out.println(map.get("column"));
 			
 			if (map.get("search").equals("y")) {
 				where = String.format("where %s like '%%%s%%'", map.get("column"), map.get("word"));
@@ -144,5 +144,21 @@ public class NoticeDAO {
 		}
 		
 		return null;
+	}
+
+	public int delNotice(String seq) {
+		try {
+			String sql = "delete from tblNotice where nt_seq = ?";
+
+			pstat = conn.prepareStatement(sql);
+			pstat.setString(1, "seq");
+
+			return pstat.executeUpdate();
+
+		} catch (Exception e) {
+			System.out.println("NoticeDAO.delNotice");
+			e.printStackTrace();
+		}
+		return 0;
 	}
 }

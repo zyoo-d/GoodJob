@@ -67,25 +67,7 @@
                                     <button class="btn btn-outline-primary" type="button" onclick="getAddress();">주소 찾기</button>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-6">
-                                <label>학력 정보(선택)</label>
-                                <select class="form-control" name="education">
-                                    <option value="1">고교 졸업 이하</option>
-                                    <option value="2">고등학교 졸업</option>
-                                    <option value="3">대학 졸업(2,3년제)</option>
-                                    <option value="4">대학 졸업(4년제)</option>
-                                    <option value="5">대학원 석사 졸업</option>
-                                    <option value="6">대학원 박사 졸업</option>
-                                    <option value="7">박사 졸업 이상</option>
-                                </select>
-                            </div>
-                            <div class="form-group col-6">
-                                <label>경력 정보(선택)</label> 
-                                <input type="range" class="form-control" min="0" max="10" step="1">
-                            </div>
-                        </div>
+                        </div>  
                         <div class="form-group">
                             <div class="custom-control custom-checkbox">
                                 <input type="checkbox" name="agree" class="custom-control-input" id="agree"> 

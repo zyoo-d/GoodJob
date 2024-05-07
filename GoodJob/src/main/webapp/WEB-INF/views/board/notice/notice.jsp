@@ -45,7 +45,9 @@
 									<p class="write-date">(${dto.nt_regdate })</p>
 									<c:if test="${lv == 2}">
 									<button type="button" class="" value="수정">(수정</button>
-									<button type="button" class="" value="삭제">/ 삭제)</button>
+									<form action="/good/board/notice/delnotice.do" method="post">
+									<button type="submit" class="" value="삭제">/ 삭제)</button>
+									</form>
 									</c:if>
 								</div>
 							</div>

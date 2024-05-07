@@ -24,16 +24,16 @@
 						</div>
 
 						<div>
-							<form id="searchForm" method="GET" action="/toy/board/list.do">
+							<form id="searchForm" method="GET" action="/good/board/notice.do">
 								<div class="InpBox">
-									<select class="sorting">
-										<option value="subject">제목</option>
-										<option value="content">내용</option>
+									<select class="sorting"  name="column">
+										<option value="nt_title">제목</option>
+										<option value="nt_content">내용</option>
 									</select>
 								</div>
-								<input type="text" name="input" class="input" id="search-input"
+								<input type="text" name="word" class="input" id="search-input"
 									placeholder="검색어를 입력하세요">
-								<button type="button" class="search" id="search-btn">
+								<button type="submit" class="search" id="search-btn">
 									<span class="material-symbols-outlined"> <span
 										class="material-symbols-outlined">search</span>
 									</span>
@@ -54,9 +54,11 @@
 									</p>
 								</div>
 								<div class="list_info">
+								<c:if test="${lv == 2 }">
 									<div class="moving-btn studyAdd mr-2">
-										<a href="/good/user/study/addstudy.do" class="btn btnList">글쓰기</a>
+										<a href="/good/board/noticewrite.do" class="btn btnList">글쓰기</a>
 									</div>
+									</c:if>
 									<div class="InpBox">
 										<select class="sorting" name="sort" id="sort">
 											<option value="RD" selected>최신순</option>
@@ -82,7 +84,7 @@
 														<a class="str_tit_title new" id="rec_link_48103333"
 															onclick=""
 															href="/good/board/notice/notice.do?nt_seq=${dto.nt_seq}"
-															target="_blank" onmousedown=""><span>${dto.nt_title}</span></a>
+															target="_blank" onmousedown=""><span>${dto.nt_content}</span></a>
 													</div>
 												</div>
 											</div>
