@@ -291,11 +291,11 @@ input[type="text"] {
 	            dataType: 'json',
 	            success: function (result) {
 	            	console.log(result.result);
-	                if (result.result == 0) {
-	                	alert('완려ㅛ');
+	                if (result.result == 1) {
+	                	var url = '/good/user/signin.do'; 
 	                	
 	                } else {
-	                	alert('완려ㅛ');
+	                	alert('비밀변호 변경을 실패하였습니다.');
 	                }
 	            },
 	            error: function (a, b, c) {

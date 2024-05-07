@@ -18,4 +18,6 @@ public class GetAccount extends HttpServlet {
 		dispatcher.forward(req, resp);
 
 	}
+	
+	
 }

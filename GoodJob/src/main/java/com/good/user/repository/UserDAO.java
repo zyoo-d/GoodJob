@@ -17,6 +17,16 @@ public class UserDAO {
 	public UserDAO() {
 		this.conn = DBUtil.open();
 	}
+	
+	public void close()  {
+
+        try {
+            this.conn.close();
+        } catch (Exception e) {
+            System.out.println("QnaBoardDAO.close 오류");
+            e.printStackTrace();
+        }
+    }
 
 	public int checkId(String id) {
 		try {
@@ -217,6 +227,24 @@ public class UserDAO {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	public int unregister(String id) {
+		
+		try {
+			String sql = "update tblUser set lv = 4 where id = ?";
+			
+			pstat = conn.prepareStatement(sql);
+			pstat.setString(1, id);
+
+			return pstat.executeUpdate();
+
+		} catch (Exception e) {
+			System.out.println("UserDAO.unregister");
+			e.printStackTrace();
+		}
+		
+		return 0;
 	}
 
 

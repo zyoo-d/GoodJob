@@ -9,7 +9,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 
-@WebFilter(filterName = "2.EncodingFilter", urlPatterns = "/*")
+@WebFilter(filterName = "2.EncodingFilter", urlPatterns = "*.do")
 public class EncodingFilter implements Filter{
 
 		@Override
