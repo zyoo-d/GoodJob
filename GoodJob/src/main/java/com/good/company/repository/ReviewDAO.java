@@ -77,11 +77,11 @@ public class ReviewDAO {
 				dto.setCp_seq(rs.getString("cp_seq"));
 				dto.setId(rs.getString("id"));
 				dto.setCp_rv_seq(rs.getString("cp_rv_seq"));
-				dto.setSalary_score(rs.getInt("salary_score"));
-				dto.setWelfare_score(rs.getInt("welfare_score"));
-				dto.setLngvt_score(rs.getInt("lngvt_score"));
-				dto.setCulture_score(rs.getInt("culture_score"));
-				dto.setGrowth_score(rs.getInt("growth_score"));
+				dto.setSalary_score(rs.getDouble("salary_score"));
+				dto.setWelfare_score(rs.getDouble("welfare_score"));
+				dto.setLngvt_score(rs.getDouble("lngvt_score"));
+				dto.setCulture_score(rs.getDouble("culture_score"));
+				dto.setGrowth_score(rs.getDouble("growth_score"));
 				dto.setLinereview(rs.getString("linereview"));
 				dto.setGood(rs.getString("good"));
 				dto.setBad(rs.getString("bad"));
@@ -91,7 +91,7 @@ public class ReviewDAO {
 
 				//
 				sql = "select t.tag_keyword from tblCompanyReview cr inner join tblReviewTag rt on cr.cp_rv_seq = rt.cp_rv_seq inner join tblTag t on t.tag_seq=rt.tag_seq where cr.cp_seq=?";
-				pstat = conn.prepareStatement(sql);
+				stat = conn.prepareStatement(sql);
 				pstat.setString(1,cp_seq);
 				rs = pstat.executeQuery();
 				
@@ -120,36 +120,49 @@ public class ReviewDAO {
 		 * @param tmap
 		 * @return
 		 */
-	/*	public ArrayList<ReviewDTO> tagList(HashMap<String,String> tmap){
-			
+		public ArrayList<ReviewDTO> tagList(){
 			try {
 			
-			String sql = "";
-			sql = String.format("select t.tag_keyword from tblCompanyReview cr inner join tblReviewTag rt on cr.cp_rv_seq = rt.cp_rv_seq inner join tblTag t on t.tag_seq=rt.tag_seq where cr.cp_seq=?")
-					,tmap.get("cp_seq");
+				String sql = "select * from vwCompanyReview";
+				
+				stat = conn.createStatement();
+				rs = pstat.executeQuery(sql);
+				
+				
+				
+				ArrayList<ReviewDTO> tagList = new ArrayList<ReviewDTO>(); 
+				while(rs.next()) {
+					
+					ReviewDTO dto = new ReviewDTO();
+					
+					dto.setCp_seq(rs.getString("cp_seq"));
+					
+					sql = "select t.tag_keyword from tblCompanyReview cr inner join tblReviewTag rt on cr.cp_rv_seq = rt.cp_rv_seq inner join tblTag t on t.tag_seq=rt.tag_seq where cr.cp_seq=?";
+					pstat = conn.prepareStatement(sql);
+					pstat.setString(1,rs.getString("cp_seq"));
+					
+					rs = pstat.executeQuery(sql);
+				
+					ArrayList<String> tlist = new ArrayList<String>();
 					
 					
-			
-			pstat = conn.prepareStatement(sql);
-			rs = pstat.executeQuery();
-			
-			ArrayList<ReviewDTO> taglist = new ArrayList<ReviewDTO>();
-			
-			while (rs.next()) {
-		
-				ReviewDTO dto = new ReviewDTO();
-				dto.setTag_keyword(rs.getString("tag_keyword"));
-				taglist.add(dto);
-				}	
-				return taglist;
+					
+					while(rs.next()) {
+						tlist.add(rs.getString("tag_keyword"));
+					}
+				
+					dto.setTag_keyword(tlist);
+					tagList.add(dto);
+
+				}
+				return tagList;
 				
 			} catch (Exception e) {
 				System.out.println("ReviewDAO.rlist");
 				e.printStackTrace();
 			}
 			
-			
 			return null;
-		}*/
+		}
 		
 }
