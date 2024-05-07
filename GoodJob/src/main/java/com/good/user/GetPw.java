@@ -3,6 +3,7 @@ package com.good.user;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,22 +15,25 @@ import org.json.simple.JSONObject;
 import com.good.user.model.UserDTO;
 import com.good.user.repository.UserDAO;
 
-@WebServlet("/user/getid.do")
-public class GetId extends HttpServlet {
-	
+@WebServlet("/user/getpw.do")
+public class GetPw extends HttpServlet {
+
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		String name = req.getParameter("name");
+		String id = req.getParameter("id");
 		String tel = req.getParameter("tel");
+		
+		System.out.println("id :" + id);
+		System.out.println("tel :" + tel);
 		
 		UserDTO dto = new UserDTO();
 		UserDAO dao = new UserDAO();
 		
-		dto.setName(name);
+		dto.setId(id);
 		dto.setTel(tel);
 		
-		String result = dao.getId(dto);
+		int result = dao.getPw(dto);
 		
 		JSONObject obj = new JSONObject();
 		
@@ -38,6 +42,5 @@ public class GetId extends HttpServlet {
 		PrintWriter writer = resp.getWriter();
 		writer.print(obj);
 		writer.close();
-		
 	}
 }

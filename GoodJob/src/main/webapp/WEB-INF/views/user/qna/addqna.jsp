@@ -39,7 +39,7 @@
 										<div class="view-form addqna">
 											<div class="addqna-form">
 												<span id="write-title">제목</span> <input type="text"
-													class="title write-title" placeholder="✏️제목을 입력하세요." name="qna_title">
+													class="title write-title" placeholder="✏️제목을 입력하세요." name="qna_title" maxlength="50">
 											</div>
 											<div class="addqna-form">
 												<div id="searchResults1" class="dropdown-content addqna"></div>

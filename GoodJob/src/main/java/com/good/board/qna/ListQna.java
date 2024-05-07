@@ -15,7 +15,6 @@ import javax.servlet.http.HttpSession;
 import com.good.board.model.QnaBoardDTO;
 import com.good.board.model.StudyDTO;
 import com.good.board.repository.QnaBoardDAO;
-import com.good.board.repository.StudyDAO;
 
 @WebServlet("/user/qna/listqna.do")
 public class ListQna extends HttpServlet {
@@ -47,6 +46,20 @@ public class ListQna extends HttpServlet {
 
 		// 검색 기록 가져오기
 		String column = (req.getParameter("column") != null ? req.getParameter("column") : "");
+		
+		switch(column) {
+			case "title":
+				column = "qna_title";
+				break;
+			case "content":
+				column = "qna_content";
+				break;
+			case "name":
+				column = "cp_name";
+				break;
+		}
+		
+		
 		String word = (req.getParameter("word") != null ? req.getParameter("word") : "");
 		String search = "n"; // 목록보기(n), 검색하기(y)
 		
@@ -177,6 +190,8 @@ public class ListQna extends HttpServlet {
 		req.setAttribute("totalCount", totalCount);
 		req.setAttribute("totalPage", totalPage);
 		req.setAttribute("pagebar", sb.toString());
+		
+		dao.close();
 
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/user/qna/listqna.jsp");
 		dispatcher.forward(req, resp);

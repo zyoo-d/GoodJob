@@ -93,7 +93,7 @@ body > section > div > div > div {
 		</form>
 		<form method="POST" action="/good/user/signin.do">
 			<input type="hidden" name="id" value="admin">
-			<input type="hidden" name="pw" value="123456789">
+			<input type="hidden" name="pw" value="123">
 			<input type="submit" value="  관리자   " >
 		</form>
 

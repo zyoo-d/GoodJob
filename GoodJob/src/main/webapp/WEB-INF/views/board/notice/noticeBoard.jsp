@@ -66,7 +66,6 @@
 											<select class="sorting" name="sort" id="sort">
 												<option value="RD" selected>최신순</option>
 												<option value="EA">과거순</option>
-												<option value="EA">댓글순</option>
 											</select>
 										</div>
 									</div>
@@ -82,23 +81,24 @@
 												<div class="col notification_info">
 													<div class="job_tit">
 														<a class="str_tit_title new" id="rec_link_48103333"
-															onclick="" href="#" target="_blank" onmousedown=""><span>관리자
-																공지사항 입니다.</span></a>
+															onclick="" href="#" target="_blank" onmousedown=""><span>관리자 공지사항 입니다.</span></a>
 													</div>
 												</div>
 											</div>
+											<c:forEach items="${list}" var="dto">
 											<div class="com-info">
 												<div class="col recruit_info">
 													<ul>
 														<li>
-															<p class="writer">zyxxx</p>
+															<p class="writer">${dto.nt_title}</p>
 														</li>
 														<li>
-															<p class="date">2024-04-30</p>
+															<p class="date">${dto.nt_regdate}</p>
 														</li>
 													</ul>
 												</div>
 											</div>
+											</c:forEach>
 										</div>
 									</div>
 								</div>
@@ -107,8 +107,11 @@
 					</div>
 				</div>
 				<div class="moving-btn studyAdd">
+				<c:if test="${lv == 2}">
 					<a href="#" class="btn btnList">글쓰기</a>
+				</c:if>
 				</div>
+				
 			</div>
 		</div>
 

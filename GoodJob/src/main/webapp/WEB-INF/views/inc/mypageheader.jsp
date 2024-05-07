@@ -174,8 +174,8 @@
 					<li class="dropdown"><a href="#" class="nav-link has-dropdown"><i
 							class="far fa-user"></i><span>개인정보</span></a>
 						<ul class="dropdown-menu">
-							<li><a class="nav-link" href="/good/heeyeon/editinfo.jsp">회원정보수정</a></li>
-							<li><a class="nav-link" href="/good/heeyeon/unregister.jsp">회원탈퇴</a></li>
+							<li><a class="nav-link" href="/good/user/mypage/editinfo.do">회원정보수정</a></li>
+							<li><a class="nav-link" href="/good/user/mypage/unregister.do">회원탈퇴</a></li>
 						</ul></li>
 					<li class="dropdown"><a href="#" class="nav-link has-dropdown"
 						data-toggle="dropdown"><i class="far fa-star"></i> <span>스크랩</span></a>
