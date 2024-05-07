@@ -7,6 +7,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.good.board.model.CommentDTO;
 import com.good.board.model.StudyDTO;
 import com.test.util.DBUtil;
 
@@ -258,6 +259,33 @@ public class StudyDAO {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	public ArrayList<CommentDTO> listComment(String std_seq) {
+	    try {
+	        String sql = "SELECT * FROM vwstdcomment WHERE STD_SEQ = ?";
+	        pstat = conn.prepareStatement(sql);
+	        pstat.setString(1, std_seq);
+	        rs = pstat.executeQuery();
+	        ArrayList<CommentDTO> clist = new ArrayList<>();
+	        	        
+	        while (rs.next()) {
+	            CommentDTO dto = new CommentDTO();
+	            dto.setCm_seq(rs.getString("STD_CM_SEQ"));
+	            dto.setContent(rs.getString("STD_CM_CONTENT"));
+	            dto.setRegdate(rs.getString("STD_CM_REGDATE"));
+	            dto.setBoard_seq(rs.getString("STD_SEQ"));
+	            dto.setCm_bseq(rs.getString("STD_CM_BSEQ"));
+	            dto.setId(rs.getString("ID"));
+	            dto.setNickname(rs.getString("NICKNAME"));
+	            
+	            clist.add(dto);	        
+	        }
+	        return clist;
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return null;
 	}
 
 }

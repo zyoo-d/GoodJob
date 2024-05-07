@@ -53,13 +53,13 @@ public class ViewStudy extends HttpServlet {
 		dto.setStd_regdate(regdate);
 		
 		//댓글 목록 가져오기
-		//ArrayList<CommentDTO> clist = dao.listComment(seq);
+		ArrayList<CommentDTO> clist = dao.listComment(std_seq);
 		
 		req.setAttribute("dto", dto);
 		req.setAttribute("column", column);
 		req.setAttribute("word", word);
 		req.setAttribute("page", page);
-		//req.setAttribute("clist", clist);
+		req.setAttribute("clist", clist);
 
 		dao.close();
 		
