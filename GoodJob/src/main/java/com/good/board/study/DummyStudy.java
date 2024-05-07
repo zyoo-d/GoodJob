@@ -32,9 +32,9 @@ public class DummyStudy {
 		String[] goodReviews = { "연봉이 업계 최고 수준입니다.", "복지가 매우 훌륭하며 직원을 잘 챙깁니다.", "회사 문화가 개방적이어서 의견을 자유롭게 나눌 수 있습니다.",
 				"워라밸이 잘 지켜지며 자유로운 분위기입니다.", "성장 가능성이 높아서 경력 개발에 좋은 환경입니다." };
 
-		// 부정적인 리뷰를 나타내는 배열 , "성장의 기회가 제한적이어서 경력 개발이 어렵습니다."
+		// 부정적인 리뷰를 나타내는 배열 , 
 		String[] badReviews = { "연봉이 업계 평균에 미치지 못합니다.", "복지 혜택이 부족하고 개선이 필요합니다.", "회사 문화가 폐쇄적이어서 의사소통이 어렵습니다.",
-				"야근이 잦으며 워라밸이 매우 나쁩니다." };
+				"야근이 잦으며 워라밸이 매우 나쁩니다.","성장의 기회가 제한적이어서 경력 개발이 어렵습니다." };
 
 		int[] numbers = { 2375, 2408, 2241, 2105, 2191, 2303, 10138, 3861, 2969, 2402, 2799, 2823, 2707, 2937, 8527,
 				3510, 8843, 2890, 2456, 5151, 3570, 9022, 8360, 3241, 3142, 3467, 8478, 3891, 8912, 4380, 7524, 5403,
@@ -53,11 +53,11 @@ public class DummyStudy {
 
 		Calendar c1 = Calendar.getInstance();
 
-		c1.add(Calendar.MONTH, -4);
+		c1.add(Calendar.MONTH, -2);
 
 		Random rnd = new Random();
 		// 70% 확률로 조작
-		int[] seed = { 1, 1, 1, 1, 1, 1, 1, 0, 0, 0 };
+		int[] seed = { 1, 1, 1, 1, 1, 1, 0, 0, 0, 0 };
 		// 2~5회 중 랜덤
 		int[] seed2 = { 1,2};
 
@@ -69,17 +69,20 @@ public class DummyStudy {
 
 				for (int i = 0; i < seed2[rnd.nextInt(seed2.length)]; i++) {
 					try {
-						String sql = "insert into tblcompanyreview values (seqcompanyreview.nextval, ?, ?, ?, ?, 5, ?, '성장 가능성이 높아서 경력 개발에 좋은 환경입니다.', ?, ?, ?, 'wantjob', 1)";
+						String sql = "insert into tblcompanyreview values (seqcompanyreview.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'wantjob', 1)";
 
 						pstat = conn.prepareStatement(sql);
 						pstat.setInt(1, random.nextInt(4) + 2);
 						pstat.setInt(2, random.nextInt(4) + 2);
 						pstat.setInt(3, random.nextInt(4) + 2);
 						pstat.setInt(4, random.nextInt(4) + 2);
-						pstat.setString(5, conclusions[random.nextInt(conclusions.length)]);
-						pstat.setString(6, badReviews[random.nextInt(badReviews.length)]);
-						pstat.setString(7, String.format("%tF", copy));
-						pstat.setInt(8, numbers[rnd.nextInt(numbers.length)]);
+						pstat.setInt(5, random.nextInt(4) + 2);
+						pstat.setString(6, conclusions[random.nextInt(conclusions.length)]);
+						pstat.setString(7, goodReviews[random.nextInt(goodReviews.length)]);
+						pstat.setString(8, badReviews[random.nextInt(badReviews.length)]);
+						pstat.setString(9, String.format("%tF", copy));
+						pstat.setInt(10, 5942);
+						//pstat.setInt(8, numbers[rnd.nextInt(numbers.length)]);
 
 						pstat.executeUpdate();
 						pstat.close();

@@ -1,6 +1,6 @@
 select c.cp_name, cr.* from tblcompanyreview cr
     inner join tblcompany c 
-        on cr.cp_seq = c.cp_seq;
+        on cr.cp_seq = c.cp_seq where c.cp_seq = 5942;
         commit;
 update tblcompanyreview set growth_score = 5 where growth_score = 6;
 insert into tblcompanyreview values 
@@ -9,9 +9,9 @@ insert into tblcompanyreview values
 select * from tblhire h
     inner join tblcompany c
         on h.cp_seq = c.cp_seq
-            where h.hire_avr_year > 0;
+            where c.cp_name = '에스넷시스템';
 
-select * from tbluser;
+select * from tblwelfare;
 update tbluser set pw = 123 where id = 'wantjob';
 commit;
 
