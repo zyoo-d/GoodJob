@@ -70,5 +70,19 @@ public class Alert {
 		writer.close();
 	}
 	
+	public static void deleteSuccess(HttpServletResponse resp) throws IOException{
+		
+		PrintWriter writer = resp.getWriter();
+		writer.println("<html><head><meta charset=\"UTF-8\"><title>Access Denied</title></head><body>");
+		writer.println("<script type='text/javascript'>");
+		writer.println("alert('삭제가 완료되었습니다.');");
+		writer.println("</script>");
+		writer.println("</body></html>");
+		writer.close();
+		
+		
+		
+	}
+	
 	
 }

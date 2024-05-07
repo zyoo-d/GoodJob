@@ -184,6 +184,8 @@ public class ListRecruit extends HttpServlet{
 		req.setAttribute("totalPage", totalPage);
 		req.setAttribute("pagebar", sb.toString());
 		
+		dao.close();
+		
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/user/recruit/listrecruit.jsp");
 		dispatcher.forward(req, resp);
 	}
