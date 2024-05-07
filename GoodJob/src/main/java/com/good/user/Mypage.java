@@ -9,13 +9,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/user/getaccount.do")
-public class GetAccount extends HttpServlet {
+@WebServlet("/user/mypagemain.do")
+public class Mypage extends HttpServlet {
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/user/getaccount.jsp");
+		
+
+		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/user/mypagemain.jsp");
 		dispatcher.forward(req, resp);
 
 	}
+
 }

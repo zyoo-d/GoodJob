@@ -91,7 +91,7 @@ public class NoticeDAO {
 			while (rs.next()) {
 
 				NoticeDTO dto = new NoticeDTO();
-
+				dto.set
 
 				list.add(dto);
 
