@@ -260,6 +260,28 @@ public class StudyDAO {
 		}
 		return null;
 	}
+	
+	public int addComment(CommentDTO dto) {
+	    try {
+	        // SQL 문장 작성
+	        String sql = "INSERT INTO tblStdComment (STD_CM_SEQ, STD_CM_CONTENT, STD_CM_REGDATE, STD_SEQ, STD_CM_BSEQ, ID) VALUES (SEQSTDCOMMENT.nextval, ?, SYSDATE, ?, NULL, ?)";
+	        
+	        // PreparedStatement 생성 및 값 설정
+	        pstat = conn.prepareStatement(sql);
+	        pstat.setString(1, dto.getContent());
+	        pstat.setString(2, dto.getBoard_seq());
+	        pstat.setString(3, dto.getId());
+	        
+	    
+	        return pstat.executeUpdate();
+	   
+	        
+	        
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    } 
+	    return 0;
+	}
 
 	public ArrayList<CommentDTO> listComment(String std_seq) {
 	    try {
@@ -287,5 +309,40 @@ public class StudyDAO {
 	    }
 	    return null;
 	}
+	public CommentDTO getComment(String sTD_SEQ) {
+
+		try {
+			
+			String sql = "SELECT * FROM vwstdComment WHERE STD_SEQ = ? AND STD_CM_SEQ = (SELECT MAX(STD_CM_SEQ) FROM vwstdComment WHERE STD_SEQ = ?)";
+			pstat = conn.prepareStatement(sql);
+			pstat.setString(1, sTD_SEQ);
+			pstat.setString(2, sTD_SEQ);
+					
+			rs = pstat.executeQuery();
+			
+			
+			if (rs.next()) {
+				
+				CommentDTO dto = new CommentDTO();
+				
+				dto.setCm_seq(rs.getString("std_cm_seq"));
+				dto.setContent(rs.getString("std_cm_content"));
+				dto.setRegdate(rs.getString("std_cm_regdate"));
+				dto.setCm_bseq(rs.getString("std_cm_bseq"));
+				dto.setId(rs.getString("id"));
+		        dto.setNickname(rs.getString("nickname"));
+				
+				return dto;				
+			}	
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	
+	
 
 }

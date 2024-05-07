@@ -118,68 +118,64 @@
 						});
 
 		$("#btnAddComment")
-				.click(
-						function() {
-							var commentContent = $(
-									"input[name='viewStudyComment']").val();
-							var stdSeq = $
-							{
-								dto.std_seq
-							}
-							;
+		.click(
+				function() {
+					var commentContent = $(
+							"input[name='viewStudyComment']").val();
+					
+					var stdSeq = ${dto.std_seq};
 
-							if (commentContent.trim() === "") {
-								alert("댓글 내용을 입력해주세요.");
-								return;
-							}
+					if (commentContent.trim() === "") {
+						alert("댓글 내용을 입력해주세요.");
+						return;
+					}
 
-							$
-									.ajax({
-										url : "/good/user/comment/addcomment.do",
-										type : "POST",
-										data : {
-											std_seq : stdSeq,
-											content : commentContent
-										},
-										dataType : 'json',
-										success : function(response) {
-											console.log(response);
-											var newComment = response.dto;
+					$.ajax({
+								url : "/good/board/study/stdaddcomment.do",
+								type : "POST",
+								data : {
+									std_seq : stdSeq,
+									content : commentContent
+								},
+								dataType : 'json',
+								success : function(response) {
+									console.log(response);
+									var newComment = response.dto;
 
-											alert("댓글이 추가되었습니다.");
-											var row = "<tr>"
-													+ "<td class='comment-num'>"
-													+ ($("#comment tbody tr").length + 1)
-													+ "</td>"
-													+ "<td class='commentContent'><p>"
-													+ newComment.STD_CM_CONTENT
-													+ "</p></td>"
-													+ "<td class='commentInfo'>"
-													+ "<div><p>"
-													+ newComment.STD_CM_REGDATE
-													+ "</p>"
-													+ "<div class='comment-edit'><p>"
-													+ newComment.NICKNAME
-													+ "</p>"
-													+ "<div class='comment-icon'>"
-													+ "<span class='material-symbols-outlined'>delete</span>"
-													+ "<span class='material-symbols-outlined'>edit_note</span>"
-													+ "</div></div></div></td></tr>";
+								
+									var row = "<tr>"
+											+ "<td class='comment-num'>"
+											+ ($("#comment tbody tr").length + 1)
+											+ "</td>"
+											+ "<td class='commentContent'><p>"
+											+ newComment.STD_CM_CONTENT
+											+ "</p></td>"
+											+ "<td class='commentInfo'>"
+											+ "<div><p>"
+											+ newComment.STD_CM_REGDATE
+											+ "</p>"
+											+ "<div class='comment-edit'><p>"
+											+ newComment.NICKNAME
+											+ "</p>"
+											+ "<div class='comment-icon'>"
+											+ "<span class='material-symbols-outlined'>delete</span>"
+											+ "<span class='material-symbols-outlined'>edit_note</span>"
+											+ "</div></div></div></td></tr>";
 
-											// 새로운 댓글을 목록에 추가
-											$("#comment tbody").append(row);
+									// 새로운 댓글을 목록에 추가
+									$("#comment tbody").prepend(row);
 
-											// 사용자에게 댓글이 추가되었음을 알림
-											alert("댓글이 추가되었습니다.");
+									// 사용자에게 댓글이 추가되었음을 알림
+									alert("댓글이 추가되었습니다.");
 
-											$("input[name='viewStudyComment']")
-													.val(""); // 댓글 입력 필드 초기화
-										},
-										error : function() {
-											alert("댓글 작성 중 오류가 발생했습니다.");
-										}
-									});
-						});
+									$("input[name='viewStudyComment']")
+											.val(""); // 댓글 입력 필드 초기화
+								},
+								error : function() {
+									alert("댓글 작성 중 오류가 발생했습니다.");
+								}
+							});
+				});
 
 		/*  $(document).ready(function() {
 		     $.ajax({
