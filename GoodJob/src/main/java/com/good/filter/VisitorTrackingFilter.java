@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.good.admin.IpTracker;
 import com.good.admin.VisitorTracker;
 
-@WebFilter(filterName = "3.VisitorTrackingFilter", urlPatterns = "/*")
+@WebFilter(filterName = "3.VisitorTrackingFilter", urlPatterns = "*.do")
 public class VisitorTrackingFilter implements Filter{
 
 	@Override

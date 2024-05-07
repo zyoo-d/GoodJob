@@ -7,7 +7,6 @@
 <meta charset="UTF-8">
 <%@include file="/WEB-INF/views/inc/asset.jsp"%>
 <style>
-
 </style>
 </head>
 <%@include file="/WEB-INF/views/inc/header.jsp"%>
@@ -43,127 +42,56 @@
 					</form>
 				</div>
 
-
-
-
-
-				<div class="mb-8 md:col-6">
-
-
-					<div class="card itvCard">
-
-						<div class="card-content-wrapper">
-
-
-							<div class="card-content">
-
+				<div class="mb-8 md:col-6" id="interview-list">
+					<c:forEach var="interview" items="${interviewList}">
+						<div class="card itvCard">
+							<div class="card-content-wrapper">
 								<div class="itvdropdownContent">
 									<div class="itvImgBox">
 										<img
-											src="https://blog.kakaocdn.net/dn/HDY7T/btrY2our4Rw/Fw6bz0QroBUp1YxglkkwEK/img.webp"
+											src="${interview.IMAGE}"
 											id="itvImg" alt="" />
-									</div>
-									<div class="card-tags">
-										<a class="tag" href="#">합격 후기</a> <i
-											class="fa-solid fa-arrow-down-short-wide dw"></i>
 
+									</div>
+									<div class="itvCardTags">
+										<a class="tag" href="#">${interview.ITV_WHETHER}</a> <i
+											class="fa-solid fa-arrow-down-short-wide dw"></i>
 									</div>
 									<div class="itvContentFooter">
 										<h3 class="h4 card-title">
-											<p>네이버 하반기 공채 면접</p>
+
+											<p>${interview.ITV_CPNAME}</p>
 										</h3>
-										<p>면접내용 요약면접내용</p>
+										<p>${interview.ITV_CAREER}${interview.ITV_MEETDATE} 전반적 평가 : 
+											${interview.ITV_DIFFICULTY}</p>
 									</div>
-
 								</div>
-
 								<div class="itvDetail">
 									<div class="itvDetailEmo"></div>
 									<div class="itvDetailInfo">
-										<strong>면접 유형</strong>
-											   <span>태그</span>
+										<strong class="itvDetailInfoTitle">면접 유형</strong> <span>${interview.ITV_CATEGORY}</span>
 									</div>
 									<div class="itvDetailInfo">
-										<strong>면접 인원</strong>
-											   <span>태그</span>
+										<strong class="itvDetailInfoTitle">면접 인원</strong> <span>${interview.ITV_PERSONNEL}</span>
 									</div>
 									<div class="itvDetailInfo">
-										<strong>전형 및 면접 진행 방식</strong>
-											   <span>내용</span>
+										<strong class="itvDetailInfoTitle">면접 질문</strong>
+										<p>${interview.ITV_QUESTION}</p>
 									</div>
 									<div class="itvDetailInfo">
-										<strong>면접 질문</strong>
-											   <span>내용</span>
+										<strong class="itvDetailInfoTitle">TIP 및 특이사항</strong>
+										<p>${interview.ITV_TIP}</p>
 									</div>
-
 								</div>
-
-
 							</div>
 						</div>
-					</div>
-					<div class="card itvCard">
-
-						<div class="card-content-wrapper">
-
-
-							<div class="card-content">
-
-								<div class="itvdropdownContent">
-									<div class="itvImgBox">
-										<img
-											src="https://blog.kakaocdn.net/dn/HDY7T/btrY2our4Rw/Fw6bz0QroBUp1YxglkkwEK/img.webp"
-											id="itvImg" alt="" />
-									</div>
-									<div class="card-tags">
-										<a class="tag" href="#">합격 후기</a> <i
-											class="fa-solid fa-arrow-down-short-wide dw"></i>
-
-									</div>
-									<div class="itvContentFooter">
-										<h3 class="h4 card-title">
-											<p>네이버 하반기 공채 면접</p>
-										</h3>
-										<p>면접내용 요약면접내용</p>
-									</div>
-
-								</div>
-
-								<div class="itvDetail">
-									<div class="itvDetailEmo"></div>
-									<div class="itvDetailInfo">
-										<strong>면접 유형</strong>
-										<p>내용</p>
-									</div>
-									<div class="itvDetailInfo">
-										<strong>면접 인원</strong>
-										<p>내용</p>
-									</div>
-									<div class="itvDetailInfo">
-										<strong>전형 및 면접 진행 방식</strong>
-										<p>내용</p>
-									</div>
-									<div class="itvDetailInfo">
-										<strong>면접 질문</strong>
-										<p>내용</p>
-									</div>
-
-								</div>
-
-
-							</div>
-						</div>
-					</div>
-				
-
-
-
+					</c:forEach>
 				</div>
-					   <div class="moving-btn studyAdd">
-                            <a href="#" class="btn btnList">글쓰기</a>
-                </div>
+				<div class="moving-btn studyAdd">
+					<a href="#" class="btn btnList">글쓰기</a>
+				</div>
 			</div>
-		
+
 		</div>
 
 	</section>
@@ -180,6 +108,7 @@
 	    }
 	  });
 	});
+	
 </script>
 
 
