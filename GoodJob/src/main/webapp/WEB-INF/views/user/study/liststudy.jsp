@@ -8,10 +8,7 @@
 <meta charset="UTF-8">
 <%@include file="/WEB-INF/views/inc/asset.jsp"%>
 <style>
-.studyAdd {
-	margin-top: 0 !important; 
-	margin-bottom: 0 !important;
-}
+
 </style>
 </head>
 <%@include file="/WEB-INF/views/inc/header.jsp"%>
