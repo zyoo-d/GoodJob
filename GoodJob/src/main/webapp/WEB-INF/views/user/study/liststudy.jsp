@@ -8,6 +8,10 @@
 <meta charset="UTF-8">
 <%@include file="/WEB-INF/views/inc/asset.jsp"%>
 <style>
+.studyAdd {
+	margin-top: 0 !important; 
+	margin-bottom: 0 !important;
+}
 </style>
 </head>
 <%@include file="/WEB-INF/views/inc/header.jsp"%>
@@ -60,7 +64,7 @@
 									</p>
 								</div>
 								<div class="list_info">
-									<div class="moving-btn studyAdd">
+									<div class="moving-btn studyAdd mr-2">
 										<a href="/good/user/study/addstudy.do" class="btn btnList">글쓰기</a>
 									</div>
 									<div class="InpBox">
@@ -95,8 +99,8 @@
 													</div>
 													<h4 class="my-6 line_limit">${dto.cp_name}</h4>
 													<p class="">${dto.std_title}</p>
-													<p class="views-comments views mt-2">
-														<i class="fa-regular fa-eye"></i>${dto.std_views}<i
+													<p class="text-right views-comments views mt-2">
+														<i class="fa-regular fa-eye"></i>${dto.std_views} <i
 															class="fa-regular fa-comment"></i>20
 													</p>
 													<input type="hidden" name="std_seq" value="${dto.std_seq}">

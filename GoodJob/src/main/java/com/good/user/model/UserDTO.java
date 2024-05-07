@@ -13,6 +13,6 @@ public class UserDTO {
 	private String domain;
 	private String lv;
 	private String nickname;
-	
-	
+	private String wish;
+	private String prefer;
 }

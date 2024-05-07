@@ -23,7 +23,6 @@ public class DelStudy extends HttpServlet {
 			return;
 		}
 		
-		
 		String mypage = req.getParameter("mypage");
 		String seq = req.getParameter("std_seq");
 		
@@ -34,6 +33,7 @@ public class DelStudy extends HttpServlet {
 		StudyDAO dao = new StudyDAO(); 
 
 		int result = dao.delStudy(seq);
+		dao.close();
 		
 		if(result==1 && mypage.equals("Y")) {
 			resp.sendRedirect("/good/user/mypage/mystudy.do");

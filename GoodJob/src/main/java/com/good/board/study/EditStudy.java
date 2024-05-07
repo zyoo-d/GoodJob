@@ -21,7 +21,6 @@ public class EditStudy extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		// 인증받지 못한 사용자 or 권한이 없는 사용자 > 거부
-		
 		if(AuthStudy.check(req, resp)) { return; }
 		String mypage = req.getParameter("mypage");
 		
@@ -38,7 +37,8 @@ public class EditStudy extends HttpServlet {
 		
 		req.setAttribute("dto", dto);
 		req.setAttribute("mypage", mypage);
-
+		dao.close();
+		
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/user/study/editstudy.jsp");
 		dispatcher.forward(req, resp);
 
@@ -46,8 +46,6 @@ public class EditStudy extends HttpServlet {
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.setCharacterEncoding("UTF-8");
-		
 		String std_title = req.getParameter("std_title");
 		String std_content = req.getParameter("std_content");
 		String std_duedate = req.getParameter("std_duedate");
@@ -66,7 +64,7 @@ public class EditStudy extends HttpServlet {
 		StudyDAO dao = new StudyDAO();
 		
 		int result = dao.editStudy(dto);
-		
+		dao.close();
 		if(result==1) {
 			resp.sendRedirect("/good/user/study/viewstudy.do?std_seq="+std_seq);
 		} else {

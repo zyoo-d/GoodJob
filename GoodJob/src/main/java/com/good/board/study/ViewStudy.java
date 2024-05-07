@@ -21,7 +21,6 @@ public class ViewStudy extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		HttpSession session = req.getSession();
-		req.setCharacterEncoding("UTF-8");
 		String std_seq = req.getParameter("std_seq");
 		String column = req.getParameter("column");
 		String word = req.getParameter("word");
@@ -54,15 +53,16 @@ public class ViewStudy extends HttpServlet {
 		dto.setStd_regdate(regdate);
 		
 		//댓글 목록 가져오기
-		//ArrayList<CommentDTO> clist = dao.listComment(seq);
+		ArrayList<CommentDTO> clist = dao.listComment(std_seq);
 		
 		req.setAttribute("dto", dto);
 		req.setAttribute("column", column);
 		req.setAttribute("word", word);
 		req.setAttribute("page", page);
-		//req.setAttribute("clist", clist);
+		req.setAttribute("clist", clist);
 
-
+		dao.close();
+		
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/user/study/viewstudy.jsp");
 		dispatcher.forward(req, resp);
 
