@@ -34,13 +34,14 @@
 							등록한 게시물은 삭제되지 않으므로, 삭제를 원하시면 회원탈퇴 전에 삭제해 주시기 바랍니다.
 						</p>
 						<div class="form-group text-lg">
+						<form action="/good/user/mypage/unregister.do" method="POST" id="unregisterForm">
 							<div class="custom-control custom-checkbox">
 								<input type="checkbox" name="agree" id="agree">
 								<label for="agree">유의 사항을 모두 확인했으며, 이에 동의합니다.</label>
 							</div>
+							<button type="submit" class="btn btn-primary btn-lg" id="btnUnregister">탈퇴하기</button>
+						</form>
 						</div>
-						<button type="submit" class="btn btn-primary btn-lg" id="btnUnregister">탈퇴하기</button>
-					</div>
 				</div>
 			</div>
 
@@ -48,14 +49,16 @@
 	</div>
 	<%@include file="/WEB-INF/views/inc/adminfooter.jsp"%>
 	<script>
- 		$('#btnUnregister').click(function() {
-			if(!$('#agree').is(':checked')) {
-				alert('유의 사항을 확인해 주세요.');
-				return;
-			} else {
-				alert('탈퇴!');
-			}
-		});
-	</script>
+	   document.getElementById('btnUnregister').addEventListener('click', function() {
+	        var agreeCheckbox = document.getElementById('agree');
+	        if (!agreeCheckbox.checked) {
+	            alert('유의 사항을 확인해 주세요.');
+	            event.preventDefault(); // 기본 동작을 막음
+	        } else {
+	            // 체크되었을 때만 폼 제출
+	            document.querySelector('form').submit();
+	        }
+	    });
+</script>
 </body>
 </html>

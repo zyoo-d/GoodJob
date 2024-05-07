@@ -14,15 +14,15 @@
 	margin: 0 auto;
 	background-color: #FAFAFA;
 	display: flex;
-	padding-top: 20px;
+	padding-top: 20px;<
 }
 
 .company-info {
-	width: 70%;
+	width: 95%;
 	/*  	background-color: rgb(255, 255, 255); */
 	padding: 10px;
 	flex: 1;
-	margin-right: 10px;
+	margin: 0 auto;
 }
 
 .right-container {
@@ -30,7 +30,8 @@
 	/*  	float: right;  */
 	display: inline-block;
 	margin-left: 10px;
-	width: 30%;
+	width: 40%;
+	padding-top: 55px;
 }
 
 .card {
@@ -78,9 +79,12 @@ span {
 	width: 100%;
 	/* 	background-color: gold; */
 	padding: 10px;
+	border: none;
+	background-color: transparent;
 }
 
 #summary {
+	margin-top: 30px;
 	width: 100%;
 	padding: 20px;
 }
@@ -111,7 +115,7 @@ span {
 	font-size: 1.1rem;
 }
 
-#summary, #salary, #income-info, #comment, #recruit, #keyword, #review {
+#summary, #income-info, #comment, #recruit, #keyword, #review {
 	border-radius: 15px;
 	border-color: rgb(234, 237, 244);
 	background-color: #FFFFFF;
@@ -280,14 +284,6 @@ h3 {
 	color: #525252;
 	font-family: 'Pretendard-Regular';
 }
-/* #chat_regdate { */
-/* 	font-size: .7rem; */
-/* 	margin-right: 5px; */
-/* } */
-
-/* #singo { */
-/* 	font-size: .7rem; */
-/* } */
 .tag {
 	font-size: .7rem;
 	height: 20px;
@@ -297,10 +293,6 @@ h3 {
 	padding-top: 5px;
 }
 
-.mt-3 {
-	font-size: 1.2rem;
-		font-family: 'Pretendard-Regular';
-}
 
 .mt-6 {
 	margin-top: 5px;
@@ -483,12 +475,28 @@ h3 > #scrap {
 	grid-template-columns: repeat(2, 2fr);
 	grid-gap: 10px;
 	}
+	
+	#pmt-2 {
+		margin-bottom: 20px;
+	}
 </style>
 </head>
 <%@include file="/WEB-INF/views/inc/header.jsp"%>
 <body>
 	<div class="main">
-		<div class="company-info">
+	<section class="page-hero pt-16 pb-6">
+        <div class="container">
+            <div class="z-custom card" id="itvWriteQnA">
+	                        <div class="company-info">
+                <div class="card-content-wrapper">
+                        <div class="px-4 text-center border-b border-border">
+                            <h1 class="mt-3 gradiTitle">
+                                <span>기업 상세정보</span>
+                            </h1>
+							<p class="mt-2" id="pmt-2">기업의 상세한 정보를 볼 수 있습니다.</p>
+                        </div>
+                        </div>
+
 			<div id="summary">
 				<div id="company_img"></div>
 				<div id="summary_content">
@@ -717,6 +725,19 @@ h3 > #scrap {
 				%>
 			</div>
 		</div>
+                        
+                        </div>
+                        </div>
+                        
+                        </section>
+	
+	
+	
+	
+	
+	
+	
+		
 		<!--div:company-Info  -->
 
 
@@ -727,8 +748,8 @@ h3 > #scrap {
 				<%
 				for (int i = 0; i < 3; i++) {
 				%>
-				<div class="card">
-					<div class="card-content">
+				<div class="card" id="card_news">
+					<div id="card_news_content">
 						<h1 class="h4 card-title" id="news-title">AI로 ‘옥순이만’ 골라본다…KT
 							“AI로 콘텐츠 경험 혁신”</h1>
 						<p id="article">KT가 인공지능(AI)으로 영상을 제작·편집하는 미디어 특화 솔루션 ‘매직플랫폼’을
@@ -796,10 +817,9 @@ h3 > #scrap {
 			</div>
 
 
-		</div>
-		<!-- news -->
+		</div><!-- right-container -->
 
-	</div>
+	</div><!-- main  -->
 
 
 	<%@include file="/WEB-INF/views/inc/footer.jsp"%>
