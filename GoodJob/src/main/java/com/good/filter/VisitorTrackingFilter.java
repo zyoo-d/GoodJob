@@ -30,9 +30,6 @@ public class VisitorTrackingFilter implements Filter{
 		
 		chain.doFilter(request, response);
 		
-		
 	}
 	
-	
-
 }

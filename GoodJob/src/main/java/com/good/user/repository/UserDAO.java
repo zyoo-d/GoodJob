@@ -106,17 +106,29 @@ public class UserDAO {
 			pstat.setString(2, dto.getPw());
 
 			rs = pstat.executeQuery();
+			UserDTO result = new UserDTO();
 
 			if (rs.next()) {
-
-				UserDTO result = new UserDTO();
-
 				result.setName(rs.getString("name"));
 				result.setLv(rs.getString("lv"));
-
-
-				return result;
 			}
+			rs.close();
+			pstat.close();
+			
+			sql = "SELECT (SELECT COUNT(*) FROM tbluserdetail WHERE id = ?) AS wish, (SELECT COUNT(*) FROM tbluserprefer WHERE id = ?) AS prefer from dual";
+			pstat = conn.prepareStatement(sql);
+			pstat.setString(1, dto.getId());
+			pstat.setString(2, dto.getId());
+			rs = pstat.executeQuery();
+			
+			if(rs.next()) {
+				result.setWish(rs.getString("wish"));
+				result.setPrefer(rs.getString("prefer"));
+			}
+			rs.close();
+			pstat.close();
+			
+			return result;
 
 		} catch (Exception e) {
 			e.printStackTrace();
