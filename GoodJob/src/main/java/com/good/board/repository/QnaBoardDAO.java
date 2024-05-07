@@ -206,7 +206,7 @@ public class QnaBoardDAO {
 		return null;
 	}
 
-	public QnaBoardDTO get(String qna_seq) {
+	public QnaBoardDTO getQna(String qna_seq) {
 		
 		try {
 			
@@ -282,6 +282,28 @@ public class QnaBoardDAO {
 		
 		
 	}
+
+	public int delQna(String qna_seq) {
+		
+		try {
+
+			String sql = "delete from tblQna where qna_seq = ?";
+
+			pstat = conn.prepareStatement(sql);
+			pstat.setString(1, qna_seq);
+			
+			return pstat.executeUpdate();
+
+		} catch (Exception e) {
+			System.out.println("게시글 삭제 실패");
+			e.printStackTrace();
+		}
+		
+		return 0;
+		
+	}
+
+	
 	
 	
 }

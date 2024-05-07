@@ -22,6 +22,19 @@ public class RecruitDAO {
 	public RecruitDAO() {
 		this.conn = DBUtil.open();
 	}
+	
+	public void close() {
+		
+		try {
+			
+			this.conn.close();
+			
+		} catch (Exception e) {
+			System.out.println("RecruitDAO conn close 실패");
+			e.printStackTrace();
+		}
+		
+	}
 
 	public String getNextSeq() {
 		try {
