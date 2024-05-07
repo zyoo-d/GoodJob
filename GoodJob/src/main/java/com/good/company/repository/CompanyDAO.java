@@ -21,6 +21,14 @@ public class CompanyDAO {
 		this.conn = DBUtil.open();
 	}
 
+	public void close()  {
+        try {
+            this.conn.close();
+        } catch (Exception e) {
+            System.out.println("CompanyDAO.close 오류");
+            e.printStackTrace();
+        }
+    }
 	public ArrayList<CompanyDTO> rcrtCompany() {
 
 		try {
@@ -53,7 +61,7 @@ public class CompanyDAO {
 
 	public List<CompanyDTO> searchCompany(String input) {
 		try {
-			String sql = "SELECT * FROM (SELECT * FROM tblcompany WHERE cp_name LIKE ?) WHERE ROWNUM <= 5";
+			String sql = "SELECT * FROM (SELECT * FROM tblcompany WHERE cp_name LIKE ? order by cp_name) WHERE ROWNUM <= 5";
 
 			pstat = conn.prepareStatement(sql);
 			String search = input + "%";

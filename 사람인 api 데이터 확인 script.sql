@@ -4,6 +4,9 @@ SELECT * FROM v$session;
 SHOW PARAMETER PROCESSES;
 SHOW PARAMETER SESSIONS;
 
+
+
+
 select distinct seq, LPAD(code, 8, '0') as code, name from tblcode where seq > 11852;
 select r.rcrt_name, r.cp_seq, c.cp_name, r.rcrt_link, c.ceo 
 from tblRecruit r
@@ -111,13 +114,24 @@ select * from (select count(*) as wish from tbluserdetail d)
     left outer join tbluserprefer p
         on d.id = p.id where d.id = 'hong123';
 
+SELECT * FROM (SELECT * FROM tblcompany WHERE cp_name LIKE '네이버%'  order by cp_name) WHERE ROWNUM <= 5;
+
 select * from tblsurvey;
+select * from tblcompany where cp_name = '네이버';
 insert into tblsurvey values (seqsurvey.nextval, '기업의 경영상태 및 근속가능성이 부정적이어도 다양한 복지프로그램을 지원하는 회사라면 근무할 의향이 있다.','복지');
-update tblsurvey set sv_content = '현재의 급여 수준을 높인다면 조금 더 힘든 팀으로 이직할 수 있다.' where sv_seq = 1;        
+update tblsurvey set compare = '연봉' where compare is null;        
+commit;
 SELECT 
     (SELECT COUNT(*) FROM tbluserdetail WHERE id = 'hong123') AS wish,
     (SELECT COUNT(*) FROM tbluserprefer WHERE id = 'hong123') AS prefer
 from dual;
+SELECT ROWNUM as rnum, t.*
+FROM (
+  SELECT *
+  FROM tblsurvey
+  ORDER BY DBMS_RANDOM.VALUE
+) t;
+
 
 
 commit;
