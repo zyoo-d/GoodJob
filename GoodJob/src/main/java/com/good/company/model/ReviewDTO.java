@@ -1,5 +1,8 @@
 package com.good.company.model;
 
+
+import java.util.ArrayList;
+
 import lombok.Data;
 
 @Data
