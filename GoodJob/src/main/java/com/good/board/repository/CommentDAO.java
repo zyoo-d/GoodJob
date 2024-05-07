@@ -18,6 +18,7 @@ public class CommentDAO {
 	public CommentDAO() {
 		this.conn = DBUtil.open();
 	}
+	
 	public int addComment(CommentDTO dto) {
 	    try {
 	        // SQL 문장 작성
@@ -29,7 +30,10 @@ public class CommentDAO {
 	        pstat.setString(2, dto.getSTD_SEQ());
 	        pstat.setString(3, dto.getID());
 	        
+	    
 	        return pstat.executeUpdate();
+	   
+	        
 	        
 	    } catch (Exception e) {
 	        e.printStackTrace();
@@ -37,13 +41,14 @@ public class CommentDAO {
 	    return 0;
 	}
 	public ArrayList<CommentDTO> getComments(String stdSeq) {
-	    ArrayList<CommentDTO> comments = new ArrayList<>();
+		
+		 ArrayList<CommentDTO> comments = new ArrayList<>();
 	    try {
 	        String sql = "SELECT * FROM vwstdcomment WHERE STD_SEQ = ?";
 	        pstat = conn.prepareStatement(sql);
 	        pstat.setString(1, stdSeq);
 	        rs = pstat.executeQuery();
-
+	        	        
 	        while (rs.next()) {
 	            CommentDTO dto = new CommentDTO();
 	            dto.setSTD_CM_SEQ(rs.getString("STD_CM_SEQ"));
@@ -53,17 +58,55 @@ public class CommentDAO {
 	            dto.setSTD_CM_BSEQ(rs.getString("STD_CM_BSEQ"));
 	            dto.setID(rs.getString("ID"));
 	            dto.setNICKNAME(rs.getString("NICKNAME"));
-
-	            comments.add(dto);
+	            
+	            comments.add(dto);	        
 	        }
+	        return comments;
 	    } catch (Exception e) {
 	        e.printStackTrace();
 	    }
-	    return comments;
+	    return null;
+	  
+	}
+
+
+	public CommentDTO getComment(String sTD_SEQ) {
+
+			try {
+				
+				String sql = "SELECT * FROM vwstdComment WHERE STD_SEQ = ? AND STD_CM_SEQ = (SELECT MAX(STD_CM_SEQ) FROM vwstdComment WHERE STD_SEQ = ?)";
+				pstat = conn.prepareStatement(sql);
+				pstat.setString(1, sTD_SEQ);
+				pstat.setString(2, sTD_SEQ);
+						
+				rs = pstat.executeQuery();
+				
+				
+				if (rs.next()) {
+					
+					CommentDTO dto = new CommentDTO();
+					
+					dto.setSTD_CM_SEQ(rs.getString("STD_CM_SEQ"));
+					dto.setSTD_CM_CONTENT(rs.getString("STD_CM_CONTENT"));
+					dto.setSTD_CM_REGDATE(rs.getString("STD_CM_REGDATE"));
+					dto.setSTD_CM_BSEQ(rs.getString("STD_CM_BSEQ"));
+					dto.setID(rs.getString("ID"));
+					dto.setNICKNAME(rs.getString("NICKNAME"));
+					
+					return dto;				
+				}	
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			return null;
+		}
 	}
 	
 	
-}	
+	
+	
 
 	
 	

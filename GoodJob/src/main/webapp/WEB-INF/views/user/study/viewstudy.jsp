@@ -114,9 +114,12 @@
                     std_seq: stdSeq,
                     content: commentContent
                 },
+                dataType: 'json',
                 success: function(response) {
                 	 console.log(response);
-                    var newComment = response.comments[response.comments.length - 1];
+                	 var newComment = response.dto; 
+                
+                     alert("댓글이 추가되었습니다.");
                     var row = "<tr>" +
                         "<td class='comment-num'>" + ($("#comment tbody tr").length + 1) + "</td>" +
                         "<td class='commentContent'><p>" + newComment.STD_CM_CONTENT + "</p></td>" +
@@ -142,21 +145,22 @@
             });
         });
 
-        // 페이지 로딩 시 댓글 목록을 가져와서 화면에 표시
-        $(document).ready(function() {
+     
+       /*  $(document).ready(function() {
             $.ajax({
                 url: "/good/user/comment/Listcomment.do",
                 type: "POST",
                 data: { std_seq: ${dto.std_seq} },
                 success: function(response) {
+                	console.log(response);
                     $("#comment tbody").empty(); // 기존 댓글 목록 비우기
-                    $.each(response, function(index, comment) {
+                    $.each(response, function() {
                         var row = "<tr>" +
-                            "<td class='comment-num'>" + (index + 1) + "</td>" +
-                            "<td class='commentContent'><p>" + comment.STD_CM_CONTENT + "</p></td>" +
+                            "<td class='comment-num'>" + ${response.dto.STD_CM_SEQ} + "</td>" +
+                            "<td class='commentContent'><p>" + ${response.dto.STD_CM_CONTENT} + "</p></td>" +
                             "<td class='commentInfo'>" +
-                            "<div><p>" + comment.STD_CM_REGDATE + "</p>" +
-                            "<div class='comment-edit'><p>" + comment.NICKNAME + "</p>" +
+                            "<div><p>" + ${response.dto.STD_CM_REGDATE} + "</p>" +
+                            "<div class='comment-edit'><p>" + ${response.dto.NICKNAME} + "</p>" +
                             "<div class='comment-icon'>" +
                             "<span class='material-symbols-outlined'>delete</span>" +
                             "<span class='material-symbols-outlined'>edit_note</span>" +
@@ -168,7 +172,7 @@
                     alert("댓글 목록을 가져오는 중 오류가 발생했습니다.");
                 }
             });
-        });
+        });  */
     </script>
 </body>
 </html>
