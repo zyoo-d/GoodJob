@@ -115,4 +115,25 @@ public class UserDAO {
 		return null;
 	}
 
+	public String getId(UserDTO dto) {
+		try {
+			String sql = "select id from tblUser where name=? and tel=?";
+
+			pstat = conn.prepareStatement(sql);
+			pstat.setString(1, dto.getName());
+			pstat.setString(2, dto.getTel());
+
+			rs = pstat.executeQuery();
+
+			if (rs.next()) {
+				return rs.getString("id");
+			}
+
+		} catch (Exception e) {
+			System.out.println("UserDAO.getId");
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 }
