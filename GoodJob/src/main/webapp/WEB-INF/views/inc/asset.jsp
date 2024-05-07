@@ -93,3 +93,4 @@
 
 <!-- Main Script -->
 <script src="/good/assets/scripts/main.js"></script>
+<script src="/good/assets/scripts/usercustom.js"></script>
