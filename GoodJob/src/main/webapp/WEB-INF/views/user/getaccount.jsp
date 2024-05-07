@@ -9,14 +9,6 @@
 <title>계정 찾기</title>
 <%@include file="/WEB-INF/views/inc/asset.jsp"%>
 <style>
-@font-face {
-	font-family: 'Pretendard-Regular';
-	src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff')
-		format('woff');
-	font-weight: 400;
-	font-style: normal;
-}
-
 .mb-4 {
 	font-family: Pretendard-Regular;
 	margin-bottom: 0px;
@@ -86,7 +78,15 @@
 
 /* 폼 요소 스타일 */
 input[type="text"] {
-	font-family: Pretendard-Regular;
+	font-family: 'Pretendard-Regular';
+	font-size: 1rem;
+	border-radius: 10px;
+	margin-bottom: 10px;
+	width: 100%;
+	border-color: rgb(235, 235, 235);
+}
+input[type="text"] {
+	font-family: 'Pretendard-Regular';
 	font-size: 1rem;
 	border-radius: 10px;
 	margin-bottom: 10px;
@@ -98,7 +98,7 @@ input[type="text"] {
 	text-align: center;
 }
 
-#btn_getAccount {
+.btn_getAccount {
 	background-image: linear-gradient(184.78deg, rgb(83, 90, 237) 7.64%,
 	rgb(62, 178, 248) 120.07%);
 	color: white;
@@ -137,42 +137,57 @@ input[type="text"] {
 						</div>
 					</div>
 
-					<form method="POST" action="/user/getId.do">
 						<div id="idContent" class="form-content">
-							<label for="name" class="form-label">이름</label> <input
-								type="text" id="name" value="등록한 이름을 입력하세요." /> <label
-								for="birth" class="form-label">연락처</label> <input type="text"
-								id="tel" value="등록한 연락처를 입력하세요." />
+							<label for="name" class="form-label">이름</label> 
+							<input type="text" id="name" placeholder="등록한 이름을 입력하세요." /> 
+							<label for="tel" class="form-label">연락처</label> 
+								<input type="text" id="tel" placeholder="등록한 연락처를 입력하세요." />
 							<div>
-								<input type="submit" id="btn_getAccount" value="아이디 찾기" />
+								<input type="submit" class="btn_getAccount" id="btn_getId"value="아이디 찾기" />
 							</div>
+							<span id="yourid"></span>
 						</div>
-						</form>
-						<form method="POST" action="/user/getPw.do">
+<!-- 						<form action="/good/user/changepw.do" method="POST"> -->
 						<div id="pwContent" class="form-content">
-							<label for="id" class="form-label">아이디</label> <input type="text"
-								id="id" value="등록한 아이디를 입력하세요." /> <label for="tel"
-								class="form-label">연락처</label> <input type="text" id="tel"
-								value="등록한 연락처를 입력하세요." />
+							<label for="id" class="form-label">아이디</label> 
+							<input type="text" id="id" placeholder="등록한 아이디를 입력하세요." /> 
+							<label for="tel" class="form-label">연락처</label> 
+								<input type="text" id="getPw_tel" placeholder="등록한 연락처를 입력하세요." />
 							<div>
-								<input type="submit" id="btn_getAccount" value="비밀번호찾기" />
+								<input type="button" class="btn_getAccount" id="btn_getPw" value="비밀번호찾기" />
+							</div>
+							<span id="yourpw"></span>
+						</div>
+						
+						<div id="changepw" class="form-content">
+							<label for="id" class="form-label"></label> 
+							<input type="password" id="pw" name="pw" placeholder="비밀번호" /> 
+							<label for="pw" class="form-label">비밀번호 확인</label> 
+							<input type="password" id="password" placeholder="비밀번호 확인" />
+							<div>
+								<input type="button" class="btn_getAccount" id="btn_changePw" value="비밀번호 재설정2" />
 							</div>
 						</div>
-					</form>
+						
+						
+
 					
 				</div>
 			</div>
 		</div>
 	</section>
-
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 	<%@include file="/WEB-INF/views/inc/footer.jsp"%>
 	<script>
 		document.addEventListener("DOMContentLoaded", function() {
 			// 초기에는 idContent와 pwContent를 모두 숨기기
 			const idContent = document.getElementById('idContent');
 			const pwContent = document.getElementById('pwContent');
+			const changepw = document.getElementById('changepw');
 			idContent.style.display = 'none';
 			pwContent.style.display = 'none';
+			changepw.style.display = 'none';
+
 			 // 버튼 그룹 내의 모든 버튼
 		    const buttons = document.querySelectorAll('.button-group button');
 		    
@@ -195,10 +210,12 @@ input[type="text"] {
 		function showContent(menu) {
 			const idContent = document.getElementById('idContent');
 			const pwContent = document.getElementById('pwContent');
+		    const changepw = document.getElementById('changepw');
 
 			// 모든 내용을 숨기기
 			idContent.style.display = 'none';
 			pwContent.style.display = 'none';
+			changepw.style.display = 'none';
 
 			// 선택한 메뉴에 따라 해당 내용을 보여주기
 			if (menu === 'id') {
@@ -207,6 +224,86 @@ input[type="text"] {
 				pwContent.style.display = 'block';
 			}
 		}
+		
+		$('#btn_getId').click(function () {
+			
+			var name = $('#name').val();
+			var tel = $('#tel').val();
+			
+	        $.ajax({
+	            type: 'POST',
+	            url: '/good/user/getid.do',
+	            data:  'name=' + name + '&tel=' + tel,
+	            dataType: 'json',
+	            success: function (result) {
+	            	console.log(result.result);
+	                if (result.result == null) {
+	                	$('#yourid').text('일치하는 정보가 없습니다.');
+	                	
+	                } else {
+						$('#yourid').text('해당 id는 ' + result.result + '입니다.');
+	                }
+	            },
+	            error: function (a, b, c) {
+	                console.log(a, b, c);
+	            }
+	        });
+		});
+		
+		$('#btn_getPw').click(function () {
+			
+			var id = $('#id').val();
+			var tel = $('#getPw_tel').val();
+			
+	        $.ajax({
+	            type: 'POST',
+	            url: '/good/user/getpw.do',
+	            data:  'id=' + id + '&tel=' + tel,
+	            dataType: 'json',
+	            success: function (result) {
+	            	console.log(result.result);
+	                if (result.result == 0) {
+	                	$('#yourpw').text('일치하는 정보가 없습니다.');
+	                	
+	                } else {
+	        	        $('#id').prop('readonly', true);
+	        	        $('#tel').prop('readonly', true);
+	                	$('#changepw').show();
+	                    
+	                }
+	            },
+	            error: function (a, b, c) {
+	                console.log(a, b, c);
+	            }
+	        });
+
+		});
+		
+		$('#btn_changePw').click(function () {
+			
+			var id = $('#id').val();
+			var pw = $('#pw').val();
+			
+	        $.ajax({
+	            type: 'POST',
+	            url: '/good/user/changepw.do',
+	            data:  'id=' + id + '&pw=' + pw,
+	            dataType: 'json',
+	            success: function (result) {
+	            	console.log(result.result);
+	                if (result.result == 1) {
+	                	var url = '/good/user/signin.do'; 
+	                	
+	                } else {
+	                	alert('비밀변호 변경을 실패하였습니다.');
+	                }
+	            },
+	            error: function (a, b, c) {
+	                console.log(a, b, c);
+	            }
+	        });
+
+		});
 		
 
 

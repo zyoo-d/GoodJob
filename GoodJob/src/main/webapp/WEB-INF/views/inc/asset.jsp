@@ -5,8 +5,14 @@
 <!-- favicon -->
 <link rel="icon" href="/good/assets/favicon.ico" type="image/x-icon" />
 
+<<<<<<< HEAD
 <!-- tagify -->
 <link rel="stylesheet" href="/good/assets/styles/tagify.css">
+=======
+<!-- Main Stylesheet -->
+<link href="/good/assets/styles/main.css" rel="stylesheet" />
+<link href="/good/assets/styles/custom.css" rel="stylesheet" />
+>>>>>>> upstream/main
 
 <!-- theme meta -->
 <meta name="theme-name" content="Pinwheel" />
@@ -51,10 +57,6 @@
 <!-- og-image -->
 <meta property="og:image" content="" />
 
-<!-- twitter-image -->
-<meta name="twitter:image" content="" />
-<meta name="twitter:card" content="summary_large_image" />
-
 <!-- google font css -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -85,9 +87,7 @@
 <link rel="stylesheet"
 	href="/good/assets/plugins/font-awesome/v6/fontawesome.css" />
 
-<!-- Main Stylesheet -->
-<link href="/good/assets/styles/main.css" rel="stylesheet" />
-<link href="/good/assets/styles/custom.css" rel="stylesheet" />
+
 
 <!-- jQuery -->
 <script src="/good/assets/plugins/jquery/jquery.min.js"></script>

@@ -1,5 +1,7 @@
 package com.good.company.model;
 
+import java.util.ArrayList;
+
 import lombok.Data;
 
 @Data
@@ -15,8 +17,18 @@ public class RecruitDTO {
 	private String edu_seq;
 	private String salary_seq;
 	private String cp_seq;
+<<<<<<< HEAD
 	private String cp_address;
 	
 	private String edu_type;
 	private String salary_type;
+=======
+	private String cp_name;
+	private String hire_avr_salary;
+    private String salary_type;
+    private String edu_type;
+    private String cp_address;
+    private ArrayList<String> job_name;
+
+>>>>>>> upstream/main
 }

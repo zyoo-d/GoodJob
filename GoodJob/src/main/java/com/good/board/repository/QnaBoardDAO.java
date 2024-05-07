@@ -3,8 +3,10 @@ package com.good.board.repository;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.good.board.model.QnaBoardDTO;
 import com.test.util.DBUtil;
@@ -20,6 +22,16 @@ public class QnaBoardDAO {
 		this.conn = DBUtil.open();
 	}
 	
+	public void close()  {
+		
+		try {
+			this.conn.close();
+		} catch (Exception e) {
+			System.out.println("QnaBoardDAO.close 오류");
+			e.printStackTrace();
+		}
+	}
+	
 	public int listCount() {
 		
 		try {
@@ -28,14 +40,17 @@ public class QnaBoardDAO {
 			
 			stat = conn.createStatement();
 			rs = stat.executeQuery(sql);
+			stat.close();
+			
+			int result = 0;
 			
 			if(rs.next()) {
 				
-				return rs.getInt("cnt");
+				result = rs.getInt("cnt");
 				
 			}
 			
-			
+			return result;
 			
 		} catch (Exception e) {
 			System.out.println("질문게시판 글 개수 로드 실패");
@@ -44,6 +59,35 @@ public class QnaBoardDAO {
 		
 		return 0;
 		
+	}
+	
+	public int getTotalCount(HashMap<String, String> map) {
+		try {
+			
+			String where = "";
+			int result = 0;
+			if(map.get("search").equals("y")) {
+				where = String.format("where %s like '%%%s%%'", map.get("column"), map.get("word"));
+			}
+
+			String sql = String.format("select count(*) as cnt from vwQna %s", where); 
+
+			stat = conn.createStatement();
+			rs = stat.executeQuery(sql);
+			
+			
+			
+			if(rs.next()) {
+				result =  rs.getInt("cnt");
+			}
+			
+			return result;
+			
+		} catch (Exception e) {
+			System.out.println("게시글 갯수 로드 실패");
+			e.printStackTrace();
+		}
+		return 0;
 	}
 	
 	public int create(QnaBoardDTO dto) {
@@ -72,25 +116,28 @@ public class QnaBoardDAO {
 		            }
 		            rs.close();
 		        }
+		        
 
 		    } catch (Exception e) {
 		        System.out.println("게시글 작성 실패");
 		        e.printStackTrace();
 		    }
-
+		
 		    return qna_seq;
+		    
 		}
 	
-	public ArrayList<QnaBoardDTO> listQna(){
+	public ArrayList<QnaBoardDTO> listQna(HashMap<String, String> map){
 		
 		try {
 			
-			String sql = "SELECT q.qna_seq, q.qna_title, q.id, q.qna_regdate, q.qna_views, c.cp_seq, c.cp_name, COUNT(qc.qna_cm_seq) AS comment_count "
-			           + "FROM tblQna q "
-			           + "INNER JOIN tblCompany c ON q.cp_seq = c.cp_seq "
-			           + "LEFT JOIN tblQnAComment qc ON q.qna_seq = qc.qna_seq "
-			           + "GROUP BY q.qna_seq, q.qna_title, q.id, q.qna_regdate, q.qna_views, c.cp_seq, c.cp_name "
-			           + "ORDER BY q.qna_seq DESC";
+			String where = "";
+			if(map.get("search").equals("y")) {
+				where = String.format("where %s like '%%%s%%'", map.get("column"), map.get("word"));
+			}
+
+			String sql = String.format("SELECT * FROM (SELECT ROWNUM AS rnum, a.* FROM (SELECT * FROM vwQna %s ORDER BY %s) a) WHERE rnum BETWEEN %s AND %s", where, map.get("sort"), map.get("begin"), map.get("end"));
+			
 			
 			stat = conn.createStatement();
 			rs = stat.executeQuery(sql);
@@ -127,20 +174,16 @@ public class QnaBoardDAO {
 		
 		try {
 			
-			String sql = "SELECT q.qna_seq, q.qna_title, q.qna_content, q.id, q.qna_regdate, q.qna_views, c.cp_seq, c.cp_name "
-					+ "FROM tblQna q "
-					+ "INNER JOIN tblCompany c ON q.cp_seq = c.cp_seq "
-					+ "LEFT JOIN tblQnAComment qc ON q.qna_seq = qc.qna_seq "
-					+ "WHERE q.qna_seq = ? GROUP BY q.qna_seq, q.qna_title, q.qna_content, q.id, q.qna_regdate, q.qna_views, c.cp_seq, c.cp_name";
+			String sql = "select * from vwQnaDetail where qna_seq = ?";
 			
 			pstat = conn.prepareStatement(sql);
 			pstat.setInt(1, qna_seq);
 			
 			rs = pstat.executeQuery();
+			QnaBoardDTO dto = new QnaBoardDTO();
 			
 			if(rs.next()) {
 				
-				QnaBoardDTO dto = new QnaBoardDTO();
 				dto.setQna_seq(rs.getInt("qna_seq"));
 				dto.setQna_title(rs.getString("qna_title"));
 				dto.setQna_content(rs.getString("qna_content"));
@@ -150,9 +193,9 @@ public class QnaBoardDAO {
 				dto.setCp_seq(rs.getInt("cp_seq"));
 				dto.setCp_name(rs.getString("cp_name"));
 				
-				return dto;
-				
 			}
+			 ;
+			return dto;
 			
 		} catch (Exception e) {
 			System.out.println("게시글 상세보기 실패");
@@ -174,8 +217,8 @@ public class QnaBoardDAO {
 			
 			rs = pstat.executeQuery();
 			
+			QnaBoardDTO dto = new QnaBoardDTO();
 			if(rs.next()) {
-				QnaBoardDTO dto = new QnaBoardDTO();
 				
 				dto.setQna_seq(rs.getInt("qna_seq"));
 				dto.setQna_title(rs.getString("qna_title"));
@@ -183,8 +226,8 @@ public class QnaBoardDAO {
 				dto.setId(rs.getString("id"));
 				dto.setCp_name(rs.getString("cp_name"));
 				
-				return dto;
 			}
+			return dto;
 			
 		} catch (Exception e) {
 			System.out.println("(수정)글 내용 불러오기 실패");
@@ -206,14 +249,37 @@ public class QnaBoardDAO {
 			pstat.setString(3, dto.getCp_name());
 			pstat.setInt(4, dto.getQna_seq());
 			
-			return pstat.executeUpdate();
+			
+			int result = pstat.executeUpdate();
+			return result;
 			
 		} catch (Exception e) {
-			System.out.println("QnaBoardDAO.edit");
+			System.out.println("게시글 수정 실패");
 			e.printStackTrace();
 		}
 		
 		return 0;
+		
+	}
+
+	public void updateReadcount(int qna_seq) {
+		
+		try {
+			
+			String sql = "update tblQna set qna_views =  qna_views +1 where qna_seq = ?";
+			
+			pstat = conn.prepareStatement(sql);
+			pstat.setInt(1, qna_seq);
+			pstat.executeUpdate();
+			
+			
+		} catch (Exception e) {
+			System.out.println("조회수 업로드 실패");
+			e.printStackTrace();
+		}
+		
+		
+		
 		
 	}
 	

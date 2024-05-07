@@ -152,8 +152,8 @@
 						alt="image" src="/good/assets/img/avatar/avatar-1.png"
 						class="rounded-circle mr-1"></a>
 					<div class="dropdown-menu dropdown-menu-right">
-						<a href="features-settings.html" class="dropdown-item has-icon">
-							<i class="fas fa-cog"></i> Settings
+						<a href="/good/user/mypage/main.do" class="dropdown-item has-icon">
+							<i class="fas fa-cog"></i> Mypage
 						</a>
 						<div class="dropdown-divider"></div>
 						<a href="#" class="dropdown-item has-icon text-danger"> <i
@@ -165,17 +165,17 @@
 		<div class="main-sidebar sidebar-style-2" id="mypageSidebar">
 			<aside id="sidebar-wrapper">
 				<div class="sidebar-brand">
-					<a href="/good/heeyeon/mypagemain.jsp">IT's Good Job</a>
+					<a href="/good/main.do">IT's Good Job</a>
 				</div>
 				<div class="sidebar-brand sidebar-brand-sm">
-					<a href="/good/heeyeon/mypagemain.jsp">GJ</a>
+					<a href="/good/main.do">GJ</a>
 				</div>
 				<ul class="sidebar-menu">
 					<li class="dropdown"><a href="#" class="nav-link has-dropdown"><i
 							class="far fa-user"></i><span>개인정보</span></a>
 						<ul class="dropdown-menu">
-							<li><a class="nav-link" href="/good/heeyeon/editinfo.jsp">회원정보수정</a></li>
-							<li><a class="nav-link" href="/good/heeyeon/unregister.jsp">회원탈퇴</a></li>
+							<li><a class="nav-link" href="/good/user/mypage/editinfo.do">회원정보수정</a></li>
+							<li><a class="nav-link" href="/good/user/mypage/unregister.do">회원탈퇴</a></li>
 						</ul></li>
 					<li class="dropdown"><a href="#" class="nav-link has-dropdown"
 						data-toggle="dropdown"><i class="far fa-star"></i> <span>스크랩</span></a>
@@ -187,15 +187,15 @@
 						<ul class="dropdown-menu">
 							<li><a class="nav-link" href="/good/heeyeon/review.jsp">기업리뷰</a></li>
 							<li><a class="nav-link" href="/good/heeyeon/interview.jsp">면접후기</a></li>
-							<li><a class="nav-link" href="/good/heeyeon/study.jsp">면접스터디</a></li>
+							<li><a class="nav-link" href="/good/user/mypage/mystudy.do">스터디</a></li>
 							<li><a class="nav-link" href="/good/heeyeon/qna.jsp">여기어때?</a></li>
 						</ul></li>
 					<li class="dropdown"><a href="#" class="nav-link has-dropdown"><i
 							class="far fa-thumbs-up"></i> <span>굿잡forU</span></a>
 						<ul class="dropdown-menu">
-							<li><a class="nav-link" href="/good/heeyeon/wish.jsp">선호근무조건 입력/관리</a></li>
-							<li><a class="nav-link" href="">굿잡forU	검사하기</a></li>
-							<li><a class="nav-link" href="">검사	결과보기</a></li>
+							<li><a class="nav-link" href="/good/user/matching/viewwish.do">선호근무조건 입력/관리</a></li>
+							<li><a class="nav-link" href="/good/user/matching/viewsurvey.do">굿잡forU 검사하기</a></li>
+							<li><a class="nav-link" href="">검사 결과보기</a></li>
 						</ul>
 			</aside>
 		</div>

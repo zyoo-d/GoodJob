@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.good.admin.IpTracker;
 import com.good.admin.VisitorTracker;
 
-@WebFilter(filterName = "3.VisitorTrackingFilter", urlPatterns = "/*")
+@WebFilter(filterName = "3.VisitorTrackingFilter", urlPatterns = "*.do")
 public class VisitorTrackingFilter implements Filter{
 
 	@Override
@@ -22,6 +22,7 @@ public class VisitorTrackingFilter implements Filter{
 		
 		HttpServletRequest resq = (HttpServletRequest)request;
 		String ipAddress = resq.getRemoteAddr();
+
 		if(IpTracker.trackIp(ipAddress)) {
 			System.out.println("IP:" + ipAddress + " 방문자수 증가");
 			VisitorTracker.getInstance().incrementVisitors();
@@ -29,9 +30,6 @@ public class VisitorTrackingFilter implements Filter{
 		
 		chain.doFilter(request, response);
 		
-		
 	}
 	
-	
-
 }

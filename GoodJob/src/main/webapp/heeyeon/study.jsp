@@ -19,11 +19,11 @@
 					<div class="breadcrumb-item active">
 						<a href="#">활동내역</a>
 					</div>
-					<div class="breadcrumb-item">면접스터디</div>
+					<div class="breadcrumb-item">스터디</div>
 				</div>
 			</div>
 			<div class="section-body">
-				<h2 class="section-title">면접스터디</h2>
+				<h2 class="section-title">스터디</h2>
 				<div class="row mt-4">
 					<div class="col-12">
 						<div class="card" id="studyTable">
@@ -48,15 +48,19 @@
 									<table class="table table-striped text-center">
 										<tr>
 											<th>번호</th>
+											<th>기업</th>
 											<th>제목</th>
-											<th>모집기간</th>
+											<th>모집여부</th>
+											<th>모집마감일</th>
 											<th>작성일</th>
 											<th>수정/삭제</th>
 										</tr>
 										<tr>
 											<td>1</td>
-											<td>자바 코테 스터디 모집</td>
-											<td>2024-04-20~2024-05-10</td>
+											<td>안랩</td>
+											<td>코테 스터디 모집</td>
+											<td>모집중</td>
+											<td>~2024-05-10</td>
 											<td>2024-01-20</td>
 											<td><div class="">
 													<a href="#">수정</a> / <a href="#" class="text-danger">삭제</a>
