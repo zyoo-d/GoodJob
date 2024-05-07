@@ -28,6 +28,7 @@ public class EditQna extends HttpServlet{
 		
 		req.setAttribute("dto", dto);
 		
+		dao.close();
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/user/qna/editqna.jsp");
 		dispatcher.forward(req, resp);
 		
@@ -73,6 +74,8 @@ public class EditQna extends HttpServlet{
 			 writer.close();
 			
 		}
+		
+		dao.close();
 		
 		
 		
