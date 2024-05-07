@@ -42,23 +42,7 @@ public class InterviewWrite extends HttpServlet {
 	    String itvTip = request.getParameter("ITV_TIP");
 	    String itvWhether = request.getParameter("ITV_WHETHER");
 	
-	    
-	    System.out.println("ITV_CPNAME:" + ITV_CPNAME);
-	    System.out.println("cpSeq: " + cpSeq);
-	    System.out.println("itvCareer: " + itvCareer);
-	    System.out.println("itvMeetdate: " + itvMeetdate);
-	    System.out.println("itvEvaluation: " + itvEvaluation);
-	    System.out.println("itvDifficulty: " + itvDifficulty);
-	    System.out.println("itvCategories: " + Arrays.toString(itvCategories));
-	    System.out.println("itvPersonnel: " + itvPersonnel);
-	    System.out.println("itvQuestion: " + itvQuestion);
-	    System.out.println("itvTip: " + itvTip);
-	    System.out.println("itvWhether: " + itvWhether);
-	    System.out.println("id" + id);
-	    
-	    // 파라미터 값을 사용하여 필요한 로직 처리
-	    // 예: 데이터베이스에 면접 후기 정보 저장
-	    
+
 	    InterviewDTO dto = new InterviewDTO();
 	    dto.setITV_CPNAME(ITV_CPNAME);
 	    dto.setCP_SEQ(cpSeq);

@@ -87,11 +87,15 @@
 						</div>
 					</c:forEach>
 				</div>
+					
 				<div class="moving-btn studyAdd">
 					<a href="#" class="btn btnList">글쓰기</a>
 				</div>
+			<nav class="PageBox z-custom" aria-label="Page navigation example">
+			<ul class="pagination z-custom">${pagebar}</ul>
+			</nav>
 			</div>
-
+			
 		</div>
 
 	</section>
