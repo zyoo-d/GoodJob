@@ -42,6 +42,8 @@ public class Login extends HttpServlet {
 		
 		UserDTO result = dao.login(dto);
 		
+		dao.close();
+		
 		if (result != null) {
 			//인증 처리
 			

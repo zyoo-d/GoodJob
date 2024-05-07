@@ -75,27 +75,38 @@ public class NoticeDAO {
 		try {
 
 			String where = "";
+			
 			if (map.get("search").equals("y")) {
 				where = String.format("where %s like '%%%s%%'", map.get("column"), map.get("word"));
 			}
-
-			String sql = String.format(
-					"SELECT * FROM (SELECT ROWNUM AS rnum, a.* FROM tblNotice WHERE rnum BETWEEN %s AND %s",
-					where, map.get("sort"), map.get("begin"), map.get("end"));
-
+			
+			String sql = "";
+			
+			sql = String.format(
+					"select * from (select a.*, rownum as rnum from vwNotice a %s) where rnum between %s and %s",
+					where, map.get("begin"), map.get("end"));
 			stat = conn.createStatement();
 			rs = stat.executeQuery(sql);
-
-			ArrayList<NoticeDTO> list = new ArrayList<>();
-
+			
+			ArrayList<NoticeDTO> list = new ArrayList<NoticeDTO>();
+			
 			while (rs.next()) {
 
 				NoticeDTO dto = new NoticeDTO();
 
+				dto.setId(rs.getString("id"));
+				dto.setNt_content(rs.getString("nt_content"));
+				dto.setNt_regdate(rs.getString("nt_regdate"));
+				dto.setNt_seq(rs.getString("nt_seq"));
+				dto.setNt_views(rs.getInt("nt_views"));
+				dto.setNt_title(rs.getString("nt_title"));
+				dto.setNickname(rs.getString("nickname"));
+
 
 				list.add(dto);
-
 			}
+			
+			
 			return list;
 
 		} catch (Exception e) {
@@ -103,6 +114,35 @@ public class NoticeDAO {
 			e.printStackTrace();
 		}
 
+		return null;
+	}
+
+	public NoticeDTO viewNotice(String nt_seq) {
+		try {
+			String sql = "select * from vwNotice where nt_seq = ?";
+
+			pstat = conn.prepareStatement(sql);
+			pstat.setString(1, nt_seq);
+
+			rs = pstat.executeQuery();
+
+			if (rs.next()) {
+				NoticeDTO dto = new NoticeDTO();
+				dto.setId(rs.getString("id"));
+				dto.setNickname(rs.getString("nickname"));
+				dto.setNt_content(rs.getString("nt_content"));
+				dto.setNt_title(rs.getString("nt_title"));
+				dto.setNt_regdate(rs.getString("nt_regdate"));
+				dto.setNt_seq(rs.getString("nt_seq"));
+
+				return dto;
+			}
+
+		} catch (Exception e) {
+			System.out.println("NoticeDAO.viewNotice");
+			e.printStackTrace();
+		}
+		
 		return null;
 	}
 }

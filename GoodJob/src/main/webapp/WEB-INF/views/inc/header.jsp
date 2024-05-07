@@ -41,7 +41,7 @@
 					<li class="nav-dropdown-item"><a
 						href="/good/user/qna/listqna.do" class="nav-dropdown-link">여기어때?</a></li>
 				</ul></li>
-			<li class="nav-item"><a href="#!" class="nav-link">공지사항</a></li>
+			<li class="nav-item"><a href="/good/board/notice.do" class="nav-link">공지사항</a></li>
 			<li class="nav-item">
 				<form>
 					<div class="search-element">

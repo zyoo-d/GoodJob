@@ -32,19 +32,21 @@
 									<div class="qna-view-form qnaview">
 										<p class="company">공지사항</p>
 										<div class="title">
-											<h2>제목입니다.</h2>
+											<h2>${dto.nt_title}</h2>
 										</div>
 									</div>
 								</div>
 								<div class="textarea-group">
-									<textarea cols="30" rows="10" readonly>내용입니다.내용입니다.내용입니다.</textarea>
+									<textarea cols="30" rows="10" readonly>${dto.nt_content}</textarea>
 								</div>
 
 								<div class="writer-info">
-									<p class="writer">zyww</p>
-									<p class="write-date">(2024-05-01)</p>
+									<p class="writer">${dto.nickname }</p>
+									<p class="write-date">(${dto.nt_regdate })</p>
+									<c:if test="${lv == 2}">
 									<button type="button" class="" value="수정">(수정</button>
 									<button type="button" class="" value="삭제">/ 삭제)</button>
+									</c:if>
 								</div>
 							</div>
 							<div class="moving-btn">
@@ -52,56 +54,6 @@
 									class="btn btnList">목록으로</a> <a href="#" class="btn btnNext">다음글</a>
 							</div>
 						</div>
-					</div>
-				</div>
-
-				<div class="comment-list">
-					<h4>댓글</h4>
-					<div class="">
-						<form>
-							<div class="add-comment">
-								<span><input type="text" placeholder="댓글을 입력하세요"></span>
-								<button type="button" class="btn btnAddComment">
-									<span class="material-symbols-outlined">done_outline</span>
-								</button>
-							</div>
-						</form>
-
-						<form class="comment-form" action="#" method="POST">
-							<table id="comment">
-								<tbody>
-									<tr>
-										<th>번호</th>
-										<th>댓글</th>
-										<th>댓글정보</th>
-									</tr>
-									<tr>
-										<td class="comment-num">1</td>
-										<td class="commentContent">
-											<p>content</p>
-										</td>
-										<td class="commentInfo">
-											<div>
-												<p>2024-05-01 08:25</p>
-												<div class="comment-edit">
-													<p>작성자</p>
-													<div class="comment-icon">
-														<span class="material-symbols-outlined">delete</span> <span
-															class="material-symbols-outlined">edit_note</span>
-													</div>
-												</div>
-
-											</div>
-										</td>
-									</tr>
-								</tbody>
-							</table>
-
-							<!-- 댓글 페이징 -->
-							<div class="comment-paging">
-								<button type="button" class="btn more-comment">댓글 더보기</button>
-							</div>
-						</form>
 					</div>
 				</div>
 			</div>

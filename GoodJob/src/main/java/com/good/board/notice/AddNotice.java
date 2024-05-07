@@ -54,7 +54,7 @@ public class AddNotice extends HttpServlet {
 	int result = dao.addNotice(dto);
 	
 	if (result == 1) {
-		resp.sendRedirect("/good/board/notice");
+		resp.sendRedirect("/good/board/notice.do");
 		
 	} else {
 		resp.setContentType("text/html; charset=UTF-8");
