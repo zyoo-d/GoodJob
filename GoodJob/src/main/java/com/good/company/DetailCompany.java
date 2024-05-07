@@ -81,7 +81,6 @@ public class DetailCompany extends HttpServlet {
 	    
 	    //태그리스트출력
 	    ReviewDAO rdao =  new ReviewDAO();
-	    
 	    ArrayList<ReviewDTO> listReview = rdao.listReview(cp_seq);
 	    //String cp_rv_seq ="";
     	//String id ="";
@@ -102,7 +101,7 @@ public class DetailCompany extends HttpServlet {
 	    for (RecruitDTO rdto : comRecruitList) {
 	    	//날짜 조작
 	    	rdto.setEnddate(rdto.getEnddate().substring(0, 10));
-	    	
+	    	//주소 조작
 	    	String address = rdto.getCp_address();
 			if(address.contains("서울특별시")) {
 				address = address.replaceAll("서울특별시", "서울");
