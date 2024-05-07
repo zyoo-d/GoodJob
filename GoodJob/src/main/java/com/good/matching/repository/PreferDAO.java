@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+import com.good.matching.model.PreferDTO;
 import com.test.util.DBUtil;
 
 public class PreferDAO {
@@ -24,4 +25,24 @@ public class PreferDAO {
             e.printStackTrace();
         }
     }
+	public int addPrefer(PreferDTO dto) {
+		try {
+			String sql = "insert into tbluserprefer values (?,?,?,?,?,?,sysdate)";
+
+			pstat = conn.prepareStatement(sql);
+			pstat.setString(1, dto.getId());
+			pstat.setInt(2, dto.getWelfare());
+			pstat.setInt(3, dto.getSalary());
+			pstat.setInt(4, dto.getStability());
+			pstat.setInt(5, dto.getCulture());
+			pstat.setInt(6, dto.getPotential());
+
+			return pstat.executeUpdate();
+
+		} catch (Exception e) {
+			System.out.println("PreferDAO.addPrefer");
+			e.printStackTrace();
+		}
+		return 0;
+	}
 }

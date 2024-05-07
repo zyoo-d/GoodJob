@@ -24,9 +24,9 @@
 			<li class="nav-item"><a href="#!" class="nav-link">기업</a></li>
 			<li class="nav-item"><a href="/good/user/recruit/listrecruit.do" class="nav-link">채용</a></li>
 			<li class="nav-item">
-			<c:if test="${wish==null||wish=='0'}"><a href="/good/user/matching/viewwish.do" class="nav-link">굿잡forU</a></c:if>
-			<c:if test="${wish=='1'&&prefer=='0'}"><a href="/good/user/matching/viewsurvey.do" class="nav-link">굿잡forU</a></c:if>
-			<%-- <c:if test="${wish}=='0'"><a href="/good/user/matching/viewwish.do" class="nav-link">굿잡forU</a></c:if> --%>
+			<c:if test="${prefer==null||prefer=='0'}"><a href="/good/user/matching/viewsurvey.do" class="nav-link">굿잡forU</a></c:if>
+			<c:if test="${wish=='0'&&prefer=='1'}"><a href="/good/user/matching/viewwish.do" class="nav-link">굿잡forU</a></c:if>
+			<%-- <c:if test="${wish=='1'&&prefer=='1'}"><a href="/good/user/matching/viewwish.do" class="nav-link">굿잡forU</a></c:if> --%>
 			</li>
 			<li class="nav-item nav-dropdown group relative"><span
 				id="communav" class="nav-link inline-flex items-center"> 커뮤니티

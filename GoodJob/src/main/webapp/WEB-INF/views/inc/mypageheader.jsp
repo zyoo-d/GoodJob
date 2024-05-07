@@ -194,7 +194,8 @@
 							class="far fa-thumbs-up"></i> <span>굿잡forU</span></a>
 						<ul class="dropdown-menu">
 							<li><a class="nav-link" href="/good/user/matching/viewwish.do">선호근무조건 입력/관리</a></li>
-							<li><a class="nav-link" href="/good/user/matching/viewsurvey.do">굿잡forU 검사하기</a></li>
+							<c:if test="${prefer==null||prefer=='0'}"><li><a class="nav-link" href="/good/user/matching/viewsurvey.do">굿잡forU 검사하기</a></li></c:if>
+							<c:if test="${prefer=='1'}"><li><a class="nav-link" href="/good/user/matching/viewsurvey.do">굿잡forU 검사하기</a></li></c:if>
 							<li><a class="nav-link" href="">검사 결과보기</a></li>
 						</ul>
 			</aside>
