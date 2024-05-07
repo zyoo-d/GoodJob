@@ -1096,7 +1096,7 @@ display: flex;
 
 /*설문조사*/
 .survey-form {
-	margin: 50px 20px;
+	margin: 0px 20px;
 	background-color: white;
 	padding: 10px;
 	border-radius: 8px;
@@ -1307,17 +1307,13 @@ display: flex;
 }
 
 #comment th:nth-child(1), #comment td:nth-child(1) {
-	width: 60px;
-	text-align: center;
+	width: auto;
+	text-align: left;
+	padding-left: 30px;
 }
 
 #comment th:nth-child(2), #comment td:nth-child(2) {
-	width: auto;
-	text-align: left;
-}
-
-#comment th:nth-child(3), #comment td:nth-child(3) {
-	width: 160px;
+	width: 180px;
 	text-align: left;
 }
 

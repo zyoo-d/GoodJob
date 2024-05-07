@@ -7,6 +7,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.good.board.model.CommentDTO;
 import com.good.board.model.StudyDTO;
 import com.test.util.DBUtil;
 
@@ -18,6 +19,15 @@ public class StudyDAO {
 
 	public StudyDAO() {
 		this.conn = DBUtil.open();
+	}
+
+	public void close() {
+		try {
+			this.conn.close();
+		} catch (Exception e) {
+			System.out.println("StudyDAO.close 오류");
+			e.printStackTrace();
+		}
 	}
 
 	public int addStudy(StudyDTO dto) {
@@ -84,7 +94,8 @@ public class StudyDAO {
 			}
 
 			String sql = String.format(
-					"select * from (select a.*, rownum as rnum from (select * from vwstudy %s order by %s) a) where rnum between %s and %s", where, map.get("sort"), map.get("begin"), map.get("end"));
+					"select * from (select a.*, rownum as rnum from (select * from vwstudy %s order by %s) a) where rnum between %s and %s",
+					where, map.get("sort"), map.get("begin"), map.get("end"));
 			stat = conn.createStatement();
 			rs = stat.executeQuery(sql);
 
@@ -105,6 +116,7 @@ public class StudyDAO {
 
 				list.add(dto);
 			}
+
 			return list;
 
 		} catch (Exception e) {
@@ -125,7 +137,6 @@ public class StudyDAO {
 
 			stat = conn.createStatement();
 			rs = stat.executeQuery(sql);
-
 			if (rs.next()) {
 				return rs.getInt("cnt");
 			}
@@ -162,7 +173,6 @@ public class StudyDAO {
 			pstat.setString(4, dto.getCp_seq());
 			pstat.setString(5, dto.getStd_duedate());
 			pstat.setString(6, dto.getStd_seq());
-
 			return pstat.executeUpdate();
 
 		} catch (Exception e) {
@@ -218,7 +228,8 @@ public class StudyDAO {
 	public ArrayList<StudyDTO> myStudy(HashMap<String, String> map) {
 		try {
 			String sql = String.format(
-					"select * from (select a.*, rownum as rnum from (select * from vwstudy where id = '%s' order by std_regdate desc) a) where rnum between %s and %s", map.get("id"), map.get("begin"), map.get("end"));
+					"select * from (select a.*, rownum as rnum from (select * from vwstudy where id = '%s' order by std_regdate desc) a) where rnum between %s and %s",
+					map.get("id"), map.get("begin"), map.get("end"));
 
 			stat = conn.createStatement();
 			rs = stat.executeQuery(sql);
@@ -248,6 +259,33 @@ public class StudyDAO {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	public ArrayList<CommentDTO> listComment(String std_seq) {
+	    try {
+	        String sql = "SELECT * FROM vwstdcomment WHERE STD_SEQ = ?";
+	        pstat = conn.prepareStatement(sql);
+	        pstat.setString(1, std_seq);
+	        rs = pstat.executeQuery();
+	        ArrayList<CommentDTO> clist = new ArrayList<>();
+	        	        
+	        while (rs.next()) {
+	            CommentDTO dto = new CommentDTO();
+	            dto.setCm_seq(rs.getString("STD_CM_SEQ"));
+	            dto.setContent(rs.getString("STD_CM_CONTENT"));
+	            dto.setRegdate(rs.getString("STD_CM_REGDATE"));
+	            dto.setBoard_seq(rs.getString("STD_SEQ"));
+	            dto.setCm_bseq(rs.getString("STD_CM_BSEQ"));
+	            dto.setId(rs.getString("ID"));
+	            dto.setNickname(rs.getString("NICKNAME"));
+	            
+	            clist.add(dto);	        
+	        }
+	        return clist;
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return null;
 	}
 
 }
