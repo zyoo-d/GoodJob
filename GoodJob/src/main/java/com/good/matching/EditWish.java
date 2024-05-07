@@ -20,7 +20,6 @@ public class EditWish extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		req.setCharacterEncoding("UTF-8");
 		HttpSession session = req.getSession();
 		String id = (String) session.getAttribute("id");
 
@@ -49,7 +48,7 @@ public class EditWish extends HttpServlet {
 		dto.setWel_seq(wel_seq);
 
 		int result = dao.editWish(dto);
-
+		dao.close();
 		if(result==1){
 			resp.sendRedirect("/good/main.do");
 		} else {

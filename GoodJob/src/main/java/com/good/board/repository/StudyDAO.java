@@ -20,6 +20,15 @@ public class StudyDAO {
 		this.conn = DBUtil.open();
 	}
 
+	public void close() {
+		try {
+			this.conn.close();
+		} catch (Exception e) {
+			System.out.println("StudyDAO.close 오류");
+			e.printStackTrace();
+		}
+	}
+
 	public int addStudy(StudyDTO dto) {
 		try {
 			String sql = "INSERT INTO tblstudy (STD_SEQ, STD_TITLE, STD_CONTENT, STD_ING, STD_REGDATE, CP_SEQ, ID, STD_DUEDATE) VALUES (seqStudy.NEXTVAL, ?, ?, 'N', sysdate, ?, ?, TO_DATE(?, 'YYYY-MM-DD'))";
@@ -84,7 +93,8 @@ public class StudyDAO {
 			}
 
 			String sql = String.format(
-					"select * from (select a.*, rownum as rnum from (select * from vwstudy %s order by %s) a) where rnum between %s and %s", where, map.get("sort"), map.get("begin"), map.get("end"));
+					"select * from (select a.*, rownum as rnum from (select * from vwstudy %s order by %s) a) where rnum between %s and %s",
+					where, map.get("sort"), map.get("begin"), map.get("end"));
 			stat = conn.createStatement();
 			rs = stat.executeQuery(sql);
 
@@ -105,6 +115,7 @@ public class StudyDAO {
 
 				list.add(dto);
 			}
+
 			return list;
 
 		} catch (Exception e) {
@@ -125,7 +136,6 @@ public class StudyDAO {
 
 			stat = conn.createStatement();
 			rs = stat.executeQuery(sql);
-
 			if (rs.next()) {
 				return rs.getInt("cnt");
 			}
@@ -162,7 +172,6 @@ public class StudyDAO {
 			pstat.setString(4, dto.getCp_seq());
 			pstat.setString(5, dto.getStd_duedate());
 			pstat.setString(6, dto.getStd_seq());
-
 			return pstat.executeUpdate();
 
 		} catch (Exception e) {
@@ -218,7 +227,8 @@ public class StudyDAO {
 	public ArrayList<StudyDTO> myStudy(HashMap<String, String> map) {
 		try {
 			String sql = String.format(
-					"select * from (select a.*, rownum as rnum from (select * from vwstudy where id = '%s' order by std_regdate desc) a) where rnum between %s and %s", map.get("id"), map.get("begin"), map.get("end"));
+					"select * from (select a.*, rownum as rnum from (select * from vwstudy where id = '%s' order by std_regdate desc) a) where rnum between %s and %s",
+					map.get("id"), map.get("begin"), map.get("end"));
 
 			stat = conn.createStatement();
 			rs = stat.executeQuery(sql);

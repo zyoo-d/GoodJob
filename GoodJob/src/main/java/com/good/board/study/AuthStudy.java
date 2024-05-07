@@ -21,7 +21,7 @@ public class AuthStudy {
 		// 글쓴이 본인?
 		StudyDAO dao = new StudyDAO();
 		StudyDTO dto = dao.getStudy(seq);
-
+		dao.close();
 		// id!=dto.id && lv !=2
 		if (session.getAttribute("id") == null || (!session.getAttribute("id").toString().equals(dto.getId())
 				&& !session.getAttribute("lv").toString().equals("2"))) {

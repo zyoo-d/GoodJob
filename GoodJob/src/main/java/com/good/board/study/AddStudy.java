@@ -34,7 +34,6 @@ public class AddStudy extends HttpServlet {
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.setCharacterEncoding("UTF-8");
 		String std_title = req.getParameter("std_title");
 		String std_content = req.getParameter("std_content");
 		String std_duedate = req.getParameter("std_duedate");
@@ -54,7 +53,7 @@ public class AddStudy extends HttpServlet {
 		StudyDAO dao = new StudyDAO();
 		
 		int result = dao.addStudy(dto);
-		
+		dao.close();
 		if(result==1) {
 			resp.sendRedirect("/good/user/study/liststudy.do");
 		} else {

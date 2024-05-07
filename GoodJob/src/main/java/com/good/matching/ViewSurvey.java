@@ -25,7 +25,6 @@ public class ViewSurvey extends HttpServlet {
 		String wish = (String)session.getAttribute("wish");
 		
 		if(wish.equals("0")) {
-			resp.setCharacterEncoding("UTF-8");
 			PrintWriter writer = resp.getWriter();
 			writer.println("<html><head><meta charset=\"UTF-8\"><title>Access Denied</title></head><body>");
 			writer.println("<script type='text/javascript'>");
@@ -39,7 +38,7 @@ public class ViewSurvey extends HttpServlet {
 			ArrayList<SurveyDTO> list = dao.listSurvey();
 			
 			req.setAttribute("list", list);
-			
+			dao.close();
 			RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/user/matching/viewsurvey.jsp");
 			dispatcher.forward(req, resp);
 		}

@@ -31,6 +31,7 @@ public class ViewWish extends HttpServlet {
 			WishDTO dto = dao.getWish(id);
 
 			req.setAttribute("dto", dto);
+			dao.close();
 		}
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/user/matching/viewwish.jsp");
 		dispatcher.forward(req, resp);

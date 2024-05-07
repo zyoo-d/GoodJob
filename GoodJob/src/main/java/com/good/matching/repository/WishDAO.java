@@ -19,6 +19,15 @@ public class WishDAO {
 		this.conn = DBUtil.open();
 	}
 	
+	public void close()  {
+        try {
+            this.conn.close();
+        } catch (Exception e) {
+            System.out.println("WishDAO.close 오류");
+            e.printStackTrace();
+        }
+    }
+	
 	public int addWishs(WishDTO dto) {
 		try {
 			String sql = "insert into tblUserDetail values (?,?,?,?)";

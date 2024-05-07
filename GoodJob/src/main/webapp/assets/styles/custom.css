@@ -1096,7 +1096,7 @@ display: flex;
 
 /*설문조사*/
 .survey-form {
-	margin: 50px 20px;
+	margin: 0px 20px;
 	background-color: white;
 	padding: 10px;
 	border-radius: 8px;
