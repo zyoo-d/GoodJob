@@ -78,7 +78,7 @@
 			<!-- 로그인 후 -->
 			<c:if test="${not empty id}">
 				<li class="nav-item mt-3.5 lg:hidden"><a
-					class="btn btn-primary  no-shadowbtn-sm mb-2" href="">로그아웃</a></li>
+					class="btn btn-primary  no-shadowbtn-sm mb-2" href="/good/user/logout.do">로그아웃</a></li>
 				<li class="nav-item">
 					<div
 						class="order-1 ml-auto hidden items-center md:order-2 md:ml-0 lg:flex">
@@ -89,7 +89,7 @@
 				<li class="nav-item">
 					<div
 						class="order-1 ml-auto hidden items-center md:order-2 md:ml-0 lg:flex">
-						<a class="btn btn-outline-primary btn-sm" href="">로그아웃</a>
+						<a class="btn btn-outline-primary btn-sm" href="/good/user/logout.do">로그아웃</a>
 					</div>
 				</li>
 			</c:if>

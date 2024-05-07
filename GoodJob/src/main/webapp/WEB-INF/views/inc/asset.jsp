@@ -5,6 +5,10 @@
 <!-- favicon -->
 <link rel="icon" href="/good/assets/favicon.ico" type="image/x-icon" />
 
+<!-- Main Stylesheet -->
+<link href="/good/assets/styles/main.css" rel="stylesheet" />
+<link href="/good/assets/styles/custom.css" rel="stylesheet" />
+
 <!-- theme meta -->
 <meta name="theme-name" content="Pinwheel" />
 <meta name="msapplication-TileColor" content="#000000" />
@@ -78,9 +82,7 @@
 <link rel="stylesheet"
 	href="/good/assets/plugins/font-awesome/v6/fontawesome.css" />
 
-<!-- Main Stylesheet -->
-<link href="/good/assets/styles/main.css" rel="stylesheet" />
-<link href="/good/assets/styles/custom.css" rel="stylesheet" />
+
 
 <!-- jQuery -->
 <script src="/good/assets/plugins/jquery/jquery.min.js"></script>

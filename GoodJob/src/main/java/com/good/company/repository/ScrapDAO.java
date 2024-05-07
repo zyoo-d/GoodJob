@@ -16,4 +16,8 @@ public class ScrapDAO {
 	public ScrapDAO() {
 		this.conn = DBUtil.open();
 	}
+	
+	
+	
+	
 }

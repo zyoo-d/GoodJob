@@ -4,7 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.HashMap;
 
+import com.good.company.model.ReviewDTO;
 import com.test.util.DBUtil;
 
 public class ReviewDAO {
@@ -32,14 +35,13 @@ public class ReviewDAO {
 				String cp_seq = input;
 				
 				pstat.setString(1, cp_seq);
-				
-				rs = pstat.executeQuery(sql);
+				rs = pstat.executeQuery();
 					
 				while (rs.next()) {
 				
 					int cnt = rs.getInt("cnt");
 					System.out.println(cnt);
-					return 0;
+					return cnt;
 				}
 
 			} catch (Exception e) {
@@ -49,6 +51,118 @@ public class ReviewDAO {
 			
 			return 0;
 			
+		}
+		
+		/**
+		 * 지유)기업리뷰 목록과 태그를 조회하는 메서드
+		 * @param cp_seq
+		 * @return
+		 */
+		public ArrayList<ReviewDTO> listReview(String cp_seq){
+			
+			try {
+			
+			String sql = "select * from vwCompanyReview where cp_seq = ?";
+			
+			pstat = conn.prepareStatement(sql);
+			pstat.setString(1,cp_seq);
+			
+			rs = pstat.executeQuery();
+			
+			ArrayList<ReviewDTO> listReview = new ArrayList<ReviewDTO>(); 
+			while (rs.next()) {
+		
+				ReviewDTO dto = new ReviewDTO();
+					
+				dto.setCp_seq(rs.getString("cp_seq"));
+				dto.setId(rs.getString("id"));
+				dto.setCp_rv_seq(rs.getString("cp_rv_seq"));
+				dto.setSalary_score(rs.getDouble("salary_score"));
+				dto.setWelfare_score(rs.getDouble("welfare_score"));
+				dto.setLngvt_score(rs.getDouble("lngvt_score"));
+				dto.setCulture_score(rs.getDouble("culture_score"));
+				dto.setGrowth_score(rs.getDouble("growth_score"));
+				dto.setLinereview(rs.getString("linereview"));
+				dto.setGood(rs.getString("good"));
+				dto.setBad(rs.getString("bad"));
+				dto.setCp_rv_regdate(rs.getString("cp_rv_regdate"));
+				dto.setCp_rv_confirm(rs.getInt("cp_rv_confirm"));
+				dto.setNickname(rs.getString("nickname"));
+
+				//
+				sql = "select t.tag_keyword from tblCompanyReview cr inner join tblReviewTag rt on cr.cp_rv_seq = rt.cp_rv_seq inner join tblTag t on t.tag_seq=rt.tag_seq where cr.cp_seq=?";
+				stat = conn.prepareStatement(sql);
+				pstat.setString(1,cp_seq);
+				rs = pstat.executeQuery();
+				
+				ArrayList<String> tlist = new ArrayList<String>();
+				
+				while(rs.next()) {
+					tlist.add(rs.getString("tag_keyword"));
+				}
+				
+				dto.setTag_keyword(tlist);
+				listReview.add(dto);			
+				}	
+				return listReview;
+				
+			} catch (Exception e) {
+				System.out.println("ReviewDAO.rlist");
+				e.printStackTrace();
+			}
+			
+			
+			return null;
+		}
+		
+		/**
+		 * 지유)태그리스트를 호출하는 메서드
+		 * @param tmap
+		 * @return
+		 */
+		public ArrayList<ReviewDTO> tagList(){
+			try {
+			
+				String sql = "select * from vwCompanyReview";
+				
+				stat = conn.createStatement();
+				rs = pstat.executeQuery(sql);
+				
+				
+				
+				ArrayList<ReviewDTO> tagList = new ArrayList<ReviewDTO>(); 
+				while(rs.next()) {
+					
+					ReviewDTO dto = new ReviewDTO();
+					
+					dto.setCp_seq(rs.getString("cp_seq"));
+					
+					sql = "select t.tag_keyword from tblCompanyReview cr inner join tblReviewTag rt on cr.cp_rv_seq = rt.cp_rv_seq inner join tblTag t on t.tag_seq=rt.tag_seq where cr.cp_seq=?";
+					pstat = conn.prepareStatement(sql);
+					pstat.setString(1,rs.getString("cp_seq"));
+					
+					rs = pstat.executeQuery(sql);
+				
+					ArrayList<String> tlist = new ArrayList<String>();
+					
+					
+					
+					while(rs.next()) {
+						tlist.add(rs.getString("tag_keyword"));
+					}
+				
+					dto.setTag_keyword(tlist);
+					tagList.add(dto);
+
+				}
+				return tagList;
+				
+			} catch (Exception e) {
+				System.out.println("ReviewDAO.rlist");
+				e.printStackTrace();
+			}
+			
+			return null;
 		}
 		
 }

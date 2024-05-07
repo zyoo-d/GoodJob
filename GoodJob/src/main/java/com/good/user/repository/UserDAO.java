@@ -17,6 +17,16 @@ public class UserDAO {
 	public UserDAO() {
 		this.conn = DBUtil.open();
 	}
+	
+	public void close()  {
+
+        try {
+            this.conn.close();
+        } catch (Exception e) {
+            System.out.println("QnaBoardDAO.close 오류");
+            e.printStackTrace();
+        }
+    }
 
 	public int checkId(String id) {
 		try {
@@ -147,5 +157,108 @@ public class UserDAO {
 		}
 		return null;
 	}
+
+	public int changePw(UserDTO dto) {
+		try {
+			String sql = "UPDATE tblUser SET PW = ? WHERE ID = ?";
+
+			pstat = conn.prepareStatement(sql);
+			pstat.setString(1, dto.getPw());
+			pstat.setString(2, dto.getId());
+
+			return pstat.executeUpdate();
+
+		} catch (Exception e) {
+			System.out.println("UserDAO.changePw");
+			e.printStackTrace();
+		}
+		
+		return 0;
+	}
+
+	public int getPw(UserDTO dto) {
+		try {
+			String sql = "select count(*) as cnt from tblUser where id = ? and tel = ?";
+
+			pstat = conn.prepareStatement(sql);
+			pstat.setString(1, dto.getId());
+			pstat.setString(2, dto.getTel());
+
+			rs = pstat.executeQuery();
+
+			if (rs.next()) {
+				return rs.getInt("cnt");
+			}
+
+		} catch (Exception e) {
+			System.out.println("UserDAO.getPw");
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
+	public int edit(UserDTO dto) {
+		
+		try {
+			String sql = "update tblUser set pw = ?, email = ?, address = ? where id = ?";
+
+			pstat = conn.prepareStatement(sql);
+			pstat.setString(1, dto.getPw());
+			pstat.setString(2, dto.getEmail());
+			pstat.setString(3, dto.getAddress());
+			pstat.setString(4, dto.getId());
+
+			return pstat.executeUpdate();
+
+		} catch (Exception e) {
+			System.out.println("UserDAO.edit");
+			e.printStackTrace();
+		}
+		
+		return 0;
+	}
+
+	public UserDTO userInfo(String id) {
+		try {
+			String sql = "select * from tblUser where id = ?";
+			pstat = conn.prepareStatement(sql);
+			pstat.setString(1, id);
+
+			rs = pstat.executeQuery();
+
+			if (rs.next()) {
+				UserDTO dto = new UserDTO();
+				dto.setEmail(rs.getString("email"));
+				dto.setAddress(rs.getString("address"));
+
+				return dto;
+			}
+
+		} catch (Exception e) {
+			System.out.println("UserDAO.userInfo");
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public int unregister(String id) {
+		
+		try {
+			String sql = "update tblUser set lv = 4 where id = ?";
+			
+			pstat = conn.prepareStatement(sql);
+			pstat.setString(1, id);
+
+			return pstat.executeUpdate();
+
+		} catch (Exception e) {
+			System.out.println("UserDAO.unregister");
+			e.printStackTrace();
+		}
+		
+		return 0;
+	}
+
+
 
 }

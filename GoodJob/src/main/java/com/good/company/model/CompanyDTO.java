@@ -1,5 +1,8 @@
 package com.good.company.model;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import lombok.Data;
 
 @Data
@@ -22,6 +25,7 @@ public class CompanyDTO {
 	private int hire_avr_salary;
 	private String hire_regdate;
 	
+	
 	//기업재무정보
 	private String fnc_seq;	
 	private long fnc_sales;
@@ -29,14 +33,22 @@ public class CompanyDTO {
 	private long fnc_income;
 	private String fnc_period;
 	private String fnc_regdate;
-
+    private String unit; // 금액 단위
+	private ArrayList<String> fnc_list;
 	
 	//기업분야정보
 	private String idst_name;
 	
 	//기업직무(기술)정보
+	private HashMap<String,String> joblist;
 	private String job_seq;
 	private String job_name;	
+	
+	//채용 공고 수
+	private int com_rcrt_cnt;
+	
+	//스크랩 수
+	private int com_scrap_cnt;
 	
 
 }
