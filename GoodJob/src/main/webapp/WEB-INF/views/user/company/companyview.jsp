@@ -501,8 +501,7 @@ h3 > #scrap {
 				<div id="company_img"><img src="${dto.image}" onerror="this.src='/good/asset/images/default.jpg'" alt="Company Logo"></div>
 				<div id="summary_content">
 					<h3>${dto.cp_name}    <button id="scrap"><i class="fa-regular fa-bookmark"></i> ${dto.com_scrap_cnt}+</button></h3>
-					<span>${dto.idst_name}</span> <span>${dto.hire_member} 명</span> <span>소프트웨어개발,공급,전산자료
-						입력,지리정보데이터베이스 구축,전산장비 유지</span> <i class="fa-solid fa-location-dot"><span
+					<span>${dto.idst_name} </span> <span>사원 수  ${dto.hire_member} 명</span> <span><c:if test="${not empty comJobList}"><c:forEach items="${comJobList}" var="jdto" begin="0" end="7">${jdto.job_name} </c:forEach></c:if></span> <i class="fa-solid fa-location-dot"><span
 						id="cop_address"> ${dto.cp_address}</span></i>
 				</div>
 			</div>
@@ -524,7 +523,7 @@ h3 > #scrap {
 				<div
 					class="row mx-0 rounded-[20px] bg-white px-10 shadow-lg lg:py-10">
 					<h2>
-						<span class="count">3200만원</span> <span class="text-[#A3A1FB]">+</span>
+						<span class="count">${dto.idst_avg_salary} 만원</span> <span class="text-[#A3A1FB]">+</span>
 					</h2>
 					<p>업계 평균 연봉</p>
 				</div>
@@ -637,11 +636,20 @@ h3 > #scrap {
 			<!-- div:recruit -->
 			<span class="menu">기업 키워드</span>
 			<div id="keyword">
-			<c:forEach items="${listReview}" var="tdto">
 			
-				<div>${tdto.tag_keyword}</div>
-			
-			</c:forEach>
+			<div class="job_meta">
+			<c:if test="${not empty ComTaglist}">
+	<c:forEach items="${ComTaglist}" var="tdto" begin="0" end="1">
+	<c:if test="${tdto.cp_seq == dto.cp_seq}">
+		<c:forEach items="${tdto.tag_keyword}" var="tag" begin="0" end="4">
+		<span class="job-keyword">${tag}</span>
+		</c:forEach>
+	</c:if>
+	</c:forEach>
+	</c:if>
+	<c:if test="${empty ComTaglist}">등록된 키워드가 없습니다. 리뷰를 작성하여 키워드를 등록해 보세요.</c:if>
+	</div>
+	
 			</div>
 			<span class="menu">기업 리뷰 보기</span>
 
@@ -651,6 +659,7 @@ h3 > #scrap {
 			
 			
 			<div id="review">
+			<c:if test="${not empty listReview}">
 			<c:forEach items="${listReview}" var="rdto">
 				<div id="review_content">
 					<div id="oneline">"${rdto.linereview}"</div>
@@ -670,7 +679,7 @@ h3 > #scrap {
 							</div>
 							<div  class="score_rating" id="ingvt_score">
 								<span id="ingvt_review">근무 안정성 </span> <br />
-								 <c:forEach var="i" begin="1" end="${rdto.lngvt_score}">
+								 <c:forEach var="i" begin="1" end="${rdto.stability_score}">
         							<i class="fa-solid fa-star"></i>
     							 </c:forEach>
 							</div>
@@ -697,17 +706,19 @@ h3 > #scrap {
 					</div>
 					<div class="goodbad_title" id="good_title">
 						<i class="fa-regular fa-thumbs-up"></i> 이런 부분은 좋았아요.
-					</div>
-					<div class="goodbad">
 						<div id="good">${rdto.good}</div>
+					</div>
+					
 						<div class="goodbad_title" id="bad_title">
 							<i class="fa-regular fa-thumbs-down"></i> 이런 부분은 아쉬웠어요.
-						</div>
 						<div id="bad">${rdto.bad}</div>
+						</div>
 
-					</div>
+					
 				</div>
 				</c:forEach>
+				</c:if>
+				<c:if test="${empty listReview}">등록된 리뷰가 없습니다. 직접 등록해보세요!</c:if>
 			</div>
 		</div>
                         

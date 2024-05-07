@@ -402,21 +402,6 @@ textarea {
 </div>
 <%@include file="/WEB-INF/views/inc/footer.jsp" %>
 <script>
-//태그
-new Tagify(document.getElementById('tag'));
-
-function addTag() {
-    var input = document.getElementById('new-tag');
-    var newTag = input.value.trim();
-    if(newTag) {
-        var tagList = document.querySelector('.tag-list');
-        var tag = document.createElement('span');
-        tag.className = 'tag-keyword';
-        tag.textContent = newTag;
-        tagList.appendChild(tag);
-        input.value = ''; // Clear input after adding
-    }
-}
 
 //별점
 document.querySelectorAll('.category .stars').forEach(starsContainer => {
@@ -484,6 +469,21 @@ document.querySelector('.submitRatings').addEventListener('click', function() {
     });
 });
 
+//태그
+new Tagify(document.getElementById('tag'));
+
+function addTag() {
+    var input = document.getElementById('new-tag');
+    var newTag = input.value.trim();
+    if(newTag) {
+        var tagList = document.querySelector('.tag-list');
+        var tag = document.createElement('span');
+        tag.className = 'tag-keyword';
+        tag.textContent = newTag;
+        tagList.appendChild(tag);
+        input.value = ''; // Clear input after adding
+    }
+}
 
     
 

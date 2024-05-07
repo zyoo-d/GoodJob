@@ -211,14 +211,13 @@
 </button>
 </div>
 	<div class="job_meta">
-	<c:if test="${ComTaglist.sp_seq ==dto.cp_seq}">
-	<for:each items="${ComTaglist}" var="tdto">
-		<span class="job-keyword">${tdto.tag_keyword}</span>
-		<span class="job-keyword">미래가기대되는</span>
-		<span class="job-keyword">동료들과 같이 성장</span>
-		<span class="job-keyword">야근이 많은</span>
-	</for:each>
+	<c:forEach items="${ComTaglist}" var="tdto" begin="0" end="1">
+	<c:if test="${tdto.cp_seq == dto.cp_seq}">
+		<c:forEach items="${tdto.tag_keyword}" var="tag" begin="0" end="4">
+		<span class="job-keyword">${tag}</span>
+		</c:forEach>
 	</c:if>
+	</c:forEach>
 	</div>
 </div>
 </div>

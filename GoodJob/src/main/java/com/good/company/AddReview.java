@@ -45,7 +45,7 @@ public class AddReview extends HttpServlet {
 		/*
 		double salary_score = Double.parseDouble(req.getParameter("salary_score"));
 		double welfare_score= Double.parseDouble(req.getParameter("welfare_score"));
-		double lngvt_score = Double.parseDouble(req.getParameter("lngvt_score"));
+		double stability_score = Double.parseDouble(req.getParameter("stability_score"));
 		double culture_score= Double.parseDouble(req.getParameter("culture_score"));
 		double growth_score=  Double.parseDouble(req.getParameter("growth_score"));
 		
@@ -63,7 +63,7 @@ public class AddReview extends HttpServlet {
 		
 		dto.setSalary_score(salary_score);
 		dto.setWelfare_score(welfare_score);
-		dto.setLngvt_score(lngvt_score);
+		dto.setStability_score(stability_score);
 		dto.setCulture_score(culture_score);
 		dto.setGrowth_score(growth_score);
 		dto.setLinereview(linereview);

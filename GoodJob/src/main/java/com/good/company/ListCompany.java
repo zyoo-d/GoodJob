@@ -28,7 +28,7 @@ import com.test.util.DBUtil;
 
 		@Override
 		protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+			
 			
 
 			//페이징
@@ -241,7 +241,7 @@ import com.test.util.DBUtil;
 			
 			
 		}
-		
+			 
 	
 		
 

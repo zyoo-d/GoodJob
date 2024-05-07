@@ -20,7 +20,15 @@ public class ReviewDAO {
 		public ReviewDAO() {
 			this.conn = DBUtil.open();
 		}
-		
+		public void close()  {
+
+	        try {
+	            this.conn.close();
+	        } catch (Exception e) {
+	            System.out.println("ReviewDAO.close 오류");
+	            e.printStackTrace();
+	        }
+	    }
 		/**
 		 * 지유)등록된 리뷰수 불러오는 메서드
 		 * @return 리뷰수
@@ -54,7 +62,7 @@ public class ReviewDAO {
 		}
 		
 		/**
-		 * 지유)기업리뷰 목록과 태그를 조회하는 메서드
+		 * 지유)기업리뷰 목록 조회하는 메서드
 		 * @param cp_seq
 		 * @return
 		 */
@@ -79,7 +87,7 @@ public class ReviewDAO {
 				dto.setCp_rv_seq(rs.getString("cp_rv_seq"));
 				dto.setSalary_score(rs.getDouble("salary_score"));
 				dto.setWelfare_score(rs.getDouble("welfare_score"));
-				dto.setLngvt_score(rs.getDouble("lngvt_score"));
+				dto.setStability_score(rs.getDouble("stability_score"));
 				dto.setCulture_score(rs.getDouble("culture_score"));
 				dto.setGrowth_score(rs.getDouble("growth_score"));
 				dto.setLinereview(rs.getString("linereview"));
@@ -89,25 +97,13 @@ public class ReviewDAO {
 				dto.setCp_rv_confirm(rs.getInt("cp_rv_confirm"));
 				dto.setNickname(rs.getString("nickname"));
 
-				//
-				sql = "select t.tag_keyword from tblCompanyReview cr inner join tblReviewTag rt on cr.cp_rv_seq = rt.cp_rv_seq inner join tblTag t on t.tag_seq=rt.tag_seq where cr.cp_seq=?";
-				stat = conn.prepareStatement(sql);
-				pstat.setString(1,cp_seq);
-				rs = pstat.executeQuery();
 				
-				ArrayList<String> tlist = new ArrayList<String>();
-				
-				while(rs.next()) {
-					tlist.add(rs.getString("tag_keyword"));
-				}
-				
-				dto.setTag_keyword(tlist);
 				listReview.add(dto);			
 				}	
 				return listReview;
 				
 			} catch (Exception e) {
-				System.out.println("ReviewDAO.rlist");
+				System.out.println("ReviewDAO.listReview");
 				e.printStackTrace();
 			}
 			
@@ -120,49 +116,38 @@ public class ReviewDAO {
 		 * @param tmap
 		 * @return
 		 */
-		public ArrayList<ReviewDTO> tagList(){
-			try {
-			
-				String sql = "select * from vwCompanyReview";
-				
-				stat = conn.createStatement();
-				rs = pstat.executeQuery(sql);
-				
-				
-				
-				ArrayList<ReviewDTO> tagList = new ArrayList<ReviewDTO>(); 
-				while(rs.next()) {
-					
-					ReviewDTO dto = new ReviewDTO();
-					
-					dto.setCp_seq(rs.getString("cp_seq"));
-					
-					sql = "select t.tag_keyword from tblCompanyReview cr inner join tblReviewTag rt on cr.cp_rv_seq = rt.cp_rv_seq inner join tblTag t on t.tag_seq=rt.tag_seq where cr.cp_seq=?";
-					pstat = conn.prepareStatement(sql);
-					pstat.setString(1,rs.getString("cp_seq"));
-					
-					rs = pstat.executeQuery(sql);
-				
-					ArrayList<String> tlist = new ArrayList<String>();
-					
-					
-					
-					while(rs.next()) {
-						tlist.add(rs.getString("tag_keyword"));
-					}
-				
-					dto.setTag_keyword(tlist);
-					tagList.add(dto);
+		public ArrayList<ReviewDTO> tagList() {
+		    ArrayList<ReviewDTO> tagList = new ArrayList<>();
+		    String sql = "select * from vwCompanyReview";
 
-				}
-				return tagList;
-				
-			} catch (Exception e) {
-				System.out.println("ReviewDAO.rlist");
-				e.printStackTrace();
-			}
-			
-			return null;
+		    try (Statement stat = conn.createStatement();
+		         ResultSet rs = stat.executeQuery(sql)) {
+		        while (rs.next()) {
+		            ReviewDTO dto = new ReviewDTO();
+		            dto.setCp_seq(rs.getString("cp_seq"));
+
+		            String tagSql = "SELECT t.tag_keyword FROM tblCompanyReview cr "
+		                    + "INNER JOIN tblReviewTag rt ON cr.cp_rv_seq = rt.cp_rv_seq "
+		                    + "INNER JOIN tblTag t ON t.tag_seq = rt.tag_seq WHERE cr.cp_seq = ? GROUP BY t.tag_keyword ORDER BY COUNT(*) DESC";
+
+		            try (PreparedStatement pstat = conn.prepareStatement(tagSql)) {
+		                pstat.setString(1, rs.getString("cp_seq"));
+		                try (ResultSet tagRs = pstat.executeQuery()) {
+		                    ArrayList<String> tlist = new ArrayList<>();
+		                    while (tagRs.next()) {
+		                        tlist.add(tagRs.getString("tag_keyword"));
+		                    }
+		                    dto.setTag_keyword(tlist);
+		                }
+		            }
+		            tagList.add(dto);
+		        }
+		    } catch (Exception e) {
+		        System.out.println("ReviewDAO.tagList");
+		        e.printStackTrace();
+		        return null;
+		    }
+		    return tagList;
 		}
 		
 }

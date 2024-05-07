@@ -16,7 +16,7 @@ public class ReviewDTO {
 
 	 private double salary_score;
 	 private double welfare_score;
-	 private double lngvt_score;
+	 private double stability_score;
 	 private double culture_score;
 	 private double growth_score;
 	 private String linereview;

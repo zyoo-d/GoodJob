@@ -25,12 +25,11 @@ public class DetailCompany extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		HttpSession session = req.getSession();
+		//HttpSession session = req.getSession();
 		
 		String cp_seq = req.getParameter("cp_seq");
 		String word = req.getParameter("word");
 		String page = req.getParameter("page");
-		
 		String search = req.getParameter("search");
 		String hiring = req.getParameter("hiring");
 		
@@ -78,21 +77,24 @@ public class DetailCompany extends HttpServlet {
 	    }
 	    dto.setHire_avr_salary((int)Math.round((float)avg_salary/10000));//(단위:만원)  
 		
+	    //업계평균연봉
+	    int idst_avg_salary = dao.getIdstSalary(dto.getIdst_code());
+	    dto.setIdst_avg_salary(idst_avg_salary);
 	    
-	    //태그리스트출력
+	    
+	    //리뷰조회
 	    ReviewDAO rdao =  new ReviewDAO();
 	    ArrayList<ReviewDTO> listReview = rdao.listReview(cp_seq);
-	    //String cp_rv_seq ="";
-    	//String id ="";
-    	
-	    HashMap<String, String> tmap = new HashMap<>();
-	    //for(ReviewDTO rdto : listReview) {
-	    	
-	    	//cp_rv_seq = rdto.getCp_rv_seq();
-	    	//id = rdto.getId();
-	    	tmap.put("cp_seq",cp_seq );
-	    //}
+	    //System.out.println("Number of reviews fetched: " + listReview.size());
 	    
+	    //태그출력
+	    ReviewDAO tdao =  new ReviewDAO();
+	    ArrayList<ReviewDTO> ComTaglist = tdao.tagList();
+    	
+	    //기업직무정보
+	    RecruitDAO jdao = new RecruitDAO();
+	    ArrayList<String> comJobList = jdao.comJob(cp_seq);
+	   
 	    
 	    //채용공고목록
 	    RecruitDAO rcdao = new RecruitDAO(); 
@@ -112,7 +114,7 @@ public class DetailCompany extends HttpServlet {
 		    rdto.setCp_address(address);
 
 	    }
-		//ArrayList<ReviewDTO> tagList = rdao.tagList(tmap);	  
+			  
 	  
 		req.setAttribute("dto", dto);
 		req.setAttribute("word", word);
@@ -121,9 +123,8 @@ public class DetailCompany extends HttpServlet {
 		req.setAttribute("comRecruitList",comRecruitList);
 		req.setAttribute("search", search);
 		req.setAttribute("hiring", hiring);
-		
-		//req.setAttribute("tagList", tagList);
-
+		req.setAttribute("ComTaglist", ComTaglist);
+		req.setAttribute("comJobList",comJobList);
 
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/user/company/companyview.jsp");
 		dispatcher.forward(req, resp);

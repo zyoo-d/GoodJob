@@ -20,7 +20,15 @@ public class CompanyDAO {
 	public CompanyDAO() {
 		this.conn = DBUtil.open();
 	}
+	public void close()  {
 
+        try {
+            this.conn.close();
+        } catch (Exception e) {
+            System.out.println("CompanyDAO.close 오류");
+            e.printStackTrace();
+        }
+    }
 	public ArrayList<CompanyDTO> rcrtCompany() {
 
 		try {
@@ -210,12 +218,6 @@ public class CompanyDAO {
 			String where ="";
 			String sql = "";
 			
-//			if (map.get("search").equals("y")) {
-//				
-//				where = String.format("where cp_name like '%%%s%%'",map.get("word"));
-//				sql = String.format("select count(*) as search_cnt from vwComListInfo %s" , where);
-//				
-//			}
 			
 			if(map.get("search").equals("y") && map.get("hiring").equals("y")) {
 				
@@ -330,6 +332,36 @@ public class CompanyDAO {
 		
 		return null;
 	}
+	
+
+		
+	/**
+	 * 업계평균연봉 조회 메서드	
+	 * @param idst_code
+	 * @return
+	 */
+	public int getIdstSalary(String idst_code) {
+		try {
+			String sql = "select * from vwIdstAvgSalary where idst_code = ?";
+			
+			pstat = conn.prepareStatement(sql);
+			pstat.setString(1, idst_code);
+			
+			rs = pstat.executeQuery();
+			 
+				if (rs.next()) {
+					
+					int idst_avg_salary = rs.getInt("idst_avg_salary");
+					
+					return idst_avg_salary;
+				
+				}
+			
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+				return 0;
+			}
 	
 	//TODO job dao 만들기
 	
