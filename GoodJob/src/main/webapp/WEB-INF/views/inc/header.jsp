@@ -22,7 +22,7 @@
 		<ul id="nav-menu"
 			class="navbar-nav order-2 hidden flex-[0_0_100%] lg:order-1 lg:flex lg:w-auto lg:flex-auto lg:justify-center space-x-4">
 			<li class="nav-item"><a href="#!" class="nav-link">기업</a></li>
-			<li class="nav-item"><a href="#!" class="nav-link">채용</a></li>
+			<li class="nav-item"><a href="/good/user/recruit/listrecruit.do" class="nav-link">채용</a></li>
 			<li class="nav-item">
 			<c:if test="${wish==null||wish=='0'}"><a href="/good/user/matching/viewwish.do" class="nav-link">굿잡forU</a></c:if>
 			<c:if test="${wish=='1'&&prefer=='0'}"><a href="/good/user/matching/viewsurvey.do" class="nav-link">굿잡forU</a></c:if>

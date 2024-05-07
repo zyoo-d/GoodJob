@@ -54,28 +54,29 @@
 					</div>
 					<div id="default_list_wrap" style="position: relative">
 						<section class="list_recruiting">
-							<div class="list-title">
-								<p>
-									<span class="material-symbols-outlined">subject</span>
-								</p>
-								<p>
-									조회된 게시글은 총 <span id="list-cnt">${totalCount}</span>건입니다.
-								</p>
-							</div>
 							<div class="list-header">
-
-								<div class="moving-btn">
-									<a href="/good/user/qna/addqna.do" class="btn btnList">글 등록</a>
+								<div class="list-title">
+									<p>
+										<span class="material-symbols-outlined">subject</span>
+									</p>
+									<p>
+										조회된 게시글은 총 <span id="list-cnt">${totalCount}</span>건입니다.
+									</p>
 								</div>
-								<div class="InpBox">
-									<select class="sorting" name="sort" id="sort">
-										<option value="latest"
-											<c:if test="${param.sort == 'latest' || empty param.sort}">selected</c:if>>최신순</option>
-										<option value="oldest"
-											<c:if test="${param.sort == 'oldest'}">selected</c:if>>과거순</option>
-										<option value="comments"
-											<c:if test="${param.sort == 'comments'}">selected</c:if>>댓글순</option>
-									</select>
+								<div class="list_info">
+									<div class="moving-btn studyAdd mr-2">
+										<a href="/good/user/study/addstudy.do" class="btn btnList">글쓰기</a>
+									</div>
+									<div class="InpBox">
+										<select class="sorting" name="sort" id="sort">
+											<option value="latest"
+												<c:if test="${param.sort == 'latest' || empty param.sort}">selected</c:if>>최신순</option>
+											<option value="oldest"
+												<c:if test="${param.sort == 'oldest'}">selected</c:if>>과거순</option>
+											<option value="comments"
+												<c:if test="${param.sort == 'comments'}">selected</c:if>>댓글순</option>
+										</select>
+									</div>
 								</div>
 							</div>
 
