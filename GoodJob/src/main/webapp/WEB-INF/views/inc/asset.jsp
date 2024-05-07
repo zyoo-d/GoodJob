@@ -5,14 +5,9 @@
 <!-- favicon -->
 <link rel="icon" href="/good/assets/favicon.ico" type="image/x-icon" />
 
-<<<<<<< HEAD
-<!-- tagify -->
-<link rel="stylesheet" href="/good/assets/styles/tagify.css">
-=======
 <!-- Main Stylesheet -->
 <link href="/good/assets/styles/main.css" rel="stylesheet" />
 <link href="/good/assets/styles/custom.css" rel="stylesheet" />
->>>>>>> upstream/main
 
 <!-- theme meta -->
 <meta name="theme-name" content="Pinwheel" />
