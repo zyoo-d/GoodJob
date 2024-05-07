@@ -12,7 +12,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import com.test.util.DBUtil;
 
 public class VisitorDAO {
-
 	private Connection conn;
 	private Statement stat;
 	private PreparedStatement pstat;

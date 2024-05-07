@@ -20,8 +20,19 @@ public class AddQna extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/user/qna/addqna.jsp");
-		dispatcher.forward(req, resp);
+		HttpSession session = req.getSession();
+		String id = (String)session.getAttribute("id");
+		
+		if(id== null || id.equals("")) {
+			
+			
+			
+		} else {
+			
+			RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/user/qna/addqna.jsp");
+			dispatcher.forward(req, resp);
+			
+		}
 		
 	}
 
@@ -48,7 +59,7 @@ public class AddQna extends HttpServlet {
 		
 		if(qna_seq > 0) {
 			
-			resp.sendRedirect("/good/user/qna/qnaview.do?qna_seq="+qna_seq);
+			resp.sendRedirect("/good/user/qna/viewqna.do?qna_seq="+qna_seq);
 			
 		} else {
 			resp.setCharacterEncoding("UTF-8");
@@ -62,6 +73,8 @@ public class AddQna extends HttpServlet {
 			 writer.close();
 			
 		}
+		
+		dao.close();
 		
 	}
 

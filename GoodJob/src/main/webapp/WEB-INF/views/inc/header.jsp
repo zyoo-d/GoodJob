@@ -22,7 +22,7 @@
 		<ul id="nav-menu"
 			class="navbar-nav order-2 hidden flex-[0_0_100%] lg:order-1 lg:flex lg:w-auto lg:flex-auto lg:justify-center space-x-4">
 			<li class="nav-item"><a href="#!" class="nav-link">기업</a></li>
-			<li class="nav-item"><a href="#!" class="nav-link">채용</a></li>
+			<li class="nav-item"><a href="/good/user/recruit/listrecruit.do" class="nav-link">채용</a></li>
 			<li class="nav-item">
 			<c:if test="${wish==null||wish=='0'}"><a href="/good/user/matching/viewwish.do" class="nav-link">굿잡forU</a></c:if>
 			<c:if test="${wish=='1'&&prefer=='0'}"><a href="/good/user/matching/viewsurvey.do" class="nav-link">굿잡forU</a></c:if>
@@ -78,7 +78,7 @@
 			<!-- 로그인 후 -->
 			<c:if test="${not empty id}">
 				<li class="nav-item mt-3.5 lg:hidden"><a
-					class="btn btn-primary  no-shadowbtn-sm mb-2" href="">로그아웃</a></li>
+					class="btn btn-primary  no-shadowbtn-sm mb-2" href="/good/user/logout.do">로그아웃</a></li>
 				<li class="nav-item">
 					<div
 						class="order-1 ml-auto hidden items-center md:order-2 md:ml-0 lg:flex">
@@ -89,7 +89,7 @@
 				<li class="nav-item">
 					<div
 						class="order-1 ml-auto hidden items-center md:order-2 md:ml-0 lg:flex">
-						<a class="btn btn-outline-primary btn-sm" href="">로그아웃</a>
+						<a class="btn btn-outline-primary btn-sm" href="/good/user/logout.do">로그아웃</a>
 					</div>
 				</li>
 			</c:if>

@@ -14,7 +14,7 @@
 	margin: 0 auto;
 	background-color: #FAFAFA;
 	display: flex;
-	padding-top: 20px;<
+	padding-top: 20px;
 }
 
 .company-info {
@@ -205,8 +205,8 @@ h3 {
 
 #recruit>div {
 	position: static;
-	margin-top: 1px;
-	width: 221px;
+	margin-top: 15px;
+	width: 230px;
 	border: 1px solid rgb(83, 90, 237);
 }
 
@@ -493,21 +493,21 @@ h3 > #scrap {
                             <h1 class="mt-3 gradiTitle">
                                 <span>기업 상세정보</span>
                             </h1>
-							<p class="mt-2" id="pmt-2">기업의 상세한 정보를 볼 수 있습니다.</p>
+							<p class="mt-2" id="pmt-2">기업의 상세한 정보를 확인하고 기업리뷰를 확인해 보세요.</p>
                         </div>
                         </div>
 
 			<div id="summary">
-				<div id="company_img"></div>
+				<div id="company_img"><img src="${dto.image}" onerror="this.src='/good/asset/images/default.jpg'" alt="Company Logo"></div>
 				<div id="summary_content">
-					<h3>네이버    <button id="scrap"><i class="fa-regular fa-bookmark"></i> 150+</button></h3>
-					<span>응용 소프트웨어 개발 및 공급업</span> <span>100 명</span> <span>소프트웨어개발,공급,전산자료
+					<h3>${dto.cp_name}    <button id="scrap"><i class="fa-regular fa-bookmark"></i> ${dto.com_scrap_cnt}+</button></h3>
+					<span>${dto.idst_name}</span> <span>${dto.hire_member} 명</span> <span>소프트웨어개발,공급,전산자료
 						입력,지리정보데이터베이스 구축,전산장비 유지</span> <i class="fa-solid fa-location-dot"><span
-						id="cop_address"> 경기도 성남시 분당구</span></i>
+						id="cop_address"> ${dto.cp_address}</span></i>
 				</div>
 			</div>
 
-			<span class="menu">예상 연봉 / 평균 근속 연수</span>
+			<span class="menu">예상 평균 연봉 / 평균 근속 연수</span>
 			<div id="salary">
 				<!-- 				<div id="salary_won"> -->
 				<!-- 				<div id="left_line"><i class="fa-solid fa-won-sign"></i></div><div id="money">4,800,000<i class="fa-solid fa-won-sign"></i></div> -->
@@ -515,21 +515,26 @@ h3 > #scrap {
 				<div
 					class="row mx-0 rounded-[20px] bg-white px-10 shadow-lg lg:py-10">
 					<h2>
-						<span class="count">3400만원</span> <span class="text-[#A3A1FB]">+</span>
+						<span class="count">
+						<c:if test="${dto.hire_avr_salary == 0}">정보 없음</c:if>
+						<c:if test="${dto.hire_avr_salary != 0}">${dto.hire_avr_salary} 만원</c:if></span> <span class="text-[#A3A1FB]">+</span>
 					</h2>
 					<p>예상 연봉</p>
 				</div>
 				<div
 					class="row mx-0 rounded-[20px] bg-white px-10 shadow-lg lg:py-10">
 					<h2>
-						<span class="count">3200만원</span> <span class="text-[#A3A1FB]"></span>
+						<span class="count">3200만원</span> <span class="text-[#A3A1FB]">+</span>
 					</h2>
 					<p>업계 평균 연봉</p>
 				</div>
 				<div
 					class="row mx-0 rounded-[20px] bg-white px-10 shadow-lg lg:py-10">
 					<h2>
-						<span class="count">3년</span> <span class="text-[#5EE2A0]">+</span>
+						<span class="count">
+						<c:if test="${dto.hire_avr_year == 0}">정보 없음</c:if>
+						<c:if test="${dto.hire_avr_year != 0}">
+						${dto.hire_avr_year} 년</c:if></span> <span class="text-[#5EE2A0]">+</span>
 					</h2>
 					<p>평균 근속 연수</p>
 				</div>
@@ -543,6 +548,7 @@ h3 > #scrap {
 					<canvas id="myChart" height="200" width="762"
 						style="display: block; width: 300px; height: 500px;"
 						class="chartjs-render-monitor"></canvas>
+						
 					<div class="statistic-details mt-sm-4">
 						<div class="statistic-details-item">
 							<span class="text-muted"><span class="text-primary"><i
@@ -558,23 +564,22 @@ h3 > #scrap {
 			<span class="menu">해당 기업 공고</span>
 			<!-- 채용정보 -->
 			<div id="recruit">
-				<%
-				for (int i = 0; i < 3; i++) {
-				%>
+		
+			
+        			<c:forEach items="${comRecruitList}" var="rcdto" begin="0" end="5">
 				<div
-					class="rounded-xl border border-primary bg-white px-8 py-10 shadow-lg lg:-mt-16"
+					class="rounded-xl border border-primary bg-white px-8 py-6 shadow-lg lg:-mt-16"
 					width="300px">
 					<div class="flex items-center justify-between" id="recruit_card">
 						<div>
-							<h2 class="h3">네이버</h2>
-							<p class="mt-3 text-2xl text-dark">2024 하반기 신입사원 모집</p>
+							<h4 class="h6">${rdto.cp_name}</h4>
+							<p class="mt-3 text-dark">${rcdto.rcrt_name}</p>
 						</div>
-						<!-- 						<span -->
-						<!-- 							class="bg-gradient inline-flex h-16 w-16 items-center justify-center rounded-full"> -->
-						<!-- 							<img src="images/icons/price-card-icon-2.svg" alt="" /> -->
-						<!-- 						</span> -->
+										
 					</div>
-					<p class="mt-6">마감일 - 2024-05-30</p>
+					 <c:if test="${not empty rcdto.enddate}">
+					<p class="mt-6">마감일 ${rcdto.enddate}</p>
+					</c:if>
 					<div class="my-6 border-y border-border py-6">
 						<h4 class="h6">이런 사람을 원해요!</h4>
 						<ul class="mt-6">
@@ -584,93 +589,103 @@ h3 > #scrap {
 									xmlns="http://www.w3.org/2000/svg">
                   <path d="M2 5.42857L6.36364 10L14 2"
 										stroke="currentColor" stroke-width="3" stroke-linecap="round" />
-                </svg> 대학교 4년제 졸업</li>
+                </svg> ${rcdto.edu_type}</li>
 							<li class="mb-3 flex items-center text-sm"><svg
 									class="mr-2.5 text-primary" width="16" height="13"
 									viewBox="0 0 16 13" fill="none"
 									xmlns="http://www.w3.org/2000/svg">
                   <path d="M2 5.42857L6.36364 10L14 2"
 										stroke="currentColor" stroke-width="3" stroke-linecap="round" />
-                </svg> 최소 경력</li>
+                </svg> 최소 경력 ${rcdto.min_career}년</li>
 							<li class="mb-3 flex items-center text-sm"><svg
 									class="mr-2.5 text-primary" width="16" height="13"
 									viewBox="0 0 16 13" fill="none"
 									xmlns="http://www.w3.org/2000/svg">
                   <path d="M2 5.42857L6.36364 10L14 2"
 										stroke="currentColor" stroke-width="3" stroke-linecap="round" />
-                </svg> 최대 경력</li>
+									
+										
+                							</svg> 최대 경력 <c:if test="${rcdto.max_career == '0'}">무관</c:if>
+                							<c:if test="${rcdto.max_career != '0'}">${rcdto.max_career}년</c:if></li>
+                							
+										
 							<li class="flex items-center text-sm"><svg
 									class="mr-2.5 text-primary" width="16" height="13"
 									viewBox="0 0 16 13" fill="none"
 									xmlns="http://www.w3.org/2000/svg">
                   <path d="M2 5.42857L6.36364 10L14 2"
 										stroke="currentColor" stroke-width="3" stroke-linecap="round" />
-                </svg> 경기도 성남시 분당구</li>
+                </svg> ${rcdto.cp_address}</li>
 						</ul>
 					</div>
 					<div class="text-center">
 						<a
 							class="btn btn-primary h-[48px] w-full rounded-[50px] leading-[30px]"
-							href="#">지원하러 가기</a>
+							href="${rcdto.rcrt_link}">지원하러 가기</a>
 
 					</div>
 				</div>
-				<%
-				}
-				%>
+			</c:forEach>
+    							<%--  </c:forEach> --%>
+		
+				<c:if test="${dto.com_rcrt_cnt ==0}">
+					<span class="px-8 py-10 lg:-mt-16 h-[48px]" style="color:#595959; font-size:18px;">
+						" 현재 모집중인 채용공고가 없습니다. "
+					</span>
+				</c:if>
 			</div>
 			<!-- div:recruit -->
 			<span class="menu">기업 키워드</span>
 			<div id="keyword">
-				<%
-				for (int i = 0; i < 7; i++) {
-				%>
-				<div>🍽️밥이 맛있어요!</div>
-				<div>😱꼰대가 많아도 너무 많아요!</div>
-				<%
-				}
-				%>
+			<c:forEach items="${listReview}" var="tdto">
+			
+				<div>${tdto.tag_keyword}</div>
+			
+			</c:forEach>
 			</div>
 			<span class="menu">기업 리뷰 보기</span>
 
-			<button id="add_review">리뷰 쓰러가기</button>
+			<a id="add_review"
+				href="/good/user/company/review/addreview.do?cp_seq=${dto.cp_seq}&word=${map.word}&search=${map.search}&hiring=${map.hiring}&page=${nowPage}">리뷰 쓰러가기</a>
+			
+			
+			
 			<div id="review">
-				<%
-				for (int i = 0; i < 3; i++) {
-				%>
+			<c:forEach items="${listReview}" var="rdto">
 				<div id="review_content">
-					<div id="oneline">전체적으로 좋았지만 오래 다니기는 싫은 회사</div>
+					<div id="oneline">"${rdto.linereview}"</div>
 					<div id="score">
 						<div class="score_rating"id="score_detail">
 							<div id="salary_score">
-								<span id="salary_review">연봉 </span><br /> <i
-									class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i>
-								<i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i>
-								<i class="fa-solid fa-star"></i>
+								<span id="salary_review">연봉 </span><br />
+								<c:forEach var="i" begin="1" end="${rdto.salary_score}">
+        							<i class="fa-solid fa-star"></i>
+    							 </c:forEach>
 							</div>
 							<div class="score_rating" id="welfare_score">
 								<span id="welfare_review">복지 </span> <br />
-								<i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i>
-								<i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i>
-								<i class="fa-solid fa-star"></i>
+								<c:forEach var="i" begin="1" end="${rdto.welfare_score}">
+        							<i class="fa-solid fa-star"></i>
+    							 </c:forEach>
 							</div>
 							<div  class="score_rating" id="ingvt_score">
 								<span id="ingvt_review">근무 안정성 </span> <br />
-								<i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i>
-								<i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i>
-								<i class="fa-solid fa-star"></i>
+								 <c:forEach var="i" begin="1" end="${rdto.lngvt_score}">
+        							<i class="fa-solid fa-star"></i>
+    							 </c:forEach>
 							</div>
 							<div class="score_rating" id="culture_score">
-								<span id="culture_review">조직문화</span> <br /> <i
-									class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i>
-								<i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i>
-								<i class="fa-solid fa-star"></i>
+								<span id="culture_review">조직문화</span> <br /> 
+								 <c:forEach var="i" begin="1" end="${rdto.culture_score}">
+        							<i class="fa-solid fa-star"></i>
+    							 </c:forEach>
 							</div>
 							<div class="score_rating" id="growth_score">
-								<span id="growth_review">성장 가능성 <br /></span> <i
-									class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i>
-								<i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i>
-								<i class="fa-solid fa-star"></i>
+								<span id="growth_review">성장 가능성 <br /></span> 
+								 <c:forEach var="i" begin="1" end="${rdto.growth_score}">
+        								<i class="fa-solid fa-star"></i>
+    							 </c:forEach>
+								
 							</div>
 							<div class="score_rating" id="total_score">
 								<span id="total_review">총 평점 </span> <br />
@@ -684,45 +699,15 @@ h3 > #scrap {
 						<i class="fa-regular fa-thumbs-up"></i> 이런 부분은 좋았아요.
 					</div>
 					<div class="goodbad">
-						<div id="good">But I must explain to you how all this
-							mistaken idea of denouncing pleasure and praising pain was born
-							and I will give you a complete account of the system, and expound
-							the actual teachings of the great explorer of the truth, the
-							master-builder of human happiness. No one rejects, dislikes, or
-							avoids pleasure itself, because it is pleasure, but because those
-							who do not know how to pursue pleasure rationally encounter
-							consequences that are extremely painful. Nor again is there
-							anyone who loves or pursues or desires to obtain pain of itself,
-							because it is pain, but because occasionally circumstances occur
-							in which toil and pain can procure him some great pleasure. To
-							take a trivial example, which of us ever undertakes laborious
-							physical exercise, except to obtain some advantage from it? But
-							who has any right to find fault with a man who chooses to enjoy a
-							pleasure that has no annoying consequences, or one who avoids a
-							pain that produces no resultant pleasure?"</div>
+						<div id="good">${rdto.good}</div>
 						<div class="goodbad_title" id="bad_title">
 							<i class="fa-regular fa-thumbs-down"></i> 이런 부분은 아쉬웠어요.
 						</div>
-						<div id="bad">"At vero eos et accusamus et iusto odio
-							dignissimos ducimus qui blanditiis praesentium voluptatum
-							deleniti atque corrupti quos dolores et quas molestias excepturi
-							sint occaecati cupiditate non provident, similique sunt in culpa
-							qui officia deserunt mollitia animi, id est laborum et dolorum
-							fuga. Et harum quidem rerum facilis est et expedita distinctio.
-							Nam libero tempore, cum soluta nobis est eligendi optio cumque
-							nihil impedit quo minus id quod maxime placeat facere possimus,
-							omnis voluptas assumenda est, omnis dolor repellendus. Temporibus
-							autem quibusdam et aut officiis debitis aut rerum necessitatibus
-							saepe eveniet ut et voluptates repudiandae sint et molestiae non
-							recusandae. Itaque earum rerum hic tenetur a sapiente delectus,
-							ut aut reiciendis voluptatibus maiores alias consequatur aut
-							perferendis doloribus asperiores repellat."</div>
+						<div id="bad">${rdto.bad}</div>
 
 					</div>
 				</div>
-				<%
-				}
-				%>
+				</c:forEach>
 			</div>
 		</div>
                         
@@ -731,12 +716,7 @@ h3 > #scrap {
                         
                         </section>
 	
-	
-	
-	
-	
-	
-	
+
 		
 		<!--div:company-Info  -->
 
@@ -838,6 +818,8 @@ h3 > #scrap {
 			scrollToBottom();
 		};
 		
+		
+}
 	</script>
 </body>
 </html>

@@ -14,22 +14,25 @@ import org.json.simple.JSONObject;
 import com.good.user.model.UserDTO;
 import com.good.user.repository.UserDAO;
 
-@WebServlet("/user/getid.do")
-public class GetId extends HttpServlet {
+@WebServlet("/user/changepw.do")
+public class ChangePw extends HttpServlet {
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String id = req.getParameter("id");
+		String pw = req.getParameter("pw");
+		
+	    System.out.println("POST ID: " + id);
+	    System.out.println("POST PW: " + pw);
+		
 
-		String name = req.getParameter("name");
-		String tel = req.getParameter("tel");
-		
-		UserDTO dto = new UserDTO();
 		UserDAO dao = new UserDAO();
+		UserDTO dto = new UserDTO();
 		
-		dto.setName(name);
-		dto.setTel(tel);
+		dto.setId(id);
+		dto.setPw(pw);
 		
-		String result = dao.getId(dto);
+		int result = dao.changePw(dto);
 		
 		JSONObject obj = new JSONObject();
 		
@@ -38,6 +41,7 @@ public class GetId extends HttpServlet {
 		PrintWriter writer = resp.getWriter();
 		writer.print(obj);
 		writer.close();
-		
+
 	}
+
 }
