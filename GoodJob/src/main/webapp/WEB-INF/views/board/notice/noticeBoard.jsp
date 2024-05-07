@@ -61,8 +61,10 @@
 									</c:if>
 									<div class="InpBox">
 										<select class="sorting" name="sort" id="sort">
-											<option value="RD" selected>최신순</option>
-											<option value="EA">과거순</option>
+											<option value="latest"
+												<c:if test="${param.sort == 'latest' || empty param.sort}">selected</c:if>>최신순</option>
+											<option value="oldest"
+												<c:if test="${param.sort == 'oldest'}">selected</c:if>>과거순</option>
 										</select>
 									</div>
 								</div>
@@ -83,7 +85,7 @@
 													<div class="qnalist job_tit">
 														<a class="str_tit_title new" id="rec_link_48103333"
 															onclick=""
-															href="/good/board/notice/notice.do?nt_seq=${dto.nt_seq}"
+															href="/good/board/notice/viewnotice.do?nt_seq=${dto.nt_seq}"
 															target="_blank" onmousedown=""><span>${dto.nt_content}</span></a>
 													</div>
 												</div>
@@ -123,7 +125,32 @@
 		</nav>
 	</section>
 	<%@include file="/WEB-INF/views/inc/footer.jsp"%>
+	
+	<script>
+	$(document).ready(function() {
+			  $("#sort").change(function() {
+			    var selectedSort = $(this).val();
+			    $.ajax({
+			      url: "/good/board/notice.do",
+			      method: "GET",
+			      data: { 
+			        sort: selectedSort,
+			        page: ${nowPage},
+			        column: '${map.column}',
+			        word: '${map.word}'
+			      },
+			      success: function(response) {
+			    	  
+			        $(".list_body").html($(response).find(".list_body").html());
+			        $(".pagination").html($(response).find(".pagination").html());
+			      },
+			      error: function(a, b, c) {
+			        console.log(a,b,c);
+			      }
+			    });
+			  });
+			});
+	</script>
 
 </body>
-
 </html>

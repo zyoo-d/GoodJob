@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.good.board.model.NoticeDTO;
 import com.good.board.repository.NoticeDAO;
 
-@WebServlet("/board/notice/notice.do")
+@WebServlet("/board/notice/viewnotice.do")
 public class ViewNotice extends HttpServlet {
 
 	@Override

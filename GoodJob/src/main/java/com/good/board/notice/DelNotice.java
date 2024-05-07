@@ -17,8 +17,10 @@ public class DelNotice extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		String seq = (String) req.getAttribute("nt_seq");
-		System.out.println(seq);
+		String seq = req.getParameter("nt_seq");
+		System.out.println("delNotice" + seq);
+		
+		
 		NoticeDAO dao = new NoticeDAO();
 		
 		int result = dao.delNotice(seq);

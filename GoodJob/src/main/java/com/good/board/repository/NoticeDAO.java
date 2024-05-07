@@ -74,7 +74,6 @@ public class NoticeDAO {
 		try {
 
 			String where = "";
-			System.out.println(map.get("column"));
 			
 			if (map.get("search").equals("y")) {
 				where = String.format("where %s like '%%%s%%'", map.get("column"), map.get("word"));
@@ -83,8 +82,8 @@ public class NoticeDAO {
 			String sql = "";
 			
 			sql = String.format(
-					"select * from (select a.*, rownum as rnum from vwNotice a %s) where rnum between %s and %s",
-					where, map.get("begin"), map.get("end"));
+					"select * from (select a.*, rownum as rnum from vwNotice a %s order by %s) where rnum between %s and %s",
+					where, map.get("sort"), map.get("begin"), map.get("end"));
 			stat = conn.createStatement();
 			rs = stat.executeQuery(sql);
 			
@@ -151,7 +150,7 @@ public class NoticeDAO {
 			String sql = "delete from tblNotice where nt_seq = ?";
 
 			pstat = conn.prepareStatement(sql);
-			pstat.setString(1, "seq");
+			pstat.setString(1, seq);
 
 			return pstat.executeUpdate();
 
