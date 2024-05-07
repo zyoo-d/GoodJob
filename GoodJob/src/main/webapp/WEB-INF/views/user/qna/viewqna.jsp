@@ -48,7 +48,7 @@
      <div class="card-content-wrapper">
 					<div class="card-content">
 						<div class="px-4 text-center">
-            <h1 class="mt-3 gradiTitle"><span>여기어때</span></h1>
+            <h1 class="mt-3 gradiTitle"><span onclick="location.href='/good/user/qna/listqna.do';">여기어때</span></h1>
             <p class="mt-6">궁금한 기업에 대한 정보를 물어보세요.</p>
           </div>
     
@@ -75,7 +75,7 @@
 					<button type="button" class="" value="수정" onclick="location.href='/good/user/qna/editqna.do?qna_seq=${dto.qna_seq}';">(수정</button>
 					<button type="button" class="" value="삭제" onclick="location.href='/good/user/qna/delqna.do?qna_seq=${dto.qna_seq}';">/ 삭제)</button>
 					</c:if>
-					<p class="view-count"><i class="fa-regular fa-eye"></i> 400</p>
+					<p class="view-count"><i class="fa-regular fa-eye"></i> ${dto.qna_views}</p>
 					<form action="#" method="POST" id="report-form">
 						<input type="hidden" name="member_id" value="${dto.id}"> 
 						<input type="hidden" name="post_id" value="${dto.qna_seq}">
@@ -86,9 +86,7 @@
 				</div>
 				 </div>
            <div class="moving-btn">
-  <a href="#" class="btn btnBefore">이전글</a>
   <a href="/good/user/qna/listqna.do" class="btn btnList">목록으로</a>
-  <a href="#" class="btn btnNext">다음글</a>
 </div>
  </div>
             			
