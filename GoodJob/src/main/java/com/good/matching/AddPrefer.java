@@ -102,6 +102,8 @@ public class AddPrefer extends HttpServlet {
 				System.out.println(sum);
 			}
 		}
+		
+		String edit = req.getParameter("edit");
 
 		// 정확도 = sum > 60% 아래면 return
 		if (sum < 50) {
@@ -115,17 +117,22 @@ public class AddPrefer extends HttpServlet {
 			writer.close();
 			
 		} else {
+			
+			PreferDTO dto = new PreferDTO();
+			PreferDAO dao = new PreferDAO();
+			
+			HttpSession session = req.getSession();
+			String id = (String) session.getAttribute("id");
+			
+			if(edit.equals("Y")) {
+				dao.delPrefer(id);
+			}
+			
 			int sal = sal_stab + sal_wel + sal_cul + sal_pot;
 			int wel = wel_sal + wel_pot + wel_cul + wel_stab;
 			int stab = stab_pot + stab_wel + stab_cul + stab_sal;
 			int cul = cul_sal + cul_stab + cul_pot + cul_wel;
 			int pot = pot_cul + pot_wel + pot_sal + pot_stab;
-
-			PreferDTO dto = new PreferDTO();
-			PreferDAO dao = new PreferDAO();
-
-			HttpSession session = req.getSession();
-			String id = (String) session.getAttribute("id");
 
 			dto.setId(id);
 			dto.setSalary(sal);
@@ -142,9 +149,6 @@ public class AddPrefer extends HttpServlet {
 			} else {
 				Alert.fail(resp);
 			}
-
 		}
-
 	}
-
 }

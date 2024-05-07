@@ -17,5 +17,6 @@ public class QnaBoardDTO{
 	private String cp_name;
 	private int qna_views;
 	private int qna_comments;
+	private String rnum;
 
 }

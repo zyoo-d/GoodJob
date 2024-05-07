@@ -156,7 +156,7 @@
 							<i class="fas fa-cog"></i> Mypage
 						</a>
 						<div class="dropdown-divider"></div>
-						<a href="#" class="dropdown-item has-icon text-danger"> <i
+						<a href="/good/user/logout.do" class="dropdown-item has-icon text-danger"> <i
 							class="fas fa-sign-out-alt"></i> Logout
 						</a>
 					</div></li>
@@ -188,14 +188,14 @@
 							<li><a class="nav-link" href="/good/heeyeon/review.jsp">기업리뷰</a></li>
 							<li><a class="nav-link" href="/good/heeyeon/interview.jsp">면접후기</a></li>
 							<li><a class="nav-link" href="/good/user/mypage/mystudy.do">스터디</a></li>
-							<li><a class="nav-link" href="/good/heeyeon/qna.jsp">여기어때?</a></li>
+							<li><a class="nav-link" href="/good/user/mypage/myqna.do">여기어때?</a></li>
 						</ul></li>
 					<li class="dropdown"><a href="#" class="nav-link has-dropdown"><i
 							class="far fa-thumbs-up"></i> <span>굿잡forU</span></a>
 						<ul class="dropdown-menu">
-							<li><a class="nav-link" href="/good/user/matching/viewwish.do">선호근무조건 입력/관리</a></li>
+							<li><a class="nav-link" href="/good/user/matching/viewwish.do?mypage=Y">선호근무조건 입력/관리</a></li>
 							<c:if test="${prefer==null||prefer=='0'}"><li><a class="nav-link" href="/good/user/matching/viewsurvey.do">굿잡forU 검사하기</a></li></c:if>
-							<c:if test="${prefer=='1'}"><li><a class="nav-link" href="/good/user/matching/viewsurvey.do">굿잡forU 검사하기</a></li></c:if>
+							<c:if test="${prefer=='1'}"><li><a class="nav-link" href="/good/user/matching/viewsurvey.do?mypage=Y">굿잡forU 재검사하기</a></li></c:if>
 							<li><a class="nav-link" href="">검사 결과보기</a></li>
 						</ul>
 			</aside>

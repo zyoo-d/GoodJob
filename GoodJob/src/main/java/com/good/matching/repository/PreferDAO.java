@@ -45,4 +45,19 @@ public class PreferDAO {
 		}
 		return 0;
 	}
+	public void delPrefer(String id) {
+		try {
+			String sql = "delete from tbluserprefer where id = ?";
+
+			pstat = conn.prepareStatement(sql);
+			pstat.setString(1, id);
+			pstat.executeUpdate();
+			pstat.close();
+
+		} catch (Exception e) {
+			System.out.println("PreferDAO.delPrefer");
+			e.printStackTrace();
+		}
+		
+	}
 }

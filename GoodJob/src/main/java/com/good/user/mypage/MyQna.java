@@ -1,8 +1,8 @@
 package com.good.user.mypage;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 
 import javax.servlet.RequestDispatcher;
@@ -13,11 +13,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.good.board.model.StudyDTO;
-import com.good.board.repository.StudyDAO;
+import com.good.board.model.QnaBoardDTO;
+import com.good.board.repository.QnaBoardDAO;
 
-@WebServlet("/user/mypage/mystudy.do")
-public class MyStudy extends HttpServlet {
+@WebServlet("/user/mypage/myqna.do")
+public class MyQna extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -51,29 +51,39 @@ public class MyStudy extends HttpServlet {
 		map.put("end", end + "");
 		map.put("id", id);
 
-		StudyDAO dao = new StudyDAO();
+		QnaBoardDAO dao = new QnaBoardDAO();
 
-		ArrayList<StudyDTO> list = dao.myStudy(map);
+		ArrayList<QnaBoardDTO> list = dao.myQna(map);
 
-		for (StudyDTO dto : list) {
+		for (QnaBoardDTO dto : list) {
 			// 제목 자르기
-			String subject = dto.getStd_title();
+			String subject = dto.getQna_title();
 			if (subject.length() > 10) {
 				subject = subject.substring(0, 8) + "..";
 			}
 			// 제목 > 태그 > 이스케이프
 			subject = subject.replace(">", "&gt;").replace("<", "&lt;");
-			dto.setStd_title(subject);
-
+			dto.setQna_title(subject);
+			
+			// 내용 자르기
+			String content = dto.getQna_content();
+			if (content.length() > 10) {
+				content = content.substring(0, 10) + "..";
+			}
+			// 내용 > 태그 > 이스케이프
+			content = content.replace(">", "&gt;").replace("<", "&lt;");
+			dto.setQna_content(content);
+			
 			// 날짜 자르기
-			String duedate = dto.getStd_duedate().substring(0, 10);
-			dto.setStd_duedate(duedate);
-			String regdate = dto.getStd_regdate().substring(0, 10);
-			dto.setStd_regdate(regdate);
+			/*
+			 * SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); String
+			 * formattedDate = sdf.format(dto.getQna_regdate());
+			 * dto.setQna_regdate(formattedDate);
+			 */
 		}
 
 		// 총 게시물 수
-		totalCount = dao.getCount(id);
+		totalCount = dao.getMyCount(id);
 		totalPage = (int) Math.ceil((double) totalCount / pageSize);
 
 		// 페이지 바 작업
@@ -88,18 +98,16 @@ public class MyStudy extends HttpServlet {
 					"<li class='page-item disabled'><a class='page-link' href='#' aria-label='Previous'> <span aria-hidden='true'>&laquo;</span> <span class='sr-only'>이전페이지</span> </a></li>");
 		} else if (n > 3) {
 			sb.append(String.format(
-					"<li class='page-item'><a class='page-link' href='/good/user/mypage/mystudy.do?page=%d' aria-label='Previous'> <span aria-hidden='true'>&laquo;</span> <span class='sr-only'>이전페이지</span> </a></li>",
+					"<li class='page-item'><a class='page-link' href='/good/user/mypage/myqna.do?page=%d' aria-label='Previous'> <span aria-hidden='true'>&laquo;</span> <span class='sr-only'>이전페이지</span> </a></li>",
 					n - 1));
 		}
 
 		while (!(loop > blockSize || n > totalPage)) {
 			if (n == nowPage) {
-				sb.append(String.format(
-						"<li class='page-item active'><a class='page-link' href='#'>%d</a></li>",
-						n));
+				sb.append(String.format("<li class='page-item active'><a class='page-link' href='#'>%d</a></li>", n));
 			} else {
 				sb.append(String.format(
-						"<li class='page-item'><a class='page-link' href='/good/user/mypage/mystudy.do?page=%d'>%d</a></li>",
+						"<li class='page-item'><a class='page-link' href='/good/user/mypage/myqna.do?page=%d'>%d</a></li>",
 						n, n));
 			}
 			loop++;
@@ -112,7 +120,8 @@ public class MyStudy extends HttpServlet {
 					"<li class='page-item disabled'><a class='page-link' href='#' aria-label='Next'> <span aria-hidden='true'>&raquo;</span> <span class='sr-only'>다음페이지</span> </a></li>");
 		} else {
 			sb.append(String.format(
-					"<li class='page-item'><a class='page-link' href='/good/user/mypage/mystudy.do?page=%d' aria-label='Next'> <span aria-hidden='true'>&raquo;</span> <span class='sr-only'>다음페이지</span> </a></li>", n));
+					"<li class='page-item'><a class='page-link' href='/good/user/mypage/myqna.do?page=%d' aria-label='Next'> <span aria-hidden='true'>&raquo;</span> <span class='sr-only'>다음페이지</span> </a></li>",
+					n));
 		}
 		req.setAttribute("list", list);
 		req.setAttribute("map", map);
@@ -120,8 +129,8 @@ public class MyStudy extends HttpServlet {
 		req.setAttribute("totalCount", totalCount);
 		req.setAttribute("totalPage", totalPage);
 		req.setAttribute("pagebar", sb.toString());
-		dao.close();
-		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/user/mypage/mystudy.jsp");
+
+		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/user/mypage/myqna.jsp");
 		dispatcher.forward(req, resp);
 
 	}
