@@ -79,21 +79,23 @@
 								<label class="itv-label" for="name">전반적 평가</label>
 								<div class="itv-toolbar">
 									<input type="radio" id="opinion1" name="opinion" value="1">
-									<label for="opinion1">긍정적</label> <input type="radio"
-										id="opinion2" name="opinion" value="2"> <label
-										for="opinion2">보통</label> <input type="radio" id="opinion3"
-										name="opinion" value="3"> <label for="opinion3">부정적</label>
+										<label for="opinion1"> 긍정적</label> 
+									<input type="radio" id="opinion2" name="opinion" value="2">
+										<label for="opinion2">보통</label>
+									<input type="radio" id="opinion3" name="opinion" value="3"> 
+								 		<label for="opinion3">부정적</label>
 								</div>
 
 							</div>
 							<div class="itvCpContent">
 								<label class="itv-label" for="name">난이도</label>
 								<div class="itv-toolbar">
-									<input type="radio" id="opinion1" name="opinion" value="1">
-									<label for="opinion1">쉬움</label> <input type="radio"
-										id="opinion2" name="opinion" value="2"> <label
-										for="opinion2">보통</label> <input type="radio" id="opinion3"
-										name="opinion" value="3"> <label for="opinion3">어려움</label>
+									<input type="radio" id="opinion4" name="difficulty" value="1">
+										<label for="opinion4">쉬움</label> 
+									<input type="radio" id="opinion5" name="difficulty" value="2"> 
+										<label for="opinion5">보통</label> 
+									<input type="radio" id="opinion6" name="difficulty" value="3"> 
+										<label for="opinion6">어려움</label>
 								</div>
 
 							</div>

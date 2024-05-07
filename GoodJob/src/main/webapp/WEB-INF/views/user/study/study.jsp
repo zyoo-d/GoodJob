@@ -54,8 +54,8 @@
 					<div class="comment-list">
 						<form>
 							<div class="add-comment">
-								<span><input type="text" placeholder="댓글을 입력하세요"></span>
-								<button type="button" class="btn btnAddComment"">
+								<span><input type="text" id="commentContent" placeholder="댓글을 입력하세요"></span>
+								<button type="button" class="btn btnAddComment">
 									<span class="material-symbols-outlined">done_outline</span>
 								</button>
 							</div>
@@ -70,7 +70,7 @@
 										<th>댓글정보</th>
 									</tr>
 									<tr>
-										<td class="comment-num">1</td>
+										<td class="comment-num" id="commentNum">1</td>
 										<td class="commentContent">
 											<p>content</p>
 										</td>
@@ -104,7 +104,36 @@
 
 	<%@include file="/WEB-INF/views/inc/footer.jsp"%>
 	<script>
-		
+	$(document).ready(function() {
+	    $(".btnAddComment").click(function() {
+	        submitComment(); // 클릭 시 AJAX를 통해 댓글을 제출하는 함수를 호출합니다.
+	    });
+	});
+
+	function submitComment() {
+	    var commentContent = $("#commentContent").val(); // 댓글 내용을 입력 받는 input 필드의 id가 "commentContent"로 가정합니다.
+	    var id = "<%= session.getAttribute("id") %>"; 
+	    var currentDate = new Date().toISOString(); // 현재 날짜와 시간을 ISO 형식으로 변환합니다.
+	    $.ajax({
+	        type: "POST",
+	        url: "/good/study.do", // 백엔드 서블릿/컨트롤러의 URL
+	        data: {
+	            content: commentContent,
+	            id: id,
+	            currentDate: currentDate
+	        }, // 댓글 내용과 함께 글 번호, 사용자 ID, 작성일자를 서버로 전송합니다.
+	        success: function(response) {
+	        	
+	            // 응답에는 JSON 형식으로 새로 삽입된 댓글 데이터가 포함됩니다.
+	            var newComment = response;
+	            // 새로운 댓글을 동적으로 댓글 섹션에 추가합니다.
+	            // jQuery를 사용하여 새로운 댓글을 HTML로 만들고 댓글 섹션에 추가합니다.
+	        },
+	        error: function(xhr, status, error) {
+	            console.error("댓글 제출 중 오류가 발생했습니다:", error);
+	        }
+	    });
+	}
 	</script>
 </body>
 </html>

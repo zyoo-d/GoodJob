@@ -1381,26 +1381,59 @@ display: flex;
 .itvCard {
 	margin: auto;
 	height: auto;
-	width: 1000px;
+	width: 900px;
 	margin-bottom: 30px;
 	min-height: auto;
+	border: 1px solid #3741C4;
+	margin-left: 47px;
+	
 }
 
 #itvImg {
-	width: 150px;
-	height: 150px;
+	width: 80px;
+	height: 80px;
+}
+.itvCardTags{
+
+	position: absolute;
+    right: 2.5rem;
+    top: 2.5rem;
+    z-index: 1;
+    margin-bottom: 1.5rem;
+
 }
 
-.card-tags i {
+
+.itvCardTags i {
 	position: relative;
-	top: 210px;
+	top: 60px;
 	cursor: pointer;
 }
+
+.itvCardTags a{
+	position: relative;
+	left: 40px;
+	bottom: 25px;
+	
+}
+
 
 
 .itvDetail {
 	display: none;
-	color: blue;
+}
+.itvDetail span p{
+	color: #888;
+}
+.itvDetailInfoTitle {
+	float: left;
+	width: 180px;
+	color: #222;
+}
+
+.itvDetail p{
+	overflow: hidden;
+    padding: 6px 0;
 }
 
 .itvdropdownContent {
@@ -1424,8 +1457,8 @@ display: flex;
 
 
 .cpCimg img {
-	max-width: 100px;
-	max-height: 100px;
+	max-width: 70px;
+	max-height: 70px;
 }
 
 .cpcCpChart {
@@ -1478,12 +1511,13 @@ display: flex;
 
 .smallradarChart {
 	width: 200px;
-	height: 200px;
+	height: 150px;
 	margin: auto;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	margin-bottom: 20px;
+	margin-top: 10px;
 }
 
 .cpsCard {
