@@ -73,7 +73,7 @@
 					<p class="write-date"><fmt:formatDate value="${dto.qna_regdate}" pattern="yyyy-MM-dd HH:mm:ss"/></p>
 					<c:if test="${not empty id && (dto.id == id || lv == '2') }">
 					<button type="button" class="" value="수정" onclick="location.href='/good/user/qna/editqna.do?qna_seq=${dto.qna_seq}';">(수정</button>
-					<button type="button" class="" value="삭제" onclick="location.href='/good/user/qna/delqna.do?qna_seq=${dto.qna_seq}';">/ 삭제)</button>
+					<button type="button" class="" value="삭제" onclick="confirmDelete(${dto.qna_seq});">/ 삭제)</button>
 					</c:if>
 					<p class="view-count"><i class="fa-regular fa-eye"></i> ${dto.qna_views}</p>
 					<form action="#" method="POST" id="report-form">
@@ -158,12 +158,17 @@
 </section>
 
 
-
-
-
 <%@include file="/WEB-INF/views/inc/footer.jsp" %>
 
 <script>
+
+function confirmDelete(qna_seq) {
+    if (confirm("삭제하시겠습니까?")) {
+        location.href = '/good/user/qna/delqna.do?qna_seq=' + qna_seq;
+    }
+}
+
+
 </script>
 </body>
 </html>
