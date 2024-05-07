@@ -550,5 +550,9 @@
 			</div>
 		</section>
 	</div>
+		<%@include file="/WEB-INF/views/inc/footer.jsp"%>
+	<script>
+	
+	</script>
 </body>
 </html>

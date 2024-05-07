@@ -27,10 +27,9 @@
                 <div class="card-wrap">
                   <div class="card-header">
                     <h4>일일 방문자</h4>
-                    
                   </div>
                   <div class="card-body">
-                    300
+                  	
                   </div>
                 </div>
               </div>

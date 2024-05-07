@@ -64,23 +64,15 @@
 .hiring {
 	position: absolute;
 	right: 0;
-	border: 1px solid tomato;
-	padding: 2px 5px;
-	border-radius: 5px;
-	color: tomato;
-	font-size: 0.7rem;
+	bottom: 3px;
 }
 
 #filterHire {
 	position: absolute;
 	right: 0;
-	border: 1px solid tomato;
-	padding: 3px 8px 5px 8px;
-	color: tomato;
-	font-size: 0.9rem;
+	font-size: 1rem;
 	margin: 3px 15px 0px 0px;
-	line-height: 1.5;
-	cursor: pointer;
+	height: 2.2rem;
 }
 
 #mainCard h3 {
@@ -184,7 +176,11 @@
 	border-radius: 4px;
 	overflow: hidden;
 }
-
+.optionRegion.com-list, .optionRegion.rcrt-list{
+		display: block;
+		width: 100%;
+		border:none;
+}
 .region-list {
 	width: 100%; /* 전체 너비 사용 */
 	max-height: 240px;
@@ -302,7 +298,7 @@
 }
 
 .default_table th, .default_table td {
-	padding: 10px;
+	padding: 10px 20px;
 	border: 1px solid #ccc;
 	vertical-align: top;
 }
@@ -364,6 +360,10 @@
 	margin: 0;
 	cursor: pointer;
 }
+.category-list.industry {
+	min-width: 180px;
+	max-width:180px;
+}
 
 .tag-group input[type="checkbox"] {
 	display: none;
@@ -400,23 +400,23 @@
 
 .com-tag {
     display: flex;
-    flex-direction: column; /* Ensures the children are stacked vertically */
-    height: inherit; /* Set a fixed height if needed, or make sure it inherits properly */
+    flex-direction: column;
+    height: inherit;
 }
 
 .click-tag {
-    flex: 8; /* Takes up 80% of the space */
+    flex: 8;
 }
 
 .add-tag-text {
-    flex: 2; /* Takes up 20% of the space */
+    flex: 2; 
 }
 
 .submit-info {
-    width: 100%; /* Ensure the container takes full width */
-    text-align: center; /* Center-align the text inside the container */
-    padding: 20px; /* Optional: Adds padding around the text for better spacing */
-    margin-top: 20px; /* Optional: Adds space above the container if needed */
+    width: 100%;
+    text-align: center; 
+    padding: 20px;
+    margin-top: 20px;
 }
 
 /*-------------------------------------------------------------*/
@@ -443,6 +443,8 @@
 .add-qna-write {
 	display: inline-block;
 }
+
+
 
 textarea {
 	width: 90%;
@@ -477,17 +479,28 @@ textarea:focus {
 .textarea-group {
 	margin-bottom: 0;
 }
-
-.textarea-group textarea, .view-form .company, .view-form .title {
+.textarea-group textarea {
 	width: 100%;
-	padding: 10px;
-	border: 1px solid #ddd;
-	border-radius: 5px;
-	resize: none;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    resize: none;
+	
+	
+	
+}
+
+
+
+.view-form .company, .view-form .title {
+    width: 100%;
+    padding: 11.5px;
+    border: 1px solid #ddd;
+    border-radius: 0 5px 5px 0;
+    resize: none;
 }
 
 .view-form .company, .view-form .title {
-	margin-top: 5px;
 	font-size: 18px;
 	color: #595959;
 }
@@ -576,7 +589,34 @@ textarea:focus {
 	border-bottom: 1px solid #ccc;
 	margin-bottom: 15px;
 }
+.compare-button {
+    margin: 3px; /* Adjust spacing between the label and button */
+    position: relative; /* Set relative positioning for the tooltip to position correctly */
 
+	cursor: pointer;
+	font-size: 0.9rem;
+    border-radius: 5px;
+	padding: 0.3rem 10px;
+	
+	background-color: #FFF;
+    color: #6777EE;
+        border: 1px solid #6777EE;
+}
+
+.compare-button:hover::after {
+    content: "3개의 기업을 선택하여 비교할 수 있습니다";
+    position: absolute;
+    white-space: nowrap;
+    background-color: #f4f4f4;
+    color: #535353;
+    padding: 5px 10px;
+    margin-left: 5px;
+    border-radius: 6px;
+    top: -40px;
+    left: 50%; 
+    transform: translateX(-50%);
+    z-index: 1;
+}
 .com-name {
 	font-size: 1.1rem;
 	color: #707070;
@@ -594,7 +634,7 @@ textarea:focus {
 }
 
 .qna-add-date, .recruit-end-date {
-	font-size: 15px;
+	font-size: 14px;
 	margin-right: 8px;
 }
 
@@ -611,6 +651,18 @@ textarea:focus {
 	line-height: 40px;
 	margin-right: 10px;
 	text-align: center;
+}
+/* qna 조회수 댓글수 */
+.views-comments{
+	font-size: 14px;
+}
+
+.views-comments i{
+	font-size: 14px;
+	margin-right: 5px; 
+}
+.fa-comment{
+	margin-left: 7px;
 }
 
 .job_sector {
@@ -635,7 +687,9 @@ textarea:focus {
 	border-left: 2px solid #ccc;
 	padding-left: 20px;
 }
-
+.section.com-detail {
+	padding-bottom:0;
+}
 .support_detail {
 	text-align: right;
 	display: flex;
@@ -675,13 +729,29 @@ textarea:focus {
 	margin-bottom: 50px;
 }
 
+.list-header > .moving-btn{
+	margin-top: 0px;
+	margin-bottom: 0px;
+	margin-left: 15px;
+}
+
 .moving-btn .btn {
 	border-radius: 5px;
 	width: 100px;
 	height: 40px;
 }
 
-.moving-btn a {
+.moving-btn a, .moving-btn button {
+	padding: 5px 10px;
+	border: none;
+	border-radius: 5px;
+	background-color: #3656CB;
+	color: #fff;
+	cursor: pointer;
+	transition: background-color 0.3s;
+	line-height: 30px;
+}
+.moving-btn button {
 	padding: 5px 10px;
 	border: none;
 	border-radius: 5px;
@@ -692,20 +762,20 @@ textarea:focus {
 	line-height: 30px;
 }
 
-.moving-btn a:hover {
+.moving-btn a:hover, .moving-btn button:hover {
 	background-color: #5566cc;
 }
 
 /**/
 .InpBox {
-	margin-right: 5px;
-	border: 1px solid #BFBFBF;
-	border-radius: 6px;
-	overflow: hidden;
-	background-color: white;
-	position: relative;
-	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-	width: auto;
+    margin: 5px 15px;
+    border: 1px solid #BFBFBF;
+    border-radius: 6px;
+    overflow: hidden;
+    background-color: white;
+    position: relative;
+    /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); */
+    width: auto;
 }
 
 .InpBox select {
@@ -754,6 +824,7 @@ textarea:focus {
 
 .list-title {
 	margin-left: 10px;
+	margin-top: 10px;
 }
 
 .com-list.list-title {
@@ -770,15 +841,15 @@ textarea:focus {
 }
 /*검색폼*/
 #searchForm {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	background: #FFFFFF;
-	padding: 10px 20px;
-	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-	border-radius: 25px;
-	width: 50%;
-	margin: 20px auto;
+display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #FFFFFF;
+    /* padding: 10px 20px; */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    width: 50%;
+    margin: 20px auto;
 }
 
 #searchForm .input {
@@ -825,7 +896,30 @@ textarea:focus {
 #detail-search-btn:hover, #btn-detail:hover {
 	background-color: #5566cc;
 }
+.addqna-form {
+    display: flex;
+    align-items: center;
+    width: 100%; 
+    margin-bottom: 8px;
+}
 
+#write-company, #write-title {
+    /* margin-right: 8px; */
+    white-space: nowrap;
+    font-size: 20px;
+    border: 1px solid #ddd;
+    padding: 7px 14px;
+    border-radius: 5px 0 0 5px;
+    border-right: hidden;
+    background-color: #E0E3EA;
+    min-width: 80px;
+    text-align: center;
+}
+
+
+#write-form{
+	width:100%;
+}
 /*드롭다운 형식 검색*/
 .dropdown-content.addqna {
 	position: absolute;
@@ -855,7 +949,7 @@ textarea:focus {
 }
 
 .dropdown-content.addqna .dropdown-item:hover {
-	background-color: #f9f9f9;
+	background-color: #e5e7eb;
 }
 
 .view-form.qnaview p {
@@ -873,10 +967,10 @@ textarea:focus {
 
 .view-form.addqna {
 	position: relative;
+	width:100%
 }
 
 .view-form.addqna .company, .view-form.addqna .title {
-	margin-top: 5px;
 	font-size: 18px;
 	color: #595959;
 }
@@ -1227,7 +1321,7 @@ textarea:focus {
 	text-align: left;
 }
 
-#comment .commentContent {
+#comment .commentContent, .views {
 	font-size: 16px;
 	text-align: right;
 }
@@ -1415,3 +1509,14 @@ textarea:focus {
 	height: 23px;
 }
 
+/* 희연 */
+.min-w-90 {
+	min-width: 90px;
+	font-size: 0.9rem;
+	cursor: pointer;
+	text-align: center;
+}
+
+.studycard, #btnDelStudy {
+	cursor: pointer;
+}

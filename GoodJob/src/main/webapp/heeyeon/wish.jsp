@@ -133,17 +133,15 @@
 								<table class="default_table welfare_select_table"
 									id="welfareCheckboxes">
 									<colgroup>
-										<col style="width: 25%">
-										<col style="width: 25%">
-										<col style="width: 25%">
-										<col style="width: 25%">
+										<col style="width: 33.33%">
+										<col style="width: 33.33%">
+										<col style="width: 33.33%">
 									</colgroup>
 									<tbody>
 										<tr>
 											<th>지원금/보험</th>
 											<th>급여제도</th>
 											<th>출퇴근/근무제도</th>
-											<th>근무 환경</th>
 										</tr>
 										<tr>
 											<td>
@@ -402,7 +400,15 @@
 												</ul>
 											</td>
 
-											<td>
+											
+										</tr>
+										<tr>
+											<th>근무 환경</th>
+											<th>조직문화</th>
+											<th>교육/생활</th>
+										</tr>
+										<tr>
+										<td>
 												<ul class="chk_list">
 													<li class="chk_item"><span class="inpChk small">
 															<input type="checkbox" id="welfare_cd_corp444"
@@ -501,12 +507,6 @@
 													</span></li>
 												</ul>
 											</td>
-										</tr>
-										<tr>
-											<th>조직문화</th>
-											<th>교육/생활</th>
-										</tr>
-										<tr>
 											<td>
 												<ul class="chk_list">
 													<li class="chk_item"><span class="inpChk small">
