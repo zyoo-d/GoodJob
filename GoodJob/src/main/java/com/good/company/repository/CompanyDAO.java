@@ -20,8 +20,8 @@ public class CompanyDAO {
 	public CompanyDAO() {
 		this.conn = DBUtil.open();
 	}
-
 	public void close()  {
+
         try {
             this.conn.close();
         } catch (Exception e) {
@@ -181,17 +181,18 @@ public class CompanyDAO {
 				dto.setHire_retired(rs.getInt("hire_retired"));
 				dto.setHire_avr_year(rs.getInt("hire_avr_year"));
 				dto.setHire_avr_salary(rs.getInt("hire_avr_salary"));
-				//dto.setHire_regdate(rs.getString("hire_regdate"));
+				dto.setHire_regdate(rs.getString("hire_regdate"));
 				
 				
 				dto.setFnc_sales(rs.getLong("fnc_sales"));
 				dto.setFnc_ebit(rs.getLong("fnc_ebit"));
 				dto.setFnc_income(rs.getLong("fnc_income"));
 				dto.setFnc_period(rs.getString("fnc_period"));
-				//dto.setFnc_regdate(rs.getString("fnc_regdate"));
+				dto.setFnc_regdate(rs.getString("fnc_regdate"));
 				
 				dto.setCom_rcrt_cnt(rs.getInt("com_rcrt_cnt"));
 				dto.setCom_scrap_cnt(rs.getInt("com_scrap_cnt"));
+				//dto.setCom_scrap_cnt(rs.getInt("com_rv_cnt"));
 				
 				listCompanyInfo.add(dto);
 
@@ -218,12 +219,6 @@ public class CompanyDAO {
 			String where ="";
 			String sql = "";
 			
-//			if (map.get("search").equals("y")) {
-//				
-//				where = String.format("where cp_name like '%%%s%%'",map.get("word"));
-//				sql = String.format("select count(*) as search_cnt from vwComListInfo %s" , where);
-//				
-//			}
 			
 			if(map.get("search").equals("y") && map.get("hiring").equals("y")) {
 				
@@ -266,7 +261,7 @@ public class CompanyDAO {
 	public CompanyDTO get(String cp_seq) {
 		
 		try {
-		String sql = "select * from  vwNewComListInfo where cp_seq = ?";
+		String sql = "select * from vwComDetailInfo where cp_seq = ?";
 		
 		pstat = conn.prepareStatement(sql);
 		pstat.setString(1, cp_seq);
@@ -338,6 +333,36 @@ public class CompanyDAO {
 		
 		return null;
 	}
+	
+
+		
+	/**
+	 * 업계평균연봉 조회 메서드	
+	 * @param idst_code
+	 * @return
+	 */
+	public int getIdstSalary(String idst_code) {
+		try {
+			String sql = "select * from vwIdstAvgSalary where idst_code = ?";
+			
+			pstat = conn.prepareStatement(sql);
+			pstat.setString(1, idst_code);
+			
+			rs = pstat.executeQuery();
+			 
+				if (rs.next()) {
+					
+					int idst_avg_salary = rs.getInt("idst_avg_salary");
+					
+					return idst_avg_salary;
+				
+				}
+			
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+				return 0;
+			}
 	
 	//TODO job dao 만들기
 	

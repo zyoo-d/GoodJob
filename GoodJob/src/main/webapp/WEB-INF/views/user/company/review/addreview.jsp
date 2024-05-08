@@ -227,6 +227,21 @@ textarea {
 .far {
     color: #eee; 
 }
+
+.textAreaWrapper {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+
+
+
+.textLengthWrap {
+    display: flex;
+    align-items: center;
+    gap: 5px; /* 자간 조정 */
+}
     </style>
 </head>
 <%@include file="/WEB-INF/views/inc/header.jsp" %>
@@ -347,19 +362,16 @@ textarea {
         <h3>추천 태그</h3>
         <p class="tag-info mt-6">클릭하면 태그로 바로 등록!</p>
         <div class="tag_meta">
-            <span class="tag-keyword">복지가 좋은</span>
-            <span class="tag-keyword">야근이 많음</span>
-            <span class="tag-keyword">오지마</span>
-            <span class="tag-keyword">연령대높음</span>
-            <span class="tag-keyword">부서바이부서</span>
-            <span class="tag-keyword">성장하고있음</span>
+        <c:forEach items="${showTagList}" var="tlist">
+            <span class="tag-keyword">${tlist}</span>
+           </c:forEach>
         </div>
     </div>
     <div class="add-tag-text">
         <h3>태그 추가</h3>
         <p class="tag-info mt-6">추천 태그가 마음에 들지 않다면?</p>
         <div class="add-tag">
-            <input type="text" id="tag_keyword" placeholder="추가하실 태그를 입력하세요">
+            <input type="text" name="tag_keyword" id="tag" placeholder="추가하실 태그를 입력하세요">
            <!--  <input type="button">추가</input> -->
         </div>
         <div class="tag-list tag_meta">
@@ -376,16 +388,36 @@ textarea {
         </div>
         <!-- Comment section -->
         <div class="review-text comment-section">
+         <div class="textAreaWrapper">
             <h3>한 줄 기업 평가</h3>
-            <textarea name="linereview" placeholder="기업에 대한 한줄평을 작성해주세요!"></textarea>
+             <div class="textLengthWrap">
+   				 <p class="lineCount">0자</p>
+    			<p class="lineTotal">/30자</p>
+  			</div>
+  			</div>
+            <textarea id="lineBox" name="linereview" maxlength="33" placeholder="기업에 대한 한줄평을 작성해주세요!"></textarea>
         </div>
+        
         <div class="review-text comment-section">
+            <div class="textAreaWrapper">
             <h3>이런 부분은 좋았어요</h3>
-            <textarea name="good" placeholder="해당 기업에서 근무하면서 좋았던 점을 작성해주세요!"></textarea>
+            <div class="textLengthWrap">
+            <p class="goodCount">0자</p>
+            <p class="goodTotal">/330자</p>
         </div>
+    </div>
+        <textarea id="textGood" name="good" maxlength="330" placeholder="해당 기업에서 근무하면서 좋았던 점을 작성해주세요!"></textarea>
+        
+    </div>
         <div class="review-text comment-section">
+         <div class="textAreaWrapper">
             <h3>이런 부분은 아쉬웠어요</h3>
-            <textarea name="bad" placeholder="해당 기업에서 근무하면서 아쉬웠던 점을 작성해주세요!"></textarea>
+             <div class="textLengthWrap">
+    <p class="badCount">0자</p>
+    <p class="badTotal">/330자</p>
+  </div>
+  </div>
+            <textarea id="textBad" name="bad" maxlength="330" placeholder="해당 기업에서 근무하면서 아쉬웠던 점을 작성해주세요!"></textarea>
         </div>
         <hr>
 				<div class="submit-info">
@@ -401,31 +433,71 @@ textarea {
     </form>
 </div>
 <%@include file="/WEB-INF/views/inc/footer.jsp" %>
+<script src="/good/assets/js/tagify.min.js"></script>
 <script>
-//태그
-new Tagify(document.getElementById('tag'));
-
-function addTag() {
-    var input = document.getElementById('new-tag');
-    var newTag = input.value.trim();
-    if(newTag) {
-        var tagList = document.querySelector('.tag-list');
-        var tag = document.createElement('span');
-        tag.className = 'tag-keyword';
-        tag.textContent = newTag;
-        tagList.appendChild(tag);
-        input.value = ''; // Clear input after adding
+$('#lineBox').keyup(function (e) {
+	let linecontent = $(this).val();
+    
+    // 글자수 세기
+    if (linecontent.length == 0 || linecontent == '') {
+    	$('.lineCount').text('0자');
+    } else {
+    	$('.lineCount').text(linecontent.length + '자');
     }
-}
+    
+    // 글자수 제한
+    if (linecontent.length > 30) {
+    	// 200자 부터는 타이핑 되지 않도록
+        $(this).val($(this).val().substring(0, 30));
+        // 200자 넘으면 알림창 뜨도록
+        alert('글자수는 30자까지 입력 가능합니다.');
+    };
+});
+
+
+$('#textGood').keyup(function (e) {
+	let goodcontent = $(this).val();
+    
+    
+    if (goodcontent.length == 0 || goodcontent == '') {
+    	$('.goodCount').text('0자');
+    } else {
+    	$('.goodCount').text(goodcontent.length + '자');
+    }
+    
+    
+    if (goodcontent.length > 300) {
+    	
+        $(this).val($(this).val().substring(0, 300));
+  
+        alert('글자수는 300자까지 입력 가능합니다.');
+    };
+});
+
+$('#textBad').keyup(function (e) {
+	let badcontent = $(this).val();
+    
+    if (goodcontent.length == 0 || badcontent == '') {
+    	$('.badCount').text('0자');
+    } else {
+    	$('.badCount').text(badcontent.length + '자');
+    }
+
+    if (badcontent.length > 300) {
+    
+        $(this).val($(this).val().substring(0, 300));
+     
+        alert('글자수는 300자까지 입력 가능합니다.');
+    };
+});
+
 
 //별점
 document.querySelectorAll('.category .stars').forEach(starsContainer => {
     starsContainer.addEventListener('click', function(e) {
         if (e.target.classList.contains('star')) {
             const starIndex = parseInt(e.target.getAttribute('data-value'), 10);
-            let currentValue = e.target.dataset.currentValue ? parseFloat(e.target.dataset.currentValue) : 0;
-
-            
+            let currentValue = e.target.dataset.currentValue ? parseFloat(e.target.dataset.currentValue) : 0;        
             if (currentValue < 0.5) {
                 currentValue = starIndex - 0.5;
             } else if (currentValue < starIndex) {
@@ -433,10 +505,8 @@ document.querySelectorAll('.category .stars').forEach(starsContainer => {
             } else {
                 currentValue = starIndex-0.5; 
             }
-
             e.target.dataset.currentValue = currentValue;  
 
-            
             updateStars(starsContainer, currentValue);
         }
     });
@@ -484,8 +554,24 @@ document.querySelector('.submitRatings').addEventListener('click', function() {
     });
 });
 
+//태그
+new Tagify(document.getElementById('tag'));
 
-    
+/* function addTag() {
+    var input = document.getElementById('new-tag');
+    var newTag = input.value.trim();
+    if(newTag) {
+        var tagList = document.querySelector('.tag-list');
+        var tag = document.createElement('span');
+        tag.className = 'tag-keyword';
+        tag.textContent = newTag;
+        tagList.appendChild(tag);
+        input.value = ''; // Clear input after adding
+    }
+} */
+
+
+
 
 </script>
 </body>

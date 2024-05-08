@@ -440,4 +440,32 @@ public class RecruitDAO {
 
 	    return list;
 	}
+	
+	
+	public ArrayList<String> comJob(String cp_seq) {
+	    ArrayList<String> jlist = new ArrayList<>();
+
+	    try (Connection conn = DBUtil.open();
+	         
+	    	PreparedStatement pstat = conn.prepareStatement("select distinct (job_name) from tblCompany c inner join tblRecruit r  on c.cp_seq = r.cp_seq inner join tblJobRcrt jr on r.rcrt_seq = jr.rcrt_seq inner join tblJob j on jr.job_seq = ?")) {
+
+	        pstat.setString(1, cp_seq);
+
+	        try (ResultSet rs = pstat.executeQuery()) {
+	            while (rs.next()) {
+	                jlist.add(rs.getString("job_name"));
+	            }
+	        }
+
+	    } catch (Exception e) {
+	        System.out.println("직무이름 반환 실패");
+	        e.printStackTrace();
+	    }
+
+	    return jlist;
+	}
+	
+	
+	
+	
 }
