@@ -22,6 +22,7 @@ public class CheckNick extends HttpServlet {
 			
 		int result = dao.checkNick(nickname);
 		
+		dao.close();
 		PrintWriter writer = resp.getWriter();
 		writer.print(result);
 		writer.close();

@@ -12,7 +12,7 @@
 }
 #domain {
 	width: 25%;
-	border-left: 5px;
+	margin-left: 2px;
 }
 #checkId {
 	border : 1px solid black;
@@ -62,12 +62,12 @@ body > section > div > div > div > div > form > input {
 /* } */
 
 .form-group > span{
-	color: red;
+	color: tomato;
 	font-family: Pretendard-Regular;
 } 
 
 #id-box > span{
-	color: red;
+	color: tomato;
 	font-family: Pretendard-Regular;
 }
 

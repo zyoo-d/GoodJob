@@ -42,5 +42,6 @@ public class GetPw extends HttpServlet {
 		PrintWriter writer = resp.getWriter();
 		writer.print(obj);
 		writer.close();
+		dao.close();
 	}
 }

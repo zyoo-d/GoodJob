@@ -25,6 +25,8 @@ public class CompanyDTO {
 	private int hire_avr_salary;
 	private String hire_regdate;
 	
+	//업계 평균 연봉(만원)
+	private int idst_avg_salary;
 	
 	//기업재무정보
 	private String fnc_seq;	
@@ -49,6 +51,11 @@ public class CompanyDTO {
 	
 	//스크랩 수
 	private int com_scrap_cnt;
+	
+	//리뷰 수
+	private int com_rv_cnt;
+
+	 private ArrayList<String> tag_list;
 	
 
 }

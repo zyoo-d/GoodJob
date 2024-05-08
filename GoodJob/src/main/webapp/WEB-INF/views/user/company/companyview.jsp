@@ -8,6 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <%@include file="/WEB-INF/views/inc/asset.jsp"%>
+
 <style>
 .main {
 	width: 1100px;
@@ -282,7 +283,6 @@ h3 {
 	font-size: .7rem;
 	float: right;
 	color: #525252;
-	font-family: 'Pretendard-Regular';
 }
 .tag {
 	font-size: .7rem;
@@ -359,7 +359,6 @@ h3 {
 
 #oneline {
 	font-size: 1.5rem;
-	font-family: 'Pretendard-Regular';
 	color: black;
 	font-weight: bolder;
 }
@@ -399,7 +398,6 @@ h3 {
 }
 
 #bad_title {
-	font-family: 'Pretendard-Regular';
 	font-size: 1.1rem;
 	font-weight: bold;
 	color: #595959;
@@ -407,14 +405,14 @@ h3 {
 
 #good_title {
 	margin-top: 10px;
-	font-family: 'Pretendard-Regular';
+
 	font-size: 1.1rem;
 	font-weight: bold;
 	color: #595959;
 }
 
 .goodbad>div {
-	font-family: 'Pretendard-Regular';
+
 	font-size: 1rem;
 	color: #22222;
 }
@@ -425,7 +423,6 @@ h3 {
 	padding: 5px 20px;
 	border-radius: 10px;
 	font-size: .7rem;
-	font-family: 'Pretendard-Regular';
 	margin-left: 3px;
 	float: right;
 	font-weight: bold;
@@ -436,11 +433,11 @@ h3 {
 }
 
 #chatchat {
-	font-family: 'Pretendard-Regular';
+
 	font-size: .8rem;
 }
 .score_rating {
-	font-family: 'Pretendard-Regular';
+
 	font-size: 1rem;
 	color: #525252;
 	font-weight: bold;
@@ -467,7 +464,7 @@ h3 > #scrap {
 	padding: 5px 15px;
 	border-radius: 10px;
 	background-image: linear-gradient(184.78deg, rgb(83, 90, 237) 7.64%, rgb(62, 178, 248) 120.07%);
-	font-family: 'Pretendard-Regular';
+
 	color: white;
 }
 #go_container {
@@ -479,6 +476,48 @@ h3 > #scrap {
 	#pmt-2 {
 		margin-bottom: 20px;
 	}
+.highcharts-figure,
+.highcharts-data-table table {
+    min-width: 360px;
+    max-width: 800px;
+    margin: 1em auto;
+}
+
+.highcharts-data-table table {
+
+    border-collapse: collapse;
+    border: 1px solid #ebebeb;
+    margin: 10px auto;
+    text-align: center;
+    width: 100%;
+    max-width: 500px;
+}
+
+.highcharts-data-table caption {
+    padding: 1em 0;
+    font-size: 1.2em;
+    color: #555;
+}
+
+.highcharts-data-table th {
+    font-weight: 600;
+    padding: 0.5em;
+}
+
+.highcharts-data-table td,
+.highcharts-data-table th,
+.highcharts-data-table caption {
+    padding: 0.5em;
+}
+
+.highcharts-data-table thead tr,
+.highcharts-data-table tr:nth-child(even) {
+    background: #f8f8f8;
+}
+
+.highcharts-data-table tr:hover {
+    background: #f1f7ff;
+}
 </style>
 </head>
 <%@include file="/WEB-INF/views/inc/header.jsp"%>
@@ -501,8 +540,7 @@ h3 > #scrap {
 				<div id="company_img"><img src="${dto.image}" onerror="this.src='/good/asset/images/default.jpg'" alt="Company Logo"></div>
 				<div id="summary_content">
 					<h3>${dto.cp_name}    <button id="scrap"><i class="fa-regular fa-bookmark"></i> ${dto.com_scrap_cnt}+</button></h3>
-					<span>${dto.idst_name}</span> <span>${dto.hire_member} 명</span> <span>소프트웨어개발,공급,전산자료
-						입력,지리정보데이터베이스 구축,전산장비 유지</span> <i class="fa-solid fa-location-dot"><span
+					<span>${dto.idst_name} </span> <span>사원 수  ${dto.hire_member} 명</span> <span><c:if test="${not empty comJobList}"><c:forEach items="${comJobList}" var="jdto" begin="0" end="7">${jdto.job_name} </c:forEach></c:if></span> <i class="fa-solid fa-location-dot"><span
 						id="cop_address"> ${dto.cp_address}</span></i>
 				</div>
 			</div>
@@ -524,7 +562,7 @@ h3 > #scrap {
 				<div
 					class="row mx-0 rounded-[20px] bg-white px-10 shadow-lg lg:py-10">
 					<h2>
-						<span class="count">3200만원</span> <span class="text-[#A3A1FB]">+</span>
+						<span class="count">${dto.idst_avg_salary} 만원</span> <span class="text-[#A3A1FB]">+</span>
 					</h2>
 					<p>업계 평균 연봉</p>
 				</div>
@@ -541,25 +579,17 @@ h3 > #scrap {
 
 			</div>
 
-			<span class="menu">재무제표</span>
+		
+			
 			<div id="income-info">
 
-				<div class="card-body">
-					<canvas id="myChart" height="200" width="762"
-						style="display: block; width: 300px; height: 500px;"
-						class="chartjs-render-monitor"></canvas>
-						
-					<div class="statistic-details mt-sm-4">
-						<div class="statistic-details-item">
-							<span class="text-muted"><span class="text-primary"><i
-									class="fas fa-caret-up"></i></span> 7%</span>
-							<div class="detail-value">$243</div>
-							<div class="detail-name">전년대비</div>
-						</div>
-
-					</div>
-				</div>
-			</div>
+			<figure class="highcharts-figure">
+    <div id="container"></div>
+    <p class="highcharts-description">
+        
+    </p>
+</figure>
+</div>
 
 			<span class="menu">해당 기업 공고</span>
 			<!-- 채용정보 -->
@@ -637,11 +667,20 @@ h3 > #scrap {
 			<!-- div:recruit -->
 			<span class="menu">기업 키워드</span>
 			<div id="keyword">
-			<c:forEach items="${listReview}" var="tdto">
 			
-				<div>${tdto.tag_keyword}</div>
-			
-			</c:forEach>
+			<div class="job_meta">
+			<c:if test="${not empty ComTaglist}">
+	<c:forEach items="${ComTaglist}" var="tdto" begin="0" end="1">
+	<c:if test="${tdto.cp_seq == dto.cp_seq}">
+		<c:forEach items="${tdto.tag_keyword}" var="tag" begin="0" end="4">
+		<span class="job-keyword">${tag}</span>
+		</c:forEach>
+	</c:if>
+	</c:forEach>
+	</c:if>
+	<c:if test="${empty ComTaglist}">등록된 키워드가 없습니다. 리뷰를 작성하여 키워드를 등록해 보세요.</c:if>
+	</div>
+	
 			</div>
 			<span class="menu">기업 리뷰 보기</span>
 
@@ -651,6 +690,7 @@ h3 > #scrap {
 			
 			
 			<div id="review">
+			<c:if test="${not empty listReview}">
 			<c:forEach items="${listReview}" var="rdto">
 				<div id="review_content">
 					<div id="oneline">"${rdto.linereview}"</div>
@@ -670,7 +710,7 @@ h3 > #scrap {
 							</div>
 							<div  class="score_rating" id="ingvt_score">
 								<span id="ingvt_review">근무 안정성 </span> <br />
-								 <c:forEach var="i" begin="1" end="${rdto.lngvt_score}">
+								 <c:forEach var="i" begin="1" end="${rdto.stability_score}">
         							<i class="fa-solid fa-star"></i>
     							 </c:forEach>
 							</div>
@@ -697,17 +737,19 @@ h3 > #scrap {
 					</div>
 					<div class="goodbad_title" id="good_title">
 						<i class="fa-regular fa-thumbs-up"></i> 이런 부분은 좋았아요.
-					</div>
-					<div class="goodbad">
 						<div id="good">${rdto.good}</div>
+					</div>
+					
 						<div class="goodbad_title" id="bad_title">
 							<i class="fa-regular fa-thumbs-down"></i> 이런 부분은 아쉬웠어요.
-						</div>
 						<div id="bad">${rdto.bad}</div>
+						</div>
 
-					</div>
+					
 				</div>
 				</c:forEach>
+				</c:if>
+				<c:if test="${empty listReview}">등록된 리뷰가 없습니다. 직접 등록해보세요!</c:if>
 			</div>
 		</div>
                         
@@ -803,8 +845,11 @@ h3 > #scrap {
 
 
 	<%@include file="/WEB-INF/views/inc/footer.jsp"%>
-
-	<script src="/good/assets/modules/chart.min.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+	<!-- <script src="/good/assets/modules/chart.min.js"></script> -->
 	<script src="/good/assets/js/page/index-0.js"></script>
 	<script>
 		// .chat-box 요소의 스크롤을 맨 아래로 이동하는 함수
@@ -817,9 +862,44 @@ h3 > #scrap {
 		window.onload = function() {
 			scrollToBottom();
 		};
+
+		
+		sales = new Array();
+		ebit = new Array();
+		income = new Array();
 		
 		
-}
+
+		Highcharts.chart('container', {
+		    chart: {
+		        type: 'line'
+		    },
+		    title: {
+		        text: '기업 재무 정보'
+		    },
+		    xAxis: {
+		        categories: ['2021','2022','2023']
+		    },
+		    plotOptions: {
+		        line: {
+		            dataLabels: {
+		                enabled: true
+		            },
+		            enableMouseTracking: false
+		        }
+		    },
+		    series: [{
+		        name: '매출액',
+		        data: [16.0, 18.2, 23.1]
+		    }, {
+		        name: '영업이익',
+		        data: [-2.9, -3.6, -0.6]
+		    },{
+		    	name: '당기순이익',
+		      data:  [-2.9, -2.6, -3]
+		    }]
+		});
+		
 	</script>
 </body>
 </html>

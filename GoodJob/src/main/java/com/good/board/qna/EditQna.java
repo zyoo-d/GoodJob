@@ -21,6 +21,16 @@ public class EditQna extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
+		HttpSession session = req.getSession();
+		//접근 권한
+		if (!"2".equals((String) session.getAttribute("lv"))) {
+			resp.setContentType("text/html; charset=UTF-8");
+		    resp.setCharacterEncoding("UTF-8");
+		    PrintWriter writer = resp.getWriter();
+		    writer.print("<script>alert('접근권한이 없습니다.');location.href='/good/main.do';</script>");
+		    writer.close();
+		}
+		
 		String qna_seq = req.getParameter("qna_seq");
 		
 		//인증
