@@ -8,6 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <%@include file="/WEB-INF/views/inc/asset.jsp"%>
+
 <style>
 .main {
 	width: 1100px;
@@ -282,7 +283,6 @@ h3 {
 	font-size: .7rem;
 	float: right;
 	color: #525252;
-	font-family: 'Pretendard-Regular';
 }
 .tag {
 	font-size: .7rem;
@@ -359,7 +359,6 @@ h3 {
 
 #oneline {
 	font-size: 1.5rem;
-	font-family: 'Pretendard-Regular';
 	color: black;
 	font-weight: bolder;
 }
@@ -399,7 +398,6 @@ h3 {
 }
 
 #bad_title {
-	font-family: 'Pretendard-Regular';
 	font-size: 1.1rem;
 	font-weight: bold;
 	color: #595959;
@@ -407,14 +405,14 @@ h3 {
 
 #good_title {
 	margin-top: 10px;
-	font-family: 'Pretendard-Regular';
+
 	font-size: 1.1rem;
 	font-weight: bold;
 	color: #595959;
 }
 
 .goodbad>div {
-	font-family: 'Pretendard-Regular';
+
 	font-size: 1rem;
 	color: #22222;
 }
@@ -425,7 +423,6 @@ h3 {
 	padding: 5px 20px;
 	border-radius: 10px;
 	font-size: .7rem;
-	font-family: 'Pretendard-Regular';
 	margin-left: 3px;
 	float: right;
 	font-weight: bold;
@@ -436,11 +433,11 @@ h3 {
 }
 
 #chatchat {
-	font-family: 'Pretendard-Regular';
+
 	font-size: .8rem;
 }
 .score_rating {
-	font-family: 'Pretendard-Regular';
+
 	font-size: 1rem;
 	color: #525252;
 	font-weight: bold;
@@ -467,7 +464,7 @@ h3 > #scrap {
 	padding: 5px 15px;
 	border-radius: 10px;
 	background-image: linear-gradient(184.78deg, rgb(83, 90, 237) 7.64%, rgb(62, 178, 248) 120.07%);
-	font-family: 'Pretendard-Regular';
+
 	color: white;
 }
 #go_container {
@@ -479,6 +476,48 @@ h3 > #scrap {
 	#pmt-2 {
 		margin-bottom: 20px;
 	}
+.highcharts-figure,
+.highcharts-data-table table {
+    min-width: 360px;
+    max-width: 800px;
+    margin: 1em auto;
+}
+
+.highcharts-data-table table {
+
+    border-collapse: collapse;
+    border: 1px solid #ebebeb;
+    margin: 10px auto;
+    text-align: center;
+    width: 100%;
+    max-width: 500px;
+}
+
+.highcharts-data-table caption {
+    padding: 1em 0;
+    font-size: 1.2em;
+    color: #555;
+}
+
+.highcharts-data-table th {
+    font-weight: 600;
+    padding: 0.5em;
+}
+
+.highcharts-data-table td,
+.highcharts-data-table th,
+.highcharts-data-table caption {
+    padding: 0.5em;
+}
+
+.highcharts-data-table thead tr,
+.highcharts-data-table tr:nth-child(even) {
+    background: #f8f8f8;
+}
+
+.highcharts-data-table tr:hover {
+    background: #f1f7ff;
+}
 </style>
 </head>
 <%@include file="/WEB-INF/views/inc/header.jsp"%>
@@ -540,25 +579,17 @@ h3 > #scrap {
 
 			</div>
 
-			<span class="menu">재무제표</span>
+		
+			
 			<div id="income-info">
 
-				<div class="card-body">
-					<canvas id="myChart" height="200" width="762"
-						style="display: block; width: 300px; height: 500px;"
-						class="chartjs-render-monitor"></canvas>
-						
-					<div class="statistic-details mt-sm-4">
-						<div class="statistic-details-item">
-							<span class="text-muted"><span class="text-primary"><i
-									class="fas fa-caret-up"></i></span> 7%</span>
-							<div class="detail-value">$243</div>
-							<div class="detail-name">전년대비</div>
-						</div>
-
-					</div>
-				</div>
-			</div>
+			<figure class="highcharts-figure">
+    <div id="container"></div>
+    <p class="highcharts-description">
+        
+    </p>
+</figure>
+</div>
 
 			<span class="menu">해당 기업 공고</span>
 			<!-- 채용정보 -->
@@ -814,8 +845,11 @@ h3 > #scrap {
 
 
 	<%@include file="/WEB-INF/views/inc/footer.jsp"%>
-
-	<script src="/good/assets/modules/chart.min.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+	<!-- <script src="/good/assets/modules/chart.min.js"></script> -->
 	<script src="/good/assets/js/page/index-0.js"></script>
 	<script>
 		// .chat-box 요소의 스크롤을 맨 아래로 이동하는 함수
@@ -828,9 +862,44 @@ h3 > #scrap {
 		window.onload = function() {
 			scrollToBottom();
 		};
+
+		
+		sales = new Array();
+		ebit = new Array();
+		income = new Array();
 		
 		
-}
+
+		Highcharts.chart('container', {
+		    chart: {
+		        type: 'line'
+		    },
+		    title: {
+		        text: '기업 재무 정보'
+		    },
+		    xAxis: {
+		        categories: ['2021','2022','2023']
+		    },
+		    plotOptions: {
+		        line: {
+		            dataLabels: {
+		                enabled: true
+		            },
+		            enableMouseTracking: false
+		        }
+		    },
+		    series: [{
+		        name: '매출액',
+		        data: [16.0, 18.2, 23.1]
+		    }, {
+		        name: '영업이익',
+		        data: [-2.9, -3.6, -0.6]
+		    },{
+		    	name: '당기순이익',
+		      data:  [-2.9, -2.6, -3]
+		    }]
+		});
+		
 	</script>
 </body>
 </html>

@@ -91,7 +91,7 @@ public class AddReview extends HttpServlet {
 		
 		
 		///TODO 해시태그작업
-		if (tag_keyword != null && !tag_keyword.equals("")&& !tag.equals("[]")) {
+		if (tag_keyword != null && !tag_keyword.equals("")&& !tag_keyword.equals("[]")) {
 			try {
 				
 				//[{"value":"자바"},{"value":"코딩"},{"value":"게시판"}]

@@ -352,7 +352,7 @@ textarea {
 				
         </div>
         <!-- 별점등록END -->
-        o
+        
         
         
         
