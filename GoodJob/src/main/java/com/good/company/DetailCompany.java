@@ -53,21 +53,21 @@ public class DetailCompany extends HttpServlet {
 	    	dto.setFnc_sales(sales); //(원)
 	    }
 		
-	    //당기순이익
-	    long ebit = dto.getFnc_ebit();
-	    if (Math.abs(ebit) >= 100000000) { //(단위:억)
-	    	dto.setFnc_sales((long)(Math.round((double)ebit/100000000)));
-	    }else if(Math.abs(ebit) >= 10000000) { //(단위:천만)
-	    	dto.setFnc_sales((long)(Math.round((double)ebit/10000000)));
-	    }else if(Math.abs(ebit) >= 1000000) { // (단위:백만)
-	    	dto.setFnc_sales((long)(Math.round((double)ebit/1000000)));
-	    }else if(Math.abs(ebit) >= 100000) { // (단위:십만)
-	    	dto.setFnc_sales((long)(Math.round((double)ebit/100000)));
-	    }else if(Math.abs(ebit) >= 10000) { // (단위:만)
-	    	dto.setFnc_sales((long)(Math.round((double)ebit/10000)));
-	    }else {
-	    	dto.setFnc_sales(sales); //(원)
-	    }
+	  //당기순이익
+			    long ebit = dto.getFnc_ebit();
+			    if (Math.abs(ebit) >= 100000000) { //(단위:억)
+			    	dto.setFnc_ebit((long)(Math.round((double)ebit/100000000)));
+			    }else if(Math.abs(ebit) >= 10000000) { //(단위:천만)
+			    	dto.setFnc_ebit((long)(Math.round((double)ebit/10000000)));
+			    }else if(Math.abs(ebit) >= 1000000) { // (단위:백만)
+			    	dto.setFnc_ebit((long)(Math.round((double)ebit/1000000)));
+			    }else if(Math.abs(ebit) >= 100000) { // (단위:십만)
+			    	dto.setFnc_ebit((long)(Math.round((double)ebit/100000)));
+			    }else if(Math.abs(ebit) >= 10000) { // (단위:만)
+			    	dto.setFnc_ebit((long)(Math.round((double)ebit/10000)));
+			    }else {
+			    	dto.setFnc_ebit(ebit); //(원)
+			    }
 */	    
 	    
 		//평균연봉
@@ -89,7 +89,7 @@ public class DetailCompany extends HttpServlet {
 	    
 	    //태그출력
 	    ReviewDAO tdao =  new ReviewDAO();
-	    ArrayList<ReviewDTO> ComTaglist = tdao.tagList();
+	    //ArrayList<ReviewDTO> ComTaglist = tdao.tagList(cp_seq);
     	
 	    //기업직무정보
 	    RecruitDAO jdao = new RecruitDAO();
@@ -123,7 +123,7 @@ public class DetailCompany extends HttpServlet {
 		req.setAttribute("comRecruitList",comRecruitList);
 		req.setAttribute("search", search);
 		req.setAttribute("hiring", hiring);
-		req.setAttribute("ComTaglist", ComTaglist);
+		//req.setAttribute("ComTaglist", ComTaglist);
 		req.setAttribute("comJobList",comJobList);
 
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/user/company/companyview.jsp");

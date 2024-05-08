@@ -19,17 +19,17 @@ public class ReviewDTO {
 	 private double stability_score;
 	 private double culture_score;
 	 private double growth_score;
+	 private double avg_score; // 리뷰당 기업 평균 별점
 	 private String linereview;
 	 private String good;
 	 private String bad;
 	 private String cp_rv_regdate;
 	 private int cp_rv_confirm;
-	 
-	 private ArrayList<String> tag_keyword;
+
 	 private String nickname;
 	 
-	 private String tag;
-	 
+	 private String tag_keyword;
+	 private ArrayList<String> tag_list;
 	
 
 }

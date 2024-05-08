@@ -184,7 +184,7 @@
 						<div class="list_body">
 							<div id="rec-48103333" class="list_item">
 							
-														<!-- 채용공고start -->
+														<!-- 기업목록start -->
 						<c:forEach items="${comListInfo}" var="dto">
 						
 						<div class="box_item row mx-0 rounded-[20px] bg-white px-10 shadow-lg">
@@ -211,13 +211,14 @@
 </button>
 </div>
 	<div class="job_meta">
-	<c:forEach items="${ComTaglist}" var="tdto" begin="0" end="1">
-	<c:if test="${tdto.cp_seq == dto.cp_seq}">
+<c:forEach items="${ComTaglist}" var="tdto">
+		<c:if test="${tdto.cp_seq == dto.cp_seq}">
 		<c:forEach items="${tdto.tag_keyword}" var="tag" begin="0" end="4">
 		<span class="job-keyword">${tag}</span>
-		</c:forEach>
-	</c:if>
-	</c:forEach>
+	 </c:forEach>
+</c:if>
+	</c:forEach> 
+		
 	</div>
 </div>
 </div>
@@ -228,7 +229,7 @@
 		
 		<li><p class="career"><b>총매출액 </b><c:if test="${dto.fnc_sales == 0}">수집 정보 없음</c:if><c:if test="${dto.fnc_sales != 0}">${dto.fnc_sales} ${dto.unit}</c:if></p></li>
 		<li><p class="education"><b>평균연봉 </b><c:if test="${dto.hire_avr_salary == 0}">수집 정보 없음</c:if><c:if test="${dto.hire_avr_salary !=0}">${dto.hire_avr_salary} 만원</c:if></p></li>
-		<li><p class="salary"><b>스크랩수 </b>${dto.com_scrap_cnt}건</p></li>
+		<li><p class="salary"><b>리뷰 수 </b>${dto.com_rv_cnt}건</p></li>
 	</ul>
 </div>
 </div>
