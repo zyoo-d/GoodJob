@@ -61,7 +61,7 @@ public class CompanyDAO {
 
 	public List<CompanyDTO> searchCompany(String input) {
 		try {
-			String sql = "SELECT * FROM (SELECT * FROM tblcompany WHERE cp_name LIKE ?) WHERE ROWNUM <= 5";
+			String sql = "SELECT * FROM (SELECT * FROM tblcompany WHERE cp_name LIKE ? order by cp_name) WHERE ROWNUM <= 5";
 
 			pstat = conn.prepareStatement(sql);
 			String search = input + "%";

@@ -23,6 +23,7 @@ public class SearchCompany extends HttpServlet {
 
 		CompanyDAO dao = new CompanyDAO();
 		List<CompanyDTO> list = dao.searchCompany(input);
+		dao.close();
 
 		resp.setCharacterEncoding("UTF-8");
 		resp.setContentType("application/json");
