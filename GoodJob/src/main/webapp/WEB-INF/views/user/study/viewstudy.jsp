@@ -87,7 +87,7 @@
 													<p class="font-sm">${cdto.regdate}</p>
 													<div class='comment-edit'>
 														<p>${cdto.nickname}</p>
-														<div class='comment-icon'>
+											 			<div class='comment-icon'>
 															<c:if
 																test="${not empty id && (cdto.id == id || lv == 2)}">
 																<span class='material-symbols-outlined'

@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.good.board.model.CommentDTO;
 import com.good.board.repository.QnaBoardDAO;
 
-@WebServlet("/board/comment/stdeditcomment.do")
+@WebServlet("/board/comment/qnaeditcomment.do")
 public class QnaEditComment extends HttpServlet {
 
 
@@ -21,14 +21,15 @@ public class QnaEditComment extends HttpServlet {
 			throws ServletException, IOException {
 
 		String seq = request.getParameter("seq");
-
+		String content  =request.getParameter("content");
 		
 		
 		QnaBoardDAO dao = new QnaBoardDAO();
 		
 		CommentDTO dto = new CommentDTO();
 		dto.setCm_seq(seq);
-	
+		dto.setContent(content);
+		
 		
 		int result = dao.editComment(dto);
 		

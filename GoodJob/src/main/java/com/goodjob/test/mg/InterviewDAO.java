@@ -22,8 +22,8 @@ public class InterviewDAO {
 	public ArrayList<InterviewDTO> list() {
 		try {
 
-			String sql = "select * from vwinterview";
-
+			String sql = "select * from vwinterview ";
+			// where 컬럼 1
 			stat = conn.createStatement();
 			rs = stat.executeQuery(sql);
 			
@@ -63,6 +63,7 @@ public class InterviewDAO {
 	    try {
 	        String sql = "INSERT INTO tblInterview (ITV_SEQ, ITV_CPNAME, ITV_MEETDATE, ITV_EVALUATION, ITV_REGDATE, CP_SEQ, ID, ITV_DIFFICULTY, ITV_CATEGORY, ITV_CAREER, ITV_PERSONNEL, ITV_QUESTION, ITV_TIP, ITV_WHETHER) " +
 	                     "VALUES (seqinterview.NEXTVAL, ?,  TO_DATE(?, 'YYYY-MM-DD'), ?, SYSDATE, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	        //sql에서 조건절로  리뷰승인 컬럼추가하고 
 	        
 	        pstat = conn.prepareStatement(sql);
 	        

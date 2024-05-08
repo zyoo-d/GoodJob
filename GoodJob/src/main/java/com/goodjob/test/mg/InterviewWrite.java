@@ -59,6 +59,7 @@ public class InterviewWrite extends HttpServlet {
 	    
 	    InterviewDAO dao = new InterviewDAO();
 	    int result = dao.Write(dto);
+	    // >>>>
 	    
 	    if (result > 0) {
 	      response.sendRedirect("/good/interview.do");

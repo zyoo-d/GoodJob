@@ -129,9 +129,14 @@
 													<p class="font-sm">${cdto.regdate}</p>
 													<div class='comment-edit'>
 														<p>${cdto.nickname}</p>
-														<div class='comment-icon'>
-															<span class='material-symbols-outlined'>delete</span> <span
-																class='material-symbols-outlined'>edit_note</span>
+															<div class='comment-icon'>
+															<c:if
+																test="${not empty id && (cdto.id == id || lv == 2)}">
+																<span class='material-symbols-outlined'
+																	onclick="del(${cdto.cm_seq});">delete</span>
+																<span class='material-symbols-outlined'
+																	onclick="edit(${cdto.cm_seq});">edit_note</span>
+															</c:if>
 														</div>
 													</div>
 												</div></td>

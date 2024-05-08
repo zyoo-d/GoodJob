@@ -87,10 +87,11 @@
 						</div>
 					</c:forEach>
 				</div>
-					
+				<c:if test="${not empty id && (cdto.id == id || lv == 2)}">
 				<div class="moving-btn studyAdd">
 					<a href="#" class="btn btnList">글쓰기</a>
 				</div>
+				</c:if>
 			<nav class="PageBox z-custom" aria-label="Page navigation example">
 			<ul class="pagination z-custom">${pagebar}</ul>
 			</nav>

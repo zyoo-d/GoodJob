@@ -149,7 +149,7 @@
 												name="ITV_WHETHER" value="불합격"> <label for="fail">불합격</label>
 											<input type="radio" id="waiting" name="ITV_WHETHER"
 												value="대기중"> <label for="waiting">대기중</label>
-											<input type="text" name="id" value="Ft6Hb3K"/>
+							
 										</div>
 									</div>
 								</div>
@@ -158,7 +158,7 @@
 								<p>
 									면접 후기에 대한 저작권은 IT's Good Job에 있습니다. <br>등록하신 콘텐츠는 임의로 삭제하실
 									수 없습니다.
-								</p>
+								</p>			
 								<input class="btn btn-primary mt-4" id="itvWriteBtn"
 									type="submit" value="등록" />
 							</div>
