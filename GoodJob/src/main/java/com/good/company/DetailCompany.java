@@ -12,6 +12,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
 import com.good.company.model.CompanyDTO;
 import com.good.company.model.RecruitDTO;
 import com.good.company.model.ReviewDTO;
@@ -36,9 +41,10 @@ public class DetailCompany extends HttpServlet {
 		CompanyDAO dao = new CompanyDAO();
 		CompanyDTO dto = dao.get(cp_seq);
 		
-/*		
+		
+		
 		//총매출액
-	    long sales = dto.getFnc_sales();
+	    /*long sales = dto.getFnc_sales();
 	    if (sales >= 100000000) { //(단위:억)
 	    	dto.setFnc_sales((long)(Math.round((double)sales/100000000)));
 	    }else if(sales >= 10000000) { //(단위:천만)
@@ -68,19 +74,22 @@ public class DetailCompany extends HttpServlet {
 			    }else {
 			    	dto.setFnc_ebit(ebit); //(원)
 			    }
-*/	    
+    */
 	    
 		//평균연봉
 	    int avg_salary = dto.getHire_avr_salary();
+	    
 	    if(avg_salary==0) {
 	    	dto.setHire_avr_salary(0);
 	    }
+	    
 	    dto.setHire_avr_salary((int)Math.round((float)avg_salary/10000));//(단위:만원)  
 		
 	    //업계평균연봉
 	    int idst_avg_salary = dao.getIdstSalary(dto.getIdst_code());
 	    dto.setIdst_avg_salary(idst_avg_salary);
 	    
+	    //기업재무정보
 	    
 	    //리뷰조회
 	    ReviewDAO rdao =  new ReviewDAO();
@@ -114,7 +123,26 @@ public class DetailCompany extends HttpServlet {
 		    rdto.setCp_address(address);
 
 	    }
-			  
+	    
+	    ArrayList<CompanyDTO> fnc_list = dao.getCompanyFinance(cp_seq);
+	    dto.setFnc_list(dao.getCompanyFinance(cp_seq));
+	    if (fnc_list != null && !fnc_list.equals("")&& !fnc_list.equals("[]")) {
+			try {
+				
+				
+				JSONParser parser = new JSONParser();				
+				JSONArray arr = (JSONArray)fnc_list; //배열 > JSONArray
+				
+				for (Object obj : arr) { //arr(JSONObject)이지만 바로 가져오면 오류나서 일단 Object로 가져옴
+					JSONObject fncObj = (JSONObject)obj;
+					String finance = (String)fncObj.get("value");
+				
+			        
+				}
+			} catch (Exception e) {
+				e.getStackTrace();
+			}
+		}
 	  
 		req.setAttribute("dto", dto);
 		req.setAttribute("word", word);
@@ -125,18 +153,25 @@ public class DetailCompany extends HttpServlet {
 		req.setAttribute("hiring", hiring);
 		//req.setAttribute("ComTaglist", ComTaglist);
 		req.setAttribute("comJobList",comJobList);
-
+		
+		
+		
+		
+		
+		resp.setContentType("application/json");
+		resp.setCharacterEncoding("UTF-8");
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/user/company/companyview.jsp");
 		dispatcher.forward(req, resp);
 
 	}
 	
+	
+
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		
 		String cp_seq = req.getParameter("cp_seq");
-		
 		RecruitDAO dao =  new RecruitDAO();
 		
 	

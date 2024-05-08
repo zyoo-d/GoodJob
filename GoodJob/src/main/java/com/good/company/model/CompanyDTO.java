@@ -36,7 +36,7 @@ public class CompanyDTO {
 	private String fnc_period;
 	private String fnc_regdate;
     private String unit; // 금액 단위
-	private ArrayList<String> fnc_list;
+	private ArrayList<CompanyDTO> fnc_list;
 	
 	//기업분야정보
 	private String idst_name;

@@ -299,30 +299,30 @@ public class CompanyDAO {
 			
 			dto.setCom_rcrt_cnt(rs.getInt("com_rcrt_cnt"));
 			dto.setCom_scrap_cnt(rs.getInt("com_scrap_cnt"));
-//			
-//			//재무정보
-//			sql = "select * from tblFinance where cp_seq = ?";
-//			pstat = conn.prepareStatement(sql);
-//			pstat.setString(1, cp_seq);
-//			rs = pstat.executeQuery();
-//			
-//			ArrayList<String> flist = new ArrayList<String>();
-//			
-//			while(rs.next()) {
-//				
-//				dto.setFnc_sales(rs.getLong("fnc_sales"));
-//				dto.setFnc_ebit(rs.getLong("fnc_ebit"));
-//				dto.setFnc_income(rs.getLong("fnc_income"));
-//				dto.setFnc_period(rs.getString("fnc_period"));
-//				dto.setFnc_regdate(rs.getString("fnc_regdate"));
-//				
-//				
-//				flist.add(rs.getString(""));
-//
-//			
-//			}
-//			
-//			dto.setFnc_list(flist);
+		
+			//재무정보
+/*			sql = "select * from tblFinance where cp_seq = ?";
+			pstat = conn.prepareStatement(sql);
+			pstat.setString(1, cp_seq);
+			rs = pstat.executeQuery();
+			
+			ArrayList<CompanyDTO> flist = new ArrayList<CompanyDTO>();
+			
+			while(rs.next()) {
+				
+				dto.setFnc_sales(rs.getLong("fnc_sales"));
+				dto.setFnc_ebit(rs.getLong("fnc_ebit"));
+				dto.setFnc_income(rs.getLong("fnc_income"));
+				dto.setFnc_period(rs.getString("fnc_period"));
+				dto.setFnc_regdate(rs.getString("fnc_regdate"));
+				
+				
+				flist.add(dto);
+
+			
+			}
+			
+			dto.setFnc_list(flist);*/
 			
 			return dto;				
 		}
@@ -335,7 +335,28 @@ public class CompanyDAO {
 	}
 	
 
-		
+	public ArrayList<CompanyDTO> getCompanyFinance(String cp_seq) {
+	    ArrayList<CompanyDTO> financeList = new ArrayList<>();
+	    String sql = "select * from tblFinance where cp_seq = ?";
+	    try (PreparedStatement pstat = conn.prepareStatement(sql)) {
+	        pstat.setString(1, cp_seq);
+	        ResultSet rs = pstat.executeQuery();
+
+	        while (rs.next()) {
+	        	CompanyDTO fdto = new CompanyDTO();
+	        	fdto.setFnc_sales(rs.getLong("fnc_sales"));
+	        	fdto.setFnc_ebit(rs.getLong("fnc_ebit"));
+	        	fdto.setFnc_income(rs.getLong("fnc_income"));
+	        	fdto.setFnc_period(rs.getString("fnc_period"));
+	        	fdto.setFnc_regdate(rs.getString("fnc_regdate"));
+	            financeList.add(fdto);
+	        }
+	    } catch (Exception e) {
+	    	System.out.println("getCompanyFinance");
+	        e.printStackTrace();
+	    }
+	    return financeList;
+	}	
 	/**
 	 * 업계평균연봉 조회 메서드	
 	 * @param idst_code
