@@ -1800,9 +1800,9 @@ select:invalid {
   border-radius: 1.5rem;
   border-width: 1px;
   --tw-border-opacity: 1;
-  /* border-color: rgb(74 100 240 / var(--tw-border-opacity)); */
+  border-color: rgb(254 96 25 / var(--tw-border-opacity));
   --tw-bg-opacity: 1;
-  background-image: linear-gradient(184.78deg, #535AED 7.64%, #3EB2F8 120.07%);
+  background-color: rgb(250 235 225 / var(--tw-bg-opacity));
   padding-left: 0.875rem;
   padding-right: 0.875rem;
   padding-top: 0.5rem;
@@ -1811,14 +1811,16 @@ select:invalid {
   line-height: 1.25rem;
   line-height: 1;
   --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity));
+  color: rgb(254 96 25 / var(--tw-text-opacity));
   transition-property: all;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
 }
 .tag:hover {
   --tw-bg-opacity: 1;
-  background-image: linear-gradient(21deg, #535AED 7.64%, #3EB2F8 120.07%);
+  background-color: rgb(254 96 25 / var(--tw-bg-opacity));
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 .featured-posts .card {
   align-items: center;
