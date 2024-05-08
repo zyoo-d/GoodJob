@@ -9,6 +9,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.good.matching.repository.MatchingDAO;
 
 @WebServlet("/user/matching/addprefer.do")
 public class AddPrefer extends HttpServlet {
@@ -91,15 +94,17 @@ public class AddPrefer extends HttpServlet {
 				case 0 :
 					sum += 0;
 					break;
-				
 				}
 				
 			}
 			
-			
 		}
 		
 		// 정확도 = sum > 60% 아래면 return 
+		
+		
+	
+		
 		
 		
 		

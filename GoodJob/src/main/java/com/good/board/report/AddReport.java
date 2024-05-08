@@ -2,12 +2,17 @@ package com.good.board.report;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.good.board.report.model.QnaReportDTO;
+import com.good.board.report.model.StdReportDTO;
+import com.good.board.report.repository.QnaReportDAO;
+import com.good.board.report.repository.ReportDAO;
+import com.good.board.report.repository.StdReportDAO;
 
 @WebServlet("/user/report/addreport.do")
 public class AddReport extends HttpServlet{
@@ -21,6 +26,20 @@ public class AddReport extends HttpServlet{
 		String description = req.getParameter("description");
 		String boardType = req.getParameter("boardType");
 		
+		ReportDAO dao;
+		
+		switch (boardType) {
+		case "qna":
+			dao = new QnaReportDAO();
+			dto = (QnaReportDTO)dao.createDTO();
+			break;
+		case "std":
+			dao = new StdReportDAO();
+			
+		default:
+			break;
+		}
+		
 	
 		handleReport(id,seq,reason,description,boardType);
 		
@@ -30,6 +49,8 @@ public class AddReport extends HttpServlet{
 	
 		
 	}
+
+
 
 	private void handleReport(String id, String seq, String reason, String description, String boardType) {
 		

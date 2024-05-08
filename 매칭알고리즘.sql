@@ -1,7 +1,7 @@
 select * from tblhire h
     inner join tblcompany c
         on h.cp_seq = c.cp_seq
-            where h.hire_avr_year > 0 and cp_name='ë¡??°?´?…¸ë² ì´?Š¸';
+            where h.hire_avr_year > 0 and cp_name='ï¿½??ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½ë² ì´?ï¿½ï¿½';
             
 select months_between(sysdate, founded) as diff, ((hire_avr_year / months_between(sysdate, founded)) *100 ) as score, cp_name from tblhire h
     inner join tblcompany c
@@ -9,23 +9,23 @@ select months_between(sysdate, founded) as diff, ((hire_avr_year / months_betwee
             where h.hire_avr_year > 0;
             
 SELECT 
-    ROUND(months_between(sysdate, founded), 2) as "?„¤ë¦?-?˜„?¬", 
-    hire_avr_year as ?‰ê· ê·¼?†,
+    ROUND(months_between(sysdate, founded), 2) as "ì„¤ë¦½-í˜„ì¬", 
+    hire_avr_year as í‰ê· ê·¼ì†,
     ROUND((hire_avr_year / months_between(sysdate, founded)) * 100, 2) as score, 
-    cp_name as ê¸°ì—…ëª?
+    cp_name as ê¸°ì—…ëª…
 FROM 
     tblhire h
     INNER JOIN tblcompany c ON h.cp_seq = c.cp_seq
 WHERE 
-    h.hire_avr_year > 0;            
+    h.hire_avr_year > 0;
 
-select * from tblCompany where cp_name='ë¡??°?´?…¸ë² ì´?Š¸';
+select * from tblCompany where cp_name='ë¡¯ë°ì´ë…¸ë² ì´íŠ¸';
 update tblCompany set founded=to_date('1996-12-28', 'yyyy-mm-dd') where cp_seq = 2969;
 
--- ê·¼ë¬´?•ˆ? •?„± ? ?ˆ˜ ë·? ? œ?‘?•´?•¼?•¨-----------------------------------------------------------
+-- ê·¼ë¬´ì•ˆì •ì„± ì ìˆ˜ ë·° ì œì‘í•´ì•¼í•¨-----------------------------------------------------------
 SELECT 
-    ROUND(months_between(sysdate, founded), 2) as "?„¤ë¦?-?˜„?¬", 
-    hire_avr_year as ?‰ê· ê·¼?†,
+    ROUND(months_between(sysdate, founded), 2) as "ì„¤ë¦½-í˜„ì¬", 
+    hire_avr_year as í‰ê· ê·¼ì†,
     ROUND((hire_avr_year / months_between(sysdate, founded)) * 100, 2) as prevscore, 
     ROUND((hire_avr_year / months_between(sysdate, founded)) * 100 
           + CASE 
@@ -38,17 +38,19 @@ SELECT
                 ELSE 40
             END, 2) as score, 
             
-    cp_name as ê¸°ì—…ëª?
+    cp_name as ê¸°ì—…ëª…
 FROM 
     tblhire h
     INNER JOIN tblcompany c ON h.cp_seq = c.cp_seq
 WHERE 
     h.hire_avr_year > 0;          
 -----------------------------------------------------------------------------
--- ?‡´?‚¬?œ¨ê¹Œì? ?™„ë£Œí•œ ì¿¼ë¦¬ > ë·°ë¡œ ë§Œë“¤?–´?•¼?•¨ ê·¼ì†ë¥? ? ?ˆ˜
+-- í‡´ì‚¬ìœ¨ê¹Œì§€ ì™„ë£Œí•œ ì¿¼ë¦¬ > ë·°ë¡œ ë§Œë“¤ì–´ì•¼í•¨ ê·¼ì†ë¥  ì ìˆ˜
+create or replace view vwStability
+as
 SELECT 
-    ROUND(months_between(sysdate, founded), 2) AS "?„¤ë¦?-?˜„?¬", 
-    hire_avr_year AS ?‰ê· ê·¼?†,
+    ROUND(months_between(sysdate, founded), 2) AS "ì„¤ë¦½-í˜„ì¬", 
+    hire_avr_year AS í‰ê· ê·¼ì†,
     ROUND((hire_avr_year / months_between(sysdate, founded)) * 100, 2) AS prevscore, 
     ROUND(
         (hire_avr_year / months_between(sysdate, founded)) * 100 
@@ -59,11 +61,11 @@ SELECT
             WHEN months_between(sysdate, founded) <= 240 THEN 10
             WHEN months_between(sysdate, founded) <= 300 THEN 20
             WHEN months_between(sysdate, founded) <= 360 THEN 30
-            ELSE 40
+            ELSE 35
           END
         - CASE WHEN hire_retired > hire_new THEN ((hire_retired - hire_new) / hire_member) * 100 ELSE 0 END
     , 2) AS score, 
-    cp_name AS ê¸°ì—…ëª?
+    c.cp_seq
 FROM 
     tblhire h
     INNER JOIN tblcompany c ON h.cp_seq = c.cp_seq
@@ -72,11 +74,13 @@ WHERE
     
 -------------------------------------------------------------------------------------------    
 
+select * from vwStability;
+
 select ((hire_retired-hire_new)/hire_member) * 100 from tblHire where hire_retired>hire_new;
 
 
 select months_between(sysdate, founded) as diff, cp_name from tblcompany
-    where founded is not null and cp_name like '%?‚¼?„±%';
+    where founded is not null and cp_name like '%?ï¿½ï¿½?ï¿½ï¿½%';
     
     
 select months_between(sysdate, founded) as diff, cp_name from tblcompany
@@ -90,7 +94,7 @@ select * from tblhire h
             
 select * from tblFinance;   
 
--- ?˜?—…?´?µ?œ¼ë¡œë§Œ ?• ê±°ì„
+
 CREATE or replace VIEW company_growth AS
 SELECT
     cp_seq,
@@ -120,44 +124,62 @@ select * from company_growth;
 
 CREATE OR REPLACE VIEW vwPotential AS
 SELECT
-    cp_seq,
-    CASE
-        WHEN fnc_ebit_2023 > fnc_ebit_2022 THEN TO_CHAR(ROUND(ABS((fnc_ebit_2023 - fnc_ebit_2022) / fnc_ebit_2022) * 100))
-        WHEN fnc_ebit_2023 < fnc_ebit_2022 THEN '-' || TO_CHAR(ROUND(ABS((fnc_ebit_2022 - fnc_ebit_2023) / fnc_ebit_2022) * 100))
-        ELSE '0'
-    END AS operating_profit_growth
+cp_seq,
+CASE
+WHEN fnc_ebit_2023 > fnc_ebit_2022 THEN ROUND(((fnc_ebit_2023 - fnc_ebit_2022) / fnc_ebit_2022) * 100, 2)
+WHEN fnc_ebit_2023 < fnc_ebit_2022 THEN ROUND(((fnc_ebit_2023 - fnc_ebit_2022) / fnc_ebit_2022) * 100, 2)
+ELSE 0
+END AS score
 FROM
-    (SELECT
-        cp_seq,
-        MAX(CASE WHEN fnc_period = 2022 THEN fnc_ebit END) AS fnc_ebit_2022,
-        MAX(CASE WHEN fnc_period = 2023 THEN fnc_ebit END) AS fnc_ebit_2023
-    FROM
-        tblFinance
-    WHERE
-        fnc_period IN (2022, 2023)
-    GROUP BY
-        cp_seq
-    ) sub
+(SELECT
+cp_seq,
+MAX(CASE WHEN fnc_period = 2022 THEN fnc_ebit END) AS fnc_ebit_2022,
+MAX(CASE WHEN fnc_period = 2023 THEN fnc_ebit END) AS fnc_ebit_2023
+FROM
+tblFinance
 WHERE
-    fnc_ebit_2022 IS NOT NULL AND fnc_ebit_2023 IS NOT NULL;
+fnc_period IN (2022, 2023)
+GROUP BY
+cp_seq
+) sub
+WHERE
+fnc_ebit_2022 IS NOT NULL AND fnc_ebit_2023 IS NOT NULL;
         
-select * from tblCompany where cp_name ='³×ÀÌ¹ö';        
-select v.*, c.cp_name from vwPotential v inner join tblCompany c on v.cp_seq = c.cp_seq;
+select * from tblCompany where cp_name ='ï¿½ï¿½ï¿½Ì¹ï¿½';    
+
+
+select v.cp_seq, v.score, avg(cr.GROWTH_SCORE) from vwPotential v 
+    inner join tblCompany c on v.cp_seq = c.cp_seq
+    left join tblCompanyReview cr on c.cp_seq = cr.cp_seq
+    group by v.cp_seq, v.score;
+    
+
+select * from vwPotential;
+
+
+
+
 select * from tblFinance;
 
 select * from tblWelfareList;
 
+select * from tblCompanyReview;
+
+
 select * from tblFinance;
+
+select count(*) from tblHire where HIRE_AVR_SALARY> 70000000;
+
 
 select * from tblCompany c left join tblHire h on c.cp_seq = h.cp_seq left join tblFinance f on c.cp_seq = f.cp_seq order by hire_member desc;
 
 select * from tblCompany where cp_seq = 3750;
-update tblCompany set ceo = 'ÇüÅÂÁØ' , founded = to_date('1997-04-29', 'yyyy-mm-dd') where cp_seq = 2814;
-update tblCompany set cp_name= 'SOOP',ceo = 'Á¤Âù¿ë' , founded = to_date('1996-04-22', 'yyyy-mm-dd') where cp_seq = 3750;
+update tblCompany set ceo = 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½' , founded = to_date('1997-04-29', 'yyyy-mm-dd') where cp_seq = 2814;
+update tblCompany set cp_name= 'SOOP',ceo = 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½' , founded = to_date('1996-04-22', 'yyyy-mm-dd') where cp_seq = 3750;
 
 select * from tblCompany where cp_seq = 5942;
 
-select * from tblCompany where cp_name like '%°íµî%';
+select * from tblCompany where cp_name like '%ï¿½ï¿½ï¿½%';
 
 insert into tblFinance values(seqFinance.nextVal,5018667294374, 2021 ,sysdate, 2231, 1558728780279,1524755009961);
 insert into tblFinance values(seqFinance.nextVal,5512586322305, 2022 ,sysdate, 2231, 1553794848099,1092157607856);
@@ -178,9 +200,9 @@ insert into tblFinance values(seqFinance.nextVal,0, 2023 ,sysdate, 2232, 6777143
 
 update tblCompany set image='/good/asset/images/logo/SOOP.jpg' where cp_seq = 3750;
 
+select  as seq 
 
-
-update tblCompany set ceo = 'À¯È«ÁØ, Àåº´°­' , founded = to_date('1999-02-28', 'yyyy-mm-dd') where cp_seq = 5942;
+update tblCompany set ceo = 'ï¿½ï¿½È«ï¿½ï¿½, ï¿½åº´ï¿½ï¿½' , founded = to_date('1999-02-28', 'yyyy-mm-dd') where cp_seq = 5942;
 
 insert into tblFinance values(seqFinance.nextVal,181749063262, 2021 ,sysdate, 5942, -1812799267,-8945557289);
 insert into tblFinance values(seqFinance.nextVal,253875421899, 2022 ,sysdate, 5942, 5374196124,-1091737869);

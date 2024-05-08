@@ -87,8 +87,8 @@
             <button id="cancel-btn">&times;</button>
             <h2 id="report-header">신고하기</h2>
             <form id="report-form" action="/addReport" method="POST">
-                <input type="hidden" name="member_id" value="${memberId}">
-                <input type="hidden" name="post_id" value="${postId}">
+                <input type="hidden" name="id" value="${id}">
+                <input type="hidden" name="seq" value="${seq}">
                 <input type="hidden" name="board_type" value="${boardType}">
                 <div id="report-reasons">
                     <label><input type="radio" name="reason" value="spam">비방/욕설</label>
