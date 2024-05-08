@@ -12,24 +12,6 @@
 </head>
 
 <body>
-	<section class="sidebar fixed" id="trend">
-		<div class="career-single-sidebar mt-8 lg:mt-0">
-			<div class="mb-8 rounded-xl bg-white py-10 px-7 shadow-lg">
-				<h5 class="h5">Trend Keyword</h5>
-				<ul class="text-dark items-center">
-					<li class="my-1"><a class="" href="#"># 이슈</a></li>
-					<li class="my-1"><a class="" href="#"># 이슈</a></li>
-					<li class="my-1"><a class="" href="#"># 이슈</a></li>
-					<li class="my-1"><a class="" href="#"># 이슈</a></li>
-					<li class="my-1"><a class="" href="#"># 이슈</a></li>
-					<li class="my-1"><a class="" href="#"># 이슈</a></li>
-				</ul>
-				<button class="btn btn-primary block btn-sm" id="mainUpdate">
-					<i class="fa-solid fa-rotate-right"></i> 업데이트
-				</button>
-			</div>
-		</div>
-	</section>
 	<!-- Banner -->
 	<section class="section banner relative" id="banner">
 		<div class="container">
@@ -52,13 +34,42 @@
 
 	<!-- Key features -->
 	<section class="section key-feature relative" id="mainCard">
-		<div class="container">
+		<div class="container card">
+			<div class="pt-1 px-4 text-center border-b border-border" id="trend">
+				<h5 class="h5">Trend Keyword</h5>
+				<ul class="text-dark items-center pb-6">
+					<li><a class="" href="#"># 이슈</a></li>
+					<li><a class="" href="#"># 이슈</a></li>
+					<li><a class="" href="#"># 이슈</a></li>
+					<li><a class="" href="#"># 이슈</a></li>
+					<li><a class="" href="#"># 이슈</a></li>
+					<li><a class="" href="#"># 이슈</a></li>
+				</ul>
+				<button class="btn btn-outline-primary block btn-sm" id="mainUpdate">
+					<i class="fa-solid fa-rotate-right"></i> 업데이트
+				</button>
+			</div>
 			<h3 class="mt-10">
-				요즘 뜨는 기업!<span><a id="filterHire" class="tag"
-					href="#"><i class="fa-solid fa-check"></i> 채용중</a></span>
+				요즘 뜨는 기업!<span><a id="filterHire" class="tag" href="#"><i
+						class="fa-solid fa-check"></i> 채용중</a></span>
 			</h3>
+
+
 			<div
 				class="key-feature-grid mt-5 grid grid-cols-2 gap-7 md:grid-cols-3 xl:grid-cols-4">
+				<div
+					class="flex flex-col justify-between rounded-lg bg-white p-5 shadow-lg">
+					<div class="logo">
+						<img class="" src="/good/assets/images/logo/default.jpg" alt="" />
+						<i class="fa-regular fa-bookmark scrap"></i>
+					</div>
+					<div class="infoCard">
+						<h3 class="h4 text-xl lg:text-2xl">회사명</h3>
+						<p class="desciption">제약회사</p>
+						<a class="hiring tag" href="#">채용중</a>
+					</div>
+
+				</div>
 				<div
 					class="flex flex-col justify-between rounded-lg bg-white p-5 shadow-lg">
 					<div class="logo">

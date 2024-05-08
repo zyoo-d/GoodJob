@@ -2,23 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <style>
-#headSearch {
-	margin-bottom: 3px;
-	align-items:unset;
-	width:250px;
-}
-#searchResults {
-	top: calc(96%);
-	width:208px;
-}
-#searchInputHead:focus{
-	border-color: rgb(83 90 237 / var(--tw-border-opacity)) !important;
-}
-
-#nav-menu {
- 	margin-bottom: 5px;
-}
-
 </style>
 <header class="header">
 	<nav class="navbar container">
