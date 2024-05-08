@@ -1,20 +1,27 @@
 package com.good.company;
 
-	import java.io.IOException;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
-	import javax.servlet.ServletException;
-	import javax.servlet.annotation.WebServlet;
-	import javax.servlet.http.HttpServlet;
-	import javax.servlet.http.HttpServletRequest;
-	import javax.servlet.http.HttpServletResponse;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.good.company.model.CompanyDTO;
+import com.good.company.model.ReviewDTO;
 import com.good.company.repository.CompanyDAO;
-import com.good.company.repository.RecruitDAO;
+import com.good.company.repository.ReviewDAO;
+import com.test.util.DBUtil;
 
 	@WebServlet("/user/company/companylist.do")
 	public class ListCompany extends HttpServlet {
@@ -78,15 +85,14 @@ import com.good.company.repository.RecruitDAO;
 			map.put("hiring",hiring);
 			
 			
-			//HttpSession session = req.getSession();
+			HttpSession session = req.getSession();
 			
 			//목록 출력
 			CompanyDAO dao = new CompanyDAO();
 			ArrayList<CompanyDTO> comListInfo = dao.comListInfo(map);
 			
+			String unit="";
 			
-			String unit = "";
-			long sales = 0;
 			for (CompanyDTO dto : comListInfo) {
 				
 				//주소 
@@ -99,29 +105,26 @@ import com.good.company.repository.RecruitDAO;
 			    address = address.substring(0, secondSpaceIndex);
 			    dto.setCp_address(address);
 				
-			    
-			    
-			   //총매출액
-			    sales = dto.getFnc_sales();
-			   
+			    //총매출액
+			    long sales = dto.getFnc_sales();
 			    if(sales >= 10000000) { //(단위:천만)
 			    	sales = (long)(Math.round((double)sales/10000000));
-			    	unit = "천만원";
+			    	unit="천만원";
 			    }else if(sales >= 1000000) { // (단위:백만)
 			    	sales = (long)(Math.round((double)sales/1000000));
-			    	unit = "백만원";
+			    	unit="백만원";
 			    }else if(sales >= 100000) { // (단위:십만)
 			    	sales = (long)(Math.round((double)sales/100000));
-			    	unit = "십만원";
+			    	unit="십만원";
 			    }else if(sales >= 10000) { // (단위:만)
 			    	sales = (long)(Math.round((double)sales/10000));
-			    	unit = "만원";
+			    	unit="만원";
 			    }else {
-			    	unit = "원"; //(원)
+			    	unit="원";//(원)
 			    }
 			    dto.setFnc_sales(sales);
-				dto.setUnit(unit);
-				
+			    dto.setUnit(unit);
+			    
 			    //당기순이익
 			    long ebit = dto.getFnc_ebit();
 			    if (Math.abs(ebit) >= 100000000) { //(단위:억)
@@ -135,23 +138,26 @@ import com.good.company.repository.RecruitDAO;
 			    }else if(Math.abs(ebit) >= 10000) { // (단위:만)
 			    	dto.setFnc_ebit((long)(Math.round((double)ebit/10000)));
 			    }else {
-			    	dto.setFnc_sales(ebit); //(원)
+			    	dto.setFnc_ebit(ebit); //(원)
 			    }
 			    
 			    
 				//평균연봉
 			    int avg_salary = dto.getHire_avr_salary();
 			    dto.setHire_avr_salary((int)Math.round((float)avg_salary/10000));//(단위:만원)  
-			    
-			    
-		
+
 			}
 			
 			//총게시물수
 			totalCount = dao.countCompanys();
-			int searchTotalCount = dao.searchCompanyCount(map);
-			totalPage = (int) Math.ceil((double) totalCount / pageSize);
+			int searchTotalCount = dao.searchCompanyCount(map);			
+			totalPage = (int) Math.ceil((double) searchTotalCount / pageSize);
 
+		    //태그리스트출력
+		    ReviewDAO rdao =  new ReviewDAO();
+		    ArrayList<ReviewDTO> ComTaglist = rdao.tagList();
+			
+			
 			// 페이지 바 작업
 			StringBuilder sb = new StringBuilder();
 
@@ -218,13 +224,14 @@ import com.good.company.repository.RecruitDAO;
 			
 			
 			req.setAttribute("comListInfo" , comListInfo);
-			req.setAttribute("map" , map);
+			req.setAttribute("map" , map); //페이지 begin. end hiring
+			req.setAttribute("ComTaglist", ComTaglist);
 			
 			
 			
 			//페이징
 			req.setAttribute("nowPage", nowPage); //페이지 번호
-			req.setAttribute("totalCount", totalCount); 
+			req.setAttribute("totalCount", totalCount);
 			req.setAttribute("searchTotalCount", searchTotalCount);
 			req.setAttribute("totalPage", totalPage); //페이지 번호
 			req.setAttribute("pagebar", sb.toString()); //페이지 바 작업

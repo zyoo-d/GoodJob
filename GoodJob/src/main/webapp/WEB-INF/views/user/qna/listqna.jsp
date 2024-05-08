@@ -65,7 +65,7 @@
 								</div>
 								<div class="list_info">
 									<div class="moving-btn studyAdd mr-2">
-										<a href="/good/user/study/addstudy.do" class="btn btnList">글쓰기</a>
+										<a href="/good/user/qna/addqna.do" class="btn btnList">글쓰기</a>
 									</div>
 									<div class="InpBox">
 										<select class="sorting" name="sort" id="sort">
