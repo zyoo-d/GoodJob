@@ -36,12 +36,6 @@ h2 {
 	margin-bottom: 20px;
 }
 
-.report-reasons label {
-	display: block;
-	margin-bottom: 20px;
-	color: #646B7F;
-}
-
 .actions {
 	text-align: center;
 	margin-top: 20px;
@@ -51,15 +45,6 @@ button {
 	padding: 6px 12px;
 }
 
-.cancel-btn {
-	position: absolute;
-	top: 10px;
-	right: 10px;
-	font-size: 40px;
-	background: none;
-	border: none;
-	cursor: pointer;
-}
 
 .report-btn {
 	width: 60%;
@@ -73,22 +58,36 @@ button {
 	font-size: 16px;
 }
 
-.modal {
-	display: none;
-}
 
 #searchForm {
-	width: 100%;
+	width: 80%;
 }
 
 #company {
-	width: 100%;
+/* 	width: 100%; */
 	border: none;
-	display: inline-flex;
+	margin: 10px 0;
+	display: flex;
+}
+#compare {
+	display: flex;
+}
+#check {
+	flex: 0 1 10px;
+	display: flex;
+	flex-direction: column;
+	margin-right: 0;
+	width: 10px;
+	margin: 0;
+	padding: 0;
+}
+#right {
+	flex: 1;
 }
 
+
 #cp_img {
-	width: 20%;
+	width: 60px;
 	border: 1px solid #4444;
 	border-radius: 10px;
 	padding: 2px;
@@ -99,16 +98,11 @@ button {
 	font-family: Pretendard-Regular;
 	font-size: 1.1rem;
 	font-weight: bold;
-    margin-bottom: 0 !important;
-    padding: 0 !important;
 }
 
-#company {
-	margin: 2px auto;
-}
 
 #cp_industry {
-	width: 100%;
+/* 	width: 100%; */
 	font-family: Pretendard-Regular;
 	font-size: .8rem;
 	margin-top: none;
@@ -119,22 +113,19 @@ button {
 	display: block;
 		width: 100%;
 }
-#check {
-	display: flex;
-	padding: 10px 0;
-}
 
 #check input[type="checkbox"] {
-    margin: 10px;
+    margin: 22px  0;
+    border-radius: 4px;
+    height: 16px;
+    width: 16px;
 }
 
 </style>
 </head>
 <%@include file="/WEB-INF/views/inc/header.jsp"%>
 <body>
-	<div class="modal" id="reportModal">
-		<div class="modal-content">
-			<button class="cancel-btn">&times;</button>
+
 			<h4>기업 선택하기</h4>
 
 			<div id="searchForm">
@@ -172,14 +163,17 @@ button {
 				</c:forEach>
 				</div>
 			</div>
+			
+		<nav class="PageBox z-custom" aria-label="Page navigation example">
+			<ul class="pagination z-custom">${pagebar}</ul>
+		</nav>
 
 			<div class="actions">
 				<button class="report-btn">비교하기</button>
 			</div>
 		</div>
 		</form>
-	</div>
-	</div>
+
 
 
 	<%@include file="/WEB-INF/views/inc/footer.jsp"%>
@@ -228,6 +222,54 @@ button {
 		});
 		$(this).next().addBack().remove();
 	});
+	
+	function goToPage(pageNumber) {
+	    var hiring = (document.getElementById("hiring").checked ? "y" : "n"); // 고용 여부 체크 여부에 따라 값 설정
+	    var word = document.getElementById("search-input").value; // 검색어 가져오기
+
+	    $.ajax({
+	        url: "/good/user/company/cp_selectModal.do",
+	        type: "GET",
+	        data: {
+	            page: pageNumber,
+	            hiring: hiring,
+	            word: word
+	        },
+	        success: function(data) {
+	            // 서버에서 받은 데이터를 사용하여 모달 창의 내용 업데이트
+	            $(".modal-content").html(data);
+	        },
+	        error: function(xhr, status, error) {
+	            console.error("Error: " + status + ", Message: " + error);
+	        }
+	    });
+	}
+	
+	// 페이지 번호를 클릭했을 때 호출되는 함수
+	function goToPage(pageNumber) {
+	    // AJAX 요청을 보내기 전에 페이지 번호와 필요한 데이터를 설정합니다.
+	    var hiring = (document.getElementById("hiring").checked ? "y" : "n"); // 고용 여부 체크 여부에 따라 값 설정
+	    var word = document.getElementById("search-input").value; // 검색어 가져오기
+
+	    // AJAX 요청을 보냅니다.
+	    $.ajax({
+	        url: "/good/user/company/cp_selectModal.do",
+	        type: "GET",
+	        data: {
+	            page: pageNumber,
+	            hiring: hiring,
+	            word: word
+	        },
+	        success: function(data) {
+	            // 서버에서 받은 데이터로 모달 창 내의 콘텐츠를 업데이트합니다.
+	            $(".modal-content").html(data);
+	        },
+	        error: function(xhr, status, error) {
+	            console.error("Error: " + status + ", Message: " + error);
+	        }
+	    });
+	}
+
 </script>
 
 </body>

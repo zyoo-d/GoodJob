@@ -144,11 +144,6 @@ public class Compare extends HttpServlet {
 		totalCount = dao.countCompanys();
 		int searchTotalCount = dao.searchCompanyCount(map);			
 		totalPage = (int) Math.ceil((double) searchTotalCount / pageSize);
-
-	    //태그리스트출력
-	    ReviewDAO rdao =  new ReviewDAO();
-	    ArrayList<ReviewDTO> ComTaglist = rdao.tagList();
-		
 		
 		// 페이지 바 작업
 		StringBuilder sb = new StringBuilder();
@@ -167,14 +162,14 @@ public class Compare extends HttpServlet {
 			sb.append(
 					"<li class='page-item z-custom'><a class='page-link' href='#!'><span class='material-symbols-outlined paging-icon z-custom'>keyboard_double_arrow_left</span></a></li>");
 			sb.append(String.format(
-					"<li class='page-item z-custom'><a class='page-link' href='/good/user/company/companylist.do?page=%d&hiring=%s&word=%s'><span class='material-symbols-outlined paging-icon z-custom'>navigate_before</span></a></li>",
+					"<li class='page-item z-custom'><a class='page-link' href='/good/user/company/comparelist_test.do?page=%d&hiring=%s&word=%s'><span class='material-symbols-outlined paging-icon z-custom'>navigate_before</span></a></li>",
 					n - 1, hiring, word));
 		} else if (n > 5) {
 			sb.append(String.format(
-					"<li class='page-item z-custom'><a class='page-link' href='/good/user/company/companylist.do?page=%d&hiring=%s&word=%s'><span class='material-symbols-outlined paging-icon z-custom'>keyboard_double_arrow_left</span></a></li>",
+					"<li class='page-item z-custom'><a class='page-link' href='/good/user/company/comparelist_test.do?page=%d&hiring=%s&word=%s'><span class='material-symbols-outlined paging-icon z-custom'>keyboard_double_arrow_left</span></a></li>",
 					n - 5, hiring, word));
 			sb.append(String.format(
-					"<li class='page-item z-custom'><a class='page-link' href='/good/user/company/companylist.do?page=%d&hiring=%s&word=%s'><span class='material-symbols-outlined paging-icon z-custom'>navigate_before</span></a></li>",
+					"<li class='page-item z-custom'><a class='page-link' href='/good/user/company/comparelist_test.do?page=%d&hiring=%s&word=%s'><span class='material-symbols-outlined paging-icon z-custom'>navigate_before</span></a></li>",
 					n - 1, hiring, word));
 		}
 
@@ -186,7 +181,7 @@ public class Compare extends HttpServlet {
 						n));
 			} else {
 				sb.append(String.format(
-						"<li class='page-item z-custom'><a class='page-link' href='/good/user/company/companylist.do?page=%d&hiring=%s&word=%s'>%d</a></li>",
+						"<li class='page-item z-custom'><a class='page-link' href='/good/user/company/comparelist_test.do?page=%d&hiring=%s&word=%s'>%d</a></li>",
 						n, hiring, word, n));
 			}
 			loop++;
@@ -201,23 +196,22 @@ public class Compare extends HttpServlet {
 					"<li class='page-item z-custom'><a class='page-link' href='#!'><span class='material-symbols-outlined paging-icon z-custom'>keyboard_double_arrow_right</span></a></li>");
 		} else if (n >= totalPage - 5) {
 			sb.append(String.format(
-					"<li class='page-item z-custom'><a class='page-link' href='/good/user/company/companylist.do?page=%d&hiring=%s&word=%s'><span class='material-symbols-outlined paging-icon z-custom'>navigate_next</span></a></li>",
+					"<li class='page-item z-custom'><a class='page-link' href='/good/user/company/comparelist_test.do?page=%d&hiring=%s&word=%s'><span class='material-symbols-outlined paging-icon z-custom'>navigate_next</span></a></li>",
 					n, hiring, word));
 			sb.append(
 					"<li class='page-item z-custom'><a class='page-link' href='#!'><span class='material-symbols-outlined paging-icon z-custom'>keyboard_double_arrow_right</span></a></li>");
 		} else {
 			sb.append(String.format(
-					"<li class='page-item z-custom'><a class='page-link' href='/good/user/company/companylist.do?page=%d&hiring=%s&word=%s'><span class='material-symbols-outlined paging-icon z-custom'>navigate_next</span></a></li>",
+					"<li class='page-item z-custom'><a class='page-link' href='/good/user/company/comparelist_test.do?page=%d&hiring=%s&word=%s'><span class='material-symbols-outlined paging-icon z-custom'>navigate_next</span></a></li>",
 					n, hiring, word));
 			sb.append(String.format(
-					"<li class='page-item z-custom'><a class='page-link' href='/good/user/company/companylist.do?page=%d&hiring=%s&word=%s'><span class='material-symbols-outlined paging-icon z-custom'>keyboard_double_arrow_right</span></a></li>",
+					"<li class='page-item z-custom'><a class='page-link' href='/good/user/company/comparelist_test.do?page=%d&hiring=%s&word=%s'><span class='material-symbols-outlined paging-icon z-custom'>keyboard_double_arrow_right</span></a></li>",
 					n + 5, hiring, word));
 		}
 		
 		
 		req.setAttribute("comListInfo" , comListInfo);
 		req.setAttribute("map" , map); //페이지 begin. end hiring
-		req.setAttribute("ComTaglist", ComTaglist);
 		
 		
 		
