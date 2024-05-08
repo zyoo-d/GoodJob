@@ -168,30 +168,31 @@ public class CompanyDAO {
 				dto.setCp_seq(rs.getString("cp_seq"));
 				dto.setCp_name(rs.getString("cp_name"));
 				dto.setCp_address(rs.getString("cp_address"));
-				dto.setCeo(rs.getString("ceo"));
-				dto.setFounded(rs.getString("founded"));
+				//dto.setCeo(rs.getString("ceo"));
+				//dto.setFounded(rs.getString("founded"));
 				dto.setImage(rs.getString("image"));
 				
-				dto.setIdst_code(rs.getString("idst_code"));
-				dto.setIdst_name(rs.getString("idst_name"));
+				//dto.setIdst_code(rs.getString("idst_code"));
+				//dto.setIdst_name(rs.getString("idst_name"));
 				
 			
-				dto.setHire_member(rs.getInt("hire_member"));
-				dto.setHire_new(rs.getInt("hire_new"));
-				dto.setHire_retired(rs.getInt("hire_retired"));
-				dto.setHire_avr_year(rs.getInt("hire_avr_year"));
+				//dto.setHire_member(rs.getInt("hire_member"));
+				//dto.setHire_new(rs.getInt("hire_new"));
+				//dto.setHire_retired(rs.getInt("hire_retired"));
+				//dto.setHire_avr_year(rs.getInt("hire_avr_year"));
 				dto.setHire_avr_salary(rs.getInt("hire_avr_salary"));
 				//dto.setHire_regdate(rs.getString("hire_regdate"));
 				
 				
 				dto.setFnc_sales(rs.getLong("fnc_sales"));
-				dto.setFnc_ebit(rs.getLong("fnc_ebit"));
-				dto.setFnc_income(rs.getLong("fnc_income"));
-				dto.setFnc_period(rs.getString("fnc_period"));
+				//dto.setFnc_ebit(rs.getLong("fnc_ebit"));
+				//dto.setFnc_income(rs.getLong("fnc_income"));
+				//dto.setFnc_period(rs.getString("fnc_period"));
 				//dto.setFnc_regdate(rs.getString("fnc_regdate"));
 				
 				dto.setCom_rcrt_cnt(rs.getInt("com_rcrt_cnt"));
 				dto.setCom_scrap_cnt(rs.getInt("com_scrap_cnt"));
+				dto.setCom_scrap_cnt(rs.getInt("com_rv_cnt"));
 				
 				listCompanyInfo.add(dto);
 
@@ -260,7 +261,7 @@ public class CompanyDAO {
 	public CompanyDTO get(String cp_seq) {
 		
 		try {
-		String sql = "select * from  vwNewComListInfo where cp_seq = ?";
+		String sql = "select * from vwComDetailInfo where cp_seq = ?";
 		
 		pstat = conn.prepareStatement(sql);
 		pstat.setString(1, cp_seq);

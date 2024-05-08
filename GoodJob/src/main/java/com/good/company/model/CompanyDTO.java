@@ -51,8 +51,11 @@ public class CompanyDTO {
 	
 	//스크랩 수
 	private int com_scrap_cnt;
-
 	
+	//리뷰 수
+	private int com_rv_cnt;
+
+	 private ArrayList<String> tag_list;
 	
 
 }
