@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.good.alert.Alert;
 import com.good.board.model.QnaBoardDTO;
 import com.good.board.repository.QnaBoardDAO;
 
@@ -25,7 +26,7 @@ public class AddQna extends HttpServlet {
 		
 		if(id== null || id.equals("")) {
 			
-			
+			Alert.needLogin(resp, "/good/user/signin.do");
 			
 		} else {
 			

@@ -1,6 +1,7 @@
 package com.good.matching;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,30 +16,100 @@ public class AddPrefer extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		int salary1 = Integer.parseInt(req.getParameter("연봉1"));
-		int salary3 = Integer.parseInt(req.getParameter("연봉2"));
-		int salary2 = Integer.parseInt(req.getParameter("연봉3"));
-		int salary4 = Integer.parseInt(req.getParameter("연봉4"));
+		int sal_stab = Integer.parseInt(req.getParameter("연봉1"));
+        int sal_wel = Integer.parseInt(req.getParameter("연봉3"));
+        int sal_cul = Integer.parseInt(req.getParameter("연봉4"));
+        int sal_pot = Integer.parseInt(req.getParameter("연봉5"));
+
+        int wel_sal = Integer.parseInt(req.getParameter("복지18"));
+        int wel_pot = Integer.parseInt(req.getParameter("복지19"));
+        int wel_cul = Integer.parseInt(req.getParameter("복지20"));
+        int wel_stab = Integer.parseInt(req.getParameter("복지21"));
+
+        int stab_pot = Integer.parseInt(req.getParameter("조직안정성6"));
+        int stab_wel = Integer.parseInt(req.getParameter("조직안정성7"));
+        int stab_cul = Integer.parseInt(req.getParameter("조직안정성8"));
+        int stab_sal = Integer.parseInt(req.getParameter("조직안정성9"));
+
+        int cul_sal = Integer.parseInt(req.getParameter("조직문화10"));
+        int cul_stab = Integer.parseInt(req.getParameter("조직문화11"));
+        int cul_pot = Integer.parseInt(req.getParameter("조직문화12"));
+        int cul_wel = Integer.parseInt(req.getParameter("조직문화13"));
+
+        int pot_cul = Integer.parseInt(req.getParameter("성장가능성14"));
+        int pot_wel = Integer.parseInt(req.getParameter("성장가능성15"));
+        int pot_sal = Integer.parseInt(req.getParameter("성장가능성16"));
+        int pot_stab = Integer.parseInt(req.getParameter("성장가능성17"));
+        
+        HashMap<String, Integer> map = new HashMap<>();
+        map.put("sal_stab", sal_stab);
+        map.put("sal_wel", sal_wel);
+        map.put("sal_cul", sal_cul);
+        map.put("sal_pot", sal_pot);
+        map.put("wel_sal", wel_sal);
+        map.put("wel_pot", wel_pot);
+        map.put("wel_cul", wel_cul);
+        map.put("wel_stab", wel_stab);
+        map.put("stab_pot", stab_pot);
+        map.put("stab_wel", stab_wel);
+        map.put("stab_cul", stab_cul);
+        map.put("stab_sal", stab_sal);
+        map.put("cul_sal", cul_sal);
+        map.put("cul_stab", cul_stab);
+        map.put("cul_pot", cul_pot);
+        map.put("cul_wel", cul_wel);
+        map.put("pot_cul", pot_cul);
+        map.put("pot_wel", pot_wel);
+        map.put("pot_sal", pot_sal);
+        map.put("pot_stab", pot_stab);
 		
-		int welfare1 = Integer.parseInt(req.getParameter("복지1"));
-		int welfare3 = Integer.parseInt(req.getParameter("복지2"));
-		int welfare2 = Integer.parseInt(req.getParameter("복지3"));
-		int welfare4 = Integer.parseInt(req.getParameter("복지4"));
+		String[] prefer = {"sal", "wel", "stab", "cul", "pot"};
+		int sum = 0;
 		
-		int stability1 = Integer.parseInt(req.getParameter("조직안정성1"));
-		int stability3 = Integer.parseInt(req.getParameter("조직안정성2"));
-		int stability2 = Integer.parseInt(req.getParameter("조직안정성3"));
-		int stability4 = Integer.parseInt(req.getParameter("조직안정성4"));
+		for(int i=0; i<prefer.length-1; i++) {
+			
+			for(int j=i+1; j<prefer.length-1; j++) {
+				
+				int front = map.get(prefer[i]+"_"+prefer[j]);
+				int back = map.get(prefer[j]+"_"+prefer[i]);
+				
+//				5 2 -2 -5 값 빼기 10 + 10 %
+//				뺄경우에는 10이 정확도 100%
+//				0, 3, 7, 10
+//				연봉 > 조직안정성
+				
+				switch(Math.abs(front - back)) {
+				case 10 :
+					sum += 10;
+					break;
+				case 7 :
+					sum += 7;
+					break;
+				case 3 :
+					sum += 3;
+					break;
+				case 0 :
+					sum += 0;
+					break;
+				
+				}
+				
+			}
+			
+			
+		}
 		
-		int culture1 = Integer.parseInt(req.getParameter("조직문화1"));
-		int culture3 = Integer.parseInt(req.getParameter("조직문화2"));
-		int culture2 = Integer.parseInt(req.getParameter("조직문화3"));
-		int culture4 = Integer.parseInt(req.getParameter("조직문화4"));
+		// 정확도 = sum > 60% 아래면 return 
 		
-		int potential1 = Integer.parseInt(req.getParameter("성장가능성1"));
-		int potential3 = Integer.parseInt(req.getParameter("성장가능성2"));
-		int potential2 = Integer.parseInt(req.getParameter("성장가능성3"));
-		int potential4 = Integer.parseInt(req.getParameter("성장가능성4"));
+		
+		
+		
+		
+		
+		
+		
+		
+		
 
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/user/matching/addprefer.jsp");
 		dispatcher.forward(req, resp);

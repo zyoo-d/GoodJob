@@ -2,6 +2,7 @@ package com.good.board.qna;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -32,15 +33,37 @@ public class EditQna extends HttpServlet{
 		
 		String qna_seq = req.getParameter("qna_seq");
 		
+		//인증
+		if(AuthQna.check(req, resp)) {
+			return;
+		}
+		
+		
 		QnaBoardDAO dao = new QnaBoardDAO();
 		
-		QnaBoardDTO dto = dao.get(qna_seq);
+		QnaBoardDTO dto = dao.getQna(qna_seq);
 		
 		req.setAttribute("dto", dto);
 		
 		dao.close();
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/user/qna/editqna.jsp");
 		dispatcher.forward(req, resp);
+		
+		
+		HashMap<String, Integer> map = new HashMap<>();
+		
+				
+		map.put("salary_welfare", 5);
+		map.put("welfare_salary", 5);
+		
+
+		
+		
+		String sal ="a";
+		String stab = "b";
+		
+		map.get(sal+stab);
+		map.get(stab+sal);
 		
 		
 	}
