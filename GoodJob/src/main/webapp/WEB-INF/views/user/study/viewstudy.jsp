@@ -73,12 +73,14 @@
 
 						<form class="comment-form" action="#" method="POST">
 							<table id="comment">
-								<tbody>
+								<thead>
 									<tr>
 										<th>댓글</th>
 										<th>정보</th>
 									</tr>
-									<c:forEach items="${clist}" var="cdto">
+								</thead>
+								<tbody>
+									<c:forEach items="${clist}" var="cdto" begin="0" end="9">
 										<tr>
 											<td class='commentContent'><p>${cdto.content}</p></td>
 											<td class='commentInfo'><div>
@@ -86,8 +88,13 @@
 													<div class='comment-edit'>
 														<p>${cdto.nickname}</p>
 														<div class='comment-icon'>
-															<span class='material-symbols-outlined'>delete</span> <span
-																class='material-symbols-outlined'>edit_note</span>
+															<c:if
+																test="${not empty id && (cdto.id == id || lv == 2)}">
+																<span class='material-symbols-outlined'
+																	onclick="del(${cdto.cm_seq});">delete</span>
+																<span class='material-symbols-outlined'
+																	onclick="edit(${cdto.cm_seq});">edit_note</span>
+															</c:if>
 														</div>
 													</div>
 												</div></td>
@@ -98,7 +105,8 @@
 
 							<!-- 댓글 페이징 -->
 							<div class="comment-paging">
-								<button type="button" class="btn more-comment">댓글 더보기</button>
+								<button type="button" class="btn more-comment"
+									id="btnMoreComment">댓글 더보기</button>
 							</div>
 						</form>
 					</div>
@@ -109,6 +117,14 @@
 
 	<%@include file="/WEB-INF/views/inc/footer.jsp"%>
 	<script>
+	
+		var page = 1;
+    	var size = 10;
+    	let commentBegin = ${clist.size() + 1};
+    	var stdSeq = ${dto.std_seq};
+		console.log(commentBegin);
+		console.log(stdSeq);
+    	
 		$('#btnDelStudy')
 				.click(
 						function() {
@@ -120,10 +136,19 @@
 		$("#btnAddComment")
 		.click(
 				function() {
+				
+					
 					var commentContent = $(
 							"input[name='viewStudyComment']").val();
 					
-					var stdSeq = ${dto.std_seq};
+					
+					
+				 	var userId = "${sessionScope.id}";
+				    if (!userId) {
+				        alert("로그인해주세요."); 
+				        return;
+				    } 
+					
 
 					if (commentContent.trim() === "") {
 						alert("댓글 내용을 입력해주세요.");
@@ -144,14 +169,11 @@
 
 								
 									var row = "<tr>"
-											+ "<td class='comment-num'>"
-											+ ($("#comment tbody tr").length + 1)
-											+ "</td>"
 											+ "<td class='commentContent'><p>"
 											+ newComment.STD_CM_CONTENT
 											+ "</p></td>"
 											+ "<td class='commentInfo'>"
-											+ "<div><p>"
+											+ "<div><p class='font-sm'>"
 											+ newComment.STD_CM_REGDATE
 											+ "</p>"
 											+ "<div class='comment-edit'><p>"
@@ -176,34 +198,143 @@
 								}
 							});
 				});
+		
+			
+			<c:if test="${clist.size() == 0}">
+				$('#btnMoreComment').hide();
+			</c:if>
+			
+			$('#btnMoreComment').click(() => {
+				
+				//where rnum between 11 and 20;
+				//where rnum between 21 and 30;
+				$.ajax({
+					type: 'GET',
+					url: '/good/board/study/stdmorecomment.do',
+					data: {
+						commentBegin: commentBegin,
+						bseq: stdSeq
+					},
+					dataType: 'json',
+					success: function(response) {
+						console.log(response);
 
-		/*  $(document).ready(function() {
-		     $.ajax({
-		         url: "/good/user/comment/Listcomment.do",
-		         type: "POST",
-		         data: { std_seq: ${dto.std_seq} },
-		         success: function(response) {
-		         	console.log(response);
-		             $("#comment tbody").empty(); // 기존 댓글 목록 비우기
-		             $.each(response, function() {
-		                 var row = "<tr>" +
-		                     "<td class='comment-num'>" + ${response.dto.STD_CM_SEQ} + "</td>" +
-		                     "<td class='commentContent'><p>" + ${response.dto.STD_CM_CONTENT} + "</p></td>" +
-		                     "<td class='commentInfo'>" +
-		                     "<div><p>" + ${response.dto.STD_CM_REGDATE} + "</p>" +
-		                     "<div class='comment-edit'><p>" + ${response.dto.NICKNAME} + "</p>" +
-		                     "<div class='comment-icon'>" +
-		                     "<span class='material-symbols-outlined'>delete</span>" +
-		                     "<span class='material-symbols-outlined'>edit_note</span>" +
-		                     "</div></div></div></td></tr>";
-		                 $("#comment tbody").append(row);
-		             });
-		         },
-		         error: function() {
-		             alert("댓글 목록을 가져오는 중 오류가 발생했습니다.");
-		         }
-		     });
-		 });  */
+						if (response.length > 0) {
+
+							commentBegin += 10;
+							
+							response.forEach(obj => {
+
+								 let temp = "<tr>" +
+						            "<td class='commentContent'><p>" + obj.content + "</p></td>" +
+						            "<td class='commentInfo'>" +
+						            "<div><p class='font-sm'>" + obj.regdate + "</p>" +
+						            "<div class='comment-edit'><p>" + obj.name + "</p>" +
+						            "<div class='comment-icon'>" +
+						            "<span class='material-symbols-outlined'>delete</span>" +
+						            "<span class='material-symbols-outlined'>edit_note</span>" +
+						            "</div></div></div></td></tr>";
+								
+								if ('${id}' != '' && (obj.id == '${id}' || ${lv == 2})) {
+								
+								temp += `		<div>
+													<span class="material-symbols-outlined" onclick="del(\${obj.seq});">delete</span>
+													<span class="material-symbols-outlined" onclick="edit(\${obj.seq});">edit_note</span>
+												</div>`;
+								}		
+												
+								temp += `	</div>
+										</td>
+									</tr>
+								`;
+								
+								$('#comment tbody').append(temp);
+								
+							});
+							
+						} else {
+							alert('더 이상 가져올 댓글이 없습니다.');
+						}
+						
+					},
+					error: function(a,b,c) {
+						console.log(a,b,c);
+					}
+				});
+				
+			});
+			
+			function edit(seq) {
+			    $('.commentEditRow').remove();
+			    
+			    let content = $(event.target).parents('tr').find('td.commentContent p').text();
+			    
+			    $(event.target).parents('tr').after(`
+			        <tr class="commentEditRow">
+			            <td><input type="text" name="content" class="full" required value="${content}" id="txtComment"></td>
+			            <td class="commentEdit">
+			                <span class="material-symbols-outlined" onclick="editComment(\${seq});">edit_square</span>
+			                <span class="material-symbols-outlined" onclick="$(event.target).parents('tr').remove();">close</span>
+			            </td>
+			        </tr>
+			    `);
+			}
+
+			function editComment(seq) {
+				    let td = $(event.target).closest('tr').prev().find('td.commentContent p');
+				    let tr = $(event.target).closest('tr');
+				    let editedContent = tr.find('input[name=content]').val(); // Retrieve edited content from input field
+
+			    
+			    $.ajax({
+			        type: 'POST',
+			        url: '/good/board/comment/stdeditcomment.do',
+			        data: {
+			            seq: seq,
+			            content: $(event.target).parents('tr').find('input[name=content]').val()
+			        },
+			        dataType: 'json',
+			        success: function(result) {
+			            if (result.result == '1') {
+			            	td.text(editedContent); 
+			                tr.remove();
+			            } else {
+			                alert('댓글 수정을 실패했습니다.');
+			            }
+			        },
+			        error: function(a, b, c) {
+			            console.log(a, b, c);
+			        }
+			    });
+			}
+			
+			
+			function del(seq) {
+			    $('.commentEditRow').remove();
+
+			    let tr = $(event.target).closest('tr');
+
+			    if (confirm('삭제하겠습니까?')) {
+			        $.ajax({
+			            type: 'POST',
+			            url: '/good/board/comment/stddelcomment.do', // 삭제 요청을 처리할 URL 수정
+			            data: { seq: seq }, // 데이터를 객체 형태로 전달
+			            dataType: 'json',
+			            success: function(result) {
+			                if (result.result == 1) {
+			                    tr.remove();
+			                } else {
+			                    alert('댓글 삭제를 실패했습니다.');
+			                }
+			            },
+			            error: function(a, b, c) {
+			                console.log(a, b, c);
+			            }
+			        });
+			    }
+			}
+
+		
 	</script>
 </body>
 </html>

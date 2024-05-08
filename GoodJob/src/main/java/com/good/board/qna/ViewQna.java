@@ -1,6 +1,7 @@
 package com.good.board.qna;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.good.board.model.CommentDTO;
 import com.good.board.model.QnaBoardDTO;
 import com.good.board.repository.QnaBoardDAO;
 
@@ -43,7 +45,10 @@ public class ViewQna extends HttpServlet{
 		
 		dto.setQna_content(content);
 
+		ArrayList<CommentDTO> clist = dao.listComment(qna_seq);
+		
 		req.setAttribute("dto", dto);
+		req.setAttribute("clist", clist);
 		dao.close();
 
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/user/qna/viewqna.jsp");

@@ -2390,20 +2390,7 @@ textarea:focus {
 	box-shadow: none;
 }
 
-#comment th:nth-child(1), #comment td:nth-child(1) {
-	width: 60px;
-	text-align: center;
-}
 
-#comment th:nth-child(2), #comment td:nth-child(2) {
-	width: auto;
-	text-align: left;
-}
-
-#comment th:nth-child(3), #comment td:nth-child(3) {
-	width: 160px;
-	text-align: left;
-}
 
 #comment .commentContent {
 	font-size: 16px;

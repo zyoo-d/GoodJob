@@ -309,7 +309,7 @@ public class QnaBoardDAO {
 	public int addComment(CommentDTO dto) {
 	    try {
 	        // SQL 문장 작성
-	        String sql = "INSERT INTO tblQnaComment (STD_CM_SEQ, STD_CM_CONTENT, STD_CM_REGDATE, STD_SEQ, STD_CM_BSEQ, ID) VALUES (SEQSTDCOMMENT.nextval, ?, SYSDATE, ?, NULL, ?)";
+	        String sql = "INSERT INTO tblQnaComment (QNA_CM_SEQ, QNA_CM_CONTENT, QNA_CM_REGDATE, QNA_SEQ, QNA_CM_BSEQ, ID) VALUES (SEQQNACOMMENT.nextval, ?, SYSDATE, ?, NULL, ?)";
 	        
 	        // PreparedStatement 생성 및 값 설정
 	        pstat = conn.prepareStatement(sql);
@@ -328,14 +328,14 @@ public class QnaBoardDAO {
 	    return 0;
 	}
 
-	public CommentDTO getComment(String sTD_SEQ) {
+	public CommentDTO getComment(String QNA_SEQ) {
 
 		try {
 			
-			String sql = "SELECT * FROM vwqnaComment WHERE STD_SEQ = ? AND STD_CM_SEQ = (SELECT MAX(STD_CM_SEQ) FROM vwstdComment WHERE STD_SEQ = ?)";
+			String sql = "SELECT * FROM vwqnaComment WHERE QNA_SEQ = ? AND QNA_CM_SEQ = (SELECT MAX(QNA_CM_SEQ) FROM vwqnaComment WHERE QNA_SEQ = ?)";
 			pstat = conn.prepareStatement(sql);
-			pstat.setString(1, sTD_SEQ);
-			pstat.setString(2, sTD_SEQ);
+			pstat.setString(1, QNA_SEQ);
+			pstat.setString(2, QNA_SEQ);
 					
 			rs = pstat.executeQuery();
 			
@@ -361,11 +361,12 @@ public class QnaBoardDAO {
 		return null;
 	}
 	
-	public ArrayList<CommentDTO> listComment(String std_seq) {
+	public ArrayList<CommentDTO> listComment(int QNA_seq) {
 	    try {
-	        String sql = "SELECT * FROM vwqnacomment WHERE STD_SEQ = ?";
-	        pstat = conn.prepareStatement(sql);
-	        pstat.setString(1, std_seq);
+	        
+	    	String sql = "SELECT * FROM (SELECT t.*, ROW_NUMBER() OVER (ORDER BY t.QNA_CM_SEQ DESC) AS rn FROM vwQNAComment t WHERE t.QNA_SEQ = ?) WHERE rn BETWEEN 1 AND 10";
+	    	pstat = conn.prepareStatement(sql);
+	        pstat.setInt(1, QNA_seq);
 	        rs = pstat.executeQuery();
 	        ArrayList<CommentDTO> clist = new ArrayList<>();
 	        	        
@@ -387,6 +388,87 @@ public class QnaBoardDAO {
 	    }
 	    return null;
 	}
+
+	public ArrayList<CommentDTO> listMoreComment(String bseq, int commentBegin) {
+		//queryParamListReturn
+		try {
+			
+			int startRow = commentBegin;
+			int endRow = startRow + 9;
+
+			String sql = "SELECT * FROM (SELECT t.*, ROW_NUMBER() OVER (ORDER BY t.QNA_CM_SEQ DESC) AS rn FROM vwQNAComment t WHERE t.QNA_SEQ = ?) WHERE rn BETWEEN ? AND ?";
+			pstat = conn.prepareStatement(sql);
+			pstat.setString(1, bseq);
+			pstat.setInt(2, startRow);
+			pstat.setInt(3, endRow);			
+			
+			
+			rs = pstat.executeQuery();
+			
+			ArrayList<CommentDTO> list = new ArrayList<CommentDTO>();
+			
+			while (rs.next()) {
+				
+				CommentDTO dto = new CommentDTO();
+				
+				dto.setCm_seq(rs.getString("qna_cm_seq"));
+				dto.setContent(rs.getString("qna_cm_content"));
+				dto.setRegdate(rs.getString("qna_cm_regdate"));
+				dto.setCm_bseq(rs.getString("qna_cm_bseq"));
+				dto.setId(rs.getString("id"));
+		        dto.setNickname(rs.getString("nickname"));
+				
+				list.add(dto);				
+			}	
+			
+			return list;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
 	
+	}
+
+	public int delComment(String seq) {
+		//queryParamNoReturn
+		try {
+			
+			String sql = "delete from tblqnaComment where qna_cm_seq = ?";
+			
+			pstat = conn.prepareStatement(sql);
+			pstat.setString(1, seq);
+
+			return pstat.executeUpdate();
+
+		} catch (Exception e) {
+			System.out.println("BoardDAO.delComment");
+			e.printStackTrace();
+		}
+		
+		return 0;
+	
+	}
+
+	public int editComment(CommentDTO dto) {
+		//queryParamNoReturn
+		try {
+
+			String sql = "update tblqnaComment set qna_cm_content = ? where qna_cm_seq = ?";
+
+			pstat = conn.prepareStatement(sql);
+			pstat.setString(1, dto.getContent());
+			pstat.setString(2, dto.getCm_seq());
+
+			return pstat.executeUpdate();
+
+		} catch (Exception e) {
+			System.out.println("BoardDAO.editComment");
+			e.printStackTrace();
+		}
+	
+		return 0;
+	}
 	
 }

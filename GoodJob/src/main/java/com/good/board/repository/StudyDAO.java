@@ -1,11 +1,13 @@
 package com.good.board.repository;
 
+import java.io.Closeable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import com.good.board.model.CommentDTO;
 import com.good.board.model.StudyDTO;
@@ -285,8 +287,9 @@ public class StudyDAO {
 
 	public ArrayList<CommentDTO> listComment(String std_seq) {
 	    try {
-	        String sql = "SELECT * FROM vwstdcomment WHERE STD_SEQ = ?";
-	        pstat = conn.prepareStatement(sql);
+	        
+	    	String sql = "SELECT * FROM (SELECT t.*, ROW_NUMBER() OVER (ORDER BY t.STD_CM_SEQ DESC) AS rn FROM vwstdComment t WHERE t.STD_SEQ = ?) WHERE rn BETWEEN 1 AND 10";
+	    	pstat = conn.prepareStatement(sql);
 	        pstat.setString(1, std_seq);
 	        rs = pstat.executeQuery();
 	        ArrayList<CommentDTO> clist = new ArrayList<>();
@@ -341,8 +344,91 @@ public class StudyDAO {
 		
 		return null;
 	}
+
+
+	public ArrayList<CommentDTO> listMoreComment(String bseq, int commentBegin) {
+		//queryParamListReturn
+		try {
+			
+			int startRow = commentBegin;
+			int endRow = startRow + 9;
+
+			String sql = "SELECT * FROM (SELECT t.*, ROW_NUMBER() OVER (ORDER BY t.STD_CM_SEQ DESC) AS rn FROM vwstdComment t WHERE t.STD_SEQ = ?) WHERE rn BETWEEN ? AND ?";
+			pstat = conn.prepareStatement(sql);
+			pstat.setString(1, bseq);
+			pstat.setInt(2, startRow);
+			pstat.setInt(3, endRow);			
+			
+			
+			rs = pstat.executeQuery();
+			
+			ArrayList<CommentDTO> list = new ArrayList<CommentDTO>();
+			
+			while (rs.next()) {
+				
+				CommentDTO dto = new CommentDTO();
+				
+				dto.setCm_seq(rs.getString("std_cm_seq"));
+				dto.setContent(rs.getString("std_cm_content"));
+				dto.setRegdate(rs.getString("std_cm_regdate"));
+				dto.setCm_bseq(rs.getString("std_cm_bseq"));
+				dto.setId(rs.getString("id"));
+		        dto.setNickname(rs.getString("nickname"));
+				
+				list.add(dto);				
+			}	
+			
+			return list;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
 	
+	}
+
+	public int editComment(CommentDTO dto) {
+		//queryParamNoReturn
+		try {
+
+			String sql = "update tblstdComment set std_cm_content = ? where std_cm_seq = ?";
+
+			pstat = conn.prepareStatement(sql);
+			pstat.setString(1, dto.getContent());
+			pstat.setString(2, dto.getCm_seq());
+
+			return pstat.executeUpdate();
+
+		} catch (Exception e) {
+			System.out.println("BoardDAO.editComment");
+			e.printStackTrace();
+		}
 	
-	
+		return 0;
+	}
+
+	public int delComment(String seq) {
+		
+		//queryParamNoReturn
+		try {
+			
+			String sql = "delete from tblstdComment where std_cm_seq = ?";
+			
+			pstat = conn.prepareStatement(sql);
+			pstat.setString(1, seq);
+
+			return pstat.executeUpdate();
+
+		} catch (Exception e) {
+			System.out.println("BoardDAO.delComment");
+			e.printStackTrace();
+		}
+		
+		return 0;
+		
+	}
+
+
 
 }

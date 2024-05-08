@@ -29,7 +29,10 @@ public class StdAddComment extends HttpServlet {
 			throws ServletException, IOException {
 		// POST 요청을 처리하여 댓글을 추가하는 코드를 작성합니다.
 		HttpSession session = request.getSession();
+		
 		String id = (String) session.getAttribute("id");
+
+		
 		String setSTD_CM_CONTENT = request.getParameter("content");
 		String STD_SEQ = request.getParameter("std_seq");
 		
@@ -45,20 +48,13 @@ public class StdAddComment extends HttpServlet {
 
 		int result = dao.addComment(dto); // 댓글을 데이터베이스에 추가합니다. 성공 1
 		
-	
+		System.out.println(result);
+		
 
-		System.out.println("51");
-		System.out.println("51");
-		System.out.println("51");
-		System.out.println("51");
-		System.out.println("51");
-		System.out.println("51");
 		
 		//방금작성한 댓글 가져오기
 		CommentDTO dto2 = dao.getComment(STD_SEQ);
-		System.out.println(dto2);
-		
-		
+
 		JSONObject obj = new JSONObject();
 		
 		JSONObject subObj = new JSONObject();
@@ -78,6 +74,9 @@ public class StdAddComment extends HttpServlet {
 		PrintWriter wr = response.getWriter();
 		wr.print(obj); 
 		wr.close();
+		
+		
+		dao.close();
 				
 }
 
