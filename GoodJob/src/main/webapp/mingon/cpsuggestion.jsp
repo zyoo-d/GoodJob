@@ -9,7 +9,6 @@
 <%@include file="/WEB-INF/views/inc/asset.jsp"%>
 
 <style>
-
 </style>
 </head>
 <%@include file="/WEB-INF/views/inc/header.jsp"%>
@@ -23,18 +22,19 @@
 					</h1>
 					<p class="mt-6">회원님과 어울리는 회사를 조회 해보세요.</p>
 				</div>
-				<div class="cpsChart">
-					<canvas id="cpSugradarChart"></canvas>
-				</div>
-
-				<div class="cpsContent">
-					<div class="cpsMember">
-						<h3>홍길동님의 성향</h3>
-						<p>결국 일도 '사람'이 모여서 하는 것! 다른 조건보다 함께 일하는 동료들을 우선하는 당신. 성격이 나쁘거나
-							일 못하는 동료 때문에 스트레스 받는 걸 가장 싫어합니다. 취직 또는 이직을 고민하고 있다면, 그 회사에서 일하고
-							있는 직장인과 커피챗을 해보는 등 조직문화와 관련한 정보를 수집해보는 게 좋겠어요.</p>
-
+				<div>
+					<div class="cpsChart">
+						<canvas id="cpSugradarChart"></canvas>
 					</div>
+
+					<div class="cpsContent">
+						<div class="cpsMember">
+							<h3>홍길동님의 성향</h3>
+							<p>결국 일도 '사람'이 모여서 하는 것!</p>
+						</div>
+					</div>
+				</div>
+				<div>
 					<div class="border-t border-border py-10">
 						<div class="cpsCompanyList">
 							<h3>홍길동님과 어울리는 회사</h3>
@@ -42,7 +42,8 @@
 								<div class="row mt-10 integration-tab-items">
 									<div class="mb-8 md:col-6 lg:col-4 integration-tab-item"
 										data-groups='["social"]'>
-										<div class="rounded-xl bg-white px-10 py-8 shadow-lg min-h-400">
+										<div
+											class="rounded-xl bg-white px-10 py-8 shadow-lg min-h-400">
 											<div
 												class="integration-card-head flex items-center space-x-4">
 												<img
@@ -64,7 +65,8 @@
 									</div>
 									<div class="mb-8 md:col-6 lg:col-4 integration-tab-item"
 										data-groups='["social"]'>
-										<div class="rounded-xl bg-white px-10 pt-11 pb-8 shadow-lg min-h-400">
+										<div
+											class="rounded-xl bg-white px-10 pt-11 pb-8 shadow-lg min-h-400">
 											<div
 												class="integration-card-head flex items-center space-x-4">
 												<img
@@ -79,7 +81,7 @@
 												<canvas id="cp2SugradarChart"></canvas>
 											</div>
 											<div class="my-5 border-b border-border">
-											<p>뭔가 매칭 이유를 더 써줘야하지 않을까나........</p>
+												<span><i class="fa-regular fa-star"></i> 3.8</span>
 											</div>
 											<div class="job_meta">
 												<span class="job-keyword">자바</span> <span
@@ -89,7 +91,8 @@
 									</div>
 									<div class="mb-8 md:col-6 lg:col-4 integration-tab-item"
 										data-groups='["social"]'>
-										<div class="rounded-xl bg-white px-10 pt-11 pb-8 shadow-lg min-h-400">
+										<div
+											class="rounded-xl bg-white px-10 pt-11 pb-8 shadow-lg min-h-400">
 											<div
 												class="integration-card-head flex items-center space-x-4">
 												<img
