@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import lombok.Data;
 
+
 @Data
 public class ReviewDTO {
 	 private String cp_seq;

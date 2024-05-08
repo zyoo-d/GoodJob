@@ -12,9 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.tomcat.util.json.JSONParser;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 import com.good.board.repository.BoardDAO;
 import com.good.company.model.CompanyDTO;
@@ -114,7 +115,7 @@ public class AddReview extends HttpServlet {
 					
 					//관계추가
 					HashMap<String,String> map = new HashMap<String,String>();
-					map.put("bseq", bseq);
+					//map.put("bseq", bseq);
 					map.put("hseq", hseq);
 					dao.addTagging(map);
 					
@@ -130,7 +131,7 @@ public class AddReview extends HttpServlet {
 		//String path = "/good/user/company/companyview.do?cp_seq="+cp_seq;
 		//if (result == 1) {
 //		resp.sendRedirect("path");
-		//resp.sendRedirect("/user/company/companylist.do");
+		
 		resp.sendRedirect("/good/user/company/companylist.do");
 		/*} else {
 			resp.setCharacterEncoding("UTF-8");

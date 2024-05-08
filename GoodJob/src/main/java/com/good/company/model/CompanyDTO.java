@@ -55,7 +55,7 @@ public class CompanyDTO {
 	//리뷰 수
 	private int com_rv_cnt;
 
-	 private ArrayList<String> tag_list;
+	private ArrayList<String> tag_list;
 	
 
 }

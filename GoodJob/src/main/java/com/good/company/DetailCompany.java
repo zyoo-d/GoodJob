@@ -2,7 +2,7 @@ package com.good.company;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
+
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,9 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 
 import com.good.company.model.CompanyDTO;
 import com.good.company.model.RecruitDTO;
@@ -90,8 +87,10 @@ public class DetailCompany extends HttpServlet {
 	    dto.setIdst_avg_salary(idst_avg_salary);
 	    
 	    //기업재무정보
+	    ArrayList<Long>[] flist = dao.getCompanyFinance(cp_seq);
+	    System.out.println(flist[0]);
 	    
-	    //리뷰조회
+	    //리뷰조회I
 	    ReviewDAO rdao =  new ReviewDAO();
 	    ArrayList<ReviewDTO> listReview = rdao.listReview(cp_seq);
 	    //System.out.println("Number of reviews fetched: " + listReview.size());
@@ -124,25 +123,9 @@ public class DetailCompany extends HttpServlet {
 
 	    }
 	    
-	    ArrayList<CompanyDTO> fnc_list = dao.getCompanyFinance(cp_seq);
-	    dto.setFnc_list(dao.getCompanyFinance(cp_seq));
-	    if (fnc_list != null && !fnc_list.equals("")&& !fnc_list.equals("[]")) {
-			try {
-				
-				
-				JSONParser parser = new JSONParser();				
-				JSONArray arr = (JSONArray)fnc_list; //배열 > JSONArray
-				
-				for (Object obj : arr) { //arr(JSONObject)이지만 바로 가져오면 오류나서 일단 Object로 가져옴
-					JSONObject fncObj = (JSONObject)obj;
-					String finance = (String)fncObj.get("value");
-				
-			        
-				}
-			} catch (Exception e) {
-				e.getStackTrace();
-			}
-		}
+	   
+	    
+	   
 	  
 		req.setAttribute("dto", dto);
 		req.setAttribute("word", word);
@@ -153,13 +136,15 @@ public class DetailCompany extends HttpServlet {
 		req.setAttribute("hiring", hiring);
 		//req.setAttribute("ComTaglist", ComTaglist);
 		req.setAttribute("comJobList",comJobList);
+		//req.setAttribute("flist",flist);
+		req.setAttribute("salesList", flist[0]);
+		req.setAttribute("ebitList", flist[1]);
+		req.setAttribute("incomeList", flist[2]);
 		
 		
 		
 		
 		
-		resp.setContentType("application/json");
-		resp.setCharacterEncoding("UTF-8");
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/user/company/companyview.jsp");
 		dispatcher.forward(req, resp);
 

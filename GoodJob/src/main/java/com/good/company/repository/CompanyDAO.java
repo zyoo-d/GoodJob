@@ -29,6 +29,7 @@ public class CompanyDAO {
             e.printStackTrace();
         }
     }
+	
 	public ArrayList<CompanyDTO> rcrtCompany() {
 
 		try {
@@ -335,7 +336,7 @@ public class CompanyDAO {
 	}
 	
 
-	public ArrayList<CompanyDTO> getCompanyFinance(String cp_seq) {
+	/*public ArrayList<CompanyDTO> getCompanyFinance(String cp_seq) {
 	    ArrayList<CompanyDTO> financeList = new ArrayList<>();
 	    String sql = "select * from tblFinance where cp_seq = ?";
 	    try (PreparedStatement pstat = conn.prepareStatement(sql)) {
@@ -356,7 +357,43 @@ public class CompanyDAO {
 	        e.printStackTrace();
 	    }
 	    return financeList;
-	}	
+	}*/
+	
+
+	public ArrayList<Long>[] getCompanyFinance(String cp_seq) {
+		 	ArrayList<Long> salesList = new ArrayList<>();
+	        ArrayList<Long> ebitList = new ArrayList<>();
+	        ArrayList<Long> incomeList = new ArrayList<>();
+	    String sql = "select * from tblFinance where cp_seq = ?";
+	   
+	    // try-with-resources 구문 사용
+	    try (PreparedStatement pstat = conn.prepareStatement(sql)) {
+	        pstat.setString(1, cp_seq);
+	        try (ResultSet rs = pstat.executeQuery()) {
+	            while (rs.next()) {
+	                //CompanyDTO fdto = new CompanyDTO();
+	                /*fdto.setFnc_sales(rs.getLong("fnc_sales"));
+	                fdto.setFnc_ebit(rs.getLong("fnc_ebit"));
+	                fdto.setFnc_income(rs.getLong("fnc_income"));
+	                fdto.setFnc_period(rs.getString("fnc_period"));
+	                fdto.setFnc_regdate(rs.getString("fnc_regdate"));
+	                financeList.add(fdto);*/
+	               long sales = rs.getLong("fnc_sales");
+	               long ebit = rs.getLong("fnc_ebit");
+	               long income = rs.getLong("fnc_income");
+	               
+	               salesList.add(sales);
+	               ebitList.add(ebit);
+	               incomeList.add(income);	                
+	            }
+	        }
+	    } catch (Exception e) {
+	        System.out.println("getCompanyFinance");
+	        e.printStackTrace();
+	    }
+	    
+	    return new ArrayList[]{salesList, ebitList, incomeList};
+	}
 	/**
 	 * 업계평균연봉 조회 메서드	
 	 * @param idst_code

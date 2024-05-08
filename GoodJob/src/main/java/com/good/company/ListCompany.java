@@ -99,6 +99,7 @@ import com.test.util.DBUtil;
 			
 			String unit="";
 			
+			
 			for (CompanyDTO dto : comListInfo) {
 				
 				//주소 
@@ -131,12 +132,13 @@ import com.test.util.DBUtil;
 			    }else {
 			    	unit="원";//(원)
 			    }
+			    
 			    dto.setFnc_sales(sales);
 			    dto.setUnit(unit);
 			    
-			    String cp_seq = dto.getCp_seq();
+			    //String cp_seq = dto.getCp_seq();
 			    //태그리스트출력
-				ReviewDAO rdao =  new ReviewDAO();
+				//ReviewDAO rdao =  new ReviewDAO();
 			    //ComTaglist = rdao.tagList(cp_seq);
 			    
 			    
@@ -224,9 +226,11 @@ import com.test.util.DBUtil;
 			}
 			
 			
+			
 			req.setAttribute("comListInfo" , comListInfo);
 			req.setAttribute("map" , map); //페이지 begin. end hiring
 			req.setAttribute("ComTaglist", ComTaglist);
+			
 			
 			
 			

@@ -584,10 +584,8 @@ h3 > #scrap {
 			<div id="income-info">
 
 			<figure class="highcharts-figure">
-    <div id="container"></div>
-    <p class="highcharts-description">
-        
-    </p>
+    			<div id="container"></div>
+    			<p class="highcharts-description"></p>
 </figure>
 </div>
 
@@ -863,78 +861,47 @@ h3 > #scrap {
 			scrollToBottom();
 		};
 		
-        // 서버로부터 초기 데이터 가져오기
-        var dto = JSON.parse('${dto}'); // 이 부분은 서버에서 JSON 문자열로 제대로 된 dto를 제공한다고 가정합니다.
+   
 
-        var sales = [];
-        var ebit = [];
-        var income = [];
-
-        // 'fnc_list'에서 각 항목의 필드를 추출하여 배열에 추가
-        dto.fnc_list.forEach(function(finance) {
-            sales.push(finance.fnc_sales);
-            ebit.push(finance.fnc_ebit);
-            income.push(finance.fnc_income);
-        });
-
-        // 데이터를 받아오는 함수 정의
-        function fetchDataAndDrawChart() {
-            $.ajax({
-                url: '/user/company/companyview.do', // 서버 엔드포인트
-                method: 'GET',
-                dataType: 'json', // 예상되는 데이터 유형
-                success: function(data) {
-                    // 데이터 파싱
-                    data.forEach(item => {
-                        sales.push(item.sales);
-                        ebit.push(item.ebit);
-                        income.push(item.income);
-                    });
-
-                    // Highcharts 차트 그리기
-                    drawChart();
+		
+		
+		
+	// 데이터 처리 및 차트 그리기 함수
+    $(document).ready(function() {
+    var sales = [<c:forEach items="${salesList}" var="sale" varStatus="status">${sale}${status.last ? '' : ','}</c:forEach>];
+    var ebit = [<c:forEach items="${ebitList}" var="eb" varStatus="status">${eb}${status.last ? '' : ','}</c:forEach>];
+    var income = [<c:forEach items="${incomeList}" var="inc" varStatus="status">${inc}${status.last ? '' : ','}</c:forEach>];
+    
+    Highcharts.chart('container', {
+        chart: {
+            type: 'line'
+        },
+        title: {
+            text: '기업 재무 정보'
+        },
+        xAxis: {
+            categories: ['2021', '2022', '2023']
+        },
+        plotOptions: {
+            line: {
+                dataLabels: {
+                    enabled: true
                 },
-                error: function(xhr, status, error) {
-                    console.error('Error loading the data:', error);
-                }
-            });
-        }
-
-        // Highcharts를 이용하여 차트 그리기
-        function drawChart() {
-            Highcharts.chart('container', {
-                chart: {
-                    type: 'line'
-                },
-                title: {
-                    text: '기업 재무 정보'
-                },
-                xAxis: {
-                    categories: ['2021', '2022', '2023']
-                },
-                plotOptions: {
-                    line: {
-                        dataLabels: {
-                            enabled: true
-                        },
-                        enableMouseTracking: false
-                    }
-                },
-                series: [{
-                    name: '매출액',
-                    data: sales
-                }, {
-                    name: '영업이익',
-                    data: ebit
-                }, {
-                    name: '당기순이익',
-                    data: income
-                }]
-            });
-        }
-
-        // 페이지 로드 시 함수 실행
-        $(document).ready(fetchDataAndDrawChart);
+                enableMouseTracking: false
+            }
+        },
+        series: [{
+            name: '매출액',
+            data: sales
+        }, {
+            name: '영업이익',
+            data: ebit
+        }, {
+            name: '당기순이익',
+            data: income
+        }]
+    });
+});
 		
 	</script>
 </body>
