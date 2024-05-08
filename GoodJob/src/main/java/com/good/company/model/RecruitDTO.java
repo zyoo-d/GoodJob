@@ -20,10 +20,10 @@ public class RecruitDTO {
 	private String cp_name;
 	private String hire_avr_salary;
 
-    	private String salary_type;
-    	private String edu_type;
+    private String salary_type;
+    private String edu_type;
     
 	private String cp_address;
-    	private ArrayList<String> job_name;
+    private ArrayList<String> job_name;
 
 }
