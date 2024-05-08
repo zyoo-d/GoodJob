@@ -42,8 +42,8 @@
                         <div class="row">
                             <div class="form-group col-6">
                                 <label for="password" class="d-block">비밀번호</label> 
-                                <input id="password" type="password" class="form-control pwstrength" data-indicator="pwindicator" name="password" required>
-                                <span id="pwError"></span>
+                                <input id="password" type="password" class="form-control pwstrength" data-indicator="pwindicator" name="password" placeholder="8~16자 이내의 영어 대소문자, 숫자, (*), (-), (1)만 입력이 가능합니다." required>
+                                <span id="pwError" style="color: tomato"></span>
                                 <div id="pwindicator" class="pwindicator">
                                     <div class="bar"></div>
                                     <div class="label"></div>
@@ -52,7 +52,7 @@
                             <div class="form-group col-6">
                                 <label for="pw_confirm" class="d-block">비밀번호 확인</label> 
                                 <input id="pw_confirm" type="password" class="form-control" name="password-confirm" required>
-                                <span id="pwCheckError"></span>
+                                <span id="pwCheckError" style="color: tomato"></span>
                             </div>
                         </div>
                         <div class="form-group">

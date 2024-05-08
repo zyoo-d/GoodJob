@@ -44,10 +44,8 @@
 									<p class="writer">${dto.nickname }</p>
 									<p class="write-date">(${dto.nt_regdate })</p>
 									<c:if test="${lv == 2}">
-										<button type="button" class="" value="수정">(수정</button>
-										<form action="/good/board/notice/delnotice.do" method="post">
-											<input type="hidden" name="nt_seq" value="${dto.nt_seq}">
-											<button type="submit">삭제</button>
+										<button type="button" class="" value="수정" onclick="location.href='/good/board/notice/editnotice.do?seq=${dto.nt_seq}';">(수정</button>
+					<button type="button" class="" value="삭제" onclick="location.href='/good/board/notice/delnotice.do?seq=${dto.nt_seq}';">/ 삭제)</button>
 										</form>
 									</c:if>
 								</div>

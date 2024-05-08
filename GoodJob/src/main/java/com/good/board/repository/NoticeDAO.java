@@ -21,6 +21,16 @@ public class NoticeDAO {
 	public NoticeDAO() {
 		this.conn = DBUtil.open();
 	}
+	
+	public void close()  {
+		
+		try {
+			this.conn.close();
+		} catch (Exception e) {
+			System.out.println("noticeDAO.close 오류");
+			e.printStackTrace();
+		}
+	}
 
 	public int addNotice(BoardDTO dto) {
 
@@ -156,6 +166,39 @@ public class NoticeDAO {
 
 		} catch (Exception e) {
 			System.out.println("NoticeDAO.delNotice");
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
+	public void updateReadcount(String nt_seq) {
+		try {
+			String sql = "update tblNotice set nt_views = nt_views + 1 where nt_seq = ?";
+
+			pstat = conn.prepareStatement(sql);
+			pstat.setString(1, nt_seq);
+			pstat.executeUpdate();
+
+		} catch (Exception e) {
+			System.out.println("NoticeDAO.updateReadcount");
+			e.printStackTrace();
+		}
+		
+	}
+
+	public int edit(NoticeDTO dto) {
+		try {
+			String sql = "update tblNotice set nt_title = ?, nt_content = ? where nt_seq = ?";
+
+			pstat = conn.prepareStatement(sql);
+			pstat.setString(1, dto.getNt_title());
+			pstat.setString(2, dto.getNt_content());
+			pstat.setString(3, dto.getNt_seq());
+
+			return pstat.executeUpdate();
+
+		} catch (Exception e) {
+			System.out.println("NoticeDAO.edit");
 			e.printStackTrace();
 		}
 		return 0;

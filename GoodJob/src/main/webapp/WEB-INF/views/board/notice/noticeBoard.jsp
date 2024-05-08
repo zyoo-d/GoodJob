@@ -26,7 +26,7 @@
 						<div>
 							<form id="searchForm" method="GET" action="/good/board/notice.do">
 								<div class="InpBox">
-									<select class="sorting"  name="column">
+									<select class="sorting" name="column">
 										<option value="nt_title">제목</option>
 										<option value="nt_content">내용</option>
 									</select>
@@ -54,10 +54,10 @@
 									</p>
 								</div>
 								<div class="list_info">
-								<c:if test="${lv == 2 }">
-									<div class="moving-btn studyAdd mr-2">
-										<a href="/good/board/noticewrite.do" class="btn btnList">글쓰기</a>
-									</div>
+									<c:if test="${lv == 2 }">
+										<div class="moving-btn studyAdd mr-2">
+											<a href="/good/board/noticewrite.do" class="btn btnList">글쓰기</a>
+										</div>
 									</c:if>
 									<div class="InpBox">
 										<select class="sorting" name="sort" id="sort">
@@ -74,19 +74,19 @@
 									<c:forEach items="${list}" var="dto">
 										<div
 											class="qna-list box_item row mx-0 rounded-[20px] bg-white px-10 shadow-lg">
-											<div class="qna-list list-index">${dto.nt_title}</div>
+											<div class="qna-list-index">${dto.nt_seq}</div>
 											<div class="com-title">
 												<div class="recruit-present-info">
 													<div class="com-name">
 														<a href="#" class="str_tit_com" target="_blank"></a> <span>${dto.nickname}</span>
 													</div>
 												</div>
-<div class="col notification_info">
+												<div class="col notification_info">
 													<div class="qnalist job_tit">
 														<a class="str_tit_title new" id="rec_link_48103333"
 															onclick=""
-															href="/good/board/notice/viewnotice.do?nt_seq=${dto.nt_seq}"
-															target="_blank" onmousedown=""><span>${dto.nt_content}</span></a>
+															href="/good/board/notice/viewnotice.do?seq=${dto.nt_seq}"
+															target="_blank" onmousedown=""><span>${dto.nt_title}</span></a>
 													</div>
 												</div>
 											</div>
@@ -98,7 +98,16 @@
 															<p class="writer">${dto.nickname}</p>
 														</li>
 														<li>
-															<p class="date">${dto.nt_regdate}</p>
+															<p class="qna-add-date">
+																<fmt:formatDate value="${dto.nt_regdate}"
+																	pattern="yyyy-MM-dd" />
+															</p>
+														</li>
+														
+														<li>
+															<p class="views-comments">
+																<i class="fa-regular fa-eye"></i>${dto.nt_views}
+															</p>
 														</li>
 													</ul>
 												</div>
@@ -125,7 +134,13 @@
 		</nav>
 	</section>
 	<%@include file="/WEB-INF/views/inc/footer.jsp"%>
-	
+	<script type="text/javascript">
+		<c:if test="${map.search == 'y'}">
+		//검색중 상태 유지
+		$('input[name=word]').val('${map.word}');
+		$('select[name=column]').val('${map.column}');
+		</c:if>
+	</script>
 	<script>
 	$(document).ready(function() {
 			  $("#sort").change(function() {
