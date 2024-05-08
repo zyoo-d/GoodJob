@@ -7,12 +7,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import com.good.board.report.model.QnaReportDTO;
-import com.good.board.report.model.StdReportDTO;
-import com.good.board.report.repository.QnaReportDAO;
-import com.good.board.report.repository.ReportDAO;
-import com.good.board.report.repository.StdReportDAO;
 
 @WebServlet("/user/report/addreport.do")
 public class AddReport extends HttpServlet{
@@ -20,28 +16,28 @@ public class AddReport extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		String id = req.getParameter("id");
+		HttpSession session = req.getSession();
+		
+		String id = (String)session.getAttribute("id");
 		String seq = req.getParameter("seq");
-		String reason = req.getParameter("reason");
+		String rp_seq = req.getParameter("reason");
 		String description = req.getParameter("description");
 		String boardType = req.getParameter("boardType");
 		
-		ReportDAO dao;
-		
-		switch (boardType) {
-		case "qna":
-			dao = new QnaReportDAO();
-			dto = (QnaReportDTO)dao.createDTO();
-			break;
-		case "std":
-			dao = new StdReportDAO();
-			
-		default:
-			break;
+		if(CheckReport.check(id,boardType,seq)) {
+			req.setAttribute("alertMessage", "이미 신고한 게시글입니다.");
+	        resp.sendRedirect(req.getHeader("Referer"));
+	        return;
 		}
 		
-	
-		handleReport(id,seq,reason,description,boardType);
+		ReportService reportService = new ReportService();
+		int result = reportService.createReport(id, seq, rp_seq, description, boardType);
+		
+		if(result == 1) {
+			//성공
+		} else {
+			//실패
+		}
 		
 		
 		
@@ -51,26 +47,5 @@ public class AddReport extends HttpServlet{
 	}
 
 
-
-	private void handleReport(String id, String seq, String reason, String description, String boardType) {
-		
-		BoardType type = BoardType.valueOf(boardType.toUpperCase());
-		String tableName = type.getTableName();
-		String sequence = seq + tableName.substring(3)+".nextVal";
-		
-		try {
-			
-			String sql = "insert into %s values(sequence, sysdate, ?, ? , ? , (select rp_seq from tblReportType where rp_content = ? ))";
-			
-			
-			
-		} catch (Exception e) {
-			System.out.println("AddReport.handleReport");
-			e.printStackTrace();
-		}
-		
-		
-		
-	}
 	
 }
