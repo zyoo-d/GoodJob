@@ -67,8 +67,6 @@
 											</h6>
 											<select id="salary_seq" name="salary_seq">
 												<option value="0">전체</option>
-												<option value="9">2,600만원 이상</option>
-												<option value="10">2,800만원 이상</option>
 												<option value="11">3,000만원 이상</option>
 												<option value="12">3,200만원 이상</option>
 												<option value="13">3,400만원 이상</option>
