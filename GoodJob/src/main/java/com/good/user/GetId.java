@@ -31,6 +31,8 @@ public class GetId extends HttpServlet {
 		
 		String result = dao.getId(dto);
 		
+		dao.close();
+		
 		JSONObject obj = new JSONObject();
 		
 		obj.put("result", result);

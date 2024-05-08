@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletResponse;
 public class Alert {
 
 	public static void needLogin(HttpServletResponse resp) throws IOException {
-		resp.setCharacterEncoding("UTF-8");
 		PrintWriter writer = resp.getWriter();
 		writer.println("<html><head><meta charset=\"UTF-8\"><title>Access Denied</title></head><body>");
 		writer.println("<script type='text/javascript'>");
@@ -19,7 +18,6 @@ public class Alert {
 	}
 	
 	public static void needLogin(HttpServletResponse resp, String link) throws IOException {
-		resp.setCharacterEncoding("UTF-8");
 		PrintWriter writer = resp.getWriter();
 		writer.println("<html><head><meta charset=\"UTF-8\"><title>Access Denied</title></head><body>");
 		writer.println("<script type='text/javascript'>");
@@ -31,7 +29,6 @@ public class Alert {
 	}
 	
 	public static void fail(HttpServletResponse resp) throws IOException {
-		resp.setCharacterEncoding("UTF-8");
 		PrintWriter writer = resp.getWriter();
 		writer.println("<html><head><meta charset=\"UTF-8\"><title>Access Denied</title></head><body>");
 		writer.println("<script type='text/javascript'>");
@@ -42,7 +39,6 @@ public class Alert {
 	}
 	
 	public static void fail(HttpServletResponse resp, String link) throws IOException {
-		resp.setCharacterEncoding("UTF-8");
 		PrintWriter writer = resp.getWriter();
 		writer.println("<html><head><meta charset=\"UTF-8\"><title>Access Denied</title></head><body>");
 		writer.println("<script type='text/javascript'>");
@@ -54,7 +50,6 @@ public class Alert {
 	}
 	
 	public static void noPermission(HttpServletResponse resp) throws IOException {
-		resp.setCharacterEncoding("UTF-8");
 		PrintWriter writer = resp.getWriter();
 		writer.println("<html><head><meta charset=\"UTF-8\"><title>Access Denied</title></head><body>");
 		writer.println("<script type='text/javascript'>");
@@ -65,7 +60,6 @@ public class Alert {
 	}
 	
 	public static void noPermission(HttpServletResponse resp, String link) throws IOException {
-		resp.setCharacterEncoding("UTF-8");
 		PrintWriter writer = resp.getWriter();
 		writer.println("<html><head><meta charset=\"UTF-8\"><title>Access Denied</title></head><body>");
 		writer.println("<script type='text/javascript'>");
@@ -74,6 +68,20 @@ public class Alert {
 		writer.println("</script>");
 		writer.println("</body></html>");
 		writer.close();
+	}
+	
+	public static void deleteSuccess(HttpServletResponse resp) throws IOException{
+		
+		PrintWriter writer = resp.getWriter();
+		writer.println("<html><head><meta charset=\"UTF-8\"><title>Access Denied</title></head><body>");
+		writer.println("<script type='text/javascript'>");
+		writer.println("alert('삭제가 완료되었습니다.');");
+		writer.println("</script>");
+		writer.println("</body></html>");
+		writer.close();
+		
+		
+		
 	}
 	
 	
