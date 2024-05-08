@@ -118,7 +118,7 @@ public class CompanyDAO {
 	 * 지유)기업 목록, 상세 최신 정보 불러오는 메서드
 	 * @return 기업정보(일반/재무/고용)
 	 */
-	public ArrayList<CompanyDTO> comListInfo(HashMap<String,String> map){
+	public ArrayList<CompanyDTO> comListInfo(HashMap<String,Object> map){
 		
 	
 		try {
@@ -127,83 +127,105 @@ public class CompanyDAO {
 			String where = "";
 			
 			//검색
-			if(map.get("search").equals("y") && map.get("hiring").equals("y")) {
-				
-				where = String.format("where cp_name like '%%%s%%' and com_rcrt_cnt > 0",map.get("word"));
-				sql = String.format("select * from (select a.*, rownum as rnum from vwNewComListInfo a %s) where rnum between %s and %s"
-						, where
-						, map.get("begin")
-						, map.get("end"));
-			}else if (map.get("search").equals("y") && map.get("hiring").equals("n")){
-				where = String.format("where cp_name like '%%%s%%' ",map.get("word"));
-				sql = String.format("select * from (select a.*, rownum as rnum from vwNewComListInfo a %s) where rnum between %s and %s"
-						, where
-						, map.get("begin")
-						, map.get("end"));
-			}else if (map.get("search").equals("n") && map.get("hiring").equals("y")){
-				where = String.format("where com_rcrt_cnt > 0 ");
-				sql = String.format("select * from (select a.*, rownum as rnum from vwNewComListInfo a %s) where rnum between %s and %s"
-						, where
-						, map.get("begin")
-						, map.get("end"));
-			} else {
-				sql = String.format("select * from (select a.*, rownum as rnum from vwNewComListInfo a) where rnum between %s and %s"
-						, map.get("begin")
-						, map.get("end"));
+			if (map.get("search").equals("y")) {
+				// 검색어 조건 추가
+				if (map.get("word") != null && !((String)map.get("word")).isEmpty()) {
+					where += "cp_name LIKE '%' || ? || '%' AND ";
+				}
+
+				// 연봉 조건 추가
+				if (map.get("salary_seq") != null && !((String)map.get("salary_seq")).isEmpty()) {
+					where += "salary_seq >= ? AND ";
+				}
+
+				// 지역 조건 추가
+				if (map.get("cp_address") != null && ((String[])map.get("cp_address")).length > 0) {
+				    String[] addressArray = (String[])map.get("cp_address");
+				    
+				    if (addressArray.length > 0) {
+				        where += "(";
+				        for (int i = 0; i < addressArray.length; i++) {
+				            if (i > 0) {
+				                where += " OR ";
+				            }
+				            where += "cp_address LIKE '%' || ? || '%'";
+				        }
+				        where += ") AND ";
+				    }
+				}
+				//채용중
+				if(map.get("hiring").equals("y") && map.get("hiring") != null) {
+					
+					where += "com_rcrt_cnt > 0 AND ";
+				}
+				if (where.endsWith(" AND ")) {
+					where = where.substring(0, where.length() - 5);
+				}
 			}
 			
-		
-		
-			//TODO 연봉검색, 주소검색, 업종검색
+	
+			 sql = String.format("SELECT * FROM (SELECT ROWNUM AS rnum, a.* FROM (SELECT * FROM VWNEWCOMLISTINFO %s ORDER BY %s) a) WHERE rnum BETWEEN %s AND %s", where.isEmpty() ? "" : " WHERE " + where, map.get("sort"), map.get("begin"), map.get("end"));
+
+	        
+
 			
+	        int parameterIndex = 1;
+	        if (map.get("search").equals("y")) {
+	            if (map.get("word") != null && !((String)map.get("word")).isEmpty()) {
+	                pstat.setString(parameterIndex++, "%" + map.get("word") + "%");
+	            }
+	            if (map.get("salary_seq") != null && !((String)map.get("salary_seq")).isEmpty()) {
+	                pstat.setString(parameterIndex++, (String)map.get("salary_seq"));
+	            }
+	            if (map.get("cp_address") != null && ((String[])map.get("cp_address")).length > 0) {
+	                String[] addressArray = (String[])map.get("cp_address");
+	                for (String address : addressArray) {
+	                    address = address.replace("전체", "").trim();
+	                    pstat.setString(parameterIndex++, address);
+	                }
+	            }
+	        }
 
-			stat = conn.createStatement();
+	        System.out.println(sql);
+	        pstat = conn.prepareStatement(sql);
+	        
 			rs = stat.executeQuery(sql);
-
+			
 			ArrayList<CompanyDTO> listCompanyInfo = new ArrayList<CompanyDTO>();
 			
 			while (rs.next()) {
-
 				CompanyDTO dto = new CompanyDTO();
-
 				dto.setCp_seq(rs.getString("cp_seq"));
 				dto.setCp_name(rs.getString("cp_name"));
 				dto.setCp_address(rs.getString("cp_address"));
 				dto.setCeo(rs.getString("ceo"));
 				dto.setFounded(rs.getString("founded"));
-				dto.setImage(rs.getString("image"));
-				
+				dto.setImage(rs.getString("image"));				
 				dto.setIdst_code(rs.getString("idst_code"));
-				dto.setIdst_name(rs.getString("idst_name"));
-				
-			
+				dto.setIdst_name(rs.getString("idst_name"));							
 				dto.setHire_member(rs.getInt("hire_member"));
 				dto.setHire_new(rs.getInt("hire_new"));
 				dto.setHire_retired(rs.getInt("hire_retired"));
 				dto.setHire_avr_year(rs.getInt("hire_avr_year"));
 				dto.setHire_avr_salary(rs.getInt("hire_avr_salary"));
-				dto.setHire_regdate(rs.getString("hire_regdate"));
-				
-				
+				dto.setHire_regdate(rs.getString("hire_regdate"));								
 				dto.setFnc_sales(rs.getLong("fnc_sales"));
 				dto.setFnc_ebit(rs.getLong("fnc_ebit"));
 				dto.setFnc_income(rs.getLong("fnc_income"));
 				dto.setFnc_period(rs.getString("fnc_period"));
-				dto.setFnc_regdate(rs.getString("fnc_regdate"));
-				
-				dto.setCom_rcrt_cnt(rs.getInt("com_rcrt_cnt"));
-				dto.setCom_scrap_cnt(rs.getInt("com_scrap_cnt"));
-				//dto.setCom_scrap_cnt(rs.getInt("com_rv_cnt"));
-				
+				dto.setFnc_regdate(rs.getString("fnc_regdate"));				
+				//dto.setCom_rcrt_cnt(rs.getInt("com_rcrt_cnt"));
+				//dto.setCom_scrap_cnt(rs.getInt("com_scrap_cnt"));
+				//dto.setCom_scrap_cnt(rs.getInt("com_rv_cnt"));				
 				listCompanyInfo.add(dto);
 
 			}
 			return listCompanyInfo;
 
 		} catch (Exception e) {
+			System.out.println("기업목록출력failed");
 			e.printStackTrace();
 		}
-
 		return null;
 		
 	}
@@ -213,7 +235,7 @@ public class CompanyDAO {
 	 * @param map
 	 * @return
 	 */
-	public int searchCompanyCount(HashMap<String, String> map) {
+	public int searchCompanyCount(HashMap<String, Object> map) {
 		
 		try {
 
@@ -366,18 +388,12 @@ public class CompanyDAO {
 	        ArrayList<Long> incomeList = new ArrayList<>();
 	    String sql = "select * from tblFinance where cp_seq = ?";
 	   
-	    // try-with-resources 구문 사용
+	 
 	    try (PreparedStatement pstat = conn.prepareStatement(sql)) {
 	        pstat.setString(1, cp_seq);
 	        try (ResultSet rs = pstat.executeQuery()) {
 	            while (rs.next()) {
-	                //CompanyDTO fdto = new CompanyDTO();
-	                /*fdto.setFnc_sales(rs.getLong("fnc_sales"));
-	                fdto.setFnc_ebit(rs.getLong("fnc_ebit"));
-	                fdto.setFnc_income(rs.getLong("fnc_income"));
-	                fdto.setFnc_period(rs.getString("fnc_period"));
-	                fdto.setFnc_regdate(rs.getString("fnc_regdate"));
-	                financeList.add(fdto);*/
+	              
 	               long sales = rs.getLong("fnc_sales");
 	               long ebit = rs.getLong("fnc_ebit");
 	               long income = rs.getLong("fnc_income");

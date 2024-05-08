@@ -165,7 +165,7 @@ h3 {
 	margin-top: none;
 }
 
-#summary_content > h3 {
+#summary_content>h3 {
 	font-size: 2rem;
 	font-family: 'Pretendard-Regular';
 }
@@ -189,7 +189,8 @@ h3 {
 	font-family: 'Pretendard-Regular';
 	color: #444;
 }
-.menu > button > i {
+
+.menu>button>i {
 	font-size: .9rem;
 	margin-left: 5px;
 }
@@ -230,8 +231,6 @@ h3 {
 	font-size: .8rem;
 }
 
-
-
 #mychatbox {
 	height: 83%;
 	margin: 10px;
@@ -241,7 +240,6 @@ h3 {
 	overflow-y: scroll;
 	margin-bottom: 0;
 }
-
 
 .scrollbar {
 	width: 250px;
@@ -284,6 +282,7 @@ h3 {
 	float: right;
 	color: #525252;
 }
+
 .tag {
 	font-size: .7rem;
 	height: 20px;
@@ -292,7 +291,6 @@ h3 {
 	text-align: center;
 	padding-top: 5px;
 }
-
 
 .mt-6 {
 	margin-top: 5px;
@@ -405,20 +403,19 @@ h3 {
 
 #good_title {
 	margin-top: 10px;
-
 	font-size: 1.1rem;
 	font-weight: bold;
 	color: #595959;
 }
 
 .goodbad>div {
-
 	font-size: 1rem;
 	color: #22222;
 }
 
-#add_review  {
-	background-image: linear-gradient(184.78deg, rgb(83, 90, 237) 7.64%, rgb(62, 178, 248) 120.07%);
+#add_review {
+	background-image: linear-gradient(184.78deg, rgb(83, 90, 237) 7.64%,
+		rgb(62, 178, 248) 120.07%);
 	color: white;
 	padding: 5px 20px;
 	border-radius: 10px;
@@ -433,15 +430,15 @@ h3 {
 }
 
 #chatchat {
-
 	font-size: .8rem;
 }
-.score_rating {
 
+.score_rating {
 	font-size: 1rem;
 	color: #525252;
 	font-weight: bold;
 }
+
 #score_detail {
 	display: grid;
 	grid-template-columns: repeat(2, 2fr);
@@ -452,7 +449,8 @@ h3 {
 	width: 100%;
 	padding: 5px;
 }
-h3 > #scrap {
+
+h3>#scrap {
 	font-size: .8rem;
 	border: 2px solid;
 	padding: 3px 12px;
@@ -463,301 +461,320 @@ h3 > #scrap {
 	font-size: .8rem;
 	padding: 5px 15px;
 	border-radius: 10px;
-	background-image: linear-gradient(184.78deg, rgb(83, 90, 237) 7.64%, rgb(62, 178, 248) 120.07%);
-
+	background-image: linear-gradient(184.78deg, rgb(83, 90, 237) 7.64%,
+		rgb(62, 178, 248) 120.07%);
 	color: white;
 }
+
 #go_container {
 	display: grid;
 	grid-template-columns: repeat(2, 2fr);
 	grid-gap: 10px;
-	}
-	
-	#pmt-2 {
-		margin-bottom: 20px;
-	}
-.highcharts-figure,
-.highcharts-data-table table {
-    min-width: 360px;
-    max-width: 800px;
-    margin: 1em auto;
+}
+
+#pmt-2 {
+	margin-bottom: 20px;
+}
+
+.highcharts-figure, .highcharts-data-table table {
+	min-width: 360px;
+	max-width: 800px;
+	margin: 1em auto;
 }
 
 .highcharts-data-table table {
-
-    border-collapse: collapse;
-    border: 1px solid #ebebeb;
-    margin: 10px auto;
-    text-align: center;
-    width: 100%;
-    max-width: 500px;
+	border-collapse: collapse;
+	border: 1px solid #ebebeb;
+	margin: 10px auto;
+	text-align: center;
+	width: 100%;
+	max-width: 500px;
 }
 
 .highcharts-data-table caption {
-    padding: 1em 0;
-    font-size: 1.2em;
-    color: #555;
+	padding: 1em 0;
+	font-size: 1.2em;
+	color: #555;
 }
 
 .highcharts-data-table th {
-    font-weight: 600;
-    padding: 0.5em;
+	font-weight: 600;
+	padding: 0.5em;
 }
 
-.highcharts-data-table td,
-.highcharts-data-table th,
-.highcharts-data-table caption {
-    padding: 0.5em;
+.highcharts-data-table td, .highcharts-data-table th,
+	.highcharts-data-table caption {
+	padding: 0.5em;
 }
 
-.highcharts-data-table thead tr,
-.highcharts-data-table tr:nth-child(even) {
-    background: #f8f8f8;
+.highcharts-data-table thead tr, .highcharts-data-table tr:nth-child(even)
+	{
+	background: #f8f8f8;
 }
 
 .highcharts-data-table tr:hover {
-    background: #f1f7ff;
+	background: #f1f7ff;
 }
 </style>
 </head>
 <%@include file="/WEB-INF/views/inc/header.jsp"%>
 <body>
 	<div class="main">
-	<section class="page-hero pt-16 pb-6">
-        <div class="container">
-            <div class="z-custom card" id="itvWriteQnA">
-	                        <div class="company-info">
-                <div class="card-content-wrapper">
-                        <div class="px-4 text-center border-b border-border">
-                            <h1 class="mt-3 gradiTitle">
-                                <span>기업 상세정보</span>
-                            </h1>
-							<p class="mt-2" id="pmt-2">기업의 상세한 정보를 확인하고 기업리뷰를 확인해 보세요.</p>
-                        </div>
-                        </div>
-
-			<div id="summary">
-				<div id="company_img"><img src="${dto.image}" onerror="this.src='/good/asset/images/default.jpg'" alt="Company Logo"></div>
-				<div id="summary_content">
-					<h3>${dto.cp_name}    <button id="scrap"><i class="fa-regular fa-bookmark"></i> ${dto.com_scrap_cnt}+</button></h3>
-					<span>${dto.idst_name} </span> <span>사원 수  ${dto.hire_member} 명</span> <span><c:if test="${not empty comJobList}"><c:forEach items="${comJobList}" var="jdto" begin="0" end="7">${jdto.job_name} </c:forEach></c:if></span> <i class="fa-solid fa-location-dot"><span
-						id="cop_address"> ${dto.cp_address}</span></i>
-				</div>
-			</div>
-
-			<span class="menu">예상 평균 연봉 / 평균 근속 연수</span>
-			<div id="salary">
-				<!-- 				<div id="salary_won"> -->
-				<!-- 				<div id="left_line"><i class="fa-solid fa-won-sign"></i></div><div id="money">4,800,000<i class="fa-solid fa-won-sign"></i></div> -->
-				<!-- 				</div> -->
-				<div
-					class="row mx-0 rounded-[20px] bg-white px-10 shadow-lg lg:py-10">
-					<h2>
-						<span class="count">
-						<c:if test="${dto.hire_avr_salary == 0}">정보 없음</c:if>
-						<c:if test="${dto.hire_avr_salary != 0}">${dto.hire_avr_salary} 만원</c:if></span> <span class="text-[#A3A1FB]">+</span>
-					</h2>
-					<p>예상 연봉</p>
-				</div>
-				<div
-					class="row mx-0 rounded-[20px] bg-white px-10 shadow-lg lg:py-10">
-					<h2>
-						<span class="count">${dto.idst_avg_salary} 만원</span> <span class="text-[#A3A1FB]">+</span>
-					</h2>
-					<p>업계 평균 연봉</p>
-				</div>
-				<div
-					class="row mx-0 rounded-[20px] bg-white px-10 shadow-lg lg:py-10">
-					<h2>
-						<span class="count">
-						<c:if test="${dto.hire_avr_year == 0}">정보 없음</c:if>
-						<c:if test="${dto.hire_avr_year != 0}">
-						${dto.hire_avr_year} 년</c:if></span> <span class="text-[#5EE2A0]">+</span>
-					</h2>
-					<p>평균 근속 연수</p>
-				</div>
-
-			</div>
-
-		
-			
-			<div id="income-info">
-
-			<figure class="highcharts-figure">
-    			<div id="container"></div>
-    			<p class="highcharts-description"></p>
-</figure>
-</div>
-
-			<span class="menu">해당 기업 공고</span>
-			<!-- 채용정보 -->
-			<div id="recruit">
-		
-			
-        			<c:forEach items="${comRecruitList}" var="rcdto" begin="0" end="5">
-				<div
-					class="rounded-xl border border-primary bg-white px-8 py-6 shadow-lg lg:-mt-16"
-					width="300px">
-					<div class="flex items-center justify-between" id="recruit_card">
-						<div>
-							<h4 class="h6">${rdto.cp_name}</h4>
-							<p class="mt-3 text-dark">${rcdto.rcrt_name}</p>
+		<section class="page-hero pt-16 pb-6">
+			<div class="container">
+				<div class="z-custom card" id="itvWriteQnA">
+					<div class="company-info">
+						<div class="card-content-wrapper">
+							<div class="px-4 text-center border-b border-border">
+								<h1 class="mt-3 gradiTitle">
+									<span>기업 상세정보</span>
+								</h1>
+								<p class="mt-2" id="pmt-2">기업의 상세한 정보를 확인하고 기업리뷰를 확인해 보세요.</p>
+							</div>
 						</div>
-										
-					</div>
-					 <c:if test="${not empty rcdto.enddate}">
-					<p class="mt-6">마감일 ${rcdto.enddate}</p>
-					</c:if>
-					<div class="my-6 border-y border-border py-6">
-						<h4 class="h6">이런 사람을 원해요!</h4>
-						<ul class="mt-6">
-							<li class="mb-3 flex items-center text-sm"><svg
-									class="mr-2.5 text-primary" width="16" height="13"
-									viewBox="0 0 16 13" fill="none"
-									xmlns="http://www.w3.org/2000/svg">
+
+						<div id="summary">
+							<div id="company_img">
+								<img src="${dto.image}"
+									onerror="this.src='/good/asset/images/default.jpg'"
+									alt="Company Logo">
+							</div>
+							<div id="summary_content">
+								<h3>${dto.cp_name}
+									<button id="scrap">
+										<i class="fa-regular fa-bookmark"></i> ${dto.com_scrap_cnt}+
+									</button>
+								</h3>
+								<span>${dto.idst_name} </span> <span>사원 수
+									${dto.hire_member} 명</span> <span><c:if
+										test="${not empty comJobList}">
+										<c:forEach items="${comJobList}" var="jdto" begin="0" end="7">${jdto.job_name} </c:forEach>
+									</c:if></span> <i class="fa-solid fa-location-dot"><span id="cop_address">
+										${dto.cp_address}</span></i>
+							</div>
+						</div>
+
+						<span class="menu">예상 평균 연봉 / 평균 근속 연수</span>
+						<div id="salary">
+							<!-- 				<div id="salary_won"> -->
+							<!-- 				<div id="left_line"><i class="fa-solid fa-won-sign"></i></div><div id="money">4,800,000<i class="fa-solid fa-won-sign"></i></div> -->
+							<!-- 				</div> -->
+							<div
+								class="row mx-0 rounded-[20px] bg-white px-10 shadow-lg lg:py-10">
+								<h2>
+									<span class="count"> <c:if
+											test="${dto.hire_avr_salary == 0}">정보 없음</c:if> <c:if
+											test="${dto.hire_avr_salary != 0}">${dto.hire_avr_salary} 만원</c:if></span>
+									<span class="text-[#A3A1FB]">+</span>
+								</h2>
+								<p>예상 연봉</p>
+							</div>
+							<div
+								class="row mx-0 rounded-[20px] bg-white px-10 shadow-lg lg:py-10">
+								<h2>
+									<span class="count">${dto.idst_avg_salary} 만원</span> <span
+										class="text-[#A3A1FB]">+</span>
+								</h2>
+								<p>업계 평균 연봉</p>
+							</div>
+							<div
+								class="row mx-0 rounded-[20px] bg-white px-10 shadow-lg lg:py-10">
+								<h2>
+									<span class="count"> <c:if
+											test="${dto.hire_avr_year == 0}">정보 없음</c:if> <c:if
+											test="${dto.hire_avr_year != 0}">
+						${dto.hire_avr_year} 년</c:if></span> <span class="text-[#5EE2A0]">+</span>
+								</h2>
+								<p>평균 근속 연수</p>
+							</div>
+
+						</div>
+
+
+
+						<div id="income-info">
+
+							<figure class="highcharts-figure">
+								<div id="container"></div>
+								<p class="highcharts-description"></p>
+							</figure>
+						</div>
+
+						<span class="menu">해당 기업 공고</span>
+						<!-- 채용정보 -->
+						<div id="recruit">
+
+
+							<c:forEach items="${comRecruitList}" var="rcdto" begin="0"
+								end="5">
+								<div
+									class="rounded-xl border border-primary bg-white px-8 py-6 shadow-lg lg:-mt-16"
+									width="300px">
+									<div class="flex items-center justify-between"
+										id="recruit_card">
+										<div>
+											<h4 class="h6">${rdto.cp_name}</h4>
+											<p class="mt-3 text-dark">${rcdto.rcrt_name}</p>
+										</div>
+
+									</div>
+									<c:if test="${not empty rcdto.enddate}">
+										<p class="mt-6">마감일 ${rcdto.enddate}</p>
+									</c:if>
+									<div class="my-6 border-y border-border py-6">
+										<h4 class="h6">이런 사람을 원해요!</h4>
+										<ul class="mt-6">
+											<li class="mb-3 flex items-center text-sm"><svg
+													class="mr-2.5 text-primary" width="16" height="13"
+													viewBox="0 0 16 13" fill="none"
+													xmlns="http://www.w3.org/2000/svg">
                   <path d="M2 5.42857L6.36364 10L14 2"
-										stroke="currentColor" stroke-width="3" stroke-linecap="round" />
+														stroke="currentColor" stroke-width="3"
+														stroke-linecap="round" />
                 </svg> ${rcdto.edu_type}</li>
-							<li class="mb-3 flex items-center text-sm"><svg
-									class="mr-2.5 text-primary" width="16" height="13"
-									viewBox="0 0 16 13" fill="none"
-									xmlns="http://www.w3.org/2000/svg">
+											<li class="mb-3 flex items-center text-sm"><svg
+													class="mr-2.5 text-primary" width="16" height="13"
+													viewBox="0 0 16 13" fill="none"
+													xmlns="http://www.w3.org/2000/svg">
                   <path d="M2 5.42857L6.36364 10L14 2"
-										stroke="currentColor" stroke-width="3" stroke-linecap="round" />
+														stroke="currentColor" stroke-width="3"
+														stroke-linecap="round" />
                 </svg> 최소 경력 ${rcdto.min_career}년</li>
-							<li class="mb-3 flex items-center text-sm"><svg
-									class="mr-2.5 text-primary" width="16" height="13"
-									viewBox="0 0 16 13" fill="none"
-									xmlns="http://www.w3.org/2000/svg">
+											<li class="mb-3 flex items-center text-sm"><svg
+													class="mr-2.5 text-primary" width="16" height="13"
+													viewBox="0 0 16 13" fill="none"
+													xmlns="http://www.w3.org/2000/svg">
                   <path d="M2 5.42857L6.36364 10L14 2"
-										stroke="currentColor" stroke-width="3" stroke-linecap="round" />
+														stroke="currentColor" stroke-width="3"
+														stroke-linecap="round" />
 									
 										
                 							</svg> 최대 경력 <c:if test="${rcdto.max_career == '0'}">무관</c:if>
-                							<c:if test="${rcdto.max_career != '0'}">${rcdto.max_career}년</c:if></li>
-                							
-										
-							<li class="flex items-center text-sm"><svg
-									class="mr-2.5 text-primary" width="16" height="13"
-									viewBox="0 0 16 13" fill="none"
-									xmlns="http://www.w3.org/2000/svg">
+												<c:if test="${rcdto.max_career != '0'}">${rcdto.max_career}년</c:if></li>
+
+
+											<li class="flex items-center text-sm"><svg
+													class="mr-2.5 text-primary" width="16" height="13"
+													viewBox="0 0 16 13" fill="none"
+													xmlns="http://www.w3.org/2000/svg">
                   <path d="M2 5.42857L6.36364 10L14 2"
-										stroke="currentColor" stroke-width="3" stroke-linecap="round" />
+														stroke="currentColor" stroke-width="3"
+														stroke-linecap="round" />
                 </svg> ${rcdto.cp_address}</li>
-						</ul>
-					</div>
-					<div class="text-center">
-						<a
-							class="btn btn-primary h-[48px] w-full rounded-[50px] leading-[30px]"
-							href="${rcdto.rcrt_link}">지원하러 가기</a>
+										</ul>
+									</div>
+									<div class="text-center">
+										<a
+											class="btn btn-primary h-[48px] w-full rounded-[50px] leading-[30px]"
+											href="${rcdto.rcrt_link}">지원하러 가기</a>
 
-					</div>
-				</div>
-			</c:forEach>
-    							<%--  </c:forEach> --%>
-		
-				<c:if test="${dto.com_rcrt_cnt ==0}">
-					<span class="px-8 py-10 lg:-mt-16 h-[48px]" style="color:#595959; font-size:18px;">
-						" 현재 모집중인 채용공고가 없습니다. "
-					</span>
-				</c:if>
-			</div>
-			<!-- div:recruit -->
-			<span class="menu">기업 키워드</span>
-			<div id="keyword">
-			
-			<div class="job_meta">
-			<c:if test="${not empty ComTaglist}">
-	<c:forEach items="${ComTaglist}" var="tdto" begin="0" end="1">
-	<c:if test="${tdto.cp_seq == dto.cp_seq}">
-		<c:forEach items="${tdto.tag_keyword}" var="tag" begin="0" end="4">
-		<span class="job-keyword">${tag}</span>
-		</c:forEach>
-	</c:if>
-	</c:forEach>
-	</c:if>
-	<c:if test="${empty ComTaglist}">등록된 키워드가 없습니다. 리뷰를 작성하여 키워드를 등록해 보세요.</c:if>
-	</div>
-	
-			</div>
-			<span class="menu">기업 리뷰 보기</span>
+									</div>
+								</div>
+							</c:forEach>
+							<%--  </c:forEach> --%>
 
-			<a id="add_review"
-				href="/good/user/company/review/addreview.do?cp_seq=${dto.cp_seq}&word=${map.word}&search=${map.search}&hiring=${map.hiring}&page=${nowPage}">리뷰 쓰러가기</a>
-			
-			
-			
-			<div id="review">
-			<c:if test="${not empty listReview}">
-			<c:forEach items="${listReview}" var="rdto">
-				<div id="review_content">
-					<div id="oneline">"${rdto.linereview}"</div>
-					<div id="score">
-						<div class="score_rating"id="score_detail">
-							<div id="salary_score">
-								<span id="salary_review">연봉 </span><br />
-								<c:forEach var="i" begin="1" end="${rdto.salary_score}">
-        							<i class="fa-solid fa-star"></i>
-    							 </c:forEach>
+							<c:if test="${dto.com_rcrt_cnt ==0}">
+								<span class="px-8 py-10 lg:-mt-16 h-[48px]"
+									style="color: #595959; font-size: 18px;"> " 현재 모집중인
+									채용공고가 없습니다. " </span>
+							</c:if>
+						</div>
+						<!-- div:recruit -->
+						<span class="menu">기업 키워드</span>
+						<div id="keyword">
+
+							<div class="job_meta">
+								<c:if test="${not empty ComTaglist}">
+									<c:forEach items="${ComTaglist}" var="tdto" begin="0" end="1">
+										<c:if test="${tdto.cp_seq == dto.cp_seq}">
+											<c:forEach items="${tdto.tag_keyword}" var="tag" begin="0"
+												end="4">
+												<span class="job-keyword">${tag}</span>
+											</c:forEach>
+										</c:if>
+									</c:forEach>
+								</c:if>
+								<c:if test="${empty ComTaglist}">등록된 키워드가 없습니다. 리뷰를 작성하여 키워드를 등록해 보세요.</c:if>
 							</div>
-							<div class="score_rating" id="welfare_score">
-								<span id="welfare_review">복지 </span> <br />
-								<c:forEach var="i" begin="1" end="${rdto.welfare_score}">
-        							<i class="fa-solid fa-star"></i>
-    							 </c:forEach>
-							</div>
-							<div  class="score_rating" id="ingvt_score">
-								<span id="ingvt_review">근무 안정성 </span> <br />
-								 <c:forEach var="i" begin="1" end="${rdto.stability_score}">
-        							<i class="fa-solid fa-star"></i>
-    							 </c:forEach>
-							</div>
-							<div class="score_rating" id="culture_score">
-								<span id="culture_review">조직문화</span> <br /> 
-								 <c:forEach var="i" begin="1" end="${rdto.culture_score}">
-        							<i class="fa-solid fa-star"></i>
-    							 </c:forEach>
-							</div>
-							<div class="score_rating" id="growth_score">
-								<span id="growth_review">성장 가능성 <br /></span> 
-								 <c:forEach var="i" begin="1" end="${rdto.growth_score}">
-        								<i class="fa-solid fa-star"></i>
-    							 </c:forEach>
-								
-							</div>
-							<div class="score_rating" id="total_score">
-								<span id="total_review">총 평점 </span> <br />
-								<i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i>
-								<i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i>
-								<i class="fa-solid fa-star"></i>
-							</div>
+
+						</div>
+						<span class="menu">기업 리뷰 보기</span> <a id="add_review"
+							href="/good/user/company/review/addreview.do?cp_seq=${dto.cp_seq}&word=${map.word}&search=${map.search}&hiring=${map.hiring}&page=${nowPage}">리뷰
+							쓰러가기</a>
+
+
+
+						<div id="review">
+							<c:if test="${not empty listReview}">
+								<c:forEach items="${listReview}" var="rdto">
+									<div id="review_content">
+										<div id="oneline">"${rdto.linereview}"</div>
+										<div id="score">
+											<div class="score_rating" id="score_detail">
+												<div id="salary_score">
+													<span id="salary_review">연봉 </span><br />
+													<c:forEach var="i" begin="1" end="${rdto.salary_score}">
+														<i class="fa-solid fa-star"></i>
+													</c:forEach>
+												</div>
+												<div class="score_rating" id="welfare_score">
+													<span id="welfare_review">복지 </span> <br />
+													<c:forEach var="i" begin="1" end="${rdto.welfare_score}">
+														<i class="fa-solid fa-star"></i>
+													</c:forEach>
+												</div>
+												<div class="score_rating" id="ingvt_score">
+													<span id="ingvt_review">근무 안정성 </span> <br />
+													<c:forEach var="i" begin="1" end="${rdto.stability_score}">
+														<i class="fa-solid fa-star"></i>
+													</c:forEach>
+												</div>
+												<div class="score_rating" id="culture_score">
+													<span id="culture_review">조직문화</span> <br />
+													<c:forEach var="i" begin="1" end="${rdto.culture_score}">
+														<i class="fa-solid fa-star"></i>
+													</c:forEach>
+												</div>
+												<div class="score_rating" id="growth_score">
+													<span id="growth_review">성장 가능성 <br /></span>
+													<c:forEach var="i" begin="1" end="${rdto.growth_score}">
+														<i class="fa-solid fa-star"></i>
+													</c:forEach>
+
+												</div>
+												<div class="score_rating" id="total_score">
+													<span id="total_review">총 평점 </span> <br /> <i
+														class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i>
+													<i class="fa-solid fa-star"></i> <i
+														class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i>
+												</div>
+											</div>
+										</div>
+										<div class="goodbad_title" id="good_title">
+											<i class="fa-regular fa-thumbs-up"></i> 이런 부분은 좋았아요.
+											<div id="good">${rdto.good}</div>
+										</div>
+
+										<div class="goodbad_title" id="bad_title">
+											<i class="fa-regular fa-thumbs-down"></i> 이런 부분은 아쉬웠어요.
+											<div id="bad">${rdto.bad}</div>
+										</div>
+
+
+									</div>
+								</c:forEach>
+							</c:if>
+							<c:if test="${empty listReview}">등록된 리뷰가 없습니다. 직접 등록해보세요!</c:if>
 						</div>
 					</div>
-					<div class="goodbad_title" id="good_title">
-						<i class="fa-regular fa-thumbs-up"></i> 이런 부분은 좋았아요.
-						<div id="good">${rdto.good}</div>
-					</div>
-					
-						<div class="goodbad_title" id="bad_title">
-							<i class="fa-regular fa-thumbs-down"></i> 이런 부분은 아쉬웠어요.
-						<div id="bad">${rdto.bad}</div>
-						</div>
 
-					
 				</div>
-				</c:forEach>
-				</c:if>
-				<c:if test="${empty listReview}">등록된 리뷰가 없습니다. 직접 등록해보세요!</c:if>
 			</div>
-		</div>
-                        
-                        </div>
-                        </div>
-                        
-                        </section>
-	
 
-		
+		</section>
+
+
+
 		<!--div:company-Info  -->
 
 
@@ -798,7 +815,11 @@ h3 > #scrap {
 				%>
 
 			</div>
-			<span class="menu">실시간 댓글<button><i class="fa-solid fa-rotate-right"></i></button></span>
+			<span class="menu">실시간 댓글
+				<button>
+					<i class="fa-solid fa-rotate-right"></i>
+				</button>
+			</span>
 			<div id="comment">
 				<div class="card chat-box" id="mychatbox">
 					<%
@@ -831,22 +852,24 @@ h3 > #scrap {
 				</div>
 			</div>
 			<div id="go_container">
-			
-			<button class="go" id="goReview">기업리뷰 바로보기</button>
-			<button class="go" id="goInterview">면접후기 바로보기</button>
+
+				<button class="go" id="goReview">기업리뷰 바로보기</button>
+				<button class="go" id="goInterview">면접후기 바로보기</button>
 			</div>
 
 
-		</div><!-- right-container -->
+		</div>
+		<!-- right-container -->
 
-	</div><!-- main  -->
+	</div>
+	<!-- main  -->
 
 
 	<%@include file="/WEB-INF/views/inc/footer.jsp"%>
-<script src="https://code.highcharts.com/highcharts.js"></script>
-<script src="https://code.highcharts.com/modules/exporting.js"></script>
-<script src="https://code.highcharts.com/modules/export-data.js"></script>
-<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+	<script src="https://code.highcharts.com/highcharts.js"></script>
+	<script src="https://code.highcharts.com/modules/exporting.js"></script>
+	<script src="https://code.highcharts.com/modules/export-data.js"></script>
+	<script src="https://code.highcharts.com/modules/accessibility.js"></script>
 	<!-- <script src="/good/assets/modules/chart.min.js"></script> -->
 	<script src="/good/assets/js/page/index-0.js"></script>
 	<script>

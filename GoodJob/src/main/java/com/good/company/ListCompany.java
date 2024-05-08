@@ -57,13 +57,48 @@ import com.test.util.DBUtil;
 
 			// 검색 기록 가져오기
 			String column = (req.getParameter("column") != null ? req.getParameter("column") : "");
+			
+			
+			//정렬 기준
+			String sort = req.getParameter("sort");
+
+			if (sort == null || sort.equals("")) {
+				sort = "salary"; // 기본 정렬 순서
+			}
+			
+			String orderBy = "";
+			switch (sort) {
+			case "salary":
+				orderBy = "hire_avr_salary desc";
+				break;
+			case "review":
+				orderBy = "com_rcrt_cnt desc";
+				break;
+			default:
+				orderBy = "hire_avr_salary desc";
+				break;
+			}
+			
+			
 			String word = (req.getParameter("word") != null ? req.getParameter("word") : "");
+			String salary_seq = req.getParameter("salary_seq");
+			String[] cp_address = req.getParameterValues("cp_address"); 
 			String search = "n"; // 목록보기(n), 검색하기(y)
 
-			if ((column == null && word == null) || word.equals("")) {
-				search = "n";
-			} else {
-				search = "y";
+			if(cp_address != null) {
+				
+				
+				for(String s : cp_address) {
+					
+					System.out.println("지역 선호 선택: " + s);
+				}
+				
+			}
+			
+			if ((word != null && !word.isEmpty()) ||
+				    (salary_seq != null && !salary_seq.isEmpty()) ||
+				    (cp_address != null && cp_address.length > 0)) {
+				    search = "y"; // 검색 조건이 있으면 'y'로 설정
 			}
 			
 			
@@ -75,7 +110,7 @@ import com.test.util.DBUtil;
 			}
 			
 			
-			HashMap<String, String> map = new HashMap<>();
+			HashMap<String, Object> map = new HashMap<>();
 
 			map.put("search", search);
 			map.put("column", column);
@@ -83,9 +118,17 @@ import com.test.util.DBUtil;
 			map.put("begin", begin + "");
 			map.put("end", end + "");
 			map.put("hiring",hiring);
+			map.put("sort", orderBy);
+			map.put("salary_seq", salary_seq);
+			map.put("cp_address", cp_address);
 			
+			System.out.println("word "+ word );
+			System.out.println("hiring " + hiring);
 			
-			//HttpSession session = req.getSession();
+			System.out.println("cp_address " + cp_address);
+			System.out.println("salary_seq " + salary_seq);
+			System.out.println("search " + search);
+			System.out.println("sort" + sort);
 			
 			//목록 출력
 			CompanyDAO dao = new CompanyDAO();
@@ -107,6 +150,7 @@ import com.test.util.DBUtil;
 				if(address.contains("서울특별시")) {
 					address = address.replaceAll("서울특별시", "서울");
 				}
+				
 				int firstSpaceIndex = address.indexOf(' '); // 첫 번째 공백의 위치
 			    int secondSpaceIndex = address.indexOf(' ', firstSpaceIndex + 1); // 두 번째 공백의 위치
 			    address = address.substring(0, secondSpaceIndex);

@@ -56,25 +56,7 @@ public class RecruitDAO {
 		return null;
 	}
 
-	/*
-	 * public int addRecruit(RecruitDTO dto) { //queryParamNoReturn try {
-	 * 
-	 * String sql =
-	 * "insert into tblRecruit values (seqRecruit.nextVal, ?, ?, ?, ?, ?, ?)";
-	 * 
-	 * pstat = conn.prepareStatement(sql); pstat.setString(1,
-	 * dto.getRcrt_address()); pstat.setString(2, dto.getRcrt_career());
-	 * pstat.setString(3, dto.getRcrt_salary()); pstat.setString(4,
-	 * dto.getStartdate()); pstat.setString(5, dto.getEnddate()); pstat.setString(6,
-	 * dto.getCp_seq());
-	 * 
-	 * return pstat.executeUpdate();
-	 * 
-	 * } catch (Exception e) { System.out.println("addRecruit");
-	 * e.printStackTrace(); }
-	 * 
-	 * return 0; }
-	 */
+	
 	public ArrayList<RecruitDTO> RecruitList() {
 		try {
 			String sql = "select * from tblRecruit";

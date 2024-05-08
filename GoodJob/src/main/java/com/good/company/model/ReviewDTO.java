@@ -8,6 +8,7 @@ import lombok.Data;
 
 @Data
 public class ReviewDTO {
+	
 	 private String cp_seq;
 	 private String id;
 	 private String cp_rv_seq;
