@@ -21,6 +21,16 @@ public class NoticeDAO {
 	public NoticeDAO() {
 		this.conn = DBUtil.open();
 	}
+	
+	public void close()  {
+		
+		try {
+			this.conn.close();
+		} catch (Exception e) {
+			System.out.println("noticeDAO.close 오류");
+			e.printStackTrace();
+		}
+	}
 
 	public int addNotice(BoardDTO dto) {
 
@@ -59,7 +69,6 @@ public class NoticeDAO {
 			rs = pstat.executeQuery();
 
 			if (rs.next()) {
-
 				return rs.getInt("cnt");
 			}
 
@@ -75,27 +84,38 @@ public class NoticeDAO {
 		try {
 
 			String where = "";
+			
 			if (map.get("search").equals("y")) {
 				where = String.format("where %s like '%%%s%%'", map.get("column"), map.get("word"));
 			}
-
-			String sql = String.format(
-					"SELECT * FROM (SELECT ROWNUM AS rnum, a.* FROM tblNotice WHERE rnum BETWEEN %s AND %s",
+			
+			String sql = "";
+			
+			sql = String.format(
+					"select * from (select a.*, rownum as rnum from vwNotice a %s order by %s) where rnum between %s and %s",
 					where, map.get("sort"), map.get("begin"), map.get("end"));
-
 			stat = conn.createStatement();
 			rs = stat.executeQuery(sql);
-
-			ArrayList<NoticeDTO> list = new ArrayList<>();
-
+			
+			ArrayList<NoticeDTO> list = new ArrayList<NoticeDTO>();
+			
 			while (rs.next()) {
 
 				NoticeDTO dto = new NoticeDTO();
 
+				dto.setId(rs.getString("id"));
+				dto.setNt_content(rs.getString("nt_content"));
+				dto.setNt_regdate(rs.getString("nt_regdate"));
+				dto.setNt_seq(rs.getString("nt_seq"));
+				dto.setNt_views(rs.getInt("nt_views"));
+				dto.setNt_title(rs.getString("nt_title"));
+				dto.setNickname(rs.getString("nickname"));
+
 
 				list.add(dto);
-
 			}
+			
+			
 			return list;
 
 		} catch (Exception e) {
@@ -104,5 +124,83 @@ public class NoticeDAO {
 		}
 
 		return null;
+	}
+
+	public NoticeDTO viewNotice(String nt_seq) {
+		try {
+			String sql = "select * from vwNotice where nt_seq = ?";
+
+			pstat = conn.prepareStatement(sql);
+			pstat.setString(1, nt_seq);
+
+			rs = pstat.executeQuery();
+
+			if (rs.next()) {
+				NoticeDTO dto = new NoticeDTO();
+				dto.setId(rs.getString("id"));
+				dto.setNickname(rs.getString("nickname"));
+				dto.setNt_content(rs.getString("nt_content"));
+				dto.setNt_title(rs.getString("nt_title"));
+				dto.setNt_regdate(rs.getString("nt_regdate"));
+				dto.setNt_seq(rs.getString("nt_seq"));
+
+				return dto;
+			}
+
+		} catch (Exception e) {
+			System.out.println("NoticeDAO.viewNotice");
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+
+	public int delNotice(String seq) {
+		try {
+			String sql = "delete from tblNotice where nt_seq = ?";
+
+			pstat = conn.prepareStatement(sql);
+			pstat.setString(1, seq);
+
+			return pstat.executeUpdate();
+
+		} catch (Exception e) {
+			System.out.println("NoticeDAO.delNotice");
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
+	public void updateReadcount(String nt_seq) {
+		try {
+			String sql = "update tblNotice set nt_views = nt_views + 1 where nt_seq = ?";
+
+			pstat = conn.prepareStatement(sql);
+			pstat.setString(1, nt_seq);
+			pstat.executeUpdate();
+
+		} catch (Exception e) {
+			System.out.println("NoticeDAO.updateReadcount");
+			e.printStackTrace();
+		}
+		
+	}
+
+	public int edit(NoticeDTO dto) {
+		try {
+			String sql = "update tblNotice set nt_title = ?, nt_content = ? where nt_seq = ?";
+
+			pstat = conn.prepareStatement(sql);
+			pstat.setString(1, dto.getNt_title());
+			pstat.setString(2, dto.getNt_content());
+			pstat.setString(3, dto.getNt_seq());
+
+			return pstat.executeUpdate();
+
+		} catch (Exception e) {
+			System.out.println("NoticeDAO.edit");
+			e.printStackTrace();
+		}
+		return 0;
 	}
 }

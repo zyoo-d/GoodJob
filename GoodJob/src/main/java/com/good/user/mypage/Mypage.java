@@ -23,6 +23,7 @@ public class Mypage extends HttpServlet {
 		
 		StudyDAO dao = new StudyDAO();
 		int stdCnt = dao.getCount(id);
+		dao.close();
 		
 		req.setAttribute("stdCnt", stdCnt);
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/user/mypage/mymain.jsp");

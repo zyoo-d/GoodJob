@@ -61,6 +61,8 @@ public class Register extends HttpServlet {
 		
 		int result = dao.signUp(dto);
 		
+		dao.close();
+		
 		if (result == 1) {
 		    resp.setContentType("application/json");
 		    resp.setCharacterEncoding("UTF-8");
