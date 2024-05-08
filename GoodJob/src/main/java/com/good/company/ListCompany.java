@@ -235,6 +235,8 @@ import com.test.util.DBUtil;
 			req.setAttribute("searchTotalCount", searchTotalCount);
 			req.setAttribute("totalPage", totalPage); //페이지 번호
 			req.setAttribute("pagebar", sb.toString()); //페이지 바 작업
+			
+			dao.close();
 
 			RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/user/company/companylist.jsp");
 			dispatcher.forward(req, resp);

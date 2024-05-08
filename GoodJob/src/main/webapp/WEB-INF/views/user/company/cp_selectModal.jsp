@@ -154,68 +154,22 @@ button {
 
 			<div id="compare">
 				<div id="check">
-						<input type="checkbox" name="" value="쌍용" id="ssang" />
-						<input type="checkbox" name="" value="네이버" id="naver"/>
-						<input type="checkbox" name="" value="구글" id="" />	
-						<input type="checkbox" name="" value="카카오" id="kakao" />
-						<input type="checkbox" name="" value="안랩" id="ahn" />
-						<input type="checkbox" name="" value="오라클" id="oracle" />
+				<c:forEach items="${comListInfo}" var="dto">
+						<input type="checkbox" name="" value="${dto.cp_name}" id="ssang" />
+						</c:forEach>
 				</div>
 				<div id="right">
+				<c:forEach items="${comListInfo}" var="dto">
 				<div id="company">
 					<div id="cp_img">
 						<img src="images/naver.jpg" alt="" />
 					</div>
 					<div id="cp_info">
-						<div id="cp_name">네이버</div>
-						<div id="cp_industry">(응용 소프트웨어 개발 및 공급업)</div>
+						<div id="cp_name">${dto.cp_name}</div>
+						<div id="cp_industry">${dto.cp_address}</div>
 					</div>
 				</div>
-				<div id="company">
-					<div id="cp_img">
-						<img src="images/naver.jpg" alt="" />
-					</div>
-					<div id="cp_info">
-						<div id="cp_name">구글</div>
-						<div id="cp_industry">(응용 소프트웨어 개발 및 공급업)</div>
-					</div>
-				</div>
-				<div id="company">
-					<div id="cp_img">
-						<img src="images/naver.jpg" alt="" />
-					</div>
-					<div id="cp_info">
-						<div id="cp_name">카카오</div>
-						<div id="cp_industry">(응용 소프트웨어 개발 및 공급업)</div>
-					</div>
-				</div>
-				<div id="company">
-					<div id="cp_img">
-						<img src="images/naver.jpg" alt="" />
-					</div>
-					<div id="cp_info">
-						<div id="cp_name">안랩</div>
-						<div id="cp_industry">(응용 소프트웨어 개발 및 공급업)</div>
-					</div>
-				</div>
-				<div id="company">
-					<div id="cp_img">
-						<img src="images/naver.jpg" alt="" />
-					</div>
-					<div id="cp_info">
-						<div id="cp_name">오라클</div>
-						<div id="cp_industry">(응용 소프트웨어 개발 및 공급업)</div>
-					</div>
-				</div>
-				<div id="company">
-					<div id="cp_img">
-						<img src="images/naver.jpg" alt="" />
-					</div>
-					<div id="cp_info">
-						<div id="cp_name">쌍용</div>
-						<div id="cp_industry">(응용 소프트웨어 개발 및 공급업)</div>
-					</div>
-				</div>
+				</c:forEach>
 				</div>
 			</div>
 
