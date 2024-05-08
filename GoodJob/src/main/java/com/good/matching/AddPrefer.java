@@ -105,7 +105,7 @@ public class AddPrefer extends HttpServlet {
 		
 		String edit = req.getParameter("edit");
 
-		// 정확도 = sum > 60% 아래면 return
+		// 정확도 = sum > 50% 아래면 return
 		if (sum < 50) {
 			PrintWriter writer = resp.getWriter();
 			writer.println("<html><head><meta charset=\"UTF-8\"><title>Access Denied</title></head><body>");

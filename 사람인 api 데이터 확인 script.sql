@@ -5,7 +5,9 @@ SHOW PARAMETER PROCESSES;
 SHOW PARAMETER SESSIONS;
 
 
-
+select * from tbluserprefer;
+select * from tbluserdetail;
+insert into tbluserprefer values (?,?,?,?,?,?,sysdate);
 
 select distinct seq, LPAD(code, 8, '0') as code, name from tblcode where seq > 11852;
 select r.rcrt_name, r.cp_seq, c.cp_name, r.rcrt_link, c.ceo 
@@ -35,7 +37,8 @@ select * from tblhire h
 
 select * from tblwelfare;
 select * from tblwishjob;
-select * from tblUserDetail;
+select * from tblUserprefer;
+select * from tblsalary;
 
 
 select * from tbluser;
