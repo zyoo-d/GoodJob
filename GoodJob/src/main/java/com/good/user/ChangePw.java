@@ -34,6 +34,8 @@ public class ChangePw extends HttpServlet {
 		
 		int result = dao.changePw(dto);
 		
+		dao.close();
+		
 		JSONObject obj = new JSONObject();
 		
 		obj.put("result", result);

@@ -42,8 +42,8 @@
                         <div class="row">
                             <div class="form-group col-6">
                                 <label for="password" class="d-block">비밀번호</label> 
-                                <input id="password" type="password" class="form-control pwstrength" data-indicator="pwindicator" name="password" required>
-                                <span id="pwError"></span>
+                                <input id="password" type="password" class="form-control pwstrength" data-indicator="pwindicator" name="password" placeholder="8~16자 이내의 영어 대소문자, 숫자, (*), (-), (1)만 입력이 가능합니다." required>
+                                <span id="pwError" style="color: tomato"></span>
                                 <div id="pwindicator" class="pwindicator">
                                     <div class="bar"></div>
                                     <div class="label"></div>
@@ -52,7 +52,7 @@
                             <div class="form-group col-6">
                                 <label for="pw_confirm" class="d-block">비밀번호 확인</label> 
                                 <input id="pw_confirm" type="password" class="form-control" name="password-confirm" required>
-                                <span id="pwCheckError"></span>
+                                <span id="pwCheckError" style="color: tomato"></span>
                             </div>
                         </div>
                         <div class="form-group">
@@ -67,25 +67,7 @@
                                     <button class="btn btn-outline-primary" type="button" onclick="getAddress();">주소 찾기</button>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-6">
-                                <label>학력 정보(선택)</label>
-                                <select class="form-control" name="education">
-                                    <option value="1">고교 졸업 이하</option>
-                                    <option value="2">고등학교 졸업</option>
-                                    <option value="3">대학 졸업(2,3년제)</option>
-                                    <option value="4">대학 졸업(4년제)</option>
-                                    <option value="5">대학원 석사 졸업</option>
-                                    <option value="6">대학원 박사 졸업</option>
-                                    <option value="7">박사 졸업 이상</option>
-                                </select>
-                            </div>
-                            <div class="form-group col-6">
-                                <label>경력 정보(선택)</label> 
-                                <input type="range" class="form-control" min="0" max="10" step="1">
-                            </div>
-                        </div>
+                        </div>  
                         <div class="form-group">
                             <div class="custom-control custom-checkbox">
                                 <input type="checkbox" name="agree" class="custom-control-input" id="agree"> 
