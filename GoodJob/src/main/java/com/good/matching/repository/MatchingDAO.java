@@ -2,10 +2,8 @@ package com.good.matching.repository;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,7 +11,6 @@ import java.util.HashMap;
 import com.good.matching.model.MatchingDTO;
 import com.test.util.DBUtil;
 
-import oracle.jdbc.OracleTypes;
 
 
 public class MatchingDAO {
