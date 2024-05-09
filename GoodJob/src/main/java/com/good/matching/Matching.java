@@ -3,6 +3,8 @@ package com.good.matching;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 
 import javax.servlet.ServletException;
@@ -26,21 +28,33 @@ public class Matching extends HttpServlet {
 		String id = "hong123";
 		System.out.println(id);
 		MatchingDAO dao = new MatchingDAO();
-		HashMap<Integer, String> scoreMap = dao.getScore(id);
+		HashMap<Integer, String> scoreMap = dao.getColumn(id);
 		
 		MatchingAlgo algo = new MatchingAlgo();
 		
 		String[] columnNames = algo.sort(scoreMap);
 		
-		ArrayList<MatchingDTO> list = dao.getMatching(columnNames, id);
-		
 		System.out.println(Arrays.toString(columnNames));
-        for(MatchingDTO dto : list) {
-
-            System.out.println(dto.toString());
-
-        }
 		
+		
+		ArrayList<MatchingDTO> list = dao.getMatching(columnNames, id);
+		ArrayList<MatchingDTO> top3 = new ArrayList<>(list.subList(0, 3));
+		list.subList(0, 3).clear();
+ 		
+		
+		MatchingDTO dto = dao.getScore(id);
+		ScoreMatcher.calculateMatchingRate(list, dto);
+		Collections.sort(list, Comparator.reverseOrder());
+		
+		for (MatchingDTO dto1 : list) {
+			
+			System.out.println(dto1.toString());
+			
+		}
+		
+		req.setAttribute("top3", top3);
+		req.setAttribute("list", list);
+		req.setAttribute("dto", dto);
 		
 		
 		/*

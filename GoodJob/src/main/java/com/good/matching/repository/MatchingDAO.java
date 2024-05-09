@@ -2,8 +2,10 @@ package com.good.matching.repository;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,51 +17,124 @@ import oracle.jdbc.OracleTypes;
 
 
 public class MatchingDAO {
-	
+
 	private Connection conn;
 	private Statement stat;
 	private PreparedStatement pstat;
 	private ResultSet rs;
 	private CallableStatement cstmt;
-	
+
 	public MatchingDAO() {
 		this.conn = DBUtil.open();
 	}
-	
-	public void close() {
-		try {
-			
-			this.conn.close();
-			
+
+
+	public HashMap<Integer, String> getColumn(String id) {
+
+		try {	
+			String sql = "select * from vwUserSurvey where id = ?";
+
+			pstat = conn.prepareStatement(sql);
+
+			pstat.setString(1, id);
+
+			rs = pstat.executeQuery();
+
+			HashMap<Integer, String> map = new HashMap<>();
+
+			if(rs.next()) {
+
+				map.put(rs.getInt("welfare"),"welfare");
+				map.put(rs.getInt("stability"),"stability");
+				map.put(rs.getInt("culture"),"culture");
+				map.put(rs.getInt("potential"),"potential");
+
+			}
+
+			return map;
+
 		} catch (Exception e) {
-			System.out.println("MatchingDAO.conn close 실패");
+			System.out.println("MatchingDAO.getScore");
 			e.printStackTrace();
 		}
-	}
 
-	public HashMap<Integer, String> getScore(String id) {
+		return null;
+
+	}
+	
+	
+
+	public ArrayList<MatchingDTO> getMatching(String[] columnNames, String id) {
+		ArrayList<MatchingDTO> list = new ArrayList<>();
+
+		try {
+
+			String sql = "BEGIN procMatching(?, ?, ?, ?, ?); END;";
+
+			pstat = conn.prepareStatement(sql);
+
+			pstat.setString(1, id);
+
+			for (int i = 0; i < columnNames.length; i++) {
+				pstat.setString(i + 2, columnNames[i]);
+			}
+			pstat.execute();
+
+
+			sql = "select * from tempResults";
+			stat = conn.createStatement();
+			
+			rs = stat.executeQuery(sql);
+			
+			System.out.println(rs == null);
+			if (rs != null) {
+				while (rs.next()) {
+				
+					MatchingDTO dto = new MatchingDTO();
+					dto.setCp_seq(rs.getString("cp_seq"));
+					dto.setCulture(rs.getInt("culture"));
+					dto.setPotential(rs.getInt("potential"));
+					dto.setStability(rs.getInt("stability"));
+					dto.setWelfare(rs.getInt("welfare"));
+					dto.setSalary(rs.getInt("salary"));
+					list.add(dto);
+				}
+			}
+
+		} catch (Exception e) {
+			System.out.println("MatchingDAO.getMatching - Exception");
+			e.printStackTrace();
+		}
+
+	return list;
+}
+
+
+	public MatchingDTO getScore(String id) {
 		
 		try {	
+			
+			String sql = "select * from vwUserSurvey where id = ?";
+
+			pstat = conn.prepareStatement(sql);
+
+			pstat.setString(1, id);
+
+			rs = pstat.executeQuery();
+			
+			MatchingDTO dto = new MatchingDTO();
+
+			if(rs.next()) {
+
+				dto.setWelfare((int)Math.round(rs.getDouble("welfare")));
+				dto.setCulture((int)Math.round(rs.getDouble("culture")));
+				dto.setPotential((int)Math.round(rs.getDouble("potential")));
+				dto.setStability((int)Math.round(rs.getDouble("stability")));
+				dto.setSalary((int)Math.round(rs.getDouble("salary")));
 				
-				String sql = "select * from vwUserSurvey where id = ?";
-				
-				pstat = conn.prepareStatement(sql);
-				pstat.setString(1, id);
-				
-				rs = pstat.executeQuery();
-				
-				HashMap<Integer, String> map = new HashMap<>();
-				
-				while(rs.next()) {
-					
-					map.put(rs.getInt("WELFARE"),"WELFARE");
-					map.put(rs.getInt("STABILITY"),"STABILITY");
-					map.put(rs.getInt("CULTURE"),"CULTURE");
-					map.put(rs.getInt("POTENTIAL"),"POTENTIAL");
-					
-				}
-				
-				return map;
+			}
+			
+			return dto;
 				
 			} catch (Exception e) {
 				System.out.println("MatchingDAO.getScore");
@@ -70,62 +145,5 @@ public class MatchingDAO {
 		
 	}
 
-	public ArrayList<MatchingDTO> getMatching(String[] columnNames, String id) {
-
-        try {
-
-            String sql = "{call procMatching(?,?,?,?,?)}";
-
-            System.out.println(id);
-            cstmt = conn.prepareCall(sql);
-            cstmt.setString(1, id);
-            cstmt.setString(2, "culture");
-            cstmt.setString(3, "stability");
-            cstmt.setString(4, "potential");
-            cstmt.setString(5, "welfare");
-            cstmt.execute();
-            cstmt.close();
-            
-            sql="select * from tempResults";
-            stat = conn.createStatement();
-            
-            rs = stat.executeQuery(sql);
-            System.out.println(rs==null);
-            
-            ArrayList<MatchingDTO> list = new ArrayList<>();
-
-            System.out.println(111);
-            
-            while(rs.next()) {
-                System.out.println(222);
-                MatchingDTO dto = new MatchingDTO();
-
-                dto.setCp_seq(rs.getString("cp_seq"));
-                dto.setCulture(rs.getString("culture"));
-                dto.setPotential(rs.getString("potential"));
-                dto.setStability(rs.getString("stability"));
-                dto.setWelfare(rs.getString("welfare"));
-
-                list.add(dto);
-
-            }
-
-            return list;
-
-
-        } catch (Exception e) {
-            System.out.println("MatchingDAO.getMatching");
-            e.printStackTrace();
-        }
-
-
-
-
-        return null;
-
-    }
-	
-	
-	
 
 }

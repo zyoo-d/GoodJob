@@ -41,38 +41,11 @@ GROUP BY
 select * from tblCompanyReview;
 
 
-CREATE OR REPLACE VIEW vwStab AS
-SELECT
-    s.cp_seq,
-    Round(CASE
-        WHEN s.score > 70 THEN 70
-        ELSE s.score
-    END +
-    COALESCE(AVG(cr.STABILITY_SCORE), 0) * 6) AS stab_score
-FROM
-    vwStability s
-LEFT JOIN
-    tblCompanyReview cr ON s.cp_seq = cr.cp_seq
-GROUP BY
-    s.cp_seq, s.score;
-    
+
 select * from vwWel;    
     
     
     
     
-    
-SELECT p.cp_seq
-FROM (
-  SELECT p.cp_seq
-  FROM vwPOT p
-  INNER JOIN vwStab s ON p.cp_seq = s.cp_seq
-) p
-WHERE p.cp_seq NOT IN (
-  SELECT wf.cp_seq
-  FROM tblwelfarelist wf
-  INNER JOIN tblCompanyReview cr ON wf.cp_seq = cr.cp_seq
-  GROUP BY wf.cp_seq
-);    
-    
+
     
