@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.good.alert.Alert;
+import com.good.matching.model.PreferDTO;
+import com.good.matching.repository.PreferDAO;
 
 @WebServlet("/user/matching/addprefer.do")
 public class AddPrefer extends HttpServlet {
@@ -98,13 +101,9 @@ public class AddPrefer extends HttpServlet {
 				}
 				System.out.println(sum);
 			}
-			
 		}
 		
-		
-
-		
-		
+		String edit = req.getParameter("edit");
 
 		// 정확도 = sum > 50% 아래면 return
 		if (sum < 50) {
