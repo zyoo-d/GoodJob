@@ -128,3 +128,6 @@ select * from tblInterview;
 select * from tblCompany where cp_seq = 11852;
 
 select * from vwUserSurvey;
+
+
+select * from vwUserSurvey where id = 'hong123';
