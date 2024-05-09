@@ -7,6 +7,13 @@
 <meta charset="UTF-8">
 <%@include file="/WEB-INF/views/inc/asset.jsp"%>
 <style>
+#itvContentSummary p{
+	display: flex;
+	justify-content: flex-start;
+}
+
+
+
 </style>
 </head>
 <%@include file="/WEB-INF/views/inc/header.jsp"%>
@@ -41,57 +48,82 @@
 						</button>
 					</form>
 				</div>
+					<div class="list-header">
+								<div class="list-title">
+									<p>
+										<span class="material-symbols-outlined">subject</span>
+									</p>
+									<p>
+										조회된 게시글은 총 <span id="list-cnt">${totalCount}</span>건입니다.
+									</p>
+								</div>
+								<div class="list_info">
+									<div class="moving-btn studyAdd mr-2">
+										<a href="/good/board/interview/itvWrite.do" class="btn btnList">글쓰기</a>
+									</div>
+									<div class="InpBox">
+										<select class="sorting" name="sort" id="sort">
+											<option value="latest"
+												<c:if test="${param.sort == 'latest' || empty param.sort}">selected</c:if>>최신순</option>
+											<option value="oldest"
+												<c:if test="${param.sort == 'oldest'}">selected</c:if>>과거순</option>
+											<option value="comments"
+												<c:if test="${param.sort == 'comments'}">selected</c:if>>댓글순</option>
+										</select>
+									</div>
+								</div>
+							</div>
 
 				<div class="mb-8 md:col-6" id="interview-list">
-					<c:forEach var="interview" items="${interviewList}">
+					<c:forEach var="dto" items="${list}">
 						<div class="card itvCard">
 							<div class="card-content-wrapper">
 								<div class="itvdropdownContent">
 									<div class="itvImgBox">
 										<img
-											src="${interview.IMAGE}"
+											src="${dto.IMAGE}"
 											id="itvImg" alt="" />
 
 									</div>
 									<div class="itvCardTags">
-										<a class="tag" href="#">${interview.ITV_WHETHER}</a> <i
+										<a class="tag" href="#">${dto.ITV_WHETHER}</a> <i
 											class="fa-solid fa-arrow-down-short-wide dw"></i>
 									</div>
 									<div class="itvContentFooter">
 										<h3 class="h4 card-title">
 
-											<p>${interview.ITV_CPNAME}</p>
+											<p>${dto.ITV_CPNAME}</p>
 										</h3>
-										<p>${interview.ITV_CAREER}${interview.ITV_MEETDATE} 전반적 평가 : 
-											${interview.ITV_DIFFICULTY}</p>
+										<div id="itvContentSummary">
+											<p>
+												${dto.ITV_CAREER}
+												${dto.ITV_MEETDATE} 
+												전반적 평가 :${dto.ITV_DIFFICULTY}
+											</p>
+										</div>
 									</div>
 								</div>
 								<div class="itvDetail">
 									<div class="itvDetailEmo"></div>
 									<div class="itvDetailInfo">
-										<strong class="itvDetailInfoTitle">면접 유형</strong> <span>${interview.ITV_CATEGORY}</span>
+										<strong class="itvDetailInfoTitle">면접 유형</strong> <span>${dto.ITV_CATEGORY}</span>
 									</div>
 									<div class="itvDetailInfo">
-										<strong class="itvDetailInfoTitle">면접 인원</strong> <span>${interview.ITV_PERSONNEL}</span>
+										<strong class="itvDetailInfoTitle">면접 인원</strong> <span>${dto.ITV_PERSONNEL}</span>
 									</div>
 									<div class="itvDetailInfo">
 										<strong class="itvDetailInfoTitle">면접 질문</strong>
-										<p>${interview.ITV_QUESTION}</p>
+										<p>${dto.ITV_QUESTION}</p>
 									</div>
 									<div class="itvDetailInfo">
 										<strong class="itvDetailInfoTitle">TIP 및 특이사항</strong>
-										<p>${interview.ITV_TIP}</p>
+										<p>${dto.ITV_TIP}</p>
 									</div>
 								</div>
 							</div>
 						</div>
 					</c:forEach>
 				</div>
-				<c:if test="${not empty id && (cdto.id == id || lv == 2)}">
-				<div class="moving-btn studyAdd">
-					<a href="#" class="btn btnList">글쓰기</a>
-				</div>
-				</c:if>
 			<nav class="PageBox z-custom" aria-label="Page navigation example">
 			<ul class="pagination z-custom">${pagebar}</ul>
 			</nav>

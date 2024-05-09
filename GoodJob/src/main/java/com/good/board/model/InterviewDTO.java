@@ -1,4 +1,4 @@
-package com.goodjob.test.mg;
+package com.good.board.model;
 
 import lombok.Data;
 

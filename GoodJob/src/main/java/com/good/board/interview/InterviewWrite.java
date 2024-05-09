@@ -1,7 +1,6 @@
-package com.goodjob.test.mg;
+package com.good.board.interview;
 
 import java.io.IOException;
-import java.util.Arrays;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,7 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet("/itvWrite.do")
+import com.good.board.model.InterviewDTO;
+import com.good.board.repository.InterviewDAO;
+
+@WebServlet("/board/interview/itvWrite.do")
 public class InterviewWrite extends HttpServlet {
 
 	@Override
