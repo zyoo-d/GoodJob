@@ -2,10 +2,16 @@ package com.good.matching.model;
 
 import java.util.HashMap;
 
+import lombok.Data;
+
+@Data
 public class MatchingDTO {
 	
-	String cp_seq;
-	HashMap<String, Integer> score;
+	private String cp_seq;
+	private String welfare;
+	private String stability;
+	private String culture;
+	private String potential;
 	
 
 }
