@@ -91,7 +91,6 @@ public class CompanyDAO {
 				
 				dto.setImage(rs.getString("image"));
 				
-				dto.setIdst_code(rs.getString("idst_code"));
 				dto.setIdst_name(rs.getString("idst_name"));
 				dto.setCom_rcrt_cnt(rs.getInt("com_rcrt_cnt"));
 				mainComInfo.add(dto);

@@ -82,7 +82,7 @@
             cursor: pointer;
         }
 
-        #report-btn {
+        #report-sub-btn {
             width: 60%;
             height: 50px;
             padding: 10px;
@@ -117,7 +117,7 @@
                 </div>
                 <textarea id="report-description" name="description" placeholder="신고 사유를 입력해 주세요."></textarea>
                 <div id="report-actions">
-                    <button id="report-btn" type="submit" onclick="validateForm()">신고하기</button>
+                    <button id="report-sub-btn" type="submit">신고하기</button>
                 </div>
             </form>
         </div>
@@ -131,7 +131,7 @@
         }
 
         $(document).ready(function() {
-            $("#report-btn").click(function() {
+            $("#report-btn, .report-btn").click(function() {
                 var boardtype = $(this).data("boardtype");
                 var seq = $(this).data("seq");
                 $("#boardtype").val(boardtype);

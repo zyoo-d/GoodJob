@@ -86,9 +86,10 @@
 								<p class="view-count">
 									<i class="fa-regular fa-eye"></i> ${dto.qna_views}
 								</p>
-								<button type="button" id="report-btn" class="report-btn" data-boardtype="qna"
+								<c:if test="${not empty id}">
+								<button type="button" class="report-btn" data-boardtype="qna"
 									data-seq="${dto.qna_seq}">신고</button>
-
+								</c:if>
 
 							</div>
 						</div>
@@ -134,6 +135,10 @@
 															<span class='material-symbols-outlined'
 																onclick="edit(${cdto.cm_seq});">edit_note</span>
 														</c:if>
+														<c:if test="${not empty id}">
+															<span class='material-symbols-outlined'
+																id="report-btn" data-boardtype="qna_cm" data-seq="${cdto.cm_seq}" >campaign</span>
+														</c:if>
 													</div>
 												</div>
 											</div></td>
@@ -160,7 +165,7 @@
 	<%@include file="/WEB-INF/views/user/report/reportmodal.jsp"%>
 	<%@include file="/WEB-INF/views/inc/footer.jsp"%>
 
-<script>
+	<script>
 
 let commentBegin = ${clist.size() + 1};
 var QnaSeq = ${dto.qna_seq};

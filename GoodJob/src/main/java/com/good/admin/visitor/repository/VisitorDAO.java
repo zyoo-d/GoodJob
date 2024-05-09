@@ -118,28 +118,20 @@ public class VisitorDAO {
 
 
 	}
-	public int existForDate(LocalDate today) {
-
-
-		try {
-
-			String sql = "select count(*) as cnt from tblVisitor where visit_date = ?";
-
-			pstat = conn.prepareStatement(sql);
-			pstat.setObject(1, today);
-
-			rs = pstat.executeQuery();
-
-			return rs.getInt("cnt");
-
-		} catch (Exception e) {
-			System.out.println("당일 방문자수 존재 확인");
-			e.printStackTrace();
-		}
-
-		return 0;
-
-
+	public boolean existsForDate(LocalDate date) {
+	    try {
+	        String sql = "select count(*) from tblVisitor where visit_date = ?";
+	        pstat = conn.prepareStatement(sql);
+	        pstat.setObject(1, date);
+	        rs = pstat.executeQuery();
+	        rs.next();
+	        int count = rs.getInt(1);
+	        return count > 0;
+	    } catch (Exception e) {
+	        System.out.println("날짜 존재 확인 오류");
+	        e.printStackTrace();
+	    }
+	    return false;
 	}
 
 

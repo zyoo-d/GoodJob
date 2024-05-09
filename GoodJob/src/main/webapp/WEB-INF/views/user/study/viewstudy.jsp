@@ -54,7 +54,7 @@
 									<p class="view-count">
 									<i class="fa-regular fa-eye"></i> ${dto.std_views}
 									</p>
-								<button type="button" id="report-btn" class="report-btn" data-boardtype="std"
+								<button type="button" class="report-btn" data-boardtype="std"
 									data-seq="${dto.std_seq}">신고</button>
 								</div>
 							</div>
@@ -100,8 +100,10 @@
 																<span class='material-symbols-outlined'
 																	onclick="edit(${cdto.cm_seq});">edit_note</span>
 															</c:if>
+															<c:if test="${not empty id}">
 																<span class='material-symbols-outlined'
-																	id="report-btn" data-boardtype="std_cm" data-seq="${dto.std_cm_seq}" >campaign</span>
+																	id="report-btn" data-boardtype="std_cm" data-seq="${cdto.cm_seq}" >campaign</span>
+															</c:if>		
 														</div>
 													</div>
 												</div></td>
@@ -110,8 +112,6 @@
 								</tbody>
 							</table>
 							
-							<button type="button" class="report-btn" data-boardtype="qna"
-									data-seq="${dto.qna_seq}">신고</button>
 
 							<!-- 댓글 페이징 -->
 							<div class="comment-paging">
@@ -124,7 +124,7 @@
 			</div>
 		</section>
 	</div>
-
+	<%@include file="/WEB-INF/views/user/report/reportmodal.jsp"%>
 	<%@include file="/WEB-INF/views/inc/footer.jsp"%>
 	<script>
 	

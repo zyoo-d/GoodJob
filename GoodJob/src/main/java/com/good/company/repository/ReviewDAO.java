@@ -362,4 +362,27 @@ public class ReviewDAO {
 
 		}
 		
+		public int getPendingReviewsCount() {
+			
+			try {
+				
+				String sql = "select count(*) as cnt from tblCompanyReview where cp_rv_confirm = 0 ";
+				
+				stat = conn.createStatement();
+				rs = stat.executeQuery(sql);
+				
+				if(rs.next()) {
+					return rs.getInt("cnt");
+				}
+				
+			} catch (Exception e) {
+				System.out.println("(관리자) 승인대기 리뷰수 로드 실패");
+				e.printStackTrace();
+			}
+			
+			return 0;
+			
+		}
+		
+		
 }

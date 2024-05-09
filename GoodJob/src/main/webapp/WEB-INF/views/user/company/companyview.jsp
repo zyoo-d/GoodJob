@@ -821,7 +821,8 @@ h3>#scrap {
 							ㅁㄴㅇㅁㄴㅇㅁㄴㄴ난This is a response from the chatbot.</p>
 						<div id="comment_content">
 							스타벅스 <span id="chat_regdate">2024-04-30 11:24</span>
-							<button id="singo">[ 신고 ]</button>
+							<button id="report-btn" data-boardtype="live" data-seq="${cdto.cm_seq}">[ 신고 ]</button>
+							
 						</div>
 					</div>
 					<%
@@ -855,6 +856,7 @@ h3>#scrap {
 
 
 	<%@include file="/WEB-INF/views/inc/footer.jsp"%>
+	<%@include file="/WEB-INF/views/user/report/reportmodal.jsp"%>
 	<script src="https://code.highcharts.com/highcharts.js"></script>
 	<script src="https://code.highcharts.com/modules/exporting.js"></script>
 	<script src="https://code.highcharts.com/modules/export-data.js"></script>

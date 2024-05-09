@@ -16,7 +16,25 @@
 
           <div class="row">
         
-            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+            <div class="col-lg-2 col-md-6 col-sm-6 col-14">
+              <div class="card card-statistic-2">
+                <div class="card-chart">
+                  <!-- <canvas id="balance-chart" height="80"></canvas> -->
+                </div>
+                <div class="card-icon shadow-primary bg-primary">
+                  <i class="fas fa-users"></i>
+                </div>
+                <div class="card-wrap">
+                  <div class="card-header">
+                    <h4>일일 신규 가입자</h4>
+                  </div>
+                  <div class="card-body">
+                  	${visit_count}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-2 col-md-6 col-sm-6 col-14">
               <div class="card card-statistic-2">
                 <div class="card-chart">
                   <!-- <canvas id="balance-chart" height="80"></canvas> -->
@@ -34,7 +52,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+            <div class="col-lg-2 col-md-6 col-sm-6 col-14">
               <div class="card card-statistic-2">
                 <div class="card-chart">
                   <!-- <canvas id="balance-chart" height="80"></canvas> -->
@@ -47,13 +65,31 @@
                     <h4>승인대기 리뷰</h4>
                   </div>
                   <div class="card-body">
-                    300
+                    ${pendingReview}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-2 col-md-6 col-sm-6 col-14">
+              <div class="card card-statistic-2">
+                <div class="card-chart">
+                  <!-- <canvas id="balance-chart" height="80"></canvas> -->
+                </div>
+                <div class="card-icon shadow-primary bg-primary">
+                  <i class="fas fa-comments"></i>
+                </div>
+                <div class="card-wrap">
+                  <div class="card-header">
+                    <h4>승인대기 면접후기</h4>
+                  </div>
+                  <div class="card-body">
+                    ${pendingReview}
                   </div>
                 </div>
               </div>
             </div>
             
-            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+            <div class="col-lg-2 col-md-6 col-sm-6 col-14">
               <div class="card card-statistic-2">
                 <div class="card-chart">
                   <!-- <canvas id="sales-chart" height="80"></canvas> -->
@@ -71,7 +107,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+            <div class="col-lg-2 col-md-6 col-sm-6 col-14">
               <div class="card card-statistic-2">
                 <div class="card-chart">
                   <!-- <canvas id="balance-chart" height="80"></canvas> -->
@@ -84,7 +120,7 @@
                     <h4>등록된 채용공고</h4>
                   </div>
                   <div class="card-body">
-                    300
+                    ${jobPostings_count}
                   </div>
                 </div>
               </div>
@@ -285,7 +321,126 @@
   </div>
 
   <!-- Page Specific JS File -->
-  <script src="/good/assets/js/page/index.js"></script>
+  <script>
+  
+  document.addEventListener('DOMContentLoaded', function() {
+	    var ctx = document.getElementById('myChart').getContext('2d');
+	    var myChart;
+
+	    function getYAxisStep(data) {
+	        const maxValue = Math.max(...data);
+	        const step = Math.max(Math.round(maxValue / 10), 100);
+	        return step;
+	    }
+
+	    function createChart(label, data, labels, yAxisStep = 100) {
+	        if (myChart) {
+	            myChart.destroy();
+	        }
+
+	        myChart = new Chart(ctx, {
+	            type: 'line',
+	            data: {
+	                labels: labels,
+	                datasets: [{
+	                    label: label,
+	                    data: data,
+	                    borderWidth: 2,
+	                    backgroundColor: 'transparent',
+	                    borderColor: 'rgba(63,82,227,1)',
+	                    pointBorderWidth: 0,
+	                    pointRadius: 3.5,
+	                    pointBackgroundColor: 'transparent',
+	                    pointHoverBackgroundColor: 'rgba(63,82,227,1)',
+	                    fill: false
+	                }]
+	            },
+	            options: {
+	                legend: {
+	                    display: false
+	                },
+	                scales: {
+	                    yAxes: [{
+	                        gridLines: {
+	                            drawBorder: false,
+	                            color: '#f2f2f2',
+	                        },
+	                        ticks: {
+	                            beginAtZero: true,
+	                            stepSize: yAxisStep,
+	                            callback: function(value, index, values) {
+	                                return value;
+	                            }
+	                        }
+	                    }],
+	                    xAxes: [{
+	                        gridLines: {
+	                            display: false,
+	                            tickMarkLength: 15,
+	                        }
+	                    }]
+	                },
+	            }
+	        });
+	    }
+
+	    function renderChart(title, data, labels) {
+	        const yAxisStep = getYAxisStep(data);
+	        createChart(title, data, labels, yAxisStep);
+	    }
+
+	    const recentDays = [<c:forEach var="date" items="${recentDays}">'${date}',</c:forEach>];
+	    const recentVisitors = [<c:forEach var="count" items="${recentVisitors}">${count},</c:forEach>];
+	    const monthLabels = [<c:forEach var="label" items="${monthLabels}">'${label}',</c:forEach>];
+	    const monthData = [<c:forEach var="count" items="${monthVisitors}">${count},</c:forEach>];
+	    const yearLabels = [<c:forEach var="label" items="${yearLabels}">'${label}',</c:forEach>];
+	    const yearData = [<c:forEach var="count" items="${yearVisitors}">${count},</c:forEach>];
+
+	    const recentDaysBtn = document.getElementById('recentDaysBtn');
+	    const monthStatsBtn = document.getElementById('monthStatsBtn');
+	    const yearStatsBtn = document.getElementById('yearStatsBtn');
+
+	    renderChart('최근 10일', recentVisitors, recentDays);
+
+	    recentDaysBtn.addEventListener('click', function() {
+	        renderChart('최근 10일', recentVisitors, recentDays);
+	    });
+
+	    monthStatsBtn.addEventListener('click', function() {
+	        renderChart('한달 통계', monthData, monthLabels);
+	    });
+
+	    yearStatsBtn.addEventListener('click', function() {
+	        renderChart('1년 통계', yearData, yearLabels);
+	    });
+	});
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </script>
   
 </body>
 </html>
