@@ -4,8 +4,9 @@ CREATE OR REPLACE PACKAGE pkg_rc AS
     TYPE mat_cursor IS REF CURSOR;
 END pkg_rc;
 /
-
-CREATE GLOBAL TEMPORARY TABLE tempResults (
+select * from tempResults;
+/
+CREATE TABLE tempResults (
     cp_seq NUMBER,
     hire_avr_salary NUMBER,
     potential NUMBER,
@@ -14,7 +15,8 @@ CREATE GLOBAL TEMPORARY TABLE tempResults (
     welfare NUMBER,
     culture NUMBER,
     total_score NUMBER
-) ON COMMIT DELETE ROWS;
+);
+drop table tempresults;
 /
 
 CREATE OR REPLACE PROCEDURE procMatching
@@ -23,14 +25,16 @@ CREATE OR REPLACE PROCEDURE procMatching
     pfirst in varchar2,
     psecond in varchar2,
     pthird in varchar2,
-    pfourth in varchar2,
-    presult OUT pkg_rc.mat_cursor  -- 출력 매개변수
+    pfourth in varchar2
+    --presult OUT pkg_rc.mat_cursor  -- 출력 매개변수
     --pnum out number
 )
 IS
     vrowuser vwUserSurvey%ROWTYPE; 
 BEGIN
     SELECT * INTO vrowuser FROM vwUserSurvey WHERE id = pid;
+
+    delete from tempresults;
 
     FOR vrow IN (SELECT * FROM vwCompanyScore) LOOP
         -- 조건 확인 후 실행
@@ -72,21 +76,27 @@ BEGIN
         ORDER BY pfourth
     ) WHERE rnum > 9);
     
+    update tempresults
+        set potential = potential / vrowuser.potential, stability = stability / vrowuser.stability,
+        salary = salary / vrowuser.salary,welfare = welfare / vrowuser.welfare, culture = culture / vrowuser.culture;
+    
+    commit;
     --select count(*) into pnum from tempresults;
     --DBMS_OUTPUT.PUT_LINE('Number of records: ' || TO_CHAR(pnum));
     -- 결과를 REF CURSOR에 옮겨 담기
-    OPEN presult FOR
-        SELECT 
-            cp_seq,
-            hire_avr_salary,
-            potential / vrowuser.potential,
-            stability / vrowuser.stability,
-            salary / vrowuser.salary,
-            welfare / vrowuser.welfare,
-            culture / vrowuser.culture,
-            total_score       
-        FROM tempResults
-            ORDER BY pfirst DESC, psecond desc, pthird desc, pfourth desc;  -- 정렬을 total_score 기준으로 수행
+--    OPEN presult FOR
+--        SELECT 
+--            cp_seq,
+--            hire_avr_salary,
+--            potential / vrowuser.potential,
+--            stability / vrowuser.stability,
+--            salary / vrowuser.salary,
+--            welfare / vrowuser.welfare,
+--            culture / vrowuser.culture,
+--            total_score       
+--        FROM tempResults
+--            ORDER BY pfirst DESC, psecond desc, pthird desc, pfourth desc;  -- 정렬을 total_score 기준으로 수행
+--            
 END procMatching;
 /
 
@@ -132,32 +142,13 @@ END;
 
 
 declare
-    v_presult pkg_rc.mat_cursor;
     
-    v_cp_seq NUMBER;
-    v_hire_avr_salary NUMBER;
-    v_pot_score NUMBER;
-    v_stab_score NUMBER;
-    v_sal_score NUMBER;
-    v_wel_score NUMBER;
-    v_cul_score NUMBER;
-    v_total_score NUMBER;
+    
 begin
-    procMatching('hon
-    g123','culture', 'stability', 'potential', 'welfare', v_presult);
-    
-    
-    LOOP
-        FETCH v_presult INTO v_cp_seq, v_hire_avr_salary, v_pot_score, v_stab_score, v_sal_score, v_wel_score, v_cul_score, v_total_score;
-        EXIT WHEN v_presult%NOTFOUND;
-        DBMS_OUTPUT.PUT_LINE('Seq: ' || v_cp_seq || ', Salary: ' || v_hire_avr_salary || ', Total Score: ' || v_total_score);
-    END LOOP;
-
-    -- 커서 닫기
-    CLOSE v_presult;
+    procMatching('hong123','culture', 'stability', 'potential', 'welfare');
 end;
 /
-
+commit;
 
 select (POT_SCORE * vrowuser.potential),(STAB_SCORE * vrowuser.stability),(SAL_SCORE * vrowuser.salary), 
 (WEL_SCORE * vrowuser.welfare), (CUL_SCORE * vrowuser.culture) from  vwCompanyScore;

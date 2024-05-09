@@ -2,15 +2,14 @@ package com.good.matching;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.good.matching.model.MatchingDTO;
 import com.good.matching.repository.MatchingDAO;
@@ -22,9 +21,10 @@ public class Matching extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 
-		HttpSession session = req.getSession();
-		String id = (String)session.getAttribute("id");
-		
+		//HttpSession session = req.getSession();
+		//String id = (String)session.getAttribute("id");
+		String id = "hong123";
+		System.out.println(id);
 		MatchingDAO dao = new MatchingDAO();
 		HashMap<Integer, String> scoreMap = dao.getScore(id);
 		
@@ -34,12 +34,20 @@ public class Matching extends HttpServlet {
 		
 		ArrayList<MatchingDTO> list = dao.getMatching(columnNames, id);
 		
+		System.out.println(Arrays.toString(columnNames));
+        for(MatchingDTO dto : list) {
+
+            System.out.println(dto.toString());
+
+        }
 		
 		
 		
-		
-		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/user/matching/matching.jsp");
-		dispatcher.forward(req, resp);
+		/*
+		 * RequestDispatcher dispatcher =
+		 * req.getRequestDispatcher("/WEB-INF/views/user/matching/matching.jsp");
+		 * dispatcher.forward(req, resp);
+		 */
 		
 		
 	}
