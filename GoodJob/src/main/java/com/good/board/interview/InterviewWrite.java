@@ -1,7 +1,6 @@
-package com.goodjob.test.mg;
+package com.good.board.interview;
 
 import java.io.IOException;
-import java.util.Arrays;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,7 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet("/itvWrite.do")
+import com.good.board.model.InterviewDTO;
+import com.good.board.repository.InterviewDAO;
+
+@WebServlet("/board/interview/itvWrite.do")
 public class InterviewWrite extends HttpServlet {
 
 	@Override
@@ -42,23 +44,7 @@ public class InterviewWrite extends HttpServlet {
 	    String itvTip = request.getParameter("ITV_TIP");
 	    String itvWhether = request.getParameter("ITV_WHETHER");
 	
-	    
-	    System.out.println("ITV_CPNAME:" + ITV_CPNAME);
-	    System.out.println("cpSeq: " + cpSeq);
-	    System.out.println("itvCareer: " + itvCareer);
-	    System.out.println("itvMeetdate: " + itvMeetdate);
-	    System.out.println("itvEvaluation: " + itvEvaluation);
-	    System.out.println("itvDifficulty: " + itvDifficulty);
-	    System.out.println("itvCategories: " + Arrays.toString(itvCategories));
-	    System.out.println("itvPersonnel: " + itvPersonnel);
-	    System.out.println("itvQuestion: " + itvQuestion);
-	    System.out.println("itvTip: " + itvTip);
-	    System.out.println("itvWhether: " + itvWhether);
-	    System.out.println("id" + id);
-	    
-	    // 파라미터 값을 사용하여 필요한 로직 처리
-	    // 예: 데이터베이스에 면접 후기 정보 저장
-	    
+
 	    InterviewDTO dto = new InterviewDTO();
 	    dto.setITV_CPNAME(ITV_CPNAME);
 	    dto.setCP_SEQ(cpSeq);
@@ -75,6 +61,7 @@ public class InterviewWrite extends HttpServlet {
 	    
 	    InterviewDAO dao = new InterviewDAO();
 	    int result = dao.Write(dto);
+	    // >>>>
 	    
 	    if (result > 0) {
 	      response.sendRedirect("/good/interview.do");

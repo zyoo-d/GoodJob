@@ -7,7 +7,6 @@
 <meta charset="UTF-8">
 <%@include file="/WEB-INF/views/inc/asset.jsp"%>
 <style>
-
 </style>
 </head>
 
@@ -16,49 +15,52 @@
 <body>
 
 	<section class="page-hero pt-16 pb-6">
-		<form  method="GET" action="/good/user/company/companylist.do">
-				<div class="container">
-					<div class="card" id="itvWriteQnA">
-						<div class="card-content-wrapper">
-							<div class="card-content">
-								<div class="px-4 text-center">
-									<h1 class="mt-3 gradiTitle">
-										<span>기업검색</span>
-									</h1>
-									<p class="comlist mt-6">다양한 조건으로 기업을 검색하고 상세 정보를 확인해보세요.</p>
-								</div>
 		
-								<div>
-									<div id="searchForm">
-										<input type="text" name="word" class="input" id="search-input" placeholder="기업명으로 검색하세요.">
-										<button type="submit" class="search" id="search-btn">
-											<span class="material-symbols-outlined">search</span>
-											
-										</button>
+			<div class="container">
+				<div class="card" id="itvWriteQnA">
+					<div class="card-content-wrapper">
+						<div class="card-content">
+							<div class="px-4 text-center">
+								<h1 class="mt-3 gradiTitle">
+									<span>기업검색</span>
+								</h1>
+								<p class="comlist mt-6">다양한 조건으로 기업을 검색하고 상세 정보를 확인해보세요.</p>
+							</div>
+
+							<div>
+								<div id="searchForm">
+									<input type="text" name="word" class="input" id="search-input"
+										placeholder="기업명으로 검색하세요.">
+									<button type="submit" class="search" id="search-btn">
+										<span class="material-symbols-outlined">search</span>
+
+									</button>
 								</div>
-									
-										<button type="button" class="btn btnList w-full"
-											id="detail-search-btn">평균연봉 / 지역 / 업종으로 상세조회하기</button>
-									
-								</div>
-						
-								<div>
+
+								<button type="button" class="btn btnList w-full"
+									id="detail-search-btn">평균연봉 / 지역 / 업종으로 상세조회하기</button>
+
+							</div>
+
+							<div>
+								<form method="GET" action="/good/user/company/companylist.do">
+
 									<section class="integration-single section pt-0 com-detail"
 										style="display: none;" id="detailSection">
-		
+
 										<div class="container">
 											<div class="justify-center">
-		
+
 												<div class="justify-center">
-		
+
 													<div class="border-border py-10" id="userDetail">
-														
+
 														<div>
 															<h6 class="text-left preferTitle">
 																<i class="fa-solid fa-hand-holding-dollar"></i> 희망연봉
 															</h6>
-															<select>
-																<option value="0">회사내규에 따름</option>
+															<select name="salary_seq">
+																<option value="0">전체</option>
 																<option value="9">2,600만원 이상</option>
 																<option value="10">2,800만원 이상</option>
 																<option value="11">3,000만원 이상</option>
@@ -69,16 +71,11 @@
 																<option value="16">4,000만원 이상</option>
 																<option value="17">5,000만원 이상</option>
 																<option value="18">6,000만원 이상</option>
-																<option value="19">7,000만원 이상</option>
-																<option value="20">8,000~9,000만원</option>
-																<option value="21">9,000~1억원</option>
-																<option value="22">1억원 이상</option>
-																<option value="99">면접후 결정</option>
 															</select>
 														</div>
-		
+
 													</div>
-		
+
 													<!-- 선호근무지역 Start -->
 													<div class="border-border">
 														<h5 class="text-left preferTitle">
@@ -106,10 +103,10 @@
 																	<li onclick="showLocations('제주')">제주</li>
 																</ul>
 															</div>
-		
+
 															<div class="location-list">
 																<div id="locationCheckboxes"></div>
-		
+
 															</div>
 															<div class="tag-group">
 																<span id="lctag"> </span> <span class="clear"
@@ -121,149 +118,217 @@
 													<!-- 선호근무지역 End -->
 													<!-- 선호직무 -->
 													<div data-tab-group="service-tab" class="">
-														
-		
+
+
 														<div class="px-4 text-center">
-															<button class="btn" type="submit" id="btn-detail">선택 조건으로 기업목록 조회하기</button>
+															<button class="btn" type="submit" id="btn-detail">선택
+																조건으로 기업목록 조회하기</button>
 														</div>
 													</div>
-		
+
 												</div>
-		
+
 											</div>
 										</div>
 									</section>
+								</form>
+							</div>
+
+
+						</div>
+
+					</div>
+					<div id="default_list_wrap" style="position: relative">
+						<section class="list_recruiting">
+							<div class="list-header">
+								<div class="com-list list-title">
+									<div class="list-title-content">
+										<p>
+											<span class="material-symbols-outlined">subject</span>
+										</p>
+										<c:if test="${map.search =='n' && map.hiring == 'n'}">
+											<p>
+												전체 기업은 총 <span id="list-cnt">${totalCount}</span>건입니다.
+											</p>
+										</c:if>
+										<c:if test="${map.search=='y' || map.hiring=='y'}">
+											<p>
+												검색된 기업은 총 <span id="list-cnt">${searchTotalCount}</span>건입니다.
+											</p>
+										</c:if>
+
+										<div class="checkbox-wrapper">
+											<!-- 체크박스와 레이블 -->
+
+											<input type="checkbox" id="hiring-only"
+												class="sorting filter-checkbox" name="hiring"> <label
+												for="hiring-only" class="filter-label">채용중인 기업</label>
+											<button type="submit"
+												style="border: 1px solid #ccc; margin-left: 3px; padding: 1px 3px; border-radius: 8px; font-size: 14px;">검색</button>
+
+										</div>
+									</div>
+
 								</div>
-							
-								
-							</div>
-		
-						</div>
-				<div id="default_list_wrap" style="position: relative">
-					<section class="list_recruiting">
-						<div class="list-header">
-							<div class="com-list list-title">
-							<div class="list-title-content">
-								<p>
-									<span class="material-symbols-outlined">subject</span>
-								</p>
-								<c:if test="${map.search =='n' && map.hiring == 'n'}">
-								<p>
-									전체 기업은 총 <span id="list-cnt">${totalCount}</span>건입니다.
-								</p>
-								</c:if>
-								<c:if test="${map.search=='y' || map.hiring=='y'}">
-								<p>
-									 검색된 기업은 총 <span id="list-cnt">${searchTotalCount}</span>건입니다.
-								</p>
-								</c:if>
-						
-							<div class="checkbox-wrapper">
-       <!-- 체크박스와 레이블 -->
-    
-    <input type="checkbox" id="hiring-only" class="sorting filter-checkbox" name="hiring">
-    <label for="hiring-only" class="filter-label">채용중인 기업</label>
-	<button type="submit" style="border:1px solid #ccc; margin-left:3px; padding: 1px 3px; border-radius:8px; font-size:14px;">검색</button>
-   
-</div>
-							</div>
-							
-							</div>
-							<div class="list_info">
- <button type="button" id="compare-btn" class="compare-button">기업 맞춤 비교</button>
-								<div class="InpBox">
-									<select class="sorting" style="margin-right:12px;" name="sort" id="sort">
-										<option value="salary-avg" selected>평균연봉</option>
-										<option value="riview-cnt">리뷰수</option>
-									</select>
+								<div class="list_info">
+									<button type="button" id="compare-btn" class="compare-button">기업
+										맞춤 비교</button>
+									<div class="InpBox">
+										<select class="sorting" name="sort" id="sort">
+											<option value="salary"
+												${map.sort == 'salary' ? 'selected' : ''}>연봉순</option>
+											<option value="riview"
+												${map.sort == 'riview' ? 'selected' : ''}>리뷰순</option>
+										</select>
+									</div>
+
 								</div>
-
 							</div>
-						</div>
 
-						<div class="list_body">
-							<div id="rec-48103333" class="list_item">
-							
-														<!-- 기업목록start -->
-						<c:forEach items="${comListInfo}" var="dto">
-						
-						<div class="box_item row mx-0 rounded-[20px] bg-white px-10 shadow-lg">
+							<div class="list_body">
+								<div id="rec-48103333" class="list_item">
 
-<div class="com-list com-image">
-<img src="${dto.image}" onerror="this.src='/good/asset/images/default.jpg'" alt="Company Logo" style="width: 100px; height: 100px;" name="image"> <!-- 예시 이미지 경로 -->
-</div>
+									<!-- 기업목록start -->
+									<c:forEach items="${comListInfo}" var="dto">
 
-<div class="com-title">
-<div class="recruit-present-info">
-	<div class="com-name">
+										<div
+											class="box_item row mx-0 rounded-[20px] bg-white px-10 shadow-lg">
 
-		<span>지원가능한 채용공고 <b>${dto.com_rcrt_cnt}</b>건</span>
-	</div>
-</div>
-<div class="col notification_info">
+											<div class="com-list com-image">
+												<img src="${dto.image}"
+													onerror="this.src='/good/asset/images/default.jpg'"
+													alt="Company Logo" style="width: 100px; height: 100px;"
+													name="image">
+												<!-- 예시 이미지 경로 -->
+											</div>
 
-<div class="job_tit" style="display: flex; align-items: flex-start;center;">
-<a href="/good/user/company/companyview.do?cp_seq=${dto.cp_seq}&word=${map.word}&search=${map.search}&hiring=${map.hiring}&page=${nowPage}" class="str_tit_title new">
-<h2>${dto.cp_name}</h2>
-</a>
-<button id="scrap" style="margin-left:8px;">
-<i class="fa-regular fa-bookmark"></i>
-</button>
-</div>
-	<div class="job_meta">
-<c:forEach items="${ComTaglist}" var="tdto">
-		<c:if test="${tdto.cp_seq == dto.cp_seq}">
-		<c:forEach items="${tdto.tag_keyword}" var="tag" begin="0" end="4">
-		<span class="job-keyword">${tag}</span>
-	 </c:forEach>
-</c:if>
-	</c:forEach> 
-		
-	</div>
-</div>
-</div>
-<div class="com-list com-info">
-<div class="col recruit_info">
-	<ul>
-		<li><p class="work_place"><b>기업위치 </b>${dto.cp_address}</p></li>
-		
-		<li><p class="career"><b>총매출액 </b><c:if test="${dto.fnc_sales == 0}">수집 정보 없음</c:if><c:if test="${dto.fnc_sales != 0}">${dto.fnc_sales} ${dto.unit}</c:if></p></li>
-		<li><p class="education"><b>평균연봉 </b><c:if test="${dto.hire_avr_salary == 0}">수집 정보 없음</c:if><c:if test="${dto.hire_avr_salary !=0}">${dto.hire_avr_salary} 만원</c:if></p></li>
-		<li><p class="salary"><b>리뷰 수 </b>${dto.com_rv_cnt}건</p></li>
-	</ul>
-</div>
-</div>
-</div>
-</c:forEach>						<!-- 채용공고end -->
-								
+											<div class="com-title">
+												<div class="recruit-present-info">
+													<div class="com-name">
+
+														<span>지원가능한 채용공고 <b>${dto.com_rcrt_cnt}</b>건
+														</span>
+													</div>
+												</div>
+												<div class="col notification_info">
+
+													<div class="job_tit"
+														style="display: flex; align-items: flex-start;">
+														<a
+															href="/good/user/company/companyview.do?cp_seq=${dto.cp_seq}&word=${map.word}&search=${map.search}&hiring=${map.hiring}&page=${nowPage}"
+															class="str_tit_title new">
+															<h2>${dto.cp_name}</h2>
+														</a>
+														<button id="scrap" style="margin-left: 8px;">
+															<i class="fa-regular fa-bookmark"></i>
+														</button>
+													</div>
+													<div class="job_meta">
+														<c:forEach items="${ComTaglist}" var="tdto">
+															<c:if test="${tdto.cp_seq == dto.cp_seq}">
+																<c:forEach items="${tdto.tag_keyword}" var="tag"
+																	begin="0" end="4">
+																	<span class="job-keyword">${tag}</span>
+																</c:forEach>
+															</c:if>
+														</c:forEach>
+
+													</div>
+												</div>
+											</div>
+											<div class="com-list com-info">
+												<div class="col recruit_info">
+													<ul>
+														<li><p class="work_place">
+																<b>기업위치 </b>${dto.cp_address}</p></li>
+
+														<li><p class="career">
+																<b>총매출액 </b>
+																<c:if test="${dto.fnc_sales == 0}">수집 정보 없음</c:if>
+																<c:if test="${dto.fnc_sales != 0}">${dto.fnc_sales} ${dto.unit}</c:if>
+															</p></li>
+														<li><p class="education">
+																<b>평균연봉 </b>
+																<c:if test="${dto.hire_avr_salary == 0}">수집 정보 없음</c:if>
+																<c:if test="${dto.hire_avr_salary !=0}">${dto.hire_avr_salary} 만원</c:if>
+															</p></li>
+														<li><p class="salary">
+																<b>리뷰 수 </b>${dto.com_rv_cnt}건</p></li>
+													</ul>
+												</div>
+											</div>
+										</div>
+									</c:forEach>
+									<!-- 채용공고end -->
+
+								</div>
 							</div>
-						</div>
-					</section>
+						</section>
+					</div>
 				</div>
+
+
 			</div>
-
-
-		</div>
-				</form>
+	
 
 
 		<nav class="PageBox z-custom" aria-label="Page navigation example">
 			<ul class="pagination z-custom">${pagebar}</ul>
 		</nav>
 	</section>
-	
+
 	<%@include file="/WEB-INF/views/inc/footer.jsp"%>
-	
+
 	<script type="text/javascript">
-	<c:if test="${map.search == 'y'}">
-	//검색중 상태 유지
-	$('input[name=word]').val('${map.word}');
-	$('select[name=column]').val('${map.column}');
-	$('input[name=hiring]').val('${map.hiring}');
-	</c:if>
-	</script>
+		
 	
-	<script>
+	
+		<c:if test="${map.search == 'y'}">
+		//검색중 상태 유지
+		$('input[name=word]').val('${map.word}');
+		$('select[name=column]').val('${map.column}');
+		$('input[name=hiring]').val('${map.hiring}');
+		</c:if>
+
+	
+	
+	$(document).ready(function() {
+	    $("#sort").change(function() {
+	        var selectedSort = $(this).val();
+	        submitDetailSearch(selectedSort);
+	    });
+	});
+	
+	function submitDetailSearch(sortOption) {
+	    var salary_seq = $('select[name="salary_seq"]').val();
+	    var sort = sortOption || $('#sort').val();
+	    var cp_address = [];
+	    $('input[name="cp_address"]:checked').each(function() {
+	        cp_address.push($(this).val());
+	    });
+
+	    $.ajax({
+	        url: "/user/company/companylist.do",
+	        method: "GET",
+	        data: {
+	            sort: sort,
+	            page: ${nowPage},
+	            column: '${map.column}',
+	            word: '${map.word}',
+	            salary_seq: salary_seq,
+	            cp_address: cp_address,
+	            search: 'y'
+	        },
+	        success: function(response) {
+	            $(".list_body").html($(response).find(".list_body").html());
+	            $(".pagination").html($(response).find(".pagination").html());
+	        },
+	        error: function(a, b, c) {
+	            console.log(a, b, c);
+	        }
+	    });
+	}
+		
 		document.addEventListener("DOMContentLoaded", function() {
 			document.getElementById("detail-search-btn").addEventListener(
 					"click",
@@ -435,10 +500,10 @@
 								var tagname = target.parent().text().trim();
 								var tagId = target.val();
 
-								lctag.append('<input type="checkbox" id="' + tagId + '" value="' + tagname + '">'
-												+ '<label for="' + tagId + '">'
-												+ tagname
-												+ ' <i class="fa-solid fa-xmark"></i></label>');
+								lctag
+								.append('<input type="checkbox" id="' + tagId + '" name="cp_address" checked value="' + tagname + '">' +
+							             '<label for="' + tagId + '">' + tagname + ' <i class="fa-solid fa-xmark"></i></label>');
+								
 							} else {
 								var tagId = target.val();
 								$('#' + tagId).next().addBack().remove();
@@ -458,36 +523,6 @@
 			$(this).next().addBack().remove();
 		});
 		/* 선호근무지역 End */
-
-		/**/
-		$(document).ready(function() {
-			
-			if (localStorage.getItem('hiringChecked') === 'y') {
-		        $('#hiring-only').prop('checked', true);
-		    } else {
-		        $('#hiring-only').prop('checked', false);
-		    }
-    $('#hiring-only').change(function() {
-        var isChecked = $(this).is(':checked') ? 'y' : 'n';
-        localStorage.setItem('hiringChecked', isChecked);
-        
-        $.ajax({
-            url: '/good/user/company/companylist.do', // 서버의 URL로 수정해야 합니다.
-            type: 'GET', // 또는 POST, 서버 구현에 따라 달라집니다.
-            data: { hiring: isChecked },
-            success: function(response) {
-                // 결과를 페이지에 표시하는 코드
-                $('#results').html(response); // 'results'는 결과를 표시할 요소의 ID입니다.
-            },
-            error: function(xhr, status, error) {
-                // 오류 처리 코드
-                console.error("Request Failed: " + status + ", " + error);
-            }
-        });
-    });
-});
-
-
 	</script>
 </body>
 

@@ -1391,20 +1391,13 @@ display: flex;
 .itvDetail.show {
   display: block;
 }
-.itvCard {
-	margin: auto;
-	height: auto;
-	width: 900px;
-	margin-bottom: 30px;
-	min-height: auto;
-	border: 1px solid #3741C4;
-	margin-left: 47px;
-	
-}
+
 
 #itvImg {
 	width: 80px;
 	height: 80px;
+	border-radius: 50%;
+	margin-right: 30px;
 }
 .itvCardTags{
 
@@ -2432,17 +2425,15 @@ textarea:focus {
   display: block;
 }
 .itvCard {
-	margin: auto;
+
 	height: auto;
-	width: 1000px;
+	width: 890px;
 	margin-bottom: 30px;
 	min-height: auto;
+	border: 1px solid #3741C4;
+	margin-left: 49px;
 }
 
-#itvImg {
-	width: 150px;
-	height: 150px;
-}
 
 .card-tags i {
 	position: relative;
@@ -2453,7 +2444,7 @@ textarea:focus {
 
 .itvDetail {
 	display: none;
-	color: blue;
+	
 }
 
 .itvdropdownContent {

@@ -49,66 +49,33 @@
 					<i class="fa-solid fa-rotate-right"></i> 업데이트
 				</button>
 			</div>
+			<form action = "/good/main.do" method="get">
 			<h3 class="mt-10">
 				요즘 뜨는 기업!<span><a id="filterHire" class="tag" href="#"><i
-						class="fa-solid fa-check"></i> 채용중</a></span>
+						class="fa-solid fa-check"></i> 채용중</a></span> 
+				<input type="hidden" name="hiring" value="">
 			</h3>
-
-
-			<div
-				class="key-feature-grid mt-5 grid grid-cols-2 gap-7 md:grid-cols-3 xl:grid-cols-4">
-				<div
-					class="flex flex-col justify-between rounded-lg bg-white p-5 shadow-lg">
+			</form>
+			<div class="key-feature-grid mt-5 grid grid-cols-2 gap-7 md:grid-cols-3 xl:grid-cols-4">
+			<c:forEach items="${clist}" var="cdto" begin="0" end="7">
+		
+				<div class="flex flex-col justify-between rounded-lg bg-white p-5 shadow-lg">
 					<div class="logo">
-						<img class="" src="/good/assets/images/logo/default.jpg" alt="" />
+						<img class="" src="${cdto.image}" onerror="this.src='/good/asset/images/default.jpg'" alt="Company Logo" />
 						<i class="fa-regular fa-bookmark scrap"></i>
 					</div>
 					<div class="infoCard">
-						<h3 class="h4 text-xl lg:text-2xl">회사명</h3>
-						<p class="desciption">제약회사</p>
+					
+						<h3 class="h4 text-xl lg:text-2xl"><a href="/good/user/company/companyview.do?cp_seq=${cdto.cp_seq}">${cdto.cp_name}</a></h3>
+						<p class="desciption">${cdto.idst_name}</p>
+						<c:if test="${cdto.com_rcrt_cnt > 0}">
 						<a class="hiring tag" href="#">채용중</a>
+						</c:if>
+						
 					</div>
 
 				</div>
-				<div
-					class="flex flex-col justify-between rounded-lg bg-white p-5 shadow-lg">
-					<div class="logo">
-						<img class="" src="/good/assets/images/logo/default.jpg" alt="" />
-						<i class="fa-regular fa-bookmark scrap"></i>
-					</div>
-					<div class="infoCard">
-						<h3 class="h4 text-xl lg:text-2xl">회사명</h3>
-						<p class="desciption">제약회사</p>
-						<a class="hiring tag" href="#">채용중</a>
-					</div>
-
-				</div>
-				<div
-					class="flex flex-col justify-between rounded-lg bg-white p-5 shadow-lg">
-					<div class="logo">
-						<img class="" src="/good/assets/images/logo/default.jpg" alt="" />
-						<i class="fa-regular fa-bookmark scrap"></i>
-					</div>
-					<div class="infoCard">
-						<h3 class="h4 text-xl lg:text-2xl">회사명</h3>
-						<p class="desciption">제약회사</p>
-						<a class="hiring tag" href="#">채용중</a>
-					</div>
-
-				</div>
-				<div
-					class="flex flex-col justify-between rounded-lg bg-white p-5 shadow-lg">
-					<div class="logo">
-						<img class="" src="/good/assets/images/logo/default.jpg" alt="" />
-						<i class="fa-regular fa-bookmark scrap"></i>
-					</div>
-					<div class="infoCard">
-						<h3 class="h4 text-xl lg:text-2xl">회사명</h3>
-						<p class="desciption">제약회사</p>
-						<a class="hiring tag" href="#">채용중</a>
-					</div>
-
-				</div>
+			</c:forEach>
 			</div>
 		</div>
 	</section>
@@ -117,7 +84,10 @@
 
 	<%@include file="/WEB-INF/views/inc/footer.jsp"%>
 	<script>
-		
+	
+
+	
+	
 	</script>
 </body>
 </html>

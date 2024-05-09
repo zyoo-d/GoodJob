@@ -84,18 +84,12 @@ import com.test.util.DBUtil;
 			map.put("end", end + "");
 			map.put("hiring",hiring);
 			
-			
+			//-
 			//HttpSession session = req.getSession();
 			
 			//목록 출력
 			CompanyDAO dao = new CompanyDAO();
 			ArrayList<CompanyDTO> comListInfo = dao.comListInfo(map);
-			
-			//ReviewDAO rdao =  new ReviewDAO();
-			ArrayList<ReviewDTO> ComTaglist = new ArrayList<> ();
-			
-			HashMap<String, String> tagMap = new HashMap<>();
-						
 			
 			String unit="";
 			
@@ -113,10 +107,7 @@ import com.test.util.DBUtil;
 				
 			    //총매출액
 			    long sales = dto.getFnc_sales();
-			    if(sales >=100000000) {
-			    	sales = (long)(Math.round((double)sales/100000000));
-			    	unit="억원";
-				}else if(sales >= 10000000) { //(단위:천만)
+			    if(sales >= 10000000) { //(단위:천만)
 			    	sales = (long)(Math.round((double)sales/10000000));
 			    	unit="천만원";
 			    }else if(sales >= 1000000) { // (단위:백만)
@@ -134,11 +125,21 @@ import com.test.util.DBUtil;
 			    dto.setFnc_sales(sales);
 			    dto.setUnit(unit);
 			    
-			    String cp_seq = dto.getCp_seq();
-			    //태그리스트출력
-				ReviewDAO rdao =  new ReviewDAO();
-			    //ComTaglist = rdao.tagList(cp_seq);
-			    
+			    //당기순이익
+			    long ebit = dto.getFnc_ebit();
+			    if (Math.abs(ebit) >= 100000000) { //(단위:억)
+			    	dto.setFnc_ebit((long)(Math.round((double)ebit/100000000)));
+			    }else if(Math.abs(ebit) >= 10000000) { //(단위:천만)
+			    	dto.setFnc_ebit((long)(Math.round((double)ebit/10000000)));
+			    }else if(Math.abs(ebit) >= 1000000) { // (단위:백만)
+			    	dto.setFnc_ebit((long)(Math.round((double)ebit/1000000)));
+			    }else if(Math.abs(ebit) >= 100000) { // (단위:십만)
+			    	dto.setFnc_ebit((long)(Math.round((double)ebit/100000)));
+			    }else if(Math.abs(ebit) >= 10000) { // (단위:만)
+			    	dto.setFnc_ebit((long)(Math.round((double)ebit/10000)));
+			    }else {
+			    	dto.setFnc_ebit(ebit); //(원)
+			    }
 			    
 			    
 				//평균연봉
@@ -147,16 +148,14 @@ import com.test.util.DBUtil;
 
 			}
 			
-			//dto.setTag_keyword(ComTaglist);
 			//총게시물수
 			totalCount = dao.countCompanys();
 			int searchTotalCount = dao.searchCompanyCount(map);			
 			totalPage = (int) Math.ceil((double) searchTotalCount / pageSize);
 
-			
-
-				
-		   
+		    //태그리스트출력
+		    ReviewDAO rdao =  new ReviewDAO();
+		    //ArrayList<ReviewDTO> ComTaglist = rdao.tagList(cp_seq);
 			
 			
 			// 페이지 바 작업
@@ -226,7 +225,7 @@ import com.test.util.DBUtil;
 			
 			req.setAttribute("comListInfo" , comListInfo);
 			req.setAttribute("map" , map); //페이지 begin. end hiring
-			req.setAttribute("ComTaglist", ComTaglist);
+			//req.setAttribute("ComTaglist", ComTaglist);
 			
 			
 			
@@ -242,6 +241,10 @@ import com.test.util.DBUtil;
 			
 			
 		}
+		
+			
+			
+		
 			 
 	
 		
