@@ -49,7 +49,8 @@ public class AddWish extends HttpServlet {
 		int result = dao.addWishs(dto);
 		dao.close();
 		if(result==1){
-			resp.sendRedirect("/good/main.do");
+			session.setAttribute("wish", "1"); 	
+			resp.sendRedirect("/good/user/matching.do");
 		} else {
 			Alert.fail(resp);
 		}
