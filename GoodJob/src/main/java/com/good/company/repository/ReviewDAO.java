@@ -116,7 +116,7 @@ public class ReviewDAO {
 		 * @param tmap
 		 * @return
 		 */
-		public ArrayList<ReviewDTO> tagList(String cp_seq) {
+		/*public ArrayList<ReviewDTO> tagList(String cp_seq) {
 		    ArrayList<ReviewDTO> tagList = new ArrayList<>();
 		    String sql = "select * from vwCompanyReview";
 
@@ -149,6 +149,35 @@ public class ReviewDAO {
 		   
 		    }
 		    return null;
+		}*/
+		
+		public ArrayList<ReviewDTO> tagList(String cp_seq) {
+		    ArrayList<ReviewDTO> tagList = new ArrayList<>();
+		    String sql = "SELECT cr.cp_seq, t.tag_keyword, COUNT(*) as tag_count " +
+		                 "FROM tblCompanyReview cr " +
+		                 "JOIN tblReviewTag rt ON cr.cp_rv_seq = rt.cp_rv_seq " +
+		                 "JOIN tblTag t ON t.tag_seq = rt.tag_seq " +
+		                 "WHERE cr.cp_seq = ? " +
+		                 "GROUP BY cr.cp_seq, t.tag_keyword " +
+		                 "ORDER BY tag_count DESC";
+
+		    try (PreparedStatement pstat = conn.prepareStatement(sql)) {
+		        pstat.setString(1, cp_seq);
+		        try (ResultSet rs = pstat.executeQuery()) {
+		            while (rs.next()) {
+		                ReviewDTO dto = new ReviewDTO();
+		                dto.setCp_seq(rs.getString("cp_seq"));
+		                ArrayList<String> tlist = new ArrayList<>();
+		                tlist.add(rs.getString("tag_keyword"));
+		                dto.setTag_list(tlist);
+		                tagList.add(dto);
+		            }
+		        }
+		    } catch (Exception e) {
+		        System.out.println("ReviewDAO.tagList");
+		        e.printStackTrace();
+		    }
+		    return tagList;
 		}
 		
 		
