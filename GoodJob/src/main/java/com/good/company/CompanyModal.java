@@ -13,15 +13,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.good.company.model.CompanyDTO;
-import com.good.company.model.ReviewDTO;
 import com.good.company.repository.CompanyDAO;
-import com.good.company.repository.ReviewDAO;
 
 @WebServlet("/user/company/cp_selectModal.do")
 public class CompanyModal extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
 
 		//페이징
 		String page = req.getParameter("page");
@@ -103,8 +102,30 @@ public class CompanyModal extends HttpServlet {
 		totalCount = dao.countCompanys();
 		int searchTotalCount = dao.searchCompanyCount(map);			
 		totalPage = (int) Math.ceil((double) searchTotalCount / pageSize);
-
 		
+
+		String[] cp = req.getParameterValues("compareCp");
+
+		if (cp != null) {
+		    for (int i = 0; i < cp.length; i++) {
+		        if (cp[i] == null) {
+		            cp[i] = ""; // null을 빈 문자열로 변경
+		        }
+		    }
+		} else {
+		    cp = new String[0]; // "compareCp" 매개변수가 없는 경우 빈 배열 생성
+		}
+
+		String tag1 = (cp.length > 0) ? (String)cp[0] : "";
+		String tag2 = (cp.length > 1) ? (String)cp[1] : "";
+		String tag3 = (cp.length > 2) ? (String)cp[2] : "";
+
+
+		map.put("tag1", tag1);
+		map.put("tag2", tag2);
+		map.put("tag3", tag3);
+
+
 		
 		// 페이지 바 작업
 		StringBuilder sb = new StringBuilder();
@@ -157,8 +178,8 @@ public class CompanyModal extends HttpServlet {
 					"<li class='page-item z-custom'><a class='page-link' href='#!'><span class='material-symbols-outlined paging-icon z-custom'>keyboard_double_arrow_right</span></a></li>");
 		} else if (n >= totalPage - 5) {
 			sb.append(String.format(
-					"<li class='page-item z-custom'><a class='page-link' href='/good/user/company/cp_selectModal.do?page=%d&hiring=%s&word=%s'><span class='material-symbols-outlined paging-icon z-custom'>navigate_next</span></a></li>",
-					n, hiring, word));
+					"<li class='page-item z-custom'><a class='page-link' href='/good/user/company/cp_selectModal.do?page=%d&hiring=%s&word=%s&tag1=%s'><span class='material-symbols-outlined paging-icon z-custom'>navigate_next</span></a></li>",
+					n, hiring, word, tag1));
 			sb.append(
 					"<li class='page-item z-custom'><a class='page-link' href='#!'><span class='material-symbols-outlined paging-icon z-custom'>keyboard_double_arrow_right</span></a></li>");
 		} else {
@@ -182,6 +203,7 @@ public class CompanyModal extends HttpServlet {
 		req.setAttribute("searchTotalCount", searchTotalCount);
 		req.setAttribute("totalPage", totalPage); //페이지 번호
 		req.setAttribute("pagebar", sb.toString()); //페이지 바 작업
+		
 
 
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/user/company/cp_selectModal.jsp");

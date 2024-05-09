@@ -78,8 +78,8 @@ button {
 	flex-direction: column;
 	margin-right: 0;
 	width: 10px;
-	margin: 0;
-	padding: 0;
+
+	margin-left: 5px;
 }
 #right {
 	flex: 1;
@@ -90,7 +90,7 @@ button {
 	width: 60px;
 	border: 1px solid #4444;
 	border-radius: 10px;
-	padding: 2px;
+	padding: 5px;
 	margin: 0px 15px;
 }
 
@@ -115,7 +115,7 @@ button {
 }
 
 #check input[type="checkbox"] {
-    margin: 22px  0;
+    margin: 23px  0;
     border-radius: 4px;
     height: 16px;
     width: 16px;
@@ -137,7 +137,7 @@ button {
 					</span>
 				</button>
 			</div>
-			<form action="/good/user/company/comparecompany.do">
+			<form action="/good/user/company/comparecompany.do" method="GET">
 			<div>
 			<div id="cp_selected">
 			<span id="cptag"></span>
@@ -146,14 +146,14 @@ button {
 			<div id="compare">
 				<div id="check">
 				<c:forEach items="${comListInfo}" var="dto">
-						<input type="checkbox" name="" value="${dto.cp_name}" id="ssang" />
-						</c:forEach>
+						<input type="checkbox" name="" value="${dto.cp_seq}"/>
+				</c:forEach>
 				</div>
 				<div id="right">
 				<c:forEach items="${comListInfo}" var="dto">
 				<div id="company">
 					<div id="cp_img">
-						<img src="images/naver.jpg" alt="" />
+						<img src="${dto.image}" alt="Company Logo" style="width: 40px; height: 40px;" />
 					</div>
 					<div id="cp_info">
 						<div id="cp_name">${dto.cp_name}</div>
@@ -167,9 +167,10 @@ button {
 		<nav class="PageBox z-custom" aria-label="Page navigation example">
 			<ul class="pagination z-custom">${pagebar}</ul>
 		</nav>
+			
 
 			<div class="actions">
-				<button class="report-btn">비교하기</button>
+				<button type="submit" class="report-btn" onclick="closePopupAndRedirect()">비교하기</button>
 			</div>
 		</div>
 		</form>
@@ -178,11 +179,36 @@ button {
 
 	<%@include file="/WEB-INF/views/inc/footer.jsp"%>
 	<script>
-	function clearLocations() {
-		$('#locationCheckboxes').html('');
-		$('#lctag').html('');
-	}
+	function closePopupAndRedirect() {
+	    // 체크된 항목의 값을 담을 배열 생성
+	    var selectedItems = [];
 
+	    // 체크된 항목을 배열에 추가
+	    $('#check input[type="checkbox"]:checked').each(function() {
+	        selectedItems.push($(this).val());
+	    });
+
+	    // 선택된 항목이 없다면 경고 메시지 출력 후 함수 종료
+	    if (selectedItems.length === 0) {
+	        alert("선택된 항목이 없습니다.");
+	        return;
+	    }
+
+	    // 선택된 항목들을 URL에 추가하여 링크 생성
+	    var compareUrl = "/good/user/company/comparecompany.do?";
+	    for (var i = 0; i < selectedItems.length; i++) {
+	        compareUrl += "compareCp=" + encodeURIComponent(selectedItems[i]);
+	        if (i !== selectedItems.length - 1) {
+	            compareUrl += "&";
+	        }
+	    }
+
+	    // 링크로 이동
+	    opener.window.location = compareUrl;
+	    close();
+	}
+    
+    
 	//지역 체크시 태그 생성/삭제
 	$('#check').on(	'change', 'input[type="checkbox"]',
 					function() {
@@ -245,30 +271,8 @@ button {
 	    });
 	}
 	
-	// 페이지 번호를 클릭했을 때 호출되는 함수
-	function goToPage(pageNumber) {
-	    // AJAX 요청을 보내기 전에 페이지 번호와 필요한 데이터를 설정합니다.
-	    var hiring = (document.getElementById("hiring").checked ? "y" : "n"); // 고용 여부 체크 여부에 따라 값 설정
-	    var word = document.getElementById("search-input").value; // 검색어 가져오기
 
-	    // AJAX 요청을 보냅니다.
-	    $.ajax({
-	        url: "/good/user/company/cp_selectModal.do",
-	        type: "GET",
-	        data: {
-	            page: pageNumber,
-	            hiring: hiring,
-	            word: word
-	        },
-	        success: function(data) {
-	            // 서버에서 받은 데이터로 모달 창 내의 콘텐츠를 업데이트합니다.
-	            $(".modal-content").html(data);
-	        },
-	        error: function(xhr, status, error) {
-	            console.error("Error: " + status + ", Message: " + error);
-	        }
-	    });
-	}
+
 
 </script>
 

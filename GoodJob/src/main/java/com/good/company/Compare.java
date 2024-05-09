@@ -145,6 +145,8 @@ public class Compare extends HttpServlet {
 		int searchTotalCount = dao.searchCompanyCount(map);			
 		totalPage = (int) Math.ceil((double) searchTotalCount / pageSize);
 		
+		
+		
 		// 페이지 바 작업
 		StringBuilder sb = new StringBuilder();
 
