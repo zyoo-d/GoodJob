@@ -63,7 +63,10 @@ display: inline-block;
 								
 								</div>
 								<div class="job_meta">
-									<span class="job-keyword">자바</span> <span class="job-keyword">코딩테스트</span>
+
+        <span class="job-keyword">${dto.tag_list}</span>
+
+
 								</div>
 							</div>
 						</div>

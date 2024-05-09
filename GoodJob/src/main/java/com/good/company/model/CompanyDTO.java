@@ -66,6 +66,5 @@ public class CompanyDTO {
 	private double matchScore;
 	//기업 리뷰평점
 	private String review_avg;
-	
 
 }
