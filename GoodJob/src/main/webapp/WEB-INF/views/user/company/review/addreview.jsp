@@ -247,8 +247,8 @@ textarea {
 <%@include file="/WEB-INF/views/inc/header.jsp" %>
 <body>
 <div id="itvWriteContainer">
-		<form method="post" action="/good/user/company/review/addreview.do">
 	<section class="page-hero pt-16 pb-6">
+			<form method="post" action="/good/user/company/review/addreview.do">
 		<div class="container">
 			<div class="card" id="itvWriteQnA">
 				<div class="card-content-wrapper">
@@ -305,6 +305,7 @@ textarea {
 				        <span class="star fa-solid fa-star" data-value="4"></span>
 				        <span class="star fa-solid fa-star" data-value="5"></span> 
 				    </div>
+				    <input type="hidden" name="salary_score" value="" id="salary-highest">
 			</div>
             <div class="category">
 				    <label>복지</label>
@@ -315,17 +316,19 @@ textarea {
 				        <span class="star fa-solid fa-star" data-value="4"></span>
 				        <span class="star fa-solid fa-star" data-value="5"></span>
 				    </div>
+				    <input type="hidden" name="welfare_score" value="" id="welfare-highest">
 				</div>
 				
 				<div class="category">
 				    <label>조직안정성</label>
-				    <div class="stars" data-category="retention">
+				    <div class="stars" data-category="stability">
 				        <span class="star fa-solid fa-star" data-value="1"></span>
 				        <span class="star fa-solid fa-star" data-value="2"></span>
 				        <span class="star fa-solid fa-star" data-value="3"></span>
 				        <span class="star fa-solid fa-star" data-value="4"></span>
 				        <span class="star fa-solid fa-star" data-value="5"></span>
 				    </div>
+				    <input type="hidden" name="stability_score" value="" id="stability-highest">
 				</div>
 				
 				<div class="category">
@@ -337,6 +340,7 @@ textarea {
 				        <span class="star fa-solid fa-star" data-value="4"></span>
 				        <span class="star fa-solid fa-star" data-value="5"></span>
 				    </div>
+				    <input type="hidden" name="culture_score" value="" id="culture-highest">
 				</div>
 				
 				<div class="category">
@@ -348,6 +352,7 @@ textarea {
 				        <span class="star fa-solid fa-star" data-value="4"></span>
 				        <span class="star fa-solid fa-star" data-value="5"></span>
 				    </div>
+				    <input type="hidden" name="growth_score" value="" id="growth-highest">
 				</div>
 				
         </div>
@@ -367,17 +372,17 @@ textarea {
            </c:forEach>
         </div>
     </div>
-    <div class="add-tag-text">
+    <!-- <div class="add-tag-text">
         <h3>태그 추가</h3>
         <p class="tag-info mt-6">추천 태그가 마음에 들지 않다면?</p>
         <div class="add-tag">
             <input type="text" name="tag_keyword" id="tag" placeholder="추가하실 태그를 입력하세요">
-           <!--  <input type="button">추가</input> -->
+            <input type="button">추가</input>
         </div>
         <div class="tag-list tag_meta">
-    <!-- Dynamically added tags will go here -->
+    Dynamically added tags will go here
 </div>
-        </div>
+        </div> -->
 
     </div>
 
@@ -429,8 +434,9 @@ textarea {
                 </div>
             </div>
         </div>   
+         </form>
     </section>
-    </form>
+   
 </div>
 <%@include file="/WEB-INF/views/inc/footer.jsp" %>
 <script src="/good/assets/js/tagify.min.js"></script>
@@ -447,9 +453,7 @@ $('#lineBox').keyup(function (e) {
     
     // 글자수 제한
     if (linecontent.length > 30) {
-    	// 200자 부터는 타이핑 되지 않도록
         $(this).val($(this).val().substring(0, 30));
-        // 200자 넘으면 알림창 뜨도록
         alert('글자수는 30자까지 입력 가능합니다.');
     };
 });
@@ -477,7 +481,7 @@ $('#textGood').keyup(function (e) {
 $('#textBad').keyup(function (e) {
 	let badcontent = $(this).val();
     
-    if (goodcontent.length == 0 || badcontent == '') {
+    if (badcontent.length == 0 || badcontent == '') {
     	$('.badCount').text('0자');
     } else {
     	$('.badCount').text(badcontent.length + '자');
@@ -492,22 +496,26 @@ $('#textBad').keyup(function (e) {
 });
 
 
-//별점
 document.querySelectorAll('.category .stars').forEach(starsContainer => {
     starsContainer.addEventListener('click', function(e) {
         if (e.target.classList.contains('star')) {
             const starIndex = parseInt(e.target.getAttribute('data-value'), 10);
-            let currentValue = e.target.dataset.currentValue ? parseFloat(e.target.dataset.currentValue) : 0;        
-            if (currentValue < 0.5) {
+            let currentValue = e.target.dataset.currentValue ? parseFloat(e.target.dataset.currentValue) : 0;
+
+            // Toggle star rating logic
+            if (currentValue < starIndex - 0.5) {
                 currentValue = starIndex - 0.5;
             } else if (currentValue < starIndex) {
                 currentValue = starIndex;
             } else {
-                currentValue = starIndex-0.5; 
+                currentValue = starIndex - 1; // Toggle down
             }
-            e.target.dataset.currentValue = currentValue;  
 
+            e.target.dataset.currentValue = currentValue;
             updateStars(starsContainer, currentValue);
+
+            // Update the highest value for the category
+            updateHighestValue(starsContainer);
         }
     });
 });
@@ -518,41 +526,30 @@ function updateStars(container, value) {
         const starValue = parseFloat(star.getAttribute('data-value'));
         star.classList.remove('fas', 'half-rated', 'far'); 
         if (value >= starValue) {
-            star.classList.add('fas');  
-        } else if (value >= starValue - 0.5) {
-            star.classList.add('fas', 'half-rated'); 
+            star.classList.add('fas');
+        } else if (value + 0.5 == starValue) {
+            star.classList.add('fas', 'half-rated');
         } else {
-            star.classList.add('far'); 
+            star.classList.add('far');
         }
     });
 }
 
-//수정필요
-document.querySelector('.submitRatings').addEventListener('click', function() {
-    let ratings = {};
-    document.querySelectorAll('.category .stars').forEach(starsContainer => {
-        let category = starsContainer.getAttribute('data-category');
-        let ratedStars = starsContainer.querySelectorAll('.star.rated').length;
-        ratings[category] = ratedStars; // Store ratings when submitting
+function updateHighestValue(container) {
+    const stars = container.querySelectorAll('.star');
+    let highestValue = 0;
+    stars.forEach(star => {
+        const starValue = parseFloat(star.getAttribute('data-value'));
+        if (star.classList.contains('fas') && starValue > highestValue) {
+            highestValue = starValue;
+        }
     });
 
-    fetch('RatingServlet', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(ratings)
-    })
-    .then(response => response.json())  // Assuming the server responds with JSON
-    .then(data => {
-        alert('Ratings successfully submitted!');
-        console.log(data); // Process the response data if needed
-    })
-    .catch(error => {
-        console.error('Error submitting ratings:', error);
-        alert('Failed to submit ratings.');
-    });
-});
+    // Correctly reference the corresponding hidden input
+    const category = container.getAttribute('data-category');
+    document.getElementById(category + '-highest').value = highestValue;
+}
+
 
 //태그
 new Tagify(document.getElementById('tag'));

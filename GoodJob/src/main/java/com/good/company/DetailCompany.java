@@ -41,41 +41,6 @@ public class DetailCompany extends HttpServlet {
 		CompanyDAO dao = new CompanyDAO();
 		CompanyDTO dto = dao.get(cp_seq);
 		
-		
-		
-		//총매출액
-	    /*long sales = dto.getFnc_sales();
-	    if (sales >= 100000000) { //(단위:억)
-	    	dto.setFnc_sales((long)(Math.round((double)sales/100000000)));
-	    }else if(sales >= 10000000) { //(단위:천만)
-	    	dto.setFnc_sales((long)(Math.round((double)sales/10000000)));
-	    }else if(sales >= 1000000) { // (단위:백만)
-	    	dto.setFnc_sales((long)(Math.round((double)sales/1000000)));
-	    }else if(sales >= 100000) { // (단위:십만)
-	    	dto.setFnc_sales((long)(Math.round((double)sales/100000)));
-	    }else if(sales >= 10000) { // (단위:만)
-	    	dto.setFnc_sales((long)(Math.round((double)sales/10000)));
-	    }else {
-	    	dto.setFnc_sales(sales); //(원)
-	    }
-		
-	  //당기순이익
-			    long ebit = dto.getFnc_ebit();
-			    if (Math.abs(ebit) >= 100000000) { //(단위:억)
-			    	dto.setFnc_ebit((long)(Math.round((double)ebit/100000000)));
-			    }else if(Math.abs(ebit) >= 10000000) { //(단위:천만)
-			    	dto.setFnc_ebit((long)(Math.round((double)ebit/10000000)));
-			    }else if(Math.abs(ebit) >= 1000000) { // (단위:백만)
-			    	dto.setFnc_ebit((long)(Math.round((double)ebit/1000000)));
-			    }else if(Math.abs(ebit) >= 100000) { // (단위:십만)
-			    	dto.setFnc_ebit((long)(Math.round((double)ebit/100000)));
-			    }else if(Math.abs(ebit) >= 10000) { // (단위:만)
-			    	dto.setFnc_ebit((long)(Math.round((double)ebit/10000)));
-			    }else {
-			    	dto.setFnc_ebit(ebit); //(원)
-			    }
-    */
-	    
 		//평균연봉
 	    int avg_salary = dto.getHire_avr_salary();
 	    
@@ -91,19 +56,18 @@ public class DetailCompany extends HttpServlet {
 	    
 	    //기업재무정보
 	    ArrayList<Long>[] flist = dao.getCompanyFinance(cp_seq);
-	    System.out.println(flist[0]);
+	    //System.out.println(flist[0]);
 	    
 	    //리뷰조회
 	    ReviewDAO rdao =  new ReviewDAO();
 	    ArrayList<ReviewDTO> listReview = rdao.listReview(cp_seq);
 	    //System.out.println("Number of reviews fetched: " + listReview.size());
 	    //System.out.println(listReview);
-	    //평균평점
-	    //double avg_score = 
+	    
 	    
 	    //태그출력
 	    ReviewDAO tdao =  new ReviewDAO();
-	    //ArrayList<ReviewDTO> ComTaglist = tdao.tagList(cp_seq);
+	    ArrayList<ReviewDTO> ComTaglist = tdao.tagList(cp_seq);
     	
 	    //기업직무정보
 	    RecruitDAO jdao = new RecruitDAO();
@@ -134,11 +98,9 @@ public class DetailCompany extends HttpServlet {
 	    String cp_name = dto.getCp_name();
 	    NewsDAO ndao = new NewsDAO();
 	    ArrayList<NewsDTO> nlist = ndao.search(cp_name);
-	    System.out.println(nlist);
+	
 	    
-	    req.setAttribute("nlist", nlist);
-	   
-	  
+	    req.setAttribute("nlist", nlist);	   
 		req.setAttribute("dto", dto);
 		req.setAttribute("word", word);
 		req.setAttribute("page", page);
@@ -146,15 +108,11 @@ public class DetailCompany extends HttpServlet {
 		req.setAttribute("comRecruitList",comRecruitList);
 		req.setAttribute("search", search);
 		req.setAttribute("hiring", hiring);
-		//req.setAttribute("ComTaglist", ComTaglist);
+		req.setAttribute("ComTaglist", ComTaglist);
 		req.setAttribute("comJobList",comJobList);
-		//req.setAttribute("flist",flist);
 		req.setAttribute("salesList", flist[0]);
 		req.setAttribute("ebitList", flist[1]);
 		req.setAttribute("incomeList", flist[2]);
-		
-		
-		
 		
 		
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/user/company/companyview.jsp");

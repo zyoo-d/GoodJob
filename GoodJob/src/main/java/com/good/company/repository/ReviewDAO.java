@@ -211,8 +211,76 @@ public class ReviewDAO {
 		
 		
 		
-		//태그
+		public int addReview(ReviewDTO bdto) {
+			try {
+				
+				String sql = "insert into tblCompanyReview "
+						+ "(CP_RV_SEQ,SALARY_SCORE,WELFARE_SCORE,STABILITY_SCORE,CULTURE_SCORE,GROWTH_SCORE,LINEREVIEW,GOOD,BAD,CP_RV_REGDATE,CP_SEQ,ID,CP_RV_CONFIRM) VALUES "
+						+ "(SEQCOMPANYREVIEW.nextVal,?,?,?,?,?,?,?,?,sysdate,?,?,0)";
+				
+				pstat = conn.prepareStatement(sql);
+				pstat.setDouble(1,bdto.getSalary_score());
+				pstat.setDouble(2,bdto.getWelfare_score());
+				pstat.setDouble(3,bdto.getStability_score());
+				pstat.setDouble(4,bdto.getCulture_score());
+				pstat.setDouble(5,bdto.getGrowth_score());
+				pstat.setString(6,bdto.getLinereview());
+				pstat.setString(7,bdto.getGood());
+				pstat.setString(8,bdto.getBad());
+				pstat.setString(9,bdto.getCp_seq());
+				pstat.setString(10,bdto.getId());
+				
+				
+				return pstat.executeUpdate();
+
+				
+			}catch (Exception e) {
+				System.out.println("ReivewDAO.addReview");
+				e.printStackTrace();
+				
+				
+			}
+			return 0;
+			
+		}
 		
+		//
+		public String getCp_rv_seq() {
+			try {
+
+				String sql = "select max(cp_rv_seq) as cp_rv_seq from tblCompanyReview";
+
+				stat = conn.createStatement();
+				rs = stat.executeQuery(sql);
+
+				if (rs.next()) {
+					return rs.getString("cp_rv_seq");
+				}
+
+			} catch (Exception e) {
+				System.out.println("BoardDAO.getBseq");
+				e.printStackTrace();
+			}
+			
+			return null;
+		}
+		
+		
+		
+		
+		//리뷰수정(승인전)
+		//리뷰삭제(승인전)
+		//리뷰승인(승인,승인거절 -> 화면표시여부,승인후 삭제.수정불가)
+		
+		
+		
+		
+		
+		
+		
+		
+		//태그
+		/*
 		public void addHashtag(String tagName) {
 			
 			//queryParamNoReturn
@@ -361,5 +429,13 @@ public class ReviewDAO {
 			}
 
 		}
+		public int addReview(ReviewDTO dto) {
+			
+			
+			
+			
+			
+			return 0;
+		}*/
 		
 }
