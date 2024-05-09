@@ -7,72 +7,51 @@
 <meta charset="UTF-8">
 <%@include file="/WEB-INF/views/inc/asset.jsp"%>
 <style>
-#itvContentSummary p{
+#itvContentSummary p {
 	display: flex;
 	justify-content: flex-start;
 }
-
-
-
 </style>
 </head>
 <%@include file="/WEB-INF/views/inc/header.jsp"%>
 <body>
-
-
 	<section class="section">
 		<div class="container">
 			<div class="card" id="itvWriteQnA">
 				<div class="px-4 text-center">
 					<h1 class="mt-3 gradiTitle">
-						<span>면접 스터디 게시판</span>
+						<span>면접 후기 게시판</span>
 					</h1>
-					<p class="mt-6">면접 스터디를 개설 가입 하는 게시판입니다.</p>
+					<p class="mt-6">면접 후기 정보를 서로 나누고, 성장하는 게시판입니다.</p>
 				</div>
 
 				<div>
-					<form id="searchForm" method="GET" action="/toy/board/list.do">
-						<div class="InpBox">
-							<select class="sorting">
-								<option value="subject">기업</option>
-								<option value="subject">제목</option>
-								<option value="content">내용</option>
-							</select>
-						</div>
-						<input type="text" name="input" class="input" id="search-input"
-							placeholder="검색어를 입력하세요">
-						<button type="button" class="search" id="search-btn">
+					<form id="searchForm" method="GET"
+						action="/good/board/interview/interview.do">
+						<input type="text" name="cp_name" class="input" id="search-input"
+							placeholder="기업명으로 검색하기">
+						<button type="submit" class="search" id="search-btn">
 							<span class="material-symbols-outlined"> <span
 								class="material-symbols-outlined">search</span>
 							</span>
 						</button>
 					</form>
 				</div>
-					<div class="list-header">
-								<div class="list-title">
-									<p>
-										<span class="material-symbols-outlined">subject</span>
-									</p>
-									<p>
-										조회된 게시글은 총 <span id="list-cnt">${totalCount}</span>건입니다.
-									</p>
-								</div>
-								<div class="list_info">
-									<div class="moving-btn studyAdd mr-2">
-										<a href="/good/board/interview/itvWrite.do" class="btn btnList">글쓰기</a>
-									</div>
-									<div class="InpBox">
-										<select class="sorting" name="sort" id="sort">
-											<option value="latest"
-												<c:if test="${param.sort == 'latest' || empty param.sort}">selected</c:if>>최신순</option>
-											<option value="oldest"
-												<c:if test="${param.sort == 'oldest'}">selected</c:if>>과거순</option>
-											<option value="comments"
-												<c:if test="${param.sort == 'comments'}">selected</c:if>>댓글순</option>
-										</select>
-									</div>
-								</div>
-							</div>
+				<div class="list-header">
+					<div class="list-title">
+						<p>
+							<span class="material-symbols-outlined">subject</span>
+						</p>
+						<p>
+							조회된 게시글은 총 <span id="list-cnt">${totalCount}</span>건입니다.
+						</p>
+					</div>
+					<div class="list_info">
+						<div class="moving-btn studyAdd mr-2">
+							<a href="/good/board/interview/itvWrite.do" class="btn btnList">글쓰기</a>
+						</div>
+					</div>
+				</div>
 
 				<div class="mb-8 md:col-6" id="interview-list">
 					<c:forEach var="dto" items="${list}">
@@ -80,9 +59,7 @@
 							<div class="card-content-wrapper">
 								<div class="itvdropdownContent">
 									<div class="itvImgBox">
-										<img
-											src="${dto.IMAGE}"
-											id="itvImg" alt="" />
+										<img src="${dto.IMAGE}" id="itvImg" alt="" />
 
 									</div>
 									<div class="itvCardTags">
@@ -95,11 +72,8 @@
 											<p>${dto.ITV_CPNAME}</p>
 										</h3>
 										<div id="itvContentSummary">
-											<p>
-												${dto.ITV_CAREER}
-												${dto.ITV_MEETDATE} 
-												전반적 평가 :${dto.ITV_DIFFICULTY}
-											</p>
+											<p>${dto.ITV_CAREER}${dto.ITV_MEETDATE} 전반적 평가
+												:${dto.ITV_DIFFICULTY}</p>
 										</div>
 									</div>
 								</div>
@@ -124,11 +98,11 @@
 						</div>
 					</c:forEach>
 				</div>
-			<nav class="PageBox z-custom" aria-label="Page navigation example">
-			<ul class="pagination z-custom">${pagebar}</ul>
-			</nav>
+				<nav class="PageBox z-custom" aria-label="Page navigation example">
+					<ul class="pagination z-custom">${pagebar}</ul>
+				</nav>
 			</div>
-			
+
 		</div>
 
 	</section>
@@ -136,6 +110,11 @@
 
 	<%@include file="/WEB-INF/views/inc/footer.jsp"%>
 	<script>
+	<c:if test="${map.search == 'y'}">
+	//검색중 상태 유지
+	$('input[name=cp_name]').val('${map.cp_name}');
+	</c:if>
+	
 	const arrows = document.querySelectorAll('.dw');
 	arrows.forEach(arrow => {
 	  arrow.addEventListener('click', () => {
