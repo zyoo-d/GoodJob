@@ -51,6 +51,11 @@
 										<a href="/good/user/study/editstudy.do?std_seq=${dto.std_seq}">(수정</a>
 										<input type="button" id="btnDelStudy" value="/ 삭제)">
 									</c:if>
+									<p class="view-count">
+									<i class="fa-regular fa-eye"></i> ${dto.std_views}
+									</p>
+								<button type="button" id="report-btn" class="report-btn" data-boardtype="std"
+									data-seq="${dto.std_seq}">신고</button>
 								</div>
 							</div>
 							<div class="moving-btn">
@@ -95,6 +100,8 @@
 																<span class='material-symbols-outlined'
 																	onclick="edit(${cdto.cm_seq});">edit_note</span>
 															</c:if>
+																<span class='material-symbols-outlined'
+																	id="report-btn" data-boardtype="std_cm" data-seq="${dto.std_cm_seq}" >campaign</span>
 														</div>
 													</div>
 												</div></td>
@@ -102,6 +109,9 @@
 									</c:forEach>
 								</tbody>
 							</table>
+							
+							<button type="button" class="report-btn" data-boardtype="qna"
+									data-seq="${dto.qna_seq}">신고</button>
 
 							<!-- 댓글 페이징 -->
 							<div class="comment-paging">
@@ -336,5 +346,7 @@
 
 		
 	</script>
+	
+<%@include file="/WEB-INF/views/user/report/reportmodal.jsp"%>
 </body>
 </html>

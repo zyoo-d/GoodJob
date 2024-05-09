@@ -96,7 +96,7 @@ public class LiveCmReportDAO implements ReportDAO<LiveCmReportDTO> {
 	}
 
 	@Override
-	public int isReport(String id, String seq) {
+	public boolean isReported(String id, String seq) {
 		
 		try {
 			
@@ -110,7 +110,7 @@ public class LiveCmReportDAO implements ReportDAO<LiveCmReportDTO> {
 			
 			if(rs.next()) {
 				
-				return rs.getInt("cnt");
+				return rs.getInt("cnt") > 0;
 				
 			}
 			
@@ -120,7 +120,7 @@ public class LiveCmReportDAO implements ReportDAO<LiveCmReportDTO> {
 		}
 		
 		
-		return 0;
+		return false;
 	}
 
 	@Override

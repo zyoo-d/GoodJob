@@ -4,10 +4,10 @@ import lombok.Getter;
 
 @Getter
 public enum BoardType {
-	QNA("qna", "tblQnAReport"),
-	STD("std", "tblStdReport"),
-	QNA_CM("qna_cm", "tblQnACmReport"),
-	STD_CM("std_cm", "tblStdCmReport"),
+	QNA("qna", "/qna/listqna.do"),
+	STD("std", "/study/liststudy.do"),
+	QNA_CM("qna_cm", "/qna/listqna.do"),
+	STD_CM("std_cm", "/study/liststudy.do"),
 	LIVE("live", "tblLiveComment");
 	
 	private final String code;
