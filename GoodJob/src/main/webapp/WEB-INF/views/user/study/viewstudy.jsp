@@ -146,12 +146,9 @@
 		$("#btnAddComment")
 		.click(
 				function() {
-				
 					
 					var commentContent = $(
 							"input[name='viewStudyComment']").val();
-					
-					
 					
 				 	var userId = "${sessionScope.id}";
 				    if (!userId) {
@@ -159,7 +156,6 @@
 				        return;
 				    } 
 					
-
 					if (commentContent.trim() === "") {
 						alert("댓글 내용을 입력해주세요.");
 						return;
@@ -176,7 +172,6 @@
 								success : function(response) {
 									console.log(response);
 									var newComment = response.dto;
-
 								
 									var row = "<tr>"
 											+ "<td class='commentContent'><p>"

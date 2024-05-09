@@ -20,13 +20,16 @@
 #searchInputHead:focus{
 	border-color: rgb(83 90 237 / var(--tw-border-opacity)) !important;
 }
+#searchInputHead{
+	font-size: 16px;
+}
 
 #nav-menu {
  	margin-bottom: 5px;
 }
 
 .navbar.container {
-	max-width: 1100px;
+	max-width: 1150px;
 }
 
 .search-element {
@@ -93,7 +96,7 @@
 .hiring {
 	position: absolute;
 	right: 0;
-	bottom: 3px;
+	cursor: default;
 }
 
 #filterHire {
@@ -122,16 +125,17 @@
 
 #trend ul {
 	display: flex;
-	width: 400px;
+	width: 450px;
 	justify-content: space-between;
 }
 
 /*희연님 css 소스*/
 /*페이지 TITLE*/
-.gradiTitle span {
+.gradiTitle span, #filterHire.tag.non {
   background: linear-gradient(184.78deg, #535AED 7.64%, #004F8B 120.07%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  border-color: rgb(74 100 240 / var(--tw-border-opacity));
 }
 
 .clear {
@@ -1505,9 +1509,8 @@ display: flex;
 
 
 .cpsCompanyInfo img {
-	width: 60px;
-    height: 60px;
-    margin-bottom: 10px;
+	max-width: 85px;
+    height: auto;
 }
 
 .cpsCard {
@@ -2532,14 +2535,7 @@ textarea:focus {
 	margin-bottom: 50px;
 }
 
-.cpsCompanyInfo img {
-	width: 60px;
-    height: 60px;
-    margin-bottom: 10px;
-}
-
 .smallradarChart {
-	width: 200px;
 	height: 200px;
 	display: flex;
 	justify-content: center;

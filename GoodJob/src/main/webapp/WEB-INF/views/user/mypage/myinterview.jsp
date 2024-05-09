@@ -98,7 +98,7 @@
 																href="#" class="text-danger">삭제</a>
 														</c:if>
 														<c:if test="${dto.ITV_CONFIRM=='1'}">
-															<a href="#" class="text-danger">삭제</a>
+															-
 														</c:if>
 													</div> <input type="hidden" name="std_seq" value="${dto.ITV_SEQ}">
 												</td>
