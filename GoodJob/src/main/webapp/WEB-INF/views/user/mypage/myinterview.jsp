@@ -61,87 +61,54 @@
 									<table class="table table-striped text-center">
 										<tr>
 											<th>번호</th>
-											<th>기업명/직무</th>
+											<th>기업명</th>
 											<th>면접시기</th>
 											<th>합격여부</th>
 											<th>작성일</th>
 											<th>등록여부</th>
 											<th>수정/삭제</th>
 										</tr>
-										<tr>
-											<td>1</td>
-											<td>삼성전자/프론트</td>
-											<td>2023년도 상반기</td>
-											<td><div class="badge badge-warning">대기중</div></td>
-											<td>2024-01-20</td>
-											<td><div class="badge badge-warning">심사중</div></td>
-											<td><div class="">
-													<a href="#">수정</a> / <a href="#" class="text-danger">삭제</a>
-												</div></td>
-										</tr>
-										<tr>
-											<td>2</td>
-											<td>삼성전자/프론트</td>
-											<td>2023년도 상반기</td>
-											<td><div class="badge badge-warning">대기중</div></td>
-											<td>2024-01-20</td>
-											<td><div class="badge badge-danger">반려</div></td>
-											<td><div class="">
-													<a href="#">수정</a> / <a href="#" class="text-danger">삭제</a>
-												</div></td>
-										</tr>
-										<tr>
-											<td>3</td>
-											<td>삼성전자/프론트</td>
-											<td>2023년도 상반기</td>
-											<td><div class="badge badge-warning">대기중</div></td>
-											<td>2024-01-20</td>
-											<td><div class="badge badge-primary">등록 완료</div></td>
-											<td><div class="">
-													<a href="#" class="text-danger">삭제</a>
-												</div></td>
-										</tr>
-										<tr>
-											<td>4</td>
-											<td>삼성전자/프론트</td>
-											<td>2023년도 상반기</td>
-											<td><div class="badge badge-warning">대기중</div></td>
-											<td>2024-01-20</td>
-											<td><div class="badge badge-primary">등록 완료</div></td>
-											<td><div class="">
-													<a href="#" class="text-danger">삭제</a>
-												</div></td>
-										</tr>
-										<tr>
-											<td>5</td>
-											<td>삼성전자/프론트</td>
-											<td>2023년도 상반기</td>
-											<td><div class="badge badge-warning">대기중</div></td>
-											<td>2024-01-20</td>
-											<td><div class="badge badge-primary">등록 완료</div></td>
-											<td><div class="">
-													<a href="#" class="text-danger">삭제</a>
-												</div></td>
-										</tr>
+										<c:forEach items="${list}" var="dto">
+											<tr>
+												<td>${dto.rnum}</td>
+												<td>${dto.ITV_CPNAME}</td>
+												<td>${dto.ITV_MEETDATE}</td>
+												<td><c:if test="${dto.ITV_WHETHER=='합격'}">
+														<div class="badge badge-primary">
+													</c:if> <c:if test="${dto.ITV_WHETHER=='대기중'}">
+														<div class="badge badge-warning">
+													</c:if> <c:if test="${dto.ITV_WHETHER=='불합격'}">
+														<div class="badge badge-danger">
+													</c:if> ${dto.ITV_WHETHER}
+													</div></td>
+												<td>${dto.ITV_REGDATE}</td>
+												<td><c:if test="${dto.ITV_CONFIRM=='1'}">
+														<div class="badge badge-primary">등록 완료</div>
+													</c:if> 
+													<c:if test="${dto.ITV_CONFIRM=='0'}">
+														<div class="badge badge-warning">심사중</div>
+													</c:if> 
+													<c:if test="${dto.ITV_CONFIRM=='2'}">
+														<div class="badge badge-danger">반려</div>
+													</c:if> </td>
+												<td><div class="">
+														<c:if test="${dto.ITV_CONFIRM=='0'||dto.ITV_CONFIRM=='2'}">
+															<a
+																href="/good/board/interview/itvEdit.do?itv_seq=${dto.ITV_SEQ}">수정</a> / <a
+																href="#" class="text-danger">삭제</a>
+														</c:if>
+														<c:if test="${dto.ITV_CONFIRM=='1'}">
+															<a href="#" class="text-danger">삭제</a>
+														</c:if>
+													</div> <input type="hidden" name="std_seq" value="${dto.ITV_SEQ}">
+												</td>
+											</tr>
+										</c:forEach>
 									</table>
 								</div>
 								<div id="interviewPaging">
 									<nav>
-										<ul class="pagination">
-											<li class="page-item disabled"><a class="page-link"
-												href="#" aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-													<span class="sr-only">이전페이지</span>
-											</a></li>
-											<li class="page-item active"><a class="page-link"
-												href="#">1</a></li>
-											<li class="page-item"><a class="page-link" href="#">2</a>
-											</li>
-											<li class="page-item"><a class="page-link" href="#">3</a>
-											</li>
-											<li class="page-item"><a class="page-link" href="#"
-												aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-													<span class="sr-only">다음페이지</span>
-											</a></li>
+										<ul class="pagination">${pagebar}
 										</ul>
 									</nav>
 								</div>
@@ -153,11 +120,19 @@
 		</section>
 	</div>
 	<%@include file="/WEB-INF/views/inc/adminfooter.jsp"%>
-<script>
-$('.text-danger').click(function() {
-	$(this).parents().eq(2).remove();
-	//데이터 처리도 해주기
-});
-</script>
+	<script>
+		$('.text-danger')
+				.click(
+						function() {
+							if (confirm('게시물을 삭제하시겠습니까?')) {
+								var itvSeqValue = $(this).closest('div').find(
+										'input[type="hidden"]').val();
+								location.href = "/good//board/interview/itvDel.do?itv_seq="
+										+ itvSeqValue;
+								$(this).parents().eq(2).remove();
+								//데이터 처리도 해주기
+							}
+						});
+	</script>
 </body>
 </html>
