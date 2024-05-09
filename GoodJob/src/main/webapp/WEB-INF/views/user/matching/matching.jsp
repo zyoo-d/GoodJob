@@ -9,7 +9,6 @@
 <%@include file="/WEB-INF/views/inc/asset.jsp"%>
 
 <style>
-
 </style>
 </head>
 <%@include file="/WEB-INF/views/inc/header.jsp"%>
@@ -23,18 +22,22 @@
 					</h1>
 					<p class="mt-6">회원님과 어울리는 회사를 조회 해보세요.</p>
 				</div>
-				<div class="cpsChart">
-					<canvas id="cpSugradarChart"></canvas>
-				</div>
-
-				<div class="cpsContent">
-					<div class="cpsMember">
-						<h3>홍길동님의 성향</h3>
-						<p>결국 일도 '사람'이 모여서 하는 것! 다른 조건보다 함께 일하는 동료들을 우선하는 당신. 성격이 나쁘거나
-							일 못하는 동료 때문에 스트레스 받는 걸 가장 싫어합니다. 취직 또는 이직을 고민하고 있다면, 그 회사에서 일하고
-							있는 직장인과 커피챗을 해보는 등 조직문화와 관련한 정보를 수집해보는 게 좋겠어요.</p>
-
+				<div id="matchinfo">
+					<div class="cpsChart">
+						<canvas id="cpSugradarChart" width="300" height="300"></canvas>
 					</div>
+
+					<div class="cpsContent pt-4">
+						<div class="cpsMember">
+							<h3>홍길동님의 성향</h3>
+							<div class="job_meta">
+								<span class="job-keyword">사람중심</span> <span class="job-keyword">돈보다 성장</span>
+							</div>
+							<p>결국 일도 '사람'이 모여서 하는 것!</p>
+						</div>
+					</div>
+				</div>
+				<div>
 					<div class="border-t border-border py-10">
 						<div class="cpsCompanyList">
 							<h3>홍길동님과 어울리는 회사</h3>
@@ -44,7 +47,8 @@
 								   <c:forEach var="companyDTO" items="${companyList}" varStatus="status">
 									<div class="mb-8 md:col-6 lg:col-4 integration-tab-item"
 										data-groups='["social"]'>
-										<div class="rounded-xl bg-white px-10 py-8 shadow-lg min-h-400">
+										<div
+											class="rounded-xl bg-white px-10 py-8 shadow-lg min-h-400">
 											<div
 												class="integration-card-head flex items-center space-x-4">
 												<img
@@ -56,7 +60,82 @@
 												</div>
 											</div>
 											<div class="my-5 border-y border-border py-5 smallradarChart">
+												<canvas id="cp1SugradarChart"></canvas>
+											</div>
+											<div class="mb-5 pb-5 border-b border-border">
+												<div>
+													<span
+														class="bg-gradient inline-flex h-16 w-16 items-center justify-center rounded-full">
+														75% </span>
+												</div>
+												<span class="">"여기다.<br> OO님이 갈 곳!"
+												</span>
+
+											</div>
+											<div class="job_meta">
+												<span class="job-keyword">자바</span> <span
+													class="job-keyword">코딩테스트</span>
+											</div>
+										</div>
+									</div>
+									<div class="mb-8 md:col-6 lg:col-4 integration-tab-item"
+										data-groups='["social"]'>
+										<div
+											class="rounded-xl bg-white px-10 py-8 shadow-lg min-h-400">
+											<div
+												class="integration-card-head flex items-center space-x-4">
+												<img
+													src="https://blog.kakaocdn.net/dn/UGS0q/btree5Viurw/l07AH1VgWJHm4stsAHLdL0/img.png"
+													alt="" />
+												<div>
+													<h4 class="h4">Facebook</h4>
+													<span class="font-medium">Social media</span>
+												</div>
+											</div>
+											<div class="my-5 border-y border-border py-5 smallradarChart">
+												<canvas id="cp2SugradarChart"></canvas>
+											</div>
+											<div class="mb-5 pb-5 border-b border-border">
+												<div>
+													<span
+														class="bg-gradient inline-flex h-16 w-16 items-center justify-center rounded-full">
+														75% </span>
+												</div>
+												<span class="">"여기다.<br> OO님이 갈 곳!"
+												</span>
+
+											</div>
+											<div class="job_meta">
+												<span class="job-keyword">자바</span> <span
+													class="job-keyword">코딩테스트</span>
+											</div>
+										</div>
+									</div>
+									<div class="mb-8 md:col-6 lg:col-4 integration-tab-item"
+										data-groups='["social"]'>
+										<div
+											class="rounded-xl bg-white px-10 py-8 shadow-lg min-h-400">
+											<div
+												class="integration-card-head flex items-center space-x-4">
+												<img src="/good/asset/images/logo/카카오.jpg" alt="" />
+												<div>
+													<h4 class="h4">Kakao</h4>
+													<span class="font-medium">Social media</span>
+												</div>
+											</div>
+											<div class="my-5 border-y border-border py-5 smallradarChart">
+												<canvas id="cp3SugradarChart"></canvas>
 												<canvas id="cp${status.index + 1}SugradarChart"></canvas>
+											</div>
+											<div class="mb-5 pb-5 border-b border-border">
+												<div>
+													<span
+														class="bg-gradient inline-flex h-16 w-16 items-center justify-center rounded-full">
+														75% </span>
+												</div>
+												<span class="">"여기다.<br> OO님이 갈 곳!"
+												</span>
+
 											</div>
 											<div class="job_meta">
 												<span class="job-keyword">자바</span> <span
@@ -74,39 +153,59 @@
 				</div>
 
 				<div class="cpsCompany">
-					<h3>현재 채용 중이에요 !</h3>
-					<div class="row mt-14">
+					<h3>아쉽게 순위에 들지 못한 기업 :)</h3>
+					<div class="row mt-14 cpsCompanyInfo">
 						<div class="mb-8 sm:col-6 lg:col-4">
 							<div class="rounded-xl bg-white p-6 shadow-lg lg:p-8">
-								<div class="relative inline-block comment-edit">
-									<p class="education">
-										<i class="fa-solid fa-calendar-days"></i> ~ 05.05(일)
-									</p>
-									<a class="tag" href="#">모집중</a>
+								<div class="integration-card-head flex items-center space-x-4">
+									<img
+										src="https://blog.kakaocdn.net/dn/UGS0q/btree5Viurw/l07AH1VgWJHm4stsAHLdL0/img.png"
+										alt="">
+									<div>
+										<h4 class="h4">Facebook</h4>
+										<span class="font-medium">Social media</span>
+									</div>
+
 								</div>
-								<h4 class="my-6 line_limit">2024 네이버 공개 채용</h4>
+								<div class="job_meta">
+									<span class="job-keyword">자바</span> <span class="job-keyword">코딩테스트</span><span><i
+										class="fa-solid fa-star gold"></i> 3.8</span>
+								</div>
 							</div>
 						</div>
 						<div class="mb-8 sm:col-6 lg:col-4">
 							<div class="rounded-xl bg-white p-6 shadow-lg lg:p-8">
-								<div class="relative inline-block comment-edit">
-									<p class="education">
-										<i class="fa-solid fa-calendar-days"></i> ~ 05.05(일)
-									</p>
-									<a class="tag" href="#">모집중</a>
+								<div class="integration-card-head flex items-center space-x-4">
+									<img
+										src="https://blog.kakaocdn.net/dn/UGS0q/btree5Viurw/l07AH1VgWJHm4stsAHLdL0/img.png"
+										alt="">
+									<div>
+										<h4 class="h4">Facebook</h4>
+										<span class="font-medium">Social media</span>
+									</div>
 								</div>
-								<h4 class="my-6 line_limit">2024 쿠팡 공채</h4>
+								<div class="job_meta">
+									<span class="job-keyword">자바</span> <span class="job-keyword">코딩테스트</span><span><i
+										class="fa-solid fa-star gold"></i> 3.8</span>
+								</div>
+
 							</div>
 						</div>
 						<div class="mb-8 sm:col-6 lg:col-4">
 							<div class="rounded-xl bg-white p-6 shadow-lg lg:p-8">
-								<div class="relative inline-block comment-edit">
-									<p class="education">
-										<i class="fa-solid fa-calendar-days"></i> ~ 05.05(일)
-									</p>
-									<a class="tag" href="#">모집중</a>
+								<div class="integration-card-head flex items-center space-x-4">
+									<img
+										src="https://blog.kakaocdn.net/dn/UGS0q/btree5Viurw/l07AH1VgWJHm4stsAHLdL0/img.png"
+										alt="">
+									<div>
+										<h4 class="h4">Facebook</h4>
+										<span class="font-medium">Social media</span>
+									</div>
 								</div>
-								<h4 class="my-6 line_limit">삼성 2024 공채</h4>
+								<div class="job_meta">
+									<span class="job-keyword">자바</span> <span class="job-keyword">코딩테스트</span><span><i
+										class="fa-solid fa-star gold"></i> 3.8</span>
+								</div>
 							</div>
 						</div>
 					</div>
