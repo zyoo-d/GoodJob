@@ -145,6 +145,7 @@ public class AddPrefer extends HttpServlet {
 			dao.close();
 
 			if (result == 1) {
+				session.setAttribute("prefer", "1"); 	
 				resp.sendRedirect("/good/user/matching/viewwish.do");
 			} else {
 				Alert.fail(resp);
