@@ -91,7 +91,7 @@
 .hiring {
 	position: absolute;
 	right: 0;
-	bottom: 3px;
+	cursor: default;
 }
 
 #filterHire {
@@ -1503,9 +1503,8 @@ display: flex;
 
 
 .cpsCompanyInfo img {
-	width: 60px;
-    height: 60px;
-    margin-bottom: 10px;
+	max-width: 85px;
+    height: auto;
 }
 
 .cpsCard {
@@ -2508,14 +2507,7 @@ textarea:focus {
 	margin-bottom: 50px;
 }
 
-.cpsCompanyInfo img {
-	width: 60px;
-    height: 60px;
-    margin-bottom: 10px;
-}
-
 .smallradarChart {
-	width: 200px;
 	height: 200px;
 	display: flex;
 	justify-content: center;

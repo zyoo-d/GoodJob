@@ -42,7 +42,8 @@
 					id="commu-menu">
 					<li class="nav-dropdown-item"><a
 						href="/good/user/study/liststudy.do" class="nav-dropdown-link">스터디</a></li>
-					<li class="nav-dropdown-item"><a href="/good/board/interview/interview.do"
+					<li class="nav-dropdown-item"><a
+						href="/good/board/interview/interview.do"
 						class="nav-dropdown-link">면접후기</a></li>
 					<li class="nav-dropdown-item"><a
 						href="/good/user/qna/listqna.do" class="nav-dropdown-link">여기어때?</a></li>
@@ -138,6 +139,10 @@ $(document).ready(function(){
 			}
 		});
 		}
+	});
+	
+	$('#searchInputHead').focus(function(){
+		$('#searchResults').html("");
 	});
 	
 	$('#searchResults').on('click', '.dropdown-item', function() {

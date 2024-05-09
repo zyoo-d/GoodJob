@@ -9,6 +9,9 @@
 <%@include file="/WEB-INF/views/inc/asset.jsp"%>
 
 <style>
+.space-evenly {
+	justify-content: space-evenly;
+}
 </style>
 </head>
 <%@include file="/WEB-INF/views/inc/header.jsp"%>
@@ -29,7 +32,7 @@
 
 					<div class="cpsContent pt-4">
 						<div class="cpsMember">
-							<h3>${name}님의 성향</h3>
+							<h3>${name}님의성향</h3>
 							<div class="job_meta">
 								<span class="job-keyword">사람중심</span> <span class="job-keyword">돈보다
 									성장</span>
@@ -41,46 +44,43 @@
 				<div>
 					<div class="border-t border-border py-10">
 						<div class="cpsCompanyList">
-							<h3>${name}님과 어울리는 회사</h3>
+							<h3>${name}님과어울리는 회사</h3>
 							<div class="cpsCompanyInfo">
 								<div class="row mt-10 integration-tab-items">
 
-									<c:forEach var="companyDTO" items="${top3}"
-										varStatus="status">
+									<c:forEach var="companyDTO" items="${top3}" varStatus="status">
 										<div class="mb-8 md:col-6 lg:col-4 integration-tab-item"
 											data-groups='["social"]'>
 											<div
 												class="rounded-xl bg-white px-10 py-8 shadow-lg min-h-400">
 												<div
-													class="integration-card-head flex items-center space-x-4">
-													<img
-														src="${companyDTO.dto.image}"
-														alt="" />
+													class="pb-5 integration-card-head flex items-center space-x-4 border-b border-border">
+													<img src="${companyDTO.dto.image}" alt="" />
 													<div>
-														<h4 class="h4">${companyDTO.dto.cp_name}</h4>
+														<h5 class="h5">${companyDTO.dto.cp_name}</h5>
 														<span class="font-medium">${companyDTO.dto.idst_name}</span>
 													</div>
 												</div>
-												<div
-													class="my-5 border-y border-border py-5 smallradarChart">
-													 <canvas id="cp${status.index + 1}SugradarChart"></canvas>
+												<div class="my-5 py-5 smallradarChart">
+													<canvas id="cp${status.index + 1}SugradarChart"></canvas>
 												</div>
-												<div class="mb-5 pb-5 border-b border-border">
+												<div
+													class="my-5 py-5 border-y border-border flex space-evenly">
 													<div>
 														<span
 															class="bg-gradient inline-flex h-16 w-16 items-center justify-center rounded-full">
 															${companyDTO.matchScore}% </span>
 													</div>
-													<span class="">"여기다.<br> ${name}님이 갈 곳!"
+													<span class="m-auto">"여기다.<br> ${name}님이 갈 곳!"
 													</span>
 
 												</div>
 												<div class="job_meta">
-												
-												<c:forEach var="tag" items="${companyDTO.dto.tag_list}">
-													<span class="job-keyword">${tag}</span>
-												</c:forEach>		
-														
+
+													<c:forEach var="tag" items="${companyDTO.dto.tag_list}">
+														<span class="job-keyword">${tag}</span>
+													</c:forEach>
+
 												</div>
 											</div>
 										</div>
@@ -97,33 +97,33 @@
 				<div class="cpsCompany">
 					<h3>아쉽게 순위에 들지 못한 기업 :)</h3>
 					<div class="row mt-14 cpsCompanyInfo">
-					
-					<c:forEach items="${list}" var="list">
-						<div class="mb-8 sm:col-6 lg:col-4">
-							<div class="rounded-xl bg-white p-6 shadow-lg lg:p-8">
-								<div class="integration-card-head flex items-center space-x-4">
-									<img
-										src="${list.dto.image}"
-										alt="">
-									<div>
-										<h4 class="h4">${list.dto.cp_name }</h4>
-										<span class="font-medium">${list.dto.idst_name}</span>
+
+						<c:forEach items="${list}" var="list">
+							<div class="mb-8 sm:col-6 lg:col-4">
+								<div class="rounded-xl bg-white p-6 shadow-lg lg:p-8">
+									<div class="integration-card-head flex items-center space-x-4">
+										<img src="${list.dto.image}" alt="">
+										<div>
+											<h5 class="h5">${list.dto.cp_name }</h5>
+											<span class="font-medium">${list.dto.idst_name}</span>
+										</div>
+
+									</div>
+									<div class="job_meta">
+										<c:forEach items="${list.dto.tag_list}" var="tag">
+											<span class="job-keyword">${tag}</span>
+										</c:forEach>
 									</div>
 
-								</div>
-								<div class="job_meta">
-									<c:forEach items="${list.dto.tag_list}" var="tag">
-										<span class="job-keyword">${tag}</span> 
-									</c:forEach>
-									
-									<i class="fa-solid fa-star gold"></i> ${list.dto.review_avg}</span>
+									<div class="text-left">
+										<i class="fa-solid fa-star gold"></i> ${list.dto.review_avg}
+									</div>
 								</div>
 							</div>
-						</div>
-					</c:forEach>
-					
-					
-					
+						</c:forEach>
+
+
+
 					</div>
 				</div>
 			</div>
@@ -138,10 +138,10 @@
 		var myRadarChart = new Chart(ctx, {
 			type : 'radar',
 			data : {
-				labels : [ '연봉', '조직안정성', '조직문화', '성장 가능성', '복지' ],
+				labels : [ '성장 가능성', '연봉', '조직문화', '조직안정성', '복지' ],
 				datasets : [ {
 					label : '회원', // 새로운 데이터셋의 라벨
-					data : [${dto.salary}, ${dto.stability}, ${dto.culture}, ${dto.potential}, ${dto.welfare} ], // 새로운 데이터셋의 데이터
+					data : [${dto.potential}, ${dto.salary}, ${dto.culture}, ${dto.stability}, ${dto.welfare} ], // 새로운 데이터셋의 데이터
 					backgroundColor : 'rgba(54, 162, 235, 0.2)', // fill color
 					borderColor : 'rgba(54, 162, 235, 1)', // border color
 					borderWidth : 1
@@ -165,16 +165,16 @@
 	    var myRadarChart = new Chart(ctx, {
 	      type: 'radar',
 	      data: {
-	        labels: ['연봉', '조직안정성', '조직문화', '성장 가능성', '복지'],
+	        labels: ['성장 가능성', '연봉', '조직문화', '조직안정성', '복지'],
 	        datasets: [{
 	          label: '회사',
-	          data: [${companyDTO.salary}, ${companyDTO.stability}, ${companyDTO.culture}, ${companyDTO.potential}, ${companyDTO.welfare}],
+	          data: [${companyDTO.potential}, ${companyDTO.salary}, ${companyDTO.culture}, ${companyDTO.stability}, ${companyDTO.welfare}],
 	          backgroundColor: 'rgba(255, 99, 132, 0.2)',
 	          borderColor: 'rgba(255, 99, 132, 1)',
 	          borderWidth: 1
 	        }, {
 	          label: '회원',
-	          data: [${dto.salary}, ${dto.stability}, ${dto.culture}, ${dto.potential}, ${dto.welfare}],
+	          data: [${dto.potential}, ${dto.salary}, ${dto.culture}, ${dto.stability}, ${dto.welfare}],
 	          backgroundColor: 'rgba(54, 162, 235, 0.2)',
 	          borderColor: 'rgba(54, 162, 235, 1)',
 	          borderWidth: 1

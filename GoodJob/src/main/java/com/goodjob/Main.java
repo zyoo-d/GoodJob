@@ -3,6 +3,7 @@ package com.goodjob;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -44,8 +45,28 @@ public class Main extends HttpServlet {
 //	    	cp_seq = cdto.getCp_seq();
 //	    	
 //	    }
+	    String[] key = {
+	    	    "인공지능", 
+	    	    "머신러닝", 
+	    	    "빅데이터", 
+	    	    "클라우드 컴퓨팅", 
+	    	    "사이버보안", 
+	    	    "증강현실", 
+	    	    "가상현실", 
+	    	    "블록체인", 
+	    	    "사물인터넷", 
+	    	    "5G 기술", 
+	    	    "로봇공학", 
+	    	    "서버리스 아키텍처"
+	    	};
 	    
+	    Random rnd = new Random();
+	    ArrayList<String> keywords = new ArrayList<>();
+			for (int i = 0; i < 4; i++) {
+				keywords.add(key[rnd.nextInt(key.length)]);
+			}
 	    
+	    req.setAttribute("keywords", keywords);
 	    req.setAttribute("hiring", hiring);
 	    req.setAttribute("clist", clist);
 	    //System.out.println(clist);
