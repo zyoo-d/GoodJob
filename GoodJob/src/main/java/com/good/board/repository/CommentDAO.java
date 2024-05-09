@@ -26,9 +26,9 @@ public class CommentDAO {
 	        
 	        // PreparedStatement 생성 및 값 설정
 	        pstat = conn.prepareStatement(sql);
-	        pstat.setString(1, dto.getSTD_CM_CONTENT());
-	        pstat.setString(2, dto.getSTD_SEQ());
-	        pstat.setString(3, dto.getID());
+	        pstat.setString(1, dto.getContent());
+	        pstat.setString(2, dto.getBoard_seq());
+	        pstat.setString(3, dto.getId());
 	        
 	    
 	        return pstat.executeUpdate();
@@ -40,6 +40,12 @@ public class CommentDAO {
 	    } 
 	    return 0;
 	}
+	
+	
+	
+	
+	
+	
 	public ArrayList<CommentDTO> getComments(String stdSeq) {
 		
 		 ArrayList<CommentDTO> comments = new ArrayList<>();
@@ -51,13 +57,13 @@ public class CommentDAO {
 	        	        
 	        while (rs.next()) {
 	            CommentDTO dto = new CommentDTO();
-	            dto.setSTD_CM_SEQ(rs.getString("STD_CM_SEQ"));
-	            dto.setSTD_CM_CONTENT(rs.getString("STD_CM_CONTENT"));
-	            dto.setSTD_CM_REGDATE(rs.getString("STD_CM_REGDATE"));
-	            dto.setSTD_SEQ(rs.getString("STD_SEQ"));
-	            dto.setSTD_CM_BSEQ(rs.getString("STD_CM_BSEQ"));
-	            dto.setID(rs.getString("ID"));
-	            dto.setNICKNAME(rs.getString("NICKNAME"));
+	            dto.setCm_seq(rs.getString("cm_seq"));
+	            dto.setContent(rs.getString("content"));
+	            dto.setRegdate(rs.getString("regdate"));
+	            dto.setBoard_seq(rs.getString("board_seq"));
+	            dto.setCm_bseq(rs.getString("cm_bseq"));
+	            dto.setId(rs.getString("id"));
+	            dto.setNickname(rs.getString("nickname"));
 	            
 	            comments.add(dto);	        
 	        }
@@ -86,12 +92,12 @@ public class CommentDAO {
 					
 					CommentDTO dto = new CommentDTO();
 					
-					dto.setSTD_CM_SEQ(rs.getString("STD_CM_SEQ"));
-					dto.setSTD_CM_CONTENT(rs.getString("STD_CM_CONTENT"));
-					dto.setSTD_CM_REGDATE(rs.getString("STD_CM_REGDATE"));
-					dto.setSTD_CM_BSEQ(rs.getString("STD_CM_BSEQ"));
-					dto.setID(rs.getString("ID"));
-					dto.setNICKNAME(rs.getString("NICKNAME"));
+					dto.setCm_seq(rs.getString("cm_seq"));
+					dto.setContent(rs.getString("content"));
+					dto.setRegdate(rs.getString("regdate"));
+					dto.setCm_bseq(rs.getString("cm_bseq"));
+					dto.setId(rs.getString("id"));
+			        dto.setNickname(rs.getString("nickname"));
 					
 					return dto;				
 				}	
@@ -102,6 +108,8 @@ public class CommentDAO {
 			
 			return null;
 		}
+	
+	
 	}
 	
 	
