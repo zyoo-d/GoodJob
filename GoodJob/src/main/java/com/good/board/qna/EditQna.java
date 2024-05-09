@@ -21,12 +21,24 @@ public class EditQna extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
+		HttpSession session = req.getSession();
+		//접근 권한
+		if (!"2".equals((String) session.getAttribute("lv"))) {
+			resp.setContentType("text/html; charset=UTF-8");
+		    resp.setCharacterEncoding("UTF-8");
+		    PrintWriter writer = resp.getWriter();
+		    writer.print("<script>alert('접근권한이 없습니다.');location.href='/good/main.do';</script>");
+		    writer.close();
+		}
+		
 		String qna_seq = req.getParameter("qna_seq");
 		
 		//인증
 		if(AuthQna.check(req, resp)) {
 			return;
 		}
+		
+		
 		
 		
 		QnaBoardDAO dao = new QnaBoardDAO();
@@ -39,21 +51,6 @@ public class EditQna extends HttpServlet{
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/user/qna/editqna.jsp");
 		dispatcher.forward(req, resp);
 		
-		
-		HashMap<String, Integer> map = new HashMap<>();
-		
-				
-		map.put("salary_welfare", 5);
-		map.put("welfare_salary", 5);
-		
-
-		
-		
-		String sal ="a";
-		String stab = "b";
-		
-		map.get(sal+stab);
-		map.get(stab+sal);
 		
 		
 	}

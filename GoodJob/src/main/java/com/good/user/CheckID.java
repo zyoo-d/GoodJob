@@ -21,6 +21,7 @@ public class CheckID extends HttpServlet {
 		String id = req.getParameter("id");
 			
 		int result = dao.checkId(id);
+		dao.close();
 		
 		PrintWriter writer = resp.getWriter();
 		writer.print(result);

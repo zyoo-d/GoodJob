@@ -12,8 +12,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.good.alert.Alert;
 import com.good.matching.model.SurveyDTO;
+import com.good.matching.model.WishDTO;
 import com.good.matching.repository.SurveyDAO;
+import com.good.matching.repository.WishDAO;
 
 @WebServlet("/user/matching/viewsurvey.do")
 public class ViewSurvey extends HttpServlet {
@@ -22,27 +25,25 @@ public class ViewSurvey extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		HttpSession session = req.getSession();
-		String wish = (String)session.getAttribute("wish");
-		
-		if(wish.equals("0")) {
-			PrintWriter writer = resp.getWriter();
-			writer.println("<html><head><meta charset=\"UTF-8\"><title>Access Denied</title></head><body>");
-			writer.println("<script type='text/javascript'>");
-			writer.println("alert('선호근무조건 조사 후 이용 가능합니다.');");
-			writer.println("location.href = \"/good/user/matching/viewwish.do\";");
-			writer.println("</script>");
-			writer.println("</body></html>");
-			writer.close();
+		String id = (String) session.getAttribute("id");
+		String mypage = req.getParameter("mypage");
+
+		if (mypage == null || mypage.equals("")) {
+			mypage = "N";
+		}
+
+		if (id == null || id.equals("")) {
+			Alert.needLogin(resp, "/good/user/signin.do");
 		} else {
 			SurveyDAO dao = new SurveyDAO();
 			ArrayList<SurveyDTO> list = dao.listSurvey();
-			
+
 			req.setAttribute("list", list);
+			req.setAttribute("mypage", mypage);
 			dao.close();
 			RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/user/matching/viewsurvey.jsp");
 			dispatcher.forward(req, resp);
 		}
-		
 
 	}
 

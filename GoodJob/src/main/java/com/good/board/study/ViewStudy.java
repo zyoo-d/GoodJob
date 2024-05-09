@@ -24,7 +24,6 @@ public class ViewStudy extends HttpServlet {
 		String std_seq = req.getParameter("std_seq");
 		String column = req.getParameter("column");
 		String word = req.getParameter("word");
-		String search = req.getParameter("search");
 		String page = req.getParameter("page");
 		
 		StudyDAO dao = new StudyDAO();

@@ -120,7 +120,7 @@ public class MyStudy extends HttpServlet {
 		req.setAttribute("totalCount", totalCount);
 		req.setAttribute("totalPage", totalPage);
 		req.setAttribute("pagebar", sb.toString());
-
+		dao.close();
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/user/mypage/mystudy.jsp");
 		dispatcher.forward(req, resp);
 

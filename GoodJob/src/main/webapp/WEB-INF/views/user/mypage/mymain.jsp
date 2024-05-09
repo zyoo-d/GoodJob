@@ -108,6 +108,7 @@
 										<i class="fas fa-comments"></i>
 									</div>
 									<div class="media-body">
+									<input type="hidden" name="link" value="#">
 										<h6 class="mt-0">면접후기</h6>
 										<p class="mb-0">기업 면접 후기를 보고 대비해보세요.</p>
 									</div>
@@ -139,6 +140,7 @@
 										<i class="fas fa-building"></i>
 									</div>
 									<div class="media-body">
+									<input type="hidden" name="link" value="#">
 										<h6 class="mt-0">기업비교</h6>
 										<p class="mb-0">스크랩한 기업들 중 더 자세히 비교해드릴게요! </p>
 									</div>
