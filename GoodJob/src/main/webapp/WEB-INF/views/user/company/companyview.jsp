@@ -515,6 +515,13 @@ h3>#scrap {
 .highcharts-data-table tr:hover {
 	background: #f1f7ff;
 }
+
+#CplivecommentBtn {
+	display:inline;
+	float: right;
+	
+}
+
 </style>
 </head>
 <%@include file="/WEB-INF/views/inc/header.jsp"%>
@@ -743,9 +750,10 @@ h3>#scrap {
 
 												</div>
 												<div class="score_rating" id="total_score">
-													<span id="total_review">총 평점 </span> <br /> 
-													<c:forEach var="i" begin="1" end="${(rdto.salary_score+rdto.welfare_score+rdto.stability_score+rdto.culture_score+rdto.growth_score)/5}">
-													<i class="fa-solid fa-star"></i> 
+													<span id="total_review">총 평점 </span> <br />
+													<c:forEach var="i" begin="1"
+														end="${(rdto.salary_score+rdto.welfare_score+rdto.stability_score+rdto.culture_score+rdto.growth_score)/5}">
+														<i class="fa-solid fa-star"></i>
 													</c:forEach>
 												</div>
 											</div>
@@ -783,25 +791,26 @@ h3>#scrap {
 			<div id="news">
 				<span class="menu">관련 기사 보기</span>
 				<c:forEach items="${nlist}" var="ndto" end="1">
-				<div class="card" id="card_news">
-					<div id="card_news_content">
-						<h1 class="h4 card-title" id="news-title"><a href="${ndto.link}">${ndto.title}</a>
-					</h1>
-						<p id="article">${ndto.description}</p>
-						<div class="card-footer mt-6 flex space-x-4">
-							<span class="inline-flex items-center text-xs text-[#666]">
-								<svg class="mr-1.5" width="14" height="16" viewBox="0 0 14 16"
-									fill="none" xmlns="http://www.w3.org/2000/svg">
+					<div class="card" id="card_news">
+						<div id="card_news_content">
+							<h1 class="h4 card-title" id="news-title">
+								<a href="${ndto.link}">${ndto.title}</a>
+							</h1>
+							<p id="article">${ndto.description}</p>
+							<div class="card-footer mt-6 flex space-x-4">
+								<span class="inline-flex items-center text-xs text-[#666]">
+									<svg class="mr-1.5" width="14" height="16" viewBox="0 0 14 16"
+										fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path
-										d="M12.5 2H11V0.375C11 0.16875 10.8313 0 10.625 0H9.375C9.16875 0 9 0.16875 9 0.375V2H5V0.375C5 0.16875 4.83125 0 4.625 0H3.375C3.16875 0 3 0.16875 3 0.375V2H1.5C0.671875 2 0 2.67188 0 3.5V14.5C0 15.3281 0.671875 16 1.5 16H12.5C13.3281 16 14 15.3281 14 14.5V3.5C14 2.67188 13.3281 2 12.5 2ZM12.3125 14.5H1.6875C1.58438 14.5 1.5 14.4156 1.5 14.3125V5H12.5V14.3125C12.5 14.4156 12.4156 14.5 12.3125 14.5Z"
-										fill="#939393" />
+											d="M12.5 2H11V0.375C11 0.16875 10.8313 0 10.625 0H9.375C9.16875 0 9 0.16875 9 0.375V2H5V0.375C5 0.16875 4.83125 0 4.625 0H3.375C3.16875 0 3 0.16875 3 0.375V2H1.5C0.671875 2 0 2.67188 0 3.5V14.5C0 15.3281 0.671875 16 1.5 16H12.5C13.3281 16 14 15.3281 14 14.5V3.5C14 2.67188 13.3281 2 12.5 2ZM12.3125 14.5H1.6875C1.58438 14.5 1.5 14.4156 1.5 14.3125V5H12.5V14.3125C12.5 14.4156 12.4156 14.5 12.3125 14.5Z"
+											fill="#939393" />
                 </svg> ${ndto.pubDate}
-							</span>
+								</span>
+							</div>
 						</div>
 					</div>
-				</div>
 				</c:forEach>
-						
+
 
 			</div>
 			<span class="menu">실시간 댓글
@@ -809,35 +818,45 @@ h3>#scrap {
 					<i class="fa-solid fa-rotate-right"></i>
 				</button>
 			</span>
+
+
+
 			<div id="comment">
 				<div class="card chat-box" id="mychatbox">
-					<%
-					for (int i = 0; i < 14; i++) {
-					%>
-					<div class="mb-2">
-						<br />
-						<p class="bg-gray-200 text-gray-700 rounded-lg py-2 px-4"
-							id="chatchat">This is a response from the chatbot.
-							ㅁㄴㅇㅁㄴㅇㅁㄴㄴ난This is a response from the chatbot.</p>
-						<div id="comment_content">
-							스타벅스 <span id="chat_regdate">2024-04-30 11:24</span>
-							<button id="singo">[ 신고 ]</button>
+					<div id="commentList">
+						<c:forEach items="${livecommentlist}" var="livecommentdto">
+						<div class="mb-2">
+							<br />
+							<p class="bg-gray-200 text-gray-700 rounded-lg py-2 px-4"
+								id="chatchat">${livecommentdto.content}</p>
+							<div id="comment_content">
+								${livecommentdto.nickname} 
+								<span id="chat_regdate">${livecommentdto.regdate}</span><br>
+								<div id="CplivecommentBtn">
+								<button id="singo">[ 신고 ]</button>
+								<c:if test="${not empty id && (livecommentdto.id == id || lv == 2)}">
+								<button id="liveCommentDelBtn" data-seq="${livecommentdto.cm_seq}" onclick="del(${livecommentdto.cm_seq});">[ 삭제 ]</button>
+								</c:if>
+								</div>
+							</div>
 						</div>
+					</c:forEach>
 					</div>
-					<%
-					}
-					%>
 				</div>
 
 
+												
+
+
+
 				<div class="card-footer chat-form">
-					<form id="chat-form">
+					<div id="chat-form">
 						<input type="text" class="form-control"
-							placeholder="Type a message">
-						<button class="btn btn-primary">
+							placeholder="Type a message" name="liveCommentContent">
+						<button class="btn btn-primary" id="liveCommentBtn">
 							<i class="far fa-paper-plane"></i>
 						</button>
-					</form>
+					</div>
 				</div>
 			</div>
 			<div id="go_container">
@@ -921,6 +940,97 @@ h3>#scrap {
 		        });
 		    }
 		});
+		
+	
+	
+	$("#liveCommentBtn")
+	.click(
+			function() {
+			
+				
+				var commentContent = $(
+						"input[name='liveCommentContent']").val();
+				
+				var cpSeq = ${dto.cp_seq};
+				
+			 	var userId = "${sessionScope.id}";
+			    if (!userId) {
+			        alert("로그인해주세요."); 
+			        return;
+			    } 
+				
+
+				if (commentContent.trim() === "") {
+					alert("댓글 내용을 입력해주세요.");
+					return;
+				}
+
+				$.ajax({
+							url : "/good/board/comment/AddLivecomment.do",
+							type : "POST",
+							data : {
+								cp_seq : cpSeq,
+								content : commentContent
+							},
+							dataType : 'json',
+							success : function(response) {
+								console.log(response);
+								var newComment = response.dto;
+								console.log(newComment);
+								var commentHtml = '<div class="mb-2">'
+									+ '  <br />'
+									+ '  <p class="bg-gray-200 text-gray-700 rounded-lg py-2 px-4" id="chatchat">' + newComment.live_content + '</p>'
+									+ '  <div id="comment_content">'
+									+ '    ' + newComment.nickname + ' <span id="chat_regdate">' + newComment.live_cm_regdate + '</span>'
+									+ '    <button id="singo">[ 신고 ]</button>'
+									+ '  </div>'
+									+ '</div>';
+								
+							
+
+								// 새로운 댓글을 목록에 추가
+								$("#commentList").append(commentHtml);
+
+								// 사용자에게 댓글이 추가되었음을 알림
+								alert("댓글이 추가되었습니다.");
+
+								$("input[name='liveCommentContent']").val(""); // 댓글 입력 필드 초기화
+							},
+							error : function() {
+								alert("댓글 작성 중 오류가 발생했습니다.");
+							}
+						});
+			});
+	
+
+	function del(seq) {
+	    if (confirm('삭제하겠습니까?')) {
+	        $.ajax({
+	            type: 'POST',
+	            url: '/good/board/comment/livedelcomment.do',
+	            data: { seq: seq },
+	            dataType: 'json',
+	            success: function(result) {
+	                if (result.result == 1) {
+	                    // 삭제된 댓글을 화면에서 제거
+	                    $('#commentList').find('.mb-2').each(function() {
+	                        if ($(this).find('#liveCommentDelBtn').data('seq') == seq) {
+	                            $(this).remove();
+	                            return false;
+	                        }
+	                    });
+	                    alert('댓글이 삭제되었습니다.');
+	                } else {
+	                    alert('댓글 삭제를 실패했습니다.');
+	                }
+	            },
+	            error: function(a, b, c) {
+	                console.log(a, b, c);
+	            }
+	        });
+	    }
+	}
+			
 		
 	</script>
 </body>
