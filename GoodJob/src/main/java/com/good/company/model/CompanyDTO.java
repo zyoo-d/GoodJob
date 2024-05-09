@@ -57,5 +57,8 @@ public class CompanyDTO {
 
 	private ArrayList<String> tag_list;
 	
+	//기업 리뷰평점
+	private String review_avg;
+	
 
 }
