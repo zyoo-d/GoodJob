@@ -121,6 +121,8 @@ FROM
 vwUserMatching
 ) ;
 
+select * from tblIndustry;
+
 select * from tblHire;
 
 select * from tblInterview;
@@ -131,3 +133,8 @@ select * from vwUserSurvey;
 
 
 select * from vwUserSurvey where id = 'hong123';
+
+
+select * from tblIndustry;
+
+update tblIndustry set idst_name = '기타 정보 서비스' where idst_code = 722004;

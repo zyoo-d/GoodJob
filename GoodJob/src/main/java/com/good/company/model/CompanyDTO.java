@@ -64,6 +64,8 @@ public class CompanyDTO {
 	private int culture;
 	private int potential;
 	private double matchScore;
+	//기업 리뷰평점
+	private String review_avg;
 	
 
 }

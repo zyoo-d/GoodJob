@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.good.company.model.CompanyDTO;
+import com.good.matching.model.MatchingDTO;
 import com.test.util.DBUtil;
 
 public class CompanyDAO {
@@ -449,6 +450,79 @@ public class CompanyDAO {
 			}
 	
 	//TODO job dao 만들기
+	
+	
+	public CompanyDTO getMatchingInfo(MatchingDTO mdto) {
+		
+		try {
+				
+				String sql = "select * from vwCompanyInfo where cp_seq = ?";
+				
+				pstat = conn.prepareStatement(sql);
+				pstat.setString(1, mdto.getCp_seq());
+				
+				rs = pstat.executeQuery();
+				
+				CompanyDTO dto = new CompanyDTO();
+				
+				if(rs.next()) {
+					
+					dto.setCp_name(rs.getString("cp_name"));
+					dto.setReview_avg(rs.getString("score"));
+					dto.setIdst_name(rs.getString("idst_name"));
+					dto.setImage(rs.getString("image"));
+					
+					return dto;
+					
+				}
+				
+			} catch (Exception e) {
+				System.out.println("기업 매칭 정보 로드 실패");
+				e.printStackTrace();
+			}
+		
+		return null;
+		
+	}
+	
+	public ArrayList<String> getTaglist(String cp_seq){
+		
+		try {	
+				
+				String sql = "select * from vwCompanyTag where cp_seq = ?";
+				
+				pstat = conn.prepareStatement(sql);
+				pstat.setString(1, cp_seq);
+				
+				rs = pstat.executeQuery();
+				
+				ArrayList<String> list = new ArrayList<>();
+				
+				while(rs.next() && list.size() != 2) {
+					
+					list.add(rs.getString("tag_keyword"));
+					
+				}
+				
+				return list;
+				
+			} catch (Exception e) {
+				System.out.println("CompanyDAO.getTaglist");
+				e.printStackTrace();
+			}
+		
+		return null;
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 
 }

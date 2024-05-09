@@ -1,4 +1,4 @@
-package com.goodjob.test.mg;
+package com.good.board.model;
 
 import lombok.Data;
 
@@ -20,6 +20,9 @@ public class InterviewDTO {
 	private String ITV_TIP;			//면접 팁
 	private String ITV_WHETHER;		//면접 합격 여부
 	private String IMAGE; 	 //회사 이미지
+	private String ITV_CONFIRM;		//면접 후기 등록 여부
+	private String rnum;		//마이페이지 번호 매길 때 씀
+	
 	
 	
 	
