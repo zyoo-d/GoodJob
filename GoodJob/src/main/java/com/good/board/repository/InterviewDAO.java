@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.good.board.model.InterviewDTO;
+import com.good.board.model.StudyDTO;
 import com.test.util.DBUtil;
 
 public class InterviewDAO {
@@ -30,10 +31,15 @@ public class InterviewDAO {
 		}
 	}
 
-	public ArrayList<InterviewDTO> list() {
+	public ArrayList<InterviewDTO> list(HashMap<String, String> map) {
 		try {
 
-			String sql = "select * from vwinterview where ITV_CONFIRM = 1";
+			String where = "";
+			if (map.get("search").equals("y")) {
+				where = String.format("and ITV_CPNAME like '%%%s%%'", map.get("cp_name"));
+			}
+			String sql = String.format("select * from (select a.*, rownum as rnum from (select * from vwinterview where ITV_CONFIRM = 1 %s) a) where rnum between %s and %s", where, map.get("begin"), map.get("end"));
+			
 			// where 컬럼 1
 			stat = conn.createStatement();
 			rs = stat.executeQuery(sql);
@@ -42,7 +48,6 @@ public class InterviewDAO {
 			while (rs.next()) {
 
 				InterviewDTO dto = new InterviewDTO();
-				
 				   
 			    dto.setITV_SEQ(rs.getString("ITV_SEQ"));
 			    dto.setITV_CPNAME(rs.getString("ITV_CPNAME")); // 회사 이름 세팅
@@ -217,10 +222,10 @@ public int getTotalCount(HashMap<String, String> map) {
 		String where = "";
 		int result = 0;
 		if (map.get("search").equals("y")) {
-			where = String.format("where %s like '%%%s%%'", map.get("column"), map.get("word"));
+			where = String.format("where ITV_CPNAME like '%%%s%%'", map.get("cp_name"));
 		}
 
-		String sql = String.format("select count(*) as cnt from vwQna %s", where);
+		String sql = String.format("select count(*) as cnt from vwInterview %s", where);
 
 		stat = conn.createStatement();
 		rs = stat.executeQuery(sql);
@@ -237,6 +242,57 @@ public int getTotalCount(HashMap<String, String> map) {
 	}
 	return 0;
 	
+}
+
+public int getCount(String id) {
+	try {
+		String sql = "select count(*) as cnt from vwinterview where id = ?";
+
+		pstat = conn.prepareStatement(sql);
+		pstat.setString(1, id);
+
+		rs = pstat.executeQuery();
+
+		if (rs.next()) {
+			return rs.getInt("cnt");
+		}
+
+	} catch (Exception e) {
+		System.out.println("InterviewDAO.getCount");
+		e.printStackTrace();
+	}
+	return 0;
+}
+
+public ArrayList<InterviewDTO> myInterview(HashMap<String, String> map) {
+	try {
+		String sql = String.format(
+				"select * from (select a.*, rownum as rnum from (select * from vwinterview where id = '%s' order by ITV_REGDATE desc) a) where rnum between %s and %s",
+				map.get("id"), map.get("begin"), map.get("end"));
+
+		stat = conn.createStatement();
+		rs = stat.executeQuery(sql);
+
+		ArrayList<InterviewDTO> list = new ArrayList<>();
+		while (rs.next()) {
+			InterviewDTO dto = new InterviewDTO();
+			dto.setITV_SEQ(rs.getString("ITV_SEQ"));
+			dto.setITV_CPNAME(rs.getString("ITV_CPNAME"));
+			dto.setITV_MEETDATE(rs.getString("ITV_MEETDATE"));
+			dto.setITV_REGDATE(rs.getString("ITV_REGDATE"));
+			dto.setITV_WHETHER(rs.getString("ITV_WHETHER"));
+			dto.setITV_CONFIRM(rs.getString("ITV_CONFIRM"));
+			dto.setRnum(rs.getString("rnum"));
+
+			list.add(dto);
+		}
+		return list;
+
+	} catch (Exception e) {
+		System.out.println("InterviewDAO.myInterview");
+		e.printStackTrace();
+	}
+	return null;
 }
 	
 
