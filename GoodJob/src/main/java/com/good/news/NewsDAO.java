@@ -1,6 +1,5 @@
 package com.good.news;
 
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -18,14 +17,13 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-public class ListNews {
-
-	public ArrayList<NewsDTO> search(String word) {
+public class NewsDAO {
+public ArrayList<NewsDTO> search(String word) {
 		
 		ArrayList<NewsDTO> nlist = new ArrayList<NewsDTO>();
 		
-		String clientId = "E9LUrOHhVXINcCCQK9Kw";
-        String clientSecret = "HdLStXp34R";
+		String clientId = "pLlr5465lv_1r5aUEl6Z";
+        String clientSecret = "sQHqJT2l9k";
         
         try {
         	word = URLEncoder.encode(word, "UTF-8");
@@ -33,8 +31,8 @@ public class ListNews {
             throw new RuntimeException("검색어 인코딩 실패",e);
         }
 
-        String apiURL = "https://openapi.naver.com/v1/search/news.json?dispaly=3&query=" + word;
-        
+        String apiURL = "https://openapi.naver.com/v1/search/news.json?query=" + word;
+        System.out.println(apiURL);
 
         Map<String, String> requestHeaders = new HashMap<>();
         requestHeaders.put("X-Naver-Client-Id", clientId);
@@ -69,7 +67,7 @@ public class ListNews {
         		dto.setDescription(((JSONObject)list.get(i)).get("description").toString());
         		dto.setPubDate(((JSONObject)list.get(i)).get("pubDate").toString());
         		
-        		//System.out.println(dto);
+        		System.out.println(dto);
         		
         		nlist.add(dto);
         		
@@ -80,7 +78,7 @@ public class ListNews {
         	return nlist;
         	
 		} catch (Exception e) {
-			System.out.println("BookDAO.search");
+			System.out.println("NewsDAO.search");
 			e.printStackTrace();
 		}
 		
@@ -138,29 +136,4 @@ public class ListNews {
             throw new RuntimeException("API 응답을 읽는 데 실패했습니다.", e);
         }
     }
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

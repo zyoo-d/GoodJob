@@ -280,6 +280,9 @@
 	<%@include file="/WEB-INF/views/inc/footer.jsp"%>
 
 	<script type="text/javascript">
+		
+	
+	
 		<c:if test="${map.search == 'y'}">
 		//검색중 상태 유지
 		$('input[name=word]').val('${map.word}');

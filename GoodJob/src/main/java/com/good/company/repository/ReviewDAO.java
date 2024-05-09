@@ -150,6 +150,7 @@ public class ReviewDAO {
 		    }
 		    return null;
 		}*/
+		
 		public ArrayList<ReviewDTO> tagList(String cp_seq) {
 		    ArrayList<ReviewDTO> tagList = new ArrayList<>();
 		    String sql = "SELECT cr.cp_seq, t.tag_keyword, COUNT(*) as tag_count " +

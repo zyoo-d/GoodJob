@@ -20,6 +20,8 @@ import com.good.company.model.ReviewDTO;
 import com.good.company.repository.CompanyDAO;
 import com.good.company.repository.RecruitDAO;
 import com.good.company.repository.ReviewDAO;
+import com.good.news.NewsDAO;
+import com.good.news.NewsDTO;
 
 @WebServlet("/user/company/companyview.do")
 public class DetailCompany extends HttpServlet {
@@ -34,6 +36,7 @@ public class DetailCompany extends HttpServlet {
 		String page = req.getParameter("page");
 		String search = req.getParameter("search");
 		String hiring = req.getParameter("hiring");
+		
 		
 		CompanyDAO dao = new CompanyDAO();
 		CompanyDTO dto = dao.get(cp_seq);
@@ -90,10 +93,13 @@ public class DetailCompany extends HttpServlet {
 	    ArrayList<Long>[] flist = dao.getCompanyFinance(cp_seq);
 	    System.out.println(flist[0]);
 	    
-	    //리뷰조회I
+	    //리뷰조회
 	    ReviewDAO rdao =  new ReviewDAO();
 	    ArrayList<ReviewDTO> listReview = rdao.listReview(cp_seq);
 	    //System.out.println("Number of reviews fetched: " + listReview.size());
+	    //System.out.println(listReview);
+	    //평균평점
+	    //double avg_score = 
 	    
 	    //태그출력
 	    ReviewDAO tdao =  new ReviewDAO();
@@ -123,8 +129,14 @@ public class DetailCompany extends HttpServlet {
 
 	    }
 	    
-	   
+	   //기업뉴스
 	    
+	    String cp_name = dto.getCp_name();
+	    NewsDAO ndao = new NewsDAO();
+	    ArrayList<NewsDTO> nlist = ndao.search(cp_name);
+	    System.out.println(nlist);
+	    
+	    req.setAttribute("nlist", nlist);
 	   
 	  
 		req.setAttribute("dto", dto);
