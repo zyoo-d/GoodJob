@@ -76,11 +76,8 @@
 					<button type="button" class="" value="삭제" onclick="confirmDelete(${dto.qna_seq});">/ 삭제)</button>
 					</c:if>
 					<p class="view-count"><i class="fa-regular fa-eye"></i> ${dto.qna_views}</p>
-					<form action="#" method="POST" id="report-form">
-						<input type="hidden" name="member_id" value="${dto.id}"> 
-						<input type="hidden" name="post_id" value="${dto.qna_seq}">
-						<button type="submit" class="report-btn">신고</button>
-					</form>
+					<button type="button" class="report-btn"  data-board-type="qna">신고</button>
+				
 					
 					
 				</div>
@@ -152,21 +149,26 @@
               </form>
 
       </div>
+      
+      
     </div>
 </div>
 
 </section>
 
-
+<%@include file="/WEB-INF/views/user/report/reportmodal.jsp" %>
 <%@include file="/WEB-INF/views/inc/footer.jsp" %>
 
 <script>
 
-function confirmDelete(qna_seq) {
-    if (confirm("삭제하시겠습니까?")) {
-        location.href = '/good/user/qna/delqna.do?qna_seq=' + qna_seq;
-    }
+
+	
+	
+	
+	
+	
 }
+
 
 
 </script>

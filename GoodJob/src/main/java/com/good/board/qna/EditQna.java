@@ -39,6 +39,8 @@ public class EditQna extends HttpServlet{
 		}
 		
 		
+		
+		
 		QnaBoardDAO dao = new QnaBoardDAO();
 		
 		QnaBoardDTO dto = dao.getQna(qna_seq);
@@ -49,21 +51,6 @@ public class EditQna extends HttpServlet{
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/user/qna/editqna.jsp");
 		dispatcher.forward(req, resp);
 		
-		
-		HashMap<String, Integer> map = new HashMap<>();
-		
-				
-		map.put("salary_welfare", 5);
-		map.put("welfare_salary", 5);
-		
-
-		
-		
-		String sal ="a";
-		String stab = "b";
-		
-		map.get(sal+stab);
-		map.get(stab+sal);
 		
 		
 	}

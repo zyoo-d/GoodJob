@@ -34,5 +34,4 @@ replay_pid*
 /GoodJob/.classpath
 /GoodJob/.project
 /GoodJob/.settings
-/GoodJob/.gitignore
 /GoodJob/src/main/webapp/WEB-INF/web.xml
