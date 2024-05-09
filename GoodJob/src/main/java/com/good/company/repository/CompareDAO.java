@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.good.company.model.CompanyDTO;
+import com.good.company.model.Tag;
 import com.test.util.DBUtil;
 
 public class CompareDAO {
@@ -90,8 +91,37 @@ public class CompareDAO {
 		return null;
 	}
 	
-	
-	
-	
+	public ArrayList<String> tagList(HashMap<String, String> map){
+		
+		try {	
+				
+				String sql = "select * from vwCompanyTag where cp_seq in (?, ?, ?)";
+				
+				pstat = conn.prepareStatement(sql);
+				pstat.setString(1, map.get("tag1"));
+				pstat.setString(2, map.get("tag2"));
+				pstat.setString(3, map.get("tag3"));
+				
+				rs = pstat.executeQuery();
+				
+				ArrayList<String> list = new ArrayList<>();
+				
+				while(rs.next() && list.size() != 2) {
+					
+					list.add(rs.getString("tag_keyword"));
+					
+				}
+				
+				return list;
+				
+			} catch (Exception e) {
+				System.out.println("CompanyDAO.getTaglist");
+				e.printStackTrace();
+			}
+		
+		return null;
+		
+	}
 
 }
+

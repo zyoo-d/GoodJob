@@ -93,66 +93,39 @@ display: inline-block;
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.4.1/chart.min.js"></script>
 	<script>
-	 var list = ${JSON.stringify(list)}; // JSP 변수를 JavaScript 변수로 가져오기
-
-	    var labels = ['연봉', '조직문화', '성장 가능성', '근속률', '복지'];
-	    var datasets = [];
-
-	    // 각 기업의 데이터를 datasets에 추가
-	    list.forEach(function(dto) {
-	        datasets.push({
-	            label: dto.cp_name,
-	            backgroundColor: 'rgba(0, 0, 255, 0.2)', // 각 기업에 대한 색상 설정
-	            borderColor: 'rgba(0, 0, 255, 1)',
-	            borderWidth: 1,
-	            data: [dto.salary, dto.culture, dto.potential, dto.stability, dto.welfare]
-	        });
+					
+	var backgroundcolorList = ['rgba(255, 99, 132)', 'rgba(54, 162, 235)', 'rgba(255, 206, 86)'];
+	var borderColorList = ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)'];
+	
+	var datasets = [];
+	<c:forEach items="${list}" var="dto" varStatus="status">
+	    datasets.push({
+	        label: '${dto.cp_name}',
+	        backgroundColor: backgroundcolorList[${status.index}],
+	        borderColor: borderColorList[${status.index}],
+	        borderWidth: 1,
+	        data: [${dto.salary}, ${dto.culture}, ${dto.potential}, ${dto.stability}, ${dto.welfare}]
 	    });
+	    console.log(${status.index} );
+	</c:forEach>
 
-	    // 그래프 그리기
-	    var ctx = document.getElementById('comparisonBarChart').getContext('2d');
-	    var comparisonBarChart = new Chart(ctx, {
-	        type: 'bar',
-	        data: {
-	            labels: labels,
-	            datasets: datasets
-	        },
-	        options: {
-	            scales: {
-	                y: {
-	                    beginAtZero: true
-	                }
+	var ctx = document.getElementById('comparisonBarChart').getContext('2d');
+	var comparisonBarChart = new Chart(ctx, {
+	    type: 'bar',
+	    data: {
+	        labels: ['연봉', '조직문화', '성장가능성', '근속률', '복지'],
+	        datasets: datasets
+	    },
+	    options: {
+	        scales: {
+	            y: {
+	                beginAtZero: true
 	            }
 	        }
-	    });
-	        
-	    
-	    var ctx = document.getElementById('ComradarChart').getContext('2d');
-	    var myRadarChart = new Chart(ctx, {
-	        type : 'radar',
-	        data : {
-	            labels : [ '연봉', '근속률', '조직문화', '성장 가능성', '복지' ],
-	            datasets : [ {
+	    }
+	});
 
-	                label : '회원', // 새로운 데이터셋의 라벨
-	                data : [ 40, 60, 90, 50, 60 ], // 새로운 데이터셋의 데이터
-	                backgroundColor : 'rgba(54, 162, 235, 0.2)', // fill color
-	                borderColor : 'rgba(54, 162, 235, 1)', // border color
-	                borderWidth : 1
-	            } ]
-	        },
-	        options : {
-	            scales : {
-	                r : {
-	                    min : 0,
-	                    max : 100,
-	                    ticks : {
-	                        stepSize : 20
-	                    }
-	                }
-	            }
-	        }
-	    });
+	
 	</script>
 </body>
 </html>

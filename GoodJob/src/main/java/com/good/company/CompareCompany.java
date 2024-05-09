@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.good.company.model.CompanyDTO;
+import com.good.company.model.Tag;
 import com.good.company.repository.CompareDAO;
 
 @WebServlet("/user/company/comparecompany.do")
@@ -45,6 +46,10 @@ public class CompareCompany extends HttpServlet {
 				dto.setFounded(date);
 			}
 		}
+		
+		ArrayList<String> taglist = dao.tagList(map);
+		
+		
 
 		
 		req.setAttribute("list", list);
