@@ -1,17 +1,23 @@
 package com.good.matching.model;
 
-import java.util.HashMap;
-
 import lombok.Data;
 
 @Data
-public class MatchingDTO {
+public class MatchingDTO implements Comparable<MatchingDTO> {
 	
 	private String cp_seq;
-	private String welfare;
-	private String stability;
-	private String culture;
-	private String potential;
+	private int salary;
+	private int welfare;
+	private int stability;
+	private int culture;
+	private int potential;
+	private double matchScore;
+	@Override
+	public int compareTo(MatchingDTO other) {
+		
+		return Double.compare(this.matchScore, other.matchScore);
+		
+	}
 	
 
 }
