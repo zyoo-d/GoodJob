@@ -29,6 +29,7 @@ public class CompanyDAO {
             e.printStackTrace();
         }
     }
+	
 	public ArrayList<CompanyDTO> rcrtCompany() {
 
 		try {
@@ -59,6 +60,53 @@ public class CompanyDAO {
 		return null;
 	}
 
+	public ArrayList<CompanyDTO> mainComList(HashMap<String,String> map){
+		
+		
+		try {
+			
+			String sql ="select * from vwMainComList";
+			String where = " where com_rcrt_cnt > 0";
+			
+			//검색
+			if(map.get("hiring").equals("y")) {
+				
+				sql += where;
+			
+			}
+			System.out.println(sql);
+			
+			stat = conn.createStatement();
+			rs = stat.executeQuery(sql);
+
+			ArrayList<CompanyDTO> mainComInfo = new ArrayList<CompanyDTO>();
+			
+			while (rs.next()) {
+
+				CompanyDTO dto = new CompanyDTO();
+
+				dto.setCp_seq(rs.getString("cp_seq"));
+				dto.setCp_name(rs.getString("cp_name"));
+				
+				dto.setImage(rs.getString("image"));
+				
+				dto.setIdst_code(rs.getString("idst_code"));
+				dto.setIdst_name(rs.getString("idst_name"));
+				dto.setCom_rcrt_cnt(rs.getInt("com_rcrt_cnt"));
+				mainComInfo.add(dto);
+
+			}
+			System.out.println(mainComInfo.size());
+			return mainComInfo;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+	
+	
 	public List<CompanyDTO> searchCompany(String input) {
 		try {
 			String sql = "SELECT * FROM (SELECT * FROM tblcompany WHERE cp_name LIKE ? order by cp_name) WHERE ROWNUM <= 5";
@@ -181,18 +229,17 @@ public class CompanyDAO {
 				dto.setHire_retired(rs.getInt("hire_retired"));
 				dto.setHire_avr_year(rs.getInt("hire_avr_year"));
 				dto.setHire_avr_salary(rs.getInt("hire_avr_salary"));
-				dto.setHire_regdate(rs.getString("hire_regdate"));
+				//dto.setHire_regdate(rs.getString("hire_regdate"));
 				
 				
 				dto.setFnc_sales(rs.getLong("fnc_sales"));
 				dto.setFnc_ebit(rs.getLong("fnc_ebit"));
 				dto.setFnc_income(rs.getLong("fnc_income"));
 				dto.setFnc_period(rs.getString("fnc_period"));
-				dto.setFnc_regdate(rs.getString("fnc_regdate"));
+				//dto.setFnc_regdate(rs.getString("fnc_regdate"));
 				
 				dto.setCom_rcrt_cnt(rs.getInt("com_rcrt_cnt"));
 				dto.setCom_scrap_cnt(rs.getInt("com_scrap_cnt"));
-				//dto.setCom_scrap_cnt(rs.getInt("com_rv_cnt"));
 				
 				listCompanyInfo.add(dto);
 
@@ -219,6 +266,12 @@ public class CompanyDAO {
 			String where ="";
 			String sql = "";
 			
+//			if (map.get("search").equals("y")) {
+//				
+//				where = String.format("where cp_name like '%%%s%%'",map.get("word"));
+//				sql = String.format("select count(*) as search_cnt from vwComListInfo %s" , where);
+//				
+//			}
 			
 			if(map.get("search").equals("y") && map.get("hiring").equals("y")) {
 				
@@ -299,30 +352,30 @@ public class CompanyDAO {
 			
 			dto.setCom_rcrt_cnt(rs.getInt("com_rcrt_cnt"));
 			dto.setCom_scrap_cnt(rs.getInt("com_scrap_cnt"));
-//			
-//			//재무정보
-//			sql = "select * from tblFinance where cp_seq = ?";
-//			pstat = conn.prepareStatement(sql);
-//			pstat.setString(1, cp_seq);
-//			rs = pstat.executeQuery();
-//			
-//			ArrayList<String> flist = new ArrayList<String>();
-//			
-//			while(rs.next()) {
-//				
-//				dto.setFnc_sales(rs.getLong("fnc_sales"));
-//				dto.setFnc_ebit(rs.getLong("fnc_ebit"));
-//				dto.setFnc_income(rs.getLong("fnc_income"));
-//				dto.setFnc_period(rs.getString("fnc_period"));
-//				dto.setFnc_regdate(rs.getString("fnc_regdate"));
-//				
-//				
-//				flist.add(rs.getString(""));
-//
-//			
-//			}
-//			
-//			dto.setFnc_list(flist);
+		
+			//재무정보
+/*			sql = "select * from tblFinance where cp_seq = ?";
+			pstat = conn.prepareStatement(sql);
+			pstat.setString(1, cp_seq);
+			rs = pstat.executeQuery();
+			
+			ArrayList<CompanyDTO> flist = new ArrayList<CompanyDTO>();
+			
+			while(rs.next()) {
+				
+				dto.setFnc_sales(rs.getLong("fnc_sales"));
+				dto.setFnc_ebit(rs.getLong("fnc_ebit"));
+				dto.setFnc_income(rs.getLong("fnc_income"));
+				dto.setFnc_period(rs.getString("fnc_period"));
+				dto.setFnc_regdate(rs.getString("fnc_regdate"));
+				
+				
+				flist.add(dto);
+
+			
+			}
+			
+			dto.setFnc_list(flist);*/
 			
 			return dto;				
 		}
@@ -335,7 +388,38 @@ public class CompanyDAO {
 	}
 	
 
-		
+	
+	
+
+	public ArrayList<Long>[] getCompanyFinance(String cp_seq) {
+		 	ArrayList<Long> salesList = new ArrayList<>();
+	        ArrayList<Long> ebitList = new ArrayList<>();
+	        ArrayList<Long> incomeList = new ArrayList<>();
+	    String sql = "select * from tblFinance where cp_seq = ?";
+	   
+	 
+	    try (PreparedStatement pstat = conn.prepareStatement(sql)) {
+	        pstat.setString(1, cp_seq);
+	        try (ResultSet rs = pstat.executeQuery()) {
+	            while (rs.next()) {
+	              
+	               long sales = rs.getLong("fnc_sales");
+	               long ebit = rs.getLong("fnc_ebit");
+	               long income = rs.getLong("fnc_income");
+	               
+	               salesList.add(sales);
+	               ebitList.add(ebit);
+	               incomeList.add(income);	                
+	            }
+	        }
+	    } catch (Exception e) {
+	        System.out.println("getCompanyFinance");
+	        e.printStackTrace();
+	    }
+	    
+	    return new ArrayList[]{salesList, ebitList, incomeList};
+	}
+	
 	/**
 	 * 업계평균연봉 조회 메서드	
 	 * @param idst_code

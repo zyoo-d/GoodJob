@@ -2,7 +2,7 @@ package com.good.company;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
+
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,12 +12,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+
+
 import com.good.company.model.CompanyDTO;
 import com.good.company.model.RecruitDTO;
 import com.good.company.model.ReviewDTO;
 import com.good.company.repository.CompanyDAO;
 import com.good.company.repository.RecruitDAO;
 import com.good.company.repository.ReviewDAO;
+import com.good.news.NewsDAO;
+import com.good.news.NewsDTO;
 
 @WebServlet("/user/company/companyview.do")
 public class DetailCompany extends HttpServlet {
@@ -33,12 +37,14 @@ public class DetailCompany extends HttpServlet {
 		String search = req.getParameter("search");
 		String hiring = req.getParameter("hiring");
 		
+		
 		CompanyDAO dao = new CompanyDAO();
 		CompanyDTO dto = dao.get(cp_seq);
 		
-/*		
+		
+		
 		//총매출액
-	    long sales = dto.getFnc_sales();
+	    /*long sales = dto.getFnc_sales();
 	    if (sales >= 100000000) { //(단위:억)
 	    	dto.setFnc_sales((long)(Math.round((double)sales/100000000)));
 	    }else if(sales >= 10000000) { //(단위:천만)
@@ -68,24 +74,32 @@ public class DetailCompany extends HttpServlet {
 			    }else {
 			    	dto.setFnc_ebit(ebit); //(원)
 			    }
-*/	    
+    */
 	    
 		//평균연봉
 	    int avg_salary = dto.getHire_avr_salary();
+	    
 	    if(avg_salary==0) {
 	    	dto.setHire_avr_salary(0);
 	    }
+	    
 	    dto.setHire_avr_salary((int)Math.round((float)avg_salary/10000));//(단위:만원)  
 		
 	    //업계평균연봉
 	    int idst_avg_salary = dao.getIdstSalary(dto.getIdst_code());
 	    dto.setIdst_avg_salary(idst_avg_salary);
 	    
+	    //기업재무정보
+	    ArrayList<Long>[] flist = dao.getCompanyFinance(cp_seq);
+	    System.out.println(flist[0]);
 	    
 	    //리뷰조회
 	    ReviewDAO rdao =  new ReviewDAO();
 	    ArrayList<ReviewDTO> listReview = rdao.listReview(cp_seq);
 	    //System.out.println("Number of reviews fetched: " + listReview.size());
+	    //System.out.println(listReview);
+	    //평균평점
+	    //double avg_score = 
 	    
 	    //태그출력
 	    ReviewDAO tdao =  new ReviewDAO();
@@ -114,7 +128,16 @@ public class DetailCompany extends HttpServlet {
 		    rdto.setCp_address(address);
 
 	    }
-			  
+	    
+	   //기업뉴스
+	    
+	    String cp_name = dto.getCp_name();
+	    NewsDAO ndao = new NewsDAO();
+	    ArrayList<NewsDTO> nlist = ndao.search(cp_name);
+	    System.out.println(nlist);
+	    
+	    req.setAttribute("nlist", nlist);
+	   
 	  
 		req.setAttribute("dto", dto);
 		req.setAttribute("word", word);
@@ -125,18 +148,27 @@ public class DetailCompany extends HttpServlet {
 		req.setAttribute("hiring", hiring);
 		//req.setAttribute("ComTaglist", ComTaglist);
 		req.setAttribute("comJobList",comJobList);
-
+		//req.setAttribute("flist",flist);
+		req.setAttribute("salesList", flist[0]);
+		req.setAttribute("ebitList", flist[1]);
+		req.setAttribute("incomeList", flist[2]);
+		
+		
+		
+		
+		
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/user/company/companyview.jsp");
 		dispatcher.forward(req, resp);
 
 	}
 	
+	
+
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		
 		String cp_seq = req.getParameter("cp_seq");
-		
 		RecruitDAO dao =  new RecruitDAO();
 		
 	
