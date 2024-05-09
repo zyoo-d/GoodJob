@@ -53,22 +53,26 @@
 	<!-- Key features -->
 	<section class="section key-feature relative" id="mainCard">
 		<div class="container card">
-			<div class="pt-1 px-4 text-center border-b border-border" id="trend">
+			<div class="pt-2 px-4 text-center border-b border-border" id="trend">
 				<h5 class="h5">Trend Keyword</h5>
 				<ul class="text-dark items-center pb-6">
 					<c:forEach items="${keywords}" var="key">
-						<li><a class="" href="#"># ${key}</a></li>
+						<li><a target="_blank" href="https://search.naver.com/search.naver?where=news&ie=utf8&sm=nws_hty&query=${key}"># ${key}</a></li>
 					</c:forEach>
 				</ul>
-				<button class="btn btn-outline-primary block btn-sm" id="mainUpdate">
-					<i class="fa-solid fa-rotate-right"></i> 업데이트
-				</button>
+				<h6 class="h6">
+					<i class="fa-solid fa-arrow-pointer"></i> Try to Click
+				</h6>
 			</div>
 			<form action="/good/main.do" method="get">
 				<h3 class="mt-10">
-					요즘 뜨는 기업!<span><a id="filterHire" class="tag" href="#"><i
-							class="fa-solid fa-check"></i> 채용중</a></span> <input type="hidden"
-						name="hiring" value="">
+					요즘 뜨는 기업!
+					<c:if test="${hiring==null||hiring=='n'}">
+					<button name="hiring" type="submit"	id="filterHire" class="tag"	value="${hiring}"><i class="fa-solid fa-check"></i> 채용중</button>
+					</c:if>
+					<c:if test="${hiring=='y'}">
+					<button name="hiring" type="submit"	id="filterHire" class="tag non"	value="${hiring}"><i class="fa-solid fa-check"></i> 채용중</button>
+					</c:if>
 				</h3>
 			</form>
 			<div
@@ -83,18 +87,16 @@
 							</c:if>
 							<div class="image-container"
 								style="background-image: url('${cdto.image}');"></div>
-
-
 						</div>
 						<div class="infoCard">
-
 							<h3 class="h4 text-xl lg:text-2xl pt-2">
 								<a
 									href="/good/user/company/companyview.do?cp_seq=${cdto.cp_seq}">${cdto.cp_name}</a>
 							</h3>
-							<div class="comment-edit">
+							<div class="flex justify-between">
 								<p class="desciption">${cdto.idst_name}</p>
-								<span><i class="fa-solid fa-star gold"></i> 3.8</span>
+								<span><i class="fa-solid fa-star gold"></i>
+									${cdto.review_avg}</span>
 							</div>
 						</div>
 
@@ -108,7 +110,6 @@
 
 	<%@include file="/WEB-INF/views/inc/footer.jsp"%>
 	<script>
-		
 	</script>
 </body>
 </html>

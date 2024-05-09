@@ -18,12 +18,11 @@
 <body>
 	<section class="section pt-0">
 		<div class="container mt-16">
-			<div class="card px-10">
-				<div class="text-center">
-					<h1 class="mt-3 gradiTitle">
-						<span>굿잡 for U</span>
+			<div class="card px-5 py-16">
+				<div class="text-center px-4">
+					<h1 class="my-3 gradiTitle">
+						<span>IT's Good Job for U</span>
 					</h1>
-					<p class="mt-6">회원님과 어울리는 회사를 조회 해보세요.</p>
 				</div>
 				<div id="matchinfo">
 					<div class="cpsChart">
@@ -52,7 +51,7 @@
 										<div class="mb-8 md:col-6 lg:col-4 integration-tab-item"
 											data-groups='["social"]'>
 											<div
-												class="rounded-xl bg-white px-10 py-8 shadow-lg min-h-400">
+												class="rounded-xl bg-white px-8 py-8 shadow-lg min-h-400">
 												<div
 													class="pb-5 integration-card-head flex items-center space-x-4 border-b border-border">
 													<img src="${companyDTO.dto.image}" alt="" />
@@ -109,13 +108,13 @@
 										</div>
 
 									</div>
-									<div class="job_meta">
+									<div class="job_meta mt-2">
 										<c:forEach items="${list.dto.tag_list}" var="tag">
 											<span class="job-keyword">${tag}</span>
 										</c:forEach>
 									</div>
 
-									<div class="text-left">
+									<div class="text-right">
 										<i class="fa-solid fa-star gold"></i> ${list.dto.review_avg}
 									</div>
 								</div>
