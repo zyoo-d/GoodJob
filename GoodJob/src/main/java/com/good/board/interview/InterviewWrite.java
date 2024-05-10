@@ -64,7 +64,7 @@ public class InterviewWrite extends HttpServlet {
 	    // >>>>
 	    
 	    if (result > 0) {
-	      response.sendRedirect("/good/interview.do");
+	      response.sendRedirect("/good/user/mypage/myinterview.do");
 	    } else {
 	    	System.out.println("interviewWrite 글쓰기 실패");
 	      response.sendRedirect("/good/interview.do");

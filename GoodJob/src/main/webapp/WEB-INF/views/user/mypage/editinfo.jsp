@@ -3,15 +3,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
+<style>
+
+</style>
+<%@include file="/WEB-INF/views/inc/adminasset.jsp"%>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>개인정보</title>
-    <%@include file="/WEB-INF/views/inc/adminasset.jsp"%>
-    <%@include file="/WEB-INF/views/inc/mypageheader.jsp"%>
+<%@include file="/WEB-INF/views/inc/mypageheader.jsp"%>
 </head>
 <body>
+
     <div class="main-content">
         <section class="section">
             <div class="section-header">
@@ -85,7 +85,6 @@
         </section>
     </div>
     <%@include file="/WEB-INF/views/inc/adminfooter.jsp"%>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script>
         $(document).ready(function() {

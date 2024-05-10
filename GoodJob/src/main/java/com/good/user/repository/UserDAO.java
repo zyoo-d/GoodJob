@@ -258,6 +258,30 @@ public class UserDAO {
 		
 		return 0;
 	}
+	
+	public String getName(String id) {
+		
+		try {
+
+			String sql = "select name from tblUser where id = ?";
+
+			pstat = conn.prepareStatement(sql);
+			pstat.setString(1, id);
+
+			rs = pstat.executeQuery();
+
+			if (rs.next()) {
+				return rs.getString("name");
+			}
+
+		} catch (Exception e) {
+			System.out.println("유저 이름 로드 실패");
+			e.printStackTrace();
+		}
+		
+		return null;
+		
+	}
 
 
 
