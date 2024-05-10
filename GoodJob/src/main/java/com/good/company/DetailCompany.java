@@ -26,15 +26,18 @@ public class DetailCompany extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		HttpSession session = req.getSession();
-	    String id = (String) session.getAttribute("id");
+		String id = (String) session.getAttribute("id");
 		String cp_seq = req.getParameter("cp_seq");
+		String headcp_seq = req.getParameter("headcp_seq");
 		String word = req.getParameter("word");
 		String page = req.getParameter("page");
 		String search = req.getParameter("search");
 		String hiring = req.getParameter("hiring");
 
-		   
-		    
+		if (headcp_seq != null && cp_seq == null) {
+			cp_seq = headcp_seq;
+		}
+
 		CompanyDAO dao = new CompanyDAO();
 		CompanyDTO dto = dao.get(cp_seq);
 
@@ -107,7 +110,6 @@ public class DetailCompany extends HttpServlet {
 		req.setAttribute("salesList", flist[0]);
 		req.setAttribute("ebitList", flist[1]);
 		req.setAttribute("incomeList", flist[2]);
-
 
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/user/company/companyview.jsp");
 		dispatcher.forward(req, resp);

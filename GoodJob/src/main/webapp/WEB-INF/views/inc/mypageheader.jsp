@@ -188,7 +188,7 @@
 					<li class="dropdown"><a href="#" class="nav-link has-dropdown"><i
 							class="far fa-comments"></i> <span>활동내역</span></a>
 						<ul class="dropdown-menu">
-							<li><a class="nav-link" href="/good/heeyeon/review.jsp">기업리뷰</a></li>
+							<li><a class="nav-link" href="/good/user/mypage/myreview.do">기업리뷰</a></li>
 							<li><a class="nav-link"
 								href="/good/user/mypage/myinterview.do">면접후기</a></li>
 							<li><a class="nav-link" href="/good/user/mypage/mystudy.do">스터디</a></li>
