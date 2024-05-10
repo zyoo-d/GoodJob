@@ -49,8 +49,8 @@
     <a href="#" class="nav-link has-dropdown"><i class="fas fa-user"></i><span>회원 관리</span></a>
     <ul class="dropdown-menu">
       <li id="submenu-usermanagement"><a class="nav-link" href="/good/gijun/user/usermanagement.jsp">회원 목록</a></li>
-      <li id="submenu-userblock"><a class="nav-link" href="/good/gijun/user/userblock.jsp">차단 관리</a></li>
-      <li id="submenu-userreport"><a class="nav-link" href="/good/gijun/user/userreport.jsp">신고 접수 관리</a></li>
+      <li id="submenu-userblock"><a class="nav-link" href="/good/admin/listblockuser.do">차단 관리</a></li>
+      <li id="submenu-userreport"><a class="nav-link" href="/good/admin/listreportuser.do">신고 접수 관리</a></li>
     </ul>
   </li>
   <li class="dropdown" id="menu-board">

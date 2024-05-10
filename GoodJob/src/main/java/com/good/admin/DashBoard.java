@@ -35,7 +35,6 @@ public class DashBoard extends HttpServlet{
 		VisitorTracker visitorTracker = VisitorTracker.getInstance();
 		Map<LocalDate, Integer> visitorCounts = visitorTracker.getVisitors();
 
-		
 		CompanyDAO companyDAO = new CompanyDAO();
 		RecruitDAO recruitDAO = new RecruitDAO();
 		ReviewDAO reviewDAO = new ReviewDAO();
@@ -81,6 +80,8 @@ public class DashBoard extends HttpServlet{
 	    
 	    req.setAttribute("recentReportList", recentReportList);
 //	    req.setAttribute("allReportList", allReportList);
+	    
+	    req.setAttribute("updateDate", companyDAO.getUpdateDate());
 	    
 	    
 	    companyDAO.close();
