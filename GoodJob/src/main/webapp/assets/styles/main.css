@@ -2745,6 +2745,9 @@ input#nav-toggle:checked ~ #nav-menu {
 .min-h-\[105px\] {
   min-height: 105px;
 }
+.min-h-\[600px\] {
+  min-height: 600px;
+}
 .w-14 {
   width: 3.5rem;
 }

@@ -39,6 +39,7 @@
 #searchInputHead {
 	font-size: 16px;
 	border-radius: 5px;
+	margin-top: 3px;
 }
 
 #nav-menu {
@@ -884,7 +885,7 @@ textarea:focus {
 	background: #6777EE;
 	border: none;
 	color: white;
-	padding: 8px 20px;
+	padding: 12px 20px;
 	border-radius: 0 15px 15px 0;
 	cursor: pointer;
 	font-size: 14px;
@@ -994,7 +995,6 @@ textarea:focus {
 .view-form.addqna .company, .view-form.addqna .title {
 	font-size: 18px;
 	color: #595959;
-	margin-top: 5px;
 }
 
 /*페이징*/
@@ -1651,4 +1651,52 @@ textarea:focus {
 #address {
 	width: 80%;
 	margin-right: 5px;
+}
+.button-group {
+	border: 2px solid #4444;
+	border-radius: 10px;
+	text-align: center;
+	display: flex;
+	padding: none;
+}
+
+.button-group>div {
+	background: transparent;
+	color: #525252;
+	font-size: 1.1rem;
+}
+
+.button-group>div:first-child {
+	border-top-left-radius: 10px;
+	border-bottom-left-radius: 10px;
+	border-right: 2px solid #4444;
+}
+
+.button-group>div:last-child {
+	border-top-right-radius: 10px;
+	border-bottom-right-radius: 10px;
+}
+
+.button-group>div {
+	padding: 10px 30px;
+}
+
+.button-group>div {
+	width: 100%;
+}
+
+.form-label {
+	font-size: 1.2rem;
+}
+
+
+.form-content>div {
+	text-align: center;
+}
+
+.form-content {
+	border: 2px solid #4444;
+	border-radius: 10px;
+	border-top: 0;
+	padding: 10px;
 }
