@@ -3,7 +3,7 @@ package com.good.company.model;
 import lombok.Data;
 
 @Data
-public class Tag {
+public class TagDTO {
 	
 	private String cp_seq;
 	private String tag_seq;
