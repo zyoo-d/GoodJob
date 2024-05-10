@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -249,10 +250,14 @@
 													<li><p class="education">
 															<b>평균연봉 </b>
 															<c:if test="${dto.hire_avr_salary == 0}">수집 정보 없음</c:if>
-															<c:if test="${dto.hire_avr_salary !=0}">${dto.hire_avr_salary} 만원</c:if>
+															<c:if
+																test="${dto.hire_avr_salary !=0 || not empty dto.hire_avr_salary}">
+																<fmt:formatNumber type="number" maxFractionDigits="0"
+																	value="${dto.hire_avr_salary/10000}" />
+															 만원</c:if>
 														</p></li>
 													<li><p class="salary">
-															<b>리뷰 수 </b>${dto.com_rcrt_cnt}건</p></li>
+															<b>리뷰등록 </b>${dto.com_rcrt_cnt}건</p></li>
 												</ul>
 											</div>
 										</div>
