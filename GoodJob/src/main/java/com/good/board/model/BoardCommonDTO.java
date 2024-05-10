@@ -12,7 +12,7 @@ public class BoardCommonDTO {
 	private String content;
 	private String regDate;
 	private String id;
-	private String view;
+	private String views;
 	private String board_type;
 	
 }

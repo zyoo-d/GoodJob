@@ -3,6 +3,7 @@ package com.good.admin;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,10 +18,13 @@ import com.good.admin.visitor.DateUtil;
 import com.good.admin.visitor.VisitorStatisticsUtil;
 import com.good.admin.visitor.VisitorTracker;
 import com.good.board.model.BoardCommonDTO;
+import com.good.board.report.model.ReportCommonDTO;
+import com.good.board.report.repository.ReportCommonDAO;
 import com.good.board.repository.BoardCommonDAO;
 import com.good.company.repository.CompanyDAO;
 import com.good.company.repository.RecruitDAO;
 import com.good.company.repository.ReviewDAO;
+import com.good.user.repository.UserDAO;
 
 @WebServlet("/admin/main.do")
 public class DashBoard extends HttpServlet{
@@ -30,12 +34,14 @@ public class DashBoard extends HttpServlet{
 		
 		VisitorTracker visitorTracker = VisitorTracker.getInstance();
 		Map<LocalDate, Integer> visitorCounts = visitorTracker.getVisitors();
-		
+
 		
 		CompanyDAO companyDAO = new CompanyDAO();
 		RecruitDAO recruitDAO = new RecruitDAO();
 		ReviewDAO reviewDAO = new ReviewDAO();
 		BoardCommonDAO boardCommonDAO = new BoardCommonDAO();
+		ReportCommonDAO reportCommonDAO = new ReportCommonDAO();
+		UserDAO userDAO = new UserDAO();
 		
 		req.setAttribute("visit_count", visitorCounts.get(LocalDate.now()));
 		req.setAttribute("countCompanys",companyDAO.countCompanys());
@@ -58,16 +64,32 @@ public class DashBoard extends HttpServlet{
 	    req.setAttribute("yearVisitors", yearVisitors);
 	    
 	    ArrayList<BoardCommonDTO> boardList = boardCommonDAO.getDailyTopPosts();
+	    HashMap<String, Double> countBoardList = boardCommonDAO.getPostRatioByBoard(); 
+	    
+	    System.out.println(countBoardList.get("QnA"));
 	    
 	    req.setAttribute("boardList", boardList);
+	    req.setAttribute("countBoardList", countBoardList);
+	    
+	    int getNewSubscriberCount = userDAO.getNewSubscriberCount();
+	    
+	    req.setAttribute("getNewSubscriberCount", getNewSubscriberCount);
 	    
 	    
+	    ArrayList<ReportCommonDTO> recentReportList = reportCommonDAO.getRecentReportTitleList(4);
+//	    ArrayList<ReportCommonDTO> allReportList = reportCommonDAO.getAllReportList();
+	    
+	    req.setAttribute("recentReportList", recentReportList);
+//	    req.setAttribute("allReportList", allReportList);
 	    
 	    
 	    companyDAO.close();
 	    recruitDAO.close();
 	    reviewDAO.close();
 	    boardCommonDAO.close();
+	    userDAO.close();
+	    reportCommonDAO.close();
+	    
 		
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/admin/index.jsp");
 		dispatcher.forward(req, resp);
