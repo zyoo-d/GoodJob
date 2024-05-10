@@ -114,13 +114,9 @@ public class ReviewDAO {
 	 */
 	public ArrayList<ReviewDTO> tagList(String cp_seq) {
 		ArrayList<ReviewDTO> tagList = new ArrayList<>();
-		String sql = "SELECT cr.cp_seq, t.tag_keyword, COUNT(*) as tag_count "
-				+ "FROM tblCompanyReview cr "
-				+ "JOIN tblReviewTag rt ON cr.cp_rv_seq = rt.cp_rv_seq "
-				+ "JOIN tblTag t ON t.tag_seq = rt.tag_seq "
-				+ "WHERE cr.cp_seq = ? "
-				+ "GROUP BY cr.cp_seq, t.tag_keyword "
-				+ "ORDER BY tag_count DESC";
+		String sql = "SELECT cr.cp_seq, t.tag_keyword, COUNT(*) as tag_count " + "FROM tblCompanyReview cr "
+				+ "JOIN tblReviewTag rt ON cr.cp_rv_seq = rt.cp_rv_seq " + "JOIN tblTag t ON t.tag_seq = rt.tag_seq "
+				+ "WHERE cr.cp_seq = ? " + "GROUP BY cr.cp_seq, t.tag_keyword " + "ORDER BY tag_count DESC";
 
 		try (PreparedStatement pstat = conn.prepareStatement(sql)) {
 			pstat.setString(1, cp_seq);
@@ -168,200 +164,181 @@ public class ReviewDAO {
 	}
 
 	public int addReview(ReviewDTO bdto) {
-	    try {
-	        String sql = "insert into tblCompanyReview "
-	                + "(CP_RV_SEQ,SALARY_SCORE,WELFARE_SCORE,STABILITY_SCORE,CULTURE_SCORE,GROWTH_SCORE,LINEREVIEW,GOOD,BAD,CP_RV_REGDATE,CP_SEQ,ID,CP_RV_CONFIRM) VALUES "
-	                + "(SEQCOMPANYREVIEW.nextVal,?,?,?,?,?,?,?,?,sysdate,?,?,0)"; // cp_rv_confirm=0(대기)
-
-	        pstat = conn.prepareStatement(sql);
-	        pstat.setDouble(1, bdto.getSalary_score());
-	        pstat.setDouble(2, bdto.getWelfare_score());
-	        pstat.setDouble(3, bdto.getStability_score());
-	        pstat.setDouble(4, bdto.getCulture_score());
-	        pstat.setDouble(5, bdto.getGrowth_score());
-	        pstat.setString(6, bdto.getLinereview());
-	        pstat.setString(7, bdto.getGood());
-	        pstat.setString(8, bdto.getBad());
-	        pstat.setString(9, bdto.getCp_seq());
-	        pstat.setString(10, bdto.getId());
-
-	        return pstat.executeUpdate();
-	    } catch (Exception e) {
-	        System.out.println("ReivewDAO.addReview");
-	        e.printStackTrace();
-	    }
-	    return 0;
-	}
-
-	/*public String getCp_rv_seq() {
 		try {
-			String sql = "select max(cp_rv_seq) as cp_rv_seq from tblCompanyReview";
+			String sql = "insert into tblCompanyReview "
+					+ "(CP_RV_SEQ,SALARY_SCORE,WELFARE_SCORE,STABILITY_SCORE,CULTURE_SCORE,GROWTH_SCORE,LINEREVIEW,GOOD,BAD,CP_RV_REGDATE,CP_SEQ,ID,CP_RV_CONFIRM) VALUES "
+					+ "(SEQCOMPANYREVIEW.nextVal,?,?,?,?,?,?,?,?,sysdate,?,?,0)"; // cp_rv_confirm=0(대기)
 
 			pstat = conn.prepareStatement(sql);
+			pstat.setDouble(1, bdto.getSalary_score());
+			pstat.setDouble(2, bdto.getWelfare_score());
+			pstat.setDouble(3, bdto.getStability_score());
+			pstat.setDouble(4, bdto.getCulture_score());
+			pstat.setDouble(5, bdto.getGrowth_score());
+			pstat.setString(6, bdto.getLinereview());
+			pstat.setString(7, bdto.getGood());
+			pstat.setString(8, bdto.getBad());
+			pstat.setString(9, bdto.getCp_seq());
+			pstat.setString(10, bdto.getId());
+
+			return pstat.executeUpdate();
+		} catch (Exception e) {
+			System.out.println("ReivewDAO.addReview");
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
+	/*
+	 * public String getCp_rv_seq() { try { String sql =
+	 * "select max(cp_rv_seq) as cp_rv_seq from tblCompanyReview";
+	 * 
+	 * pstat = conn.prepareStatement(sql); rs = pstat.executeQuery();
+	 * 
+	 * if (rs.next()) { return rs.getString("cp_rv_seq"); } } catch (Exception e) {
+	 * System.out.println("BoardDAO.getBseq"); e.printStackTrace(); }
+	 * 
+	 * return null; }
+	 */
+
+	/*
+	 * public ReviewDTO getReview(String cp_seq, String id) { try { String sql =
+	 * "SELECT * FROM tblCompanyReview WHERE cp_seq = ? AND id = ?"; pstat =
+	 * conn.prepareStatement(sql); pstat.setString(1, cp_seq); pstat.setString(2,
+	 * id); rs = pstat.executeQuery();
+	 * 
+	 * if (rs.next()) { ReviewDTO dto = new ReviewDTO();
+	 * dto.setCp_seq(rs.getString("cp_seq")); dto.setId(rs.getString("id"));
+	 * dto.setCp_rv_seq(rs.getString("cp_rv_seq"));
+	 * dto.setSalary_score(rs.getDouble("salary_score"));
+	 * dto.setWelfare_score(rs.getDouble("welfare_score"));
+	 * dto.setStability_score(rs.getDouble("stability_score"));
+	 * dto.setCulture_score(rs.getDouble("culture_score"));
+	 * dto.setGrowth_score(rs.getDouble("growth_score"));
+	 * dto.setLinereview(rs.getString("linereview"));
+	 * dto.setGood(rs.getString("good")); dto.setBad(rs.getString("bad"));
+	 * dto.setCp_rv_regdate(rs.getString("cp_rv_regdate"));
+	 * dto.setCp_rv_confirm(rs.getInt("cp_rv_confirm")); return dto; } } catch
+	 * (Exception e) { System.out.println("ReviewDAO.getReview");
+	 * e.printStackTrace(); } return null; }
+	 */
+	public ReviewDTO getReviewByCpRvSeq(String cp_rv_seq) {
+		try {
+			String sql = "SELECT * FROM tblCompanyReview WHERE cp_rv_seq = ?";
+			pstat = conn.prepareStatement(sql);
+			pstat.setString(1, cp_rv_seq);
 			rs = pstat.executeQuery();
 
 			if (rs.next()) {
-				return rs.getString("cp_rv_seq");
+				ReviewDTO dto = new ReviewDTO();
+				dto.setCp_seq(rs.getString("cp_seq"));
+				dto.setId(rs.getString("id"));
+				dto.setCp_rv_seq(rs.getString("cp_rv_seq"));
+				dto.setSalary_score(rs.getDouble("salary_score"));
+				dto.setWelfare_score(rs.getDouble("welfare_score"));
+				dto.setStability_score(rs.getDouble("stability_score"));
+				dto.setCulture_score(rs.getDouble("culture_score"));
+				dto.setGrowth_score(rs.getDouble("growth_score"));
+				dto.setLinereview(rs.getString("linereview"));
+				dto.setGood(rs.getString("good"));
+				dto.setBad(rs.getString("bad"));
+				dto.setCp_rv_regdate(rs.getString("cp_rv_regdate"));
+				dto.setCp_rv_confirm(rs.getInt("cp_rv_confirm"));
+				return dto;
 			}
 		} catch (Exception e) {
-			System.out.println("BoardDAO.getBseq");
+			System.out.println("ReviewDAO.getReviewByCpRvSeq");
 			e.printStackTrace();
 		}
-
 		return null;
-	}*/
-	
-	/*public ReviewDTO getReview(String cp_seq, String id) {
-	    try {
-	        String sql = "SELECT * FROM tblCompanyReview WHERE cp_seq = ? AND id = ?";
-	        pstat = conn.prepareStatement(sql);
-	        pstat.setString(1, cp_seq);
-	        pstat.setString(2, id);
-	        rs = pstat.executeQuery();
-
-	        if (rs.next()) {
-	            ReviewDTO dto = new ReviewDTO();
-	            dto.setCp_seq(rs.getString("cp_seq"));
-	            dto.setId(rs.getString("id"));
-	            dto.setCp_rv_seq(rs.getString("cp_rv_seq"));
-	            dto.setSalary_score(rs.getDouble("salary_score"));
-	            dto.setWelfare_score(rs.getDouble("welfare_score"));
-	            dto.setStability_score(rs.getDouble("stability_score"));
-	            dto.setCulture_score(rs.getDouble("culture_score"));
-	            dto.setGrowth_score(rs.getDouble("growth_score"));
-	            dto.setLinereview(rs.getString("linereview"));
-	            dto.setGood(rs.getString("good"));
-	            dto.setBad(rs.getString("bad"));
-	            dto.setCp_rv_regdate(rs.getString("cp_rv_regdate"));
-	            dto.setCp_rv_confirm(rs.getInt("cp_rv_confirm"));
-	            return dto;
-	        }
-	    } catch (Exception e) {
-	        System.out.println("ReviewDAO.getReview");
-	        e.printStackTrace();
-	    }
-	    return null;
-	}*/
-	public ReviewDTO getReviewByCpRvSeq(String cp_rv_seq) {
-	    try {
-	        String sql = "SELECT * FROM tblCompanyReview WHERE cp_rv_seq = ?";
-	        pstat = conn.prepareStatement(sql);
-	        pstat.setString(1, cp_rv_seq);
-	        rs = pstat.executeQuery();
-
-	        if (rs.next()) {
-	            ReviewDTO dto = new ReviewDTO();
-	            dto.setCp_seq(rs.getString("cp_seq"));
-	            dto.setId(rs.getString("id"));
-	            dto.setCp_rv_seq(rs.getString("cp_rv_seq"));
-	            dto.setSalary_score(rs.getDouble("salary_score"));
-	            dto.setWelfare_score(rs.getDouble("welfare_score"));
-	            dto.setStability_score(rs.getDouble("stability_score"));
-	            dto.setCulture_score(rs.getDouble("culture_score"));
-	            dto.setGrowth_score(rs.getDouble("growth_score"));
-	            dto.setLinereview(rs.getString("linereview"));
-	            dto.setGood(rs.getString("good"));
-	            dto.setBad(rs.getString("bad"));
-	            dto.setCp_rv_regdate(rs.getString("cp_rv_regdate"));
-	            dto.setCp_rv_confirm(rs.getInt("cp_rv_confirm"));
-	            return dto;
-	        }
-	    } catch (Exception e) {
-	        System.out.println("ReviewDAO.getReviewByCpRvSeq");
-	        e.printStackTrace();
-	    }
-	    return null;
 	}
-	
-	
+
 	/**
 	 * 관리자 리뷰 승인여부 변경 메서드
+	 * 
 	 * @param cp_seq
 	 * @param confirm
 	 */
-	public void updateReviewConfirm(String cp_seq, int confirm) {
+	public boolean updateReviewConfirm(String cp_rv_seq, int confirm) {
 	    try {
-	        String sql = "UPDATE tblCompanyReview SET cp_rv_confirm = ? WHERE cp_seq = ?";
+	        String sql = "UPDATE tblCompanyReview SET cp_rv_confirm = ? WHERE cp_rv_seq = ?";
 	        pstat = conn.prepareStatement(sql);
 	        pstat.setInt(1, confirm);
-	        pstat.setString(2, cp_seq);
-	        pstat.executeUpdate();
+	        pstat.setString(2, cp_rv_seq);
+	        int result = pstat.executeUpdate();
+	        return result > 0;
 	    } catch (Exception e) {
-	        System.out.println("ReviewDAO.updateReviewConfirm");
+	        System.out.println("ReviewDAO.updateReviewConfirm()");
 	        e.printStackTrace();
+	    } finally {
+	        close();
 	    }
+	    return false;
 	}
-	
-	
+
 	/**
 	 * 리뷰 삭제
+	 * 
 	 * @param cp_seq
 	 * @param id
 	 */
 	public void deleteReview(String cp_rv_seq) {
-	    try {
-	        String sql = "delete from tblCompanyReview where cp_rv_seq = ?";
-	        pstat = conn.prepareStatement(sql);
-	        pstat.setString(1, cp_rv_seq);
-	        pstat.executeUpdate();
-	    } catch (Exception e) {
-	        System.out.println("ReviewDAO.deleteReview");
-	        e.printStackTrace();
-	    }
+		try {
+			String sql = "delete from tblCompanyReview where cp_rv_seq = ?";
+			pstat = conn.prepareStatement(sql);
+			pstat.setString(1, cp_rv_seq);
+			pstat.executeUpdate();
+		} catch (Exception e) {
+			System.out.println("ReviewDAO.deleteReview");
+			e.printStackTrace();
+		}
 	}
-	
+
 	/**
 	 * 리뷰 수정
+	 * 
 	 * @param rdto
 	 */
-	/*public void updateReview(ReviewDTO rdto) {
-	    try {
-	        String sql = "UPDATE tblCompanyReview SET "
-	                + "salary_score = ?, welfare_score = ?, stability_score = ?, culture_score = ?, growth_score = ?, "
-	                + "linereview = ?, good = ?, bad = ? "
-	                + "WHERE cp_seq = ? AND cp_rv_seq = ?";
-	        
-	        pstat = conn.prepareStatement(sql);
-	        pstat.setDouble(1, rdto.getSalary_score());
-	        pstat.setDouble(2, rdto.getWelfare_score());
-	        pstat.setDouble(3, rdto.getStability_score());
-	        pstat.setDouble(4, rdto.getCulture_score());
-	        pstat.setDouble(5, rdto.getGrowth_score());
-	        pstat.setString(6, rdto.getLinereview());
-	        pstat.setString(7, rdto.getGood());
-	        pstat.setString(8, rdto.getBad());
-	        pstat.setString(9, rdto.getCp_seq());
-	        pstat.setString(10, rdto.getCp_rv_seq());
-	        
-	        pstat.executeUpdate();
-	    } catch (Exception e) {
-	        System.out.println("ReviewDAO.updateReview");
-	        e.printStackTrace();
-	    }
-	}*/
+	/*
+	 * public void updateReview(ReviewDTO rdto) { try { String sql =
+	 * "UPDATE tblCompanyReview SET " +
+	 * "salary_score = ?, welfare_score = ?, stability_score = ?, culture_score = ?, growth_score = ?, "
+	 * + "linereview = ?, good = ?, bad = ? " +
+	 * "WHERE cp_seq = ? AND cp_rv_seq = ?";
+	 * 
+	 * pstat = conn.prepareStatement(sql); pstat.setDouble(1,
+	 * rdto.getSalary_score()); pstat.setDouble(2, rdto.getWelfare_score());
+	 * pstat.setDouble(3, rdto.getStability_score()); pstat.setDouble(4,
+	 * rdto.getCulture_score()); pstat.setDouble(5, rdto.getGrowth_score());
+	 * pstat.setString(6, rdto.getLinereview()); pstat.setString(7, rdto.getGood());
+	 * pstat.setString(8, rdto.getBad()); pstat.setString(9, rdto.getCp_seq());
+	 * pstat.setString(10, rdto.getCp_rv_seq());
+	 * 
+	 * pstat.executeUpdate(); } catch (Exception e) {
+	 * System.out.println("ReviewDAO.updateReview"); e.printStackTrace(); } }
+	 */
 	public void updateReviewByCpRvSeq(ReviewDTO rdto) {
-	    try {
-	        String sql = "UPDATE tblCompanyReview SET "
-	                + "salary_score = ?, welfare_score = ?, stability_score = ?, culture_score = ?, growth_score = ?, "
-	                + "linereview = ?, good = ?, bad = ? "
-	                + "WHERE cp_rv_seq = ?";
-	        
-	        pstat = conn.prepareStatement(sql);
-	        pstat.setDouble(1, rdto.getSalary_score());
-	        pstat.setDouble(2, rdto.getWelfare_score());
-	        pstat.setDouble(3, rdto.getStability_score());
-	        pstat.setDouble(4, rdto.getCulture_score());
-	        pstat.setDouble(5, rdto.getGrowth_score());
-	        pstat.setString(6, rdto.getLinereview());
-	        pstat.setString(7, rdto.getGood());
-	        pstat.setString(8, rdto.getBad()); 
-	        pstat.setString(9, rdto.getCp_rv_seq());
-	        
-	        pstat.executeUpdate();
-	    } catch (Exception e) {
-	        System.out.println("ReviewDAO.updateReviewByCpRvSeq");
-	        e.printStackTrace();
-	    }
+		try {
+			String sql = "UPDATE tblCompanyReview SET "
+					+ "salary_score = ?, welfare_score = ?, stability_score = ?, culture_score = ?, growth_score = ?, "
+					+ "linereview = ?, good = ?, bad = ? " + "WHERE cp_rv_seq = ?";
+
+			pstat = conn.prepareStatement(sql);
+			pstat.setDouble(1, rdto.getSalary_score());
+			pstat.setDouble(2, rdto.getWelfare_score());
+			pstat.setDouble(3, rdto.getStability_score());
+			pstat.setDouble(4, rdto.getCulture_score());
+			pstat.setDouble(5, rdto.getGrowth_score());
+			pstat.setString(6, rdto.getLinereview());
+			pstat.setString(7, rdto.getGood());
+			pstat.setString(8, rdto.getBad());
+			pstat.setString(9, rdto.getCp_rv_seq());
+
+			pstat.executeUpdate();
+		} catch (Exception e) {
+			System.out.println("ReviewDAO.updateReviewByCpRvSeq");
+			e.printStackTrace();
+		}
 	}
 
 	public ArrayList<ReviewDTO> myReview(HashMap<String, String> map) {
@@ -380,10 +357,10 @@ public class ReviewDAO {
 				dto.setCp_name(rs.getString("cp_name"));
 				dto.setId(rs.getString("id"));
 				dto.setRnum(rs.getString("rnum"));
-	            dto.setCp_rv_seq(rs.getString("cp_rv_seq"));
-	            dto.setLinereview(rs.getString("linereview"));
-	            dto.setCp_rv_regdate(rs.getString("cp_rv_regdate"));
-	            dto.setCp_rv_confirm(rs.getInt("cp_rv_confirm"));
+				dto.setCp_rv_seq(rs.getString("cp_rv_seq"));
+				dto.setLinereview(rs.getString("linereview"));
+				dto.setCp_rv_regdate(rs.getString("cp_rv_regdate"));
+				dto.setCp_rv_confirm(rs.getInt("cp_rv_confirm"));
 
 				list.add(dto);
 			}
@@ -415,28 +392,85 @@ public class ReviewDAO {
 		}
 		return 0;
 	}
-		
-		public int getPendingReviewsCount() {
-			
+
+	public int getPendingReviewsCount() {
+
+		try {
+
+			String sql = "select count(*) as cnt from tblCompanyReview where cp_rv_confirm = 0 ";
+
+			stat = conn.createStatement();
+			rs = stat.executeQuery(sql);
+
+			if (rs.next()) {
+				return rs.getInt("cnt");
+			}
+
+		} catch (Exception e) {
+			System.out.println("(관리자) 승인대기 리뷰수 로드 실패");
+			e.printStackTrace();
+		}
+
+		return 0;
+
+	}
+
+	/**
+		 * 모든 리뷰 목록을 출력하는 메서드
+		 * @return
+		 */
+		public ArrayList<ReviewDTO> getAllReviews() {
+
 			try {
 				
-				String sql = "select count(*) as cnt from tblCompanyReview where cp_rv_confirm = 0 ";
+				String sql = "select * from vwAllReview";
 				
 				stat = conn.createStatement();
 				rs = stat.executeQuery(sql);
 				
-				if(rs.next()) {
-					return rs.getInt("cnt");
-				}
+				ArrayList<ReviewDTO> list = new ArrayList<>();
 				
-			} catch (Exception e) {
-				System.out.println("(관리자) 승인대기 리뷰수 로드 실패");
-				e.printStackTrace();
+				while (rs.next()) {
+					ReviewDTO dto = new ReviewDTO();
+					  dto.setCp_rv_seq(rs.getString("cp_rv_seq"));
+		                dto.setId(rs.getString("id"));
+		                dto.setSalary_score(rs.getDouble("salary_score"));
+		                dto.setWelfare_score(rs.getDouble("welfare_score"));
+		                dto.setStability_score(rs.getDouble("stability_score"));
+		                dto.setCulture_score(rs.getDouble("culture_score"));
+		                dto.setGrowth_score(rs.getDouble("growth_score"));
+		                dto.setLinereview(rs.getString("linereview"));
+		                dto.setGood(rs.getString("good"));
+		                dto.setBad(rs.getString("bad"));
+		                dto.setCp_rv_regdate(rs.getString("cp_rv_regdate"));
+		                dto.setCp_rv_confirm(rs.getInt("cp_rv_confirm"));
+		                dto.setCp_name(rs.getString("cp_name"));
+		               
+		                list.add(dto);
+				}
+				return list;	
+					
+				}catch (Exception e) {
+					System.out.println("ReviewDAO.getAllReviews");
+					e.printStackTrace();
 			}
-			
-			return 0;
-			
+
+	return null;
+}
+		public boolean insertRejectReview(String cp_rv_seq, String rejectReason) {
+		    try {
+		        String sql = "INSERT INTO tblRejectReview (cp_rv_seq, rj_reason) VALUES (?, ?)";
+		        pstat = conn.prepareStatement(sql);
+		        pstat.setString(1, cp_rv_seq);
+		        pstat.setString(2, rejectReason);
+		        int result = pstat.executeUpdate();
+		        return result > 0;
+		    } catch (Exception e) {
+		        System.out.println("ReviewDAO.insertRejectReview()");
+		        e.printStackTrace();
+		    } finally {
+		        close();
+		    }
+		    return false;
 		}
-		
-		
 }
