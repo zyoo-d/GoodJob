@@ -77,7 +77,7 @@
 							<button id="btnSearch" class="btn" type="submit">
 								<i class="fas fa-search"></i>
 							</button>
-							<input type="hidden" id="cp_seq" value="" name="cp_seq">
+							<input type="hidden" id="headcp_seq" value="" name="headcp_seq">
 						</div>
 					</div>
 
@@ -162,7 +162,7 @@ $(document).ready(function(){
 	
 	$('#searchResults').on('click', '.dropdown-item', function() {
 		$('#searchInputHead').val($(this).text());
-		$('#cp_seq').val($(this).data('cpseq'));
+		$('#headcp_seq').val($(this).data('cpseq'));
 		$('#searchResults').html("");
 	});	
 })

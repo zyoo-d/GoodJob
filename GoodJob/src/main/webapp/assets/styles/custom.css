@@ -1,3 +1,8 @@
+#login_letter {
+	margin-bottom: 30px;
+	font-size: 1.2rem;
+}
+
 #matchinfo {
 	display: flex;
 	justify-content: space-evenly;
@@ -2563,6 +2568,63 @@ textarea:focus {
 }
 
 /* 윤준섭 */
+#email {
+	width: 50%;
+}
 
+#domain {
+	width: 25%;
+	margin-left: 2px;
+}
+
+#checkId {
+	border: 1px solid black;
+	width: 17%;
+	padding: 3px;
+	border-radius: 10px;
+	border-color: rgb(235, 235, 235);
+	cursor: pointer;
+	margin-right: 5px;
+}
+
+#checkNick {
+	border: 1px solid black;
+	width: 17%;
+	padding: 3px;
+	border-radius: 10px;
+	border-color: rgb(235, 235, 235);
+	cursor: pointer;
+}
+
+#id, #nickname {
+	width: 80%;
+	margin-right: 5px;
+}
+
+.tomato {
+	color: tomato;
+}
+
+#btn_signup {
+	font-size: 1.5rem;
+}
+
+#password, #password_confirm {
+	font-size: 1rem;
+}
+
+#addressapi {
+	border: 1px solid;
+	width: 17%;
+	padding: 3px;
+	border-radius: 10px;
+	border-color: rgb(235, 235, 235);
+	cursor: pointer;
+}
+
+#address {
+	width: 80%;
+	margin-right: 5px;
+}
 
 
