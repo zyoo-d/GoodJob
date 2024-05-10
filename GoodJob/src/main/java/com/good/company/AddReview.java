@@ -46,13 +46,13 @@ public class AddReview extends HttpServlet {
 		CompanyDTO dto = dao.get(cp_seq);
 
 		ReviewDAO rdao = new ReviewDAO();
-		//ArrayList<String> showTagList = rdao.showTagList();
+		ArrayList<String> showTagList = rdao.showTagList();
 		ArrayList<String> showComTagList = rdao.showComTagList();
 
 		req.setAttribute("cp_seq", cp_seq);
 		req.setAttribute("page", page);
 		req.setAttribute("dto", dto);
-		//req.setAttribute("showTagList", showTagList);
+		req.setAttribute("showTagList", showTagList);
 		req.setAttribute("showComTagList", showComTagList);
 
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/user/company/review/addreview.jsp");
@@ -80,8 +80,7 @@ public class AddReview extends HttpServlet {
 		//String cp_rv_seq = rdao.getCp_rv_seq();
 		String cp_seq = req.getParameter("cp_seq");
 		if (cp_seq == null || cp_seq.isEmpty()) {
-		    // cp_seq 값이 null이거나 빈 문자열인 경우 에러 처리
-		    // 예: 적절한 에러 메시지를 출력하고 리뷰 작성 페이지로 이동
+		    
 		    resp.setContentType("text/html; charset=UTF-8");
 		    PrintWriter out = resp.getWriter();
 		    out.println("<script>alert('잘못된 접근입니다. 기업 정보가 선택되지 않았습니다.'); location.href='/good/user/company/review/addreview.do';</script>");
