@@ -12,6 +12,7 @@ public class ReviewDTO {
 	 private String cp_seq;
 	 private String id;
 	 private String cp_rv_seq;
+	 private String cp_name;
 	
 	 //private String tag_seq;
 	 //private String tag_keyword;
@@ -33,5 +34,5 @@ public class ReviewDTO {
 	 private String tag_keyword;
 	 private ArrayList<String> tag_list;
 	
-
+	 private String rnum;
 }

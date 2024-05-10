@@ -7,6 +7,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.good.board.model.StudyDTO;
 import com.good.company.model.ReviewDTO;
 import com.test.util.DBUtil;
 
@@ -308,6 +309,58 @@ public class ReviewDAO {
 	        System.out.println("ReviewDAO.updateReview");
 	        e.printStackTrace();
 	    }
+	}
+
+	public ArrayList<ReviewDTO> myReview(HashMap<String, String> map) {
+		try {
+			String sql = String.format(
+					"select * from (select a.*, rownum as rnum from (select * from vwmyreview where id = '%s' order by cp_rv_regdate desc) a) where rnum between %s and %s",
+					map.get("id"), map.get("begin"), map.get("end"));
+
+			stat = conn.createStatement();
+			rs = stat.executeQuery(sql);
+
+			ArrayList<ReviewDTO> list = new ArrayList<>();
+			while (rs.next()) {
+				ReviewDTO dto = new ReviewDTO();
+				dto.setCp_seq(rs.getString("cp_seq"));
+				dto.setCp_name(rs.getString("cp_name"));
+				dto.setId(rs.getString("id"));
+				dto.setRnum(rs.getString("rnum"));
+	            dto.setCp_rv_seq(rs.getString("cp_rv_seq"));
+	            dto.setLinereview(rs.getString("linereview"));
+	            dto.setCp_rv_regdate(rs.getString("cp_rv_regdate"));
+	            dto.setCp_rv_confirm(rs.getInt("cp_rv_confirm"));
+
+				list.add(dto);
+			}
+			return list;
+
+		} catch (Exception e) {
+			System.out.println("ReviewDAO.myReview");
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public int getCount(String id) {
+		try {
+			String sql = "select count(*) as cnt from vwmyreview where id = ?";
+
+			pstat = conn.prepareStatement(sql);
+			pstat.setString(1, id);
+
+			rs = pstat.executeQuery();
+
+			if (rs.next()) {
+				return rs.getInt("cnt");
+			}
+
+		} catch (Exception e) {
+			System.out.println("ReviewDAO.getCount");
+			e.printStackTrace();
+		}
+		return 0;
 	}
 		
 }
