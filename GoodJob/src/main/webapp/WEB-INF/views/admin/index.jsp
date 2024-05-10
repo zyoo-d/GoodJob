@@ -226,16 +226,13 @@
 													<th>업데이트 현황</th>
 													<th>업로드</th>
 												</tr>
+												<c:forEach items="${updateDate}" var="updateDate">
 												<tr>
-													<td class="p-0 text-center">국민연금</td>
-													<td class="p-0 text-center" style="font-size: 1.1rem;">2024-04-07</td>
+													<td class="p-0 text-center">${updateDate.key}</td>
+													<td class="p-0 text-center" style="font-size: 1.1rem;">${updateDate.value}</td>
 													<td><button type="button">업로드</button></td>
 												</tr>
-												<tr>
-													<td class="p-0 text-center">DART</td>
-													<td class="p-0 text-center" style="font-size: 1.1rem;">2024-03-17</td>
-													<td><button type="button">업로드</button></td>
-												</tr>
+												</c:forEach>
 												<!-- 추가적인 데이터 항목을 여기에 작성할 수 있습니다 -->
 											</tbody>
 										</table>

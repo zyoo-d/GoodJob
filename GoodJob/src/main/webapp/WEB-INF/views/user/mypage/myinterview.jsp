@@ -92,7 +92,7 @@
 														<div class="badge badge-danger">반려</div>
 													</c:if> </td>
 												<td><div class="">
-														<c:if test="${dto.ITV_CONFIRM=='0'||dto.ITV_CONFIRM=='2'}">
+														<c:if test="${dto.ITV_CONFIRM=='0'}">
 															<a
 																href="/good/board/interview/itvEdit.do?itv_seq=${dto.ITV_SEQ}">수정</a> / <a
 																href="#" class="text-danger">삭제</a> 
@@ -100,7 +100,10 @@
 														<c:if test="${dto.ITV_CONFIRM=='1'}">
 															
 														</c:if>
-													</div> <input type="hidden" name="itv_seq" value="${dto.ITV_SEQ}">
+														<c:if test="${dto.ITV_CONFIRM=='2'}">
+															<a href="#" class="text-danger">삭제</a>
+														</c:if>
+													</div> <input type="hidden" name="std_seq" value="${dto.ITV_SEQ}">
 												</td>
 											</tr>
 										</c:forEach>

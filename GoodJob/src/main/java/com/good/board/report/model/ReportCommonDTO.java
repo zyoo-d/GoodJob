@@ -10,10 +10,13 @@ public class ReportCommonDTO {
 	private String seq;
 	private String title;
 	private String regdate;
+	private String rp_seq;
 	private String writer_id;
 	private String reporter_id;
 	private String report_detail;
 	private String report_regdate;
 	private String report_count;
 
+	
+	//<button id="report-btn" data-boardtype="live" data-seq="${cdto.cm_seq}">[ 신고 ]</button>
 }

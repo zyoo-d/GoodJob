@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -175,37 +177,58 @@ public class CompanyDAO {
 			String sql = "";
 			String where = "";
 
-			// 검색
-			if (map.get("search").equals("y") && map.get("hiring").equals("y")) {
+	        // 검색어 조건 추가 >>> conflict 나서 일단 주석 처리 해놔요 -희연
+	        if (map.get("search").equals("y")) {
+	            where += "cp_name LIKE '%" + map.get("word") + "%' AND ";
+	        }
 
-				where = String.format("where cp_name like '%%%s%%' and com_rcrt_cnt > 0", map.get("word"));
-				sql = String.format(
-						"select * from (select a.*, rownum as rnum from vwNewComListInfo a %s) where rnum between %s and %s",
-						where, map.get("begin"), map.get("end"));
-			} else if (map.get("search").equals("y") && map.get("hiring").equals("n")) {
-				where = String.format("where cp_name like '%%%s%%' ", map.get("word"));
-				sql = String.format(
-						"select * from (select a.*, rownum as rnum from vwNewComListInfo a %s) where rnum between %s and %s",
-						where, map.get("begin"), map.get("end"));
-			} else if (map.get("search").equals("n") && map.get("hiring").equals("y")) {
-				where = String.format("where com_rcrt_cnt > 0 ");
-				sql = String.format(
-						"select * from (select a.*, rownum as rnum from vwNewComListInfo a %s) where rnum between %s and %s",
-						where, map.get("begin"), map.get("end"));
-			} else {
-				sql = String.format(
-						"select * from (select a.*, rownum as rnum from vwNewComListInfo a) where rnum between %s and %s",
-						map.get("begin"), map.get("end"));
-			}
+	        // 채용 중인 기업 조건 추가
+	        if (map.get("hiring").equals("y")) {
+	            where += "com_rcrt_cnt > 0 AND ";
+	        }
 
-			// TODO 연봉검색, 주소검색, 업종검색
+	        // 연봉 조건 추가
+	        if (map.get("salary_seq") != null && !map.get("salary_seq").isEmpty()) {
+	            where += "hire_avr_salary >= " + map.get("salary_seq") + " AND ";
+	        }
 
-			stat = conn.createStatement();
-			rs = stat.executeQuery(sql);
+	        // 지역 조건 추가
+	        if (map.get("cp_address") != null && !map.get("cp_address").isEmpty()) {
+	            String[] locations = map.get("cp_address").split(",");
+	            where += "(";
+	            for (int i = 0; i < locations.length; i++) {
+	                where += "cp_address LIKE '%" + locations[i] + "%'";
+	                if (i < locations.length - 1) {
+	                    where += " OR ";
+	                }
+	            }
+	            where += ") AND ";
+	        }
 
-			ArrayList<CompanyDTO> listCompanyInfo = new ArrayList<CompanyDTO>();
+	        // 조건절 마지막의 AND 제거
+	        if (where.endsWith("AND ")) {
+	            where = where.substring(0, where.length() - 4);
+	        }
 
-			while (rs.next()) {
+	        // 정렬 기준 추가
+	        String orderBy = "";
+	        if (map.get("sort").equals("review")) {
+	            orderBy = "com_rv_cnt DESC";
+	        } else if (map.get("sort").equals("salary")) {
+	            orderBy = "hire_avr_salary DESC";
+	        }
+
+	        sql = "SELECT * FROM (SELECT a.*, ROWNUM AS rnum FROM (SELECT * FROM vwNewComListInfo " +
+	                (where.isEmpty() ? "" : "WHERE " + where) +
+	                " ORDER BY " + orderBy + ") a) WHERE rnum BETWEEN " + map.get("begin") + " AND " + map.get("end");
+
+	        stat = conn.createStatement();
+	        rs = stat.executeQuery(sql);
+
+	        ArrayList<CompanyDTO> listCompanyInfo = new ArrayList<CompanyDTO>();
+
+	        while (rs.next()) {
+	
 
 				CompanyDTO dto = new CompanyDTO();
 
@@ -247,7 +270,50 @@ public class CompanyDAO {
 		return null;
 
 	}
+	/**
+	 * 채용 공고가 있는 기업 목록 조회 메서드
+	 * @return
+	 */
+	public ArrayList<CompanyDTO> getCompaniesWithRecruitment() {
+	    try {
+	        LocalDate currentDate = LocalDate.now();
+	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+	        String formatCurrentDate = currentDate.format(formatter);
 
+	        String sql = "SELECT c.cp_seq, c.cp_name, c.cp_address, c.image " +
+	                     "FROM tblCompany c " +
+	                     "INNER JOIN tblRecruit r ON c.cp_seq = r.cp_seq " +
+	                     "WHERE r.enddate >= ? " +
+	                     "GROUP BY c.cp_seq, c.cp_name, c.cp_address, c.image " +
+	                     "HAVING COUNT(r.rcrt_seq) > 0";
+
+	        pstat = conn.prepareStatement(sql);
+	        pstat.setString(1, formatCurrentDate);
+
+	        rs = pstat.executeQuery();
+
+	        ArrayList<CompanyDTO> companiesWithRecruitment = new ArrayList<>();
+
+	        while (rs.next()) {
+	            CompanyDTO dto = new CompanyDTO();
+
+	            dto.setCp_seq(rs.getString("cp_seq"));
+	            dto.setCp_name(rs.getString("cp_name"));
+	            dto.setCp_address(rs.getString("cp_address"));
+	            dto.setImage(rs.getString("image"));
+
+	            companiesWithRecruitment.add(dto);
+	        }
+
+	        return companiesWithRecruitment;
+
+	    } catch (Exception e) {
+	        System.out.println("RecruitDAO.getCompaniesWithRecruitment");
+	        e.printStackTrace();
+	    }
+
+	    return null;
+	}
 	/**
 	 * 검색결과에 따른 기업수를 부러오는 메서드
 	 * 
@@ -563,6 +629,12 @@ public class CompanyDAO {
 					dto.setReview_avg(rs.getString("score"));
 					dto.setIdst_name(rs.getString("idst_name"));
 					dto.setImage(rs.getString("image"));
+					dto.setWel_avg(rs.getString("wel_avg"));
+					dto.setStab_avg(rs.getString("stab_avg"));
+					dto.setSal_avg(rs.getString("sal_avg"));
+					dto.setCul_avg(rs.getString("cul_avg"));
+					dto.setPot_avg(rs.getString("pot_avg"));
+					dto.setHire_avr_salary(rs.getInt("hire_avr_salary"));
 					
 					return dto;
 					
@@ -649,7 +721,56 @@ public class CompanyDAO {
 	    }
 	    return null;
 	}
+	public CompanyDTO getCompanyBySeq(String cp_seq) {
+		try {
+			
+			String sql = "select * from tblCompany where cp_seq = ?";
+			pstat = conn.prepareStatement(sql);
+			pstat.setString(1,cp_seq);
+			rs = pstat.executeQuery();
+			
+			if(rs.next()){
+				CompanyDTO dto = new CompanyDTO();
+				dto.setCp_name(rs.getString("cp_name"));
+				dto.setCp_address(rs.getString("cp_address"));
+				dto.setImage(rs.getString("image"));
+			
+				return dto;
+			}
+		}catch (Exception e) {
+	            System.out.println("CompanyDAO.getCompanyByCpSeq");
+	            e.printStackTrace();
+	        }
+	        return null;
+	    }
 
+	}
+	
+	
+	public HashMap<String, String> getUpdateDate(){
+		
+		HashMap<String,String> map = new HashMap<>();
+		
+		try {	
+				
+				String sql = "select * from vwUpdateDate";
+				
+				stat = conn.createStatement();
+				rs = stat.executeQuery(sql);
+				
+				
+				while(rs.next()) {
+					map.put(rs.getString("data_type"), rs.getString("regdate"));
+				}
+				
+			} catch (Exception e) {
+				System.out.println("CompanyDAO.getUpdateDate");
+				e.printStackTrace();
+			}
+			
+		return map;
+	}
+	
 	public int delScrap(String cp_seq) {
 		try {
 			String sql = "delete from tblscrap where cp_seq = ?";
