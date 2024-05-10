@@ -35,7 +35,7 @@ public class ReportService {
 			dao = new StdReportDAO();
 			StdReportDTO stdDto = new StdReportDTO.Builder()
 					.withId(id)
-					.withStd_rp_seq(rp_seq)
+					.withRp_seq(rp_seq)
 					.withStd_seq(seq)
 					.withStd_rp_detail(description)
 					.build();
@@ -45,7 +45,7 @@ public class ReportService {
 			dao = new QnaCmReportDAO();
 			QnaCmReportDTO qna_cmDto = new QnaCmReportDTO.Builder()
 					.withId(id)
-					.withQna_cm_rp_seq(rp_seq)
+					.withRp_seq(rp_seq)
 					.withQna_cm_seq(seq)
 					.withQna_cm_rp_detail(description)
 					.build();
@@ -55,7 +55,7 @@ public class ReportService {
 			dao = new StdCmReportDAO();
 			StdCmReportDTO std_cmDto = new StdCmReportDTO.Builder()
 					.withId(id)
-					.withStd_cm_rp_seq(rp_seq)
+					.withRp_seq(rp_seq)
 					.withStd_cm_seq(seq)
 					.withStd_cm_rp_detail(description)
 					.build();
@@ -65,7 +65,7 @@ public class ReportService {
 			dao = new LiveCmReportDAO();
 			LiveCmReportDTO liveDto = new LiveCmReportDTO.Builder()
 					.withId(id)
-					.withLive_cm_rp_seq(rp_seq)
+					.withRp_seq(rp_seq)
 					.withLive_seq(seq)
 					.withLive_cm_rp_detail(description)
 					.build();

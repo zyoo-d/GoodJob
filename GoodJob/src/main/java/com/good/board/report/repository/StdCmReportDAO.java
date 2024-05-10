@@ -96,7 +96,7 @@ public class StdCmReportDAO implements ReportDAO<StdCmReportDTO>{
 	}
 
 	@Override
-	public int isReport(String id, String seq) {
+	public boolean isReported(String id, String seq) {
 		
 		try {
 			
@@ -110,7 +110,7 @@ public class StdCmReportDAO implements ReportDAO<StdCmReportDTO>{
 			
 			if(rs.next()) {
 				
-				return rs.getInt("cnt");
+				return rs.getInt("cnt") > 0;
 				
 			}
 			
@@ -120,7 +120,7 @@ public class StdCmReportDAO implements ReportDAO<StdCmReportDTO>{
 		}
 		
 		
-		return 0;
+		return false;
 	}
 
 	@Override

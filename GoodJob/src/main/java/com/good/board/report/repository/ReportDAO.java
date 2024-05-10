@@ -12,5 +12,5 @@ public interface ReportDAO<T>{
 	public void delete(String seq);
 	public void view(String seq);
 	public int totalCount();
-	public int isReport(String id, String seq);
+	public boolean isReported(String id, String seq);
 }
