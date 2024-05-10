@@ -72,7 +72,9 @@ public class CompanyDAO {
 			
 			//검색
 			if(map.get("hiring").equals("y")) {
+				
 				sql += where;
+			
 			}
 			System.out.println(sql);
 
@@ -89,10 +91,9 @@ public class CompanyDAO {
 				dto.setCp_name(rs.getString("cp_name"));
 
 				dto.setImage(rs.getString("image"));
-				
+				dto.setReview_avg(rs.getString("score"));
 				dto.setIdst_name(rs.getString("idst_name"));
 				dto.setCom_rcrt_cnt(rs.getInt("com_rcrt_cnt"));
-				dto.setReview_avg(rs.getString("score"));
 				mainComInfo.add(dto);
 
 			}

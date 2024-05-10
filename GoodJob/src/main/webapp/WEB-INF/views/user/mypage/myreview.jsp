@@ -19,16 +19,16 @@
 					<div class="breadcrumb-item active">
 						<a href="#">활동내역</a>
 					</div>
-					<div class="breadcrumb-item">면접후기</div>
+					<div class="breadcrumb-item">기업리뷰</div>
 				</div>
 			</div>
 			<div class="section-body">
-				<h2 class="section-title">면접후기</h2>
+				<h2 class="section-title">기업리뷰</h2>
 				<div class="row mt-4">
 					<div class="col-12">
-						<div class="card" id="interviewTable">
-							<div class="card-header" id="interviewHeader">
-								<h4>${totalCount}개의 후기를 작성하셨습니다.</h4>
+						<div class="card" id="reviewTable">
+							<div class="card-header" id="reviewHeader">
+								<h4>${totalCount}개의 리뷰를 작성하셨습니다.</h4>
 								<div class="float-right">
 									<div class="dropdown d-inline mr-2">
 										<button class="btn btn-outline-primary dropdown-toggle"
@@ -62,8 +62,7 @@
 										<tr>
 											<th>번호</th>
 											<th>기업명</th>
-											<th>면접시기</th>
-											<th>합격여부</th>
+											<th>리뷰 내용</th>
 											<th>작성일</th>
 											<th>등록여부</th>
 											<th>수정/삭제</th>
@@ -71,44 +70,38 @@
 										<c:forEach items="${list}" var="dto">
 											<tr>
 												<td>${dto.rnum}</td>
-												<td>${dto.ITV_CPNAME}</td>
-												<td>${dto.ITV_MEETDATE}</td>
-												<td><c:if test="${dto.ITV_WHETHER=='합격'}">
-														<div class="badge badge-primary">
-													</c:if> <c:if test="${dto.ITV_WHETHER=='대기중'}">
-														<div class="badge badge-warning">
-													</c:if> <c:if test="${dto.ITV_WHETHER=='불합격'}">
-														<div class="badge badge-danger">
-													</c:if> ${dto.ITV_WHETHER}
-													</div></td>
-												<td>${dto.ITV_REGDATE}</td>
-												<td><c:if test="${dto.ITV_CONFIRM=='1'}">
+												<td>${dto.cp_name}</td>
+												<td>${dto.linereview}</td>
+												<td>${dto.cp_rv_regdate}</td>
+												<td><c:if test="${dto.cp_rv_confirm=='1'}">
 														<div class="badge badge-primary">등록 완료</div>
-													</c:if> 
-													<c:if test="${dto.ITV_CONFIRM=='0'}">
+													</c:if> <c:if test="${dto.cp_rv_confirm=='0'}">
 														<div class="badge badge-warning">심사중</div>
-													</c:if> 
-													<c:if test="${dto.ITV_CONFIRM=='2'}">
+													</c:if> <c:if test="${dto.cp_rv_confirm=='2'}">
 														<div class="badge badge-danger">반려</div>
-													</c:if> </td>
+													</c:if></td>
 												<td><div class="">
-														<c:if test="${dto.ITV_CONFIRM=='0'||dto.ITV_CONFIRM=='2'}">
+														<c:if test="${dto.cp_rv_confirm=='0'}">
 															<a
-																href="/good/board/interview/itvEdit.do?itv_seq=${dto.ITV_SEQ}">수정</a> / <a
-																href="#" class="text-danger">삭제</a> 
+																href="/good/user/company/review/editreview.do?cp_rv_seq=${dto.cp_rv_seq}">수정</a> / <a
+																href="#" class="text-danger">삭제</a>
 														</c:if>
-														<c:if test="${dto.ITV_CONFIRM=='1'}">
+														<c:if test="${dto.cp_rv_confirm=='1'}">
 															-
 														</c:if>
-													</div> <input type="hidden" name="std_seq" value="${dto.ITV_SEQ}">
-												</td>
+														<c:if test="${dto.cp_rv_confirm=='2'}">
+															<a href="#" class="text-danger">삭제</a>
+														</c:if>
+														<input type="hidden" name="cp_rv_seq" value="${dto.cp_rv_seq}">
+													</div></td>
 											</tr>
 										</c:forEach>
 									</table>
 								</div>
-								<div id="interviewPaging">
+								<div id="reviewPaging">
 									<nav>
-										<ul class="pagination">${pagebar}
+										<ul class="pagination">
+											${pagebar}
 										</ul>
 									</nav>
 								</div>
@@ -121,18 +114,17 @@
 	</div>
 	<%@include file="/WEB-INF/views/inc/adminfooter.jsp"%>
 	<script>
-		$('.text-danger')
-				.click(
-						function() {
-							if (confirm('게시물을 삭제하시겠습니까?')) {
-								var itvSeqValue = $(this).closest('div').find(
-										'input[type="hidden"]').val();
-								location.href = "/good/board/interview/itvDel.do?itv_seq="
-										+ itvSeqValue;
-								$(this).parents().eq(2).remove();
-								//데이터 처리도 해주기
-							}
-						});
+	$('.text-danger')
+	.click(
+			function() {
+				if (confirm('리뷰를 삭제하시겠습니까?')) {
+					var cpRvSeqValue = $(this).closest('div').find(
+							'input[type="hidden"]').val();
+					location.href = "/good/user/company/review/delreview.do?cp_rv_seq="
+							+ cpRvSeqValue;
+					$(this).parents().eq(2).remove();
+				}
+			});
 	</script>
 </body>
 </html>
