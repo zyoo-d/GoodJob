@@ -18,18 +18,15 @@ public class DelInterview extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 	
 		
-		if(AuthQna.check(req, resp)) {
-			return;
-		}
 		
 		String itv_seq = req.getParameter("itv_seq");
-		
+		System.out.println(itv_seq);
 		InterviewDAO dao = new InterviewDAO();
 		int result = dao.delQna(itv_seq);
 		
 		if(result == 1) {
-			
-			resp.sendRedirect("면접후기 리스트");
+			System.out.println("삭제 성공");
+			resp.sendRedirect("/good/board/interview/interview.do");
 			
 			
 		} else {

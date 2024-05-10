@@ -22,26 +22,15 @@ public class EditInterview extends HttpServlet{
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		HttpSession session = req.getSession();
 		//접근 권한
-		if (!"2".equals((String) session.getAttribute("lv"))) {
-			resp.setContentType("text/html; charset=UTF-8");
-		    resp.setCharacterEncoding("UTF-8");
-		    PrintWriter writer = resp.getWriter();
-		    writer.print("<script>alert('접근권한이 없습니다.');location.href='/good/main.do';</script>");
-		    writer.close();
-		}
+		String ITV_SEQ = req.getParameter("itv_seq");
 		
-		String itv_seq = req.getParameter("itv_seq");
-		
-		//인증
-		if(AuthQna.check(req, resp)) {
-			return;
-		}
-		
+		System.out.println(ITV_SEQ);
 		InterviewDAO dao = new InterviewDAO();
-		InterviewDTO dto = dao.getItv(itv_seq);
+		InterviewDTO dto = dao.getItv(ITV_SEQ);
 		
-		
+		System.out.println(dto);
 		req.setAttribute("dto", dto);
+		req.setAttribute("ITV_SEQ", ITV_SEQ);
 		
 		dao.close();
 		
@@ -57,8 +46,9 @@ public class EditInterview extends HttpServlet{
 		
 		HttpSession session = req.getSession();
 		String id = (String)session.getAttribute("id");
-		String itv_seq = req.getParameter("itv_seq");
-		
+		String ITV_SEQ = req.getParameter("ITV_SEQ");
+		System.out.println("수정후 ITV_SEQ");
+		System.out.println(ITV_SEQ);
 		req.setCharacterEncoding("UTF-8");
 	    
 		String ITV_CPNAME = req.getParameter("itvCpName");
@@ -87,16 +77,19 @@ public class EditInterview extends HttpServlet{
 	    dto.setITV_TIP(itvTip);
 	    dto.setITV_WHETHER(itvWhether);
 	    dto.setID(id);
-	    dto.setITV_SEQ(itv_seq);
+	    dto.setITV_SEQ(ITV_SEQ);
 	    
+	    System.out.println("수정한 글 불러오기");
+	    System.out.println(dto);
 	    InterviewDAO dao = new InterviewDAO();
 	    int result = dao.edit(dto);
-  
+	    System.out.println(result);
 	    if (result > 0) {
-	      resp.sendRedirect("/good/interview.do");
+	    	System.out.println("interviewWrite 수정 성공");
+	      resp.sendRedirect("/good/board/interview/interview.do");
 	    } else {
-	    	System.out.println("interviewWrite 글쓰기 실패");
-	      resp.sendRedirect("/good/interview.do");
+	    	System.out.println("interviewWrite 수정 실패");
+	      resp.sendRedirect("/good/board/interview/interview.do");
 	    }
 		
 	

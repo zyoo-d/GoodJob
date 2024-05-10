@@ -515,6 +515,11 @@ h3>#scrap {
 .highcharts-data-table tr:hover {
 	background: #f1f7ff;
 }
+
+#CplivecommentBtn {
+	display: inline;
+	float: right;
+}
 </style>
 </head>
 <%@include file="/WEB-INF/views/inc/header.jsp"%>
@@ -601,9 +606,9 @@ h3>#scrap {
 						<span class="menu">해당 기업 공고</span>
 						<!-- 채용정보 -->
 						<div id="recruit">
-    <c:choose>
-        <c:when test="${not empty comRecruitList}">
-            <c:forEach items="${comRecruitList}" var="rcdto" begin="0" end="5">
+
+
+							<c:forEach items="${comRecruitList}" var="rcdto" begin="0"
 								end="5">
 								<div
 									class="rounded-xl border border-primary bg-white px-8 py-6 shadow-lg lg:-mt-16"
@@ -669,24 +674,21 @@ h3>#scrap {
 									</div>
 								</div>
 							</c:forEach>
-							</c:when>
 							<%--  </c:forEach> --%>
-								<c:otherwise>
-							
+
+							<c:if test="${dto.com_rcrt_cnt ==0}">
 								<span class="px-8 py-10 lg:-mt-16 h-[48px]"
 									style="color: #595959; font-size: 18px;"> " 현재 모집중인
 									채용공고가 없습니다. " </span>
-							
-							 </c:otherwise>
-    </c:choose>
+							</c:if>
 						</div>
 						<!-- div:recruit -->
 						<span class="menu">기업 키워드</span>
 						<div id="keyword">
 
 							<div class="job_meta">
-								<c:if test="${not empty topTags}">
-									<c:forEach items="${topTags}" var="tdto" begin="0" end="1">
+								<c:if test="${not empty ComTaglist}">
+									<c:forEach items="${ComTaglist}" var="tdto" begin="0" end="1">
 										<c:if test="${tdto.cp_seq == dto.cp_seq}">
 											<c:forEach items="${tdto.tag_keyword}" var="tag" begin="0"
 												end="4">
@@ -703,7 +705,7 @@ h3>#scrap {
 						<button id="add_review"
 							onclick="checkLogin(${dto.cp_seq}, '${word}', '${map.search}', '${map.hiring}', ${nowPage})">리뷰
 							쓰러가기</button>
-						
+
 
 						<div>
 
@@ -772,10 +774,14 @@ h3>#scrap {
 
 
 												</div>
+												<div class="score_rating" id="total_score">
+													<span id="total_review">총 평점 </span> <br />
+													<c:forEach var="i" begin="1"
+														end="${(rdto.salary_score+rdto.welfare_score+rdto.stability_score+rdto.culture_score+rdto.growth_score)/5}">
+														<i class="fa-solid fa-star"></i>
+													</c:forEach>
 												</div>
-												<div>
-
-												</div>
+												<div></div>
 										</c:if>
 									</c:forEach>
 								</c:if>
@@ -826,36 +832,50 @@ h3>#scrap {
 					<i class="fa-solid fa-rotate-right"></i>
 				</button>
 			</span>
+
+
+
 			<div id="comment">
 				<div class="card chat-box" id="mychatbox">
-					<%
-					for (int i = 0; i < 14; i++) {
-					%>
-					<div class="mb-2">
-						<br />
-						<p class="bg-gray-200 text-gray-700 rounded-lg py-2 px-4"
-							id="chatchat">This is a response from the chatbot.
-							ㅁㄴㅇㅁㄴㅇㅁㄴㄴ난This is a response from the chatbot.</p>
-						<div id="comment_content">
-							스타벅스 <span id="chat_regdate">2024-04-30 11:24</span>
-							<button id="report-btn" data-boardtype="live" data-seq="${cdto.cm_seq}">[ 신고 ]</button>
-							
-						</div>
+
+					<div id="commentList">
+						<c:forEach items="${livecommentlist}" var="livecommentdto">
+							<div class="mb-2">
+								<br />
+								<p class="bg-gray-200 text-gray-700 rounded-lg py-2 px-4"
+									id="chatchat">${livecommentdto.content}</p>
+								<div id="comment_content">
+									${livecommentdto.nickname} <span id="chat_regdate">${livecommentdto.regdate}</span><br>
+									<div id="CplivecommentBtn">
+										<button id="singo">[ 신고 ]</button>
+										<c:if
+											test="${not empty id && (livecommentdto.id == id || lv == 2)}">
+
+											<button id="liveCommentDelBtn"
+												data-seq="${livecommentdto.cm_seq}"
+												onclick="del(${livecommentdto.cm_seq});">[ 삭제 ]</button>
+										</c:if>
+									</div>
+								</div>
+							</div>
+						</c:forEach>
+
 					</div>
-					<%
-					}
-					%>
 				</div>
 
 
+
+
+
+
 				<div class="card-footer chat-form">
-					<form id="chat-form">
+					<div id="chat-form">
 						<input type="text" class="form-control"
-							placeholder="Type a message">
-						<button class="btn btn-primary">
+							placeholder="Type a message" name="liveCommentContent">
+						<button class="btn btn-primary" id="liveCommentBtn">
 							<i class="far fa-paper-plane"></i>
 						</button>
-					</form>
+					</div>
 				</div>
 			</div>
 			<div id="go_container">
@@ -881,6 +901,13 @@ h3>#scrap {
 	<!-- <script src="/good/assets/modules/chart.min.js"></script> -->
 	<script src="/good/assets/js/page/index-0.js"></script>
 	<script>
+	$(document).ready(function() {
+	    $("#scrap").click(function() {
+	        var cpSeq = ${dto.cp_seq};
+	        var id = '${sessionScope.id}';
+	        addScrap(cpSeq, id);
+	    });
+	});
 		// .chat-box 요소의 스크롤을 맨 아래로 이동하는 함수
 		function scrollToBottom() {
 			var chatBox = document.querySelector(".chat-box");
@@ -954,6 +981,122 @@ h3>#scrap {
 		        });
 		    }
 		});
+		
+	
+	
+	$("#liveCommentBtn")
+	.click(
+			function() {
+			
+				
+				var commentContent = $(
+						"input[name='liveCommentContent']").val();
+				
+				var cpSeq = ${dto.cp_seq};
+				
+			 	var userId = "${sessionScope.id}";
+			    if (!userId) {
+			        alert("로그인해주세요."); 
+			        return;
+			    } 
+				
+
+				if (commentContent.trim() === "") {
+					alert("댓글 내용을 입력해주세요.");
+					return;
+				}
+
+				$.ajax({
+							url : "/good/board/comment/AddLivecomment.do",
+							type : "POST",
+							data : {
+								cp_seq : cpSeq,
+								content : commentContent
+							},
+							dataType : 'json',
+							success : function(response) {
+								console.log(response);
+								var newComment = response.dto;
+								console.log(newComment);
+								var commentHtml = '<div class="mb-2">'
+									+ '  <br />'
+									+ '  <p class="bg-gray-200 text-gray-700 rounded-lg py-2 px-4" id="chatchat">' + newComment.live_content + '</p>'
+									+ '  <div id="comment_content">'
+									+ '    ' + newComment.nickname + ' <span id="chat_regdate">' + newComment.live_cm_regdate + '</span>'
+									+ '    <button id="singo">[ 신고 ]</button>'
+									+ '  </div>'
+									+ '</div>';
+								
+							
+
+								// 새로운 댓글을 목록에 추가
+								$("#commentList").append(commentHtml);
+
+								// 사용자에게 댓글이 추가되었음을 알림
+								alert("댓글이 추가되었습니다.");
+
+								$("input[name='liveCommentContent']").val(""); // 댓글 입력 필드 초기화
+							},
+							error : function() {
+								alert("댓글 작성 중 오류가 발생했습니다.");
+							}
+						});
+			});
+	
+
+	function del(seq) {
+	    if (confirm('삭제하겠습니까?')) {
+	        $.ajax({
+	            type: 'POST',
+	            url: '/good/board/comment/livedelcomment.do',
+	            data: { seq: seq },
+	            dataType: 'json',
+	            success: function(result) {
+	                if (result.result == 1) {
+	                    // 삭제된 댓글을 화면에서 제거
+	                    $('#commentList').find('.mb-2').each(function() {
+	                        if ($(this).find('#liveCommentDelBtn').data('seq') == seq) {
+	                            $(this).remove();
+	                            return false;
+	                        }
+	                    });
+	                    alert('댓글이 삭제되었습니다.');
+	                } else {
+	                    alert('댓글 삭제를 실패했습니다.');
+	                }
+	            },
+	            error: function(a, b, c) {
+	                console.log(a, b, c);
+	            }
+	        });
+	    }
+	}
+	function addScrap(cpSeq, id) {
+	    if (!id) {
+	        alert("로그인이 필요합니다.");
+	        return;
+	    }
+
+	    $.ajax({
+	        url: "/good/test/mg/addscrap.do",
+	        type: "POST",
+	        data: {
+	            id: id,
+	            cp_seq: cpSeq
+	        },
+	        success: function(response) {
+	            alert("스크랩 되었습니다.");
+	            // 스크랩 수 업데이트
+	            var scrapCount = parseInt($("#scrap").text().replace("+", "")) + 1;
+	            $("#scrap").html('<i class="fa-regular fa-bookmark"></i> ' + scrapCount + '+');
+	        },
+	        error: function() {
+	            alert("스크랩 중 오류가 발생했습니다.");
+	        }
+	    });
+	}
+	
+			
 		
 	</script>
 </body>

@@ -19,7 +19,6 @@ import org.json.simple.parser.JSONParser;
 
 import com.good.alert.Alert;
 import com.good.board.repository.BoardDAO;
-import com.good.board.repository.TagDAO;
 import com.good.company.model.CompanyDTO;
 import com.good.company.model.ReviewDTO;
 import com.good.company.repository.CompanyDAO;
@@ -49,11 +48,13 @@ public class AddReview extends HttpServlet {
 		ArrayList<String> showTagList = rdao.showTagList();
 		ArrayList<String> showComTagList = rdao.showComTagList();
 
+
 		req.setAttribute("cp_seq", cp_seq);
 		req.setAttribute("page", page);
 		req.setAttribute("dto", dto);
 		req.setAttribute("showTagList", showTagList);
 		req.setAttribute("showComTagList", showComTagList);
+
 
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/user/company/review/addreview.jsp");
 		dispatcher.forward(req, resp);
@@ -103,8 +104,7 @@ public class AddReview extends HttpServlet {
 		dto.setCp_seq(cp_seq);
 
 		// 리뷰 등록
-		 int result = rdao.addReview(dto);
-		    String cp_rv_seq = rdao.getLastInsertedCpRvSeq();
+		int result = rdao.addReview(dto);
 		
 		if (result == 1) {
 			resp.sendRedirect("/good/user/company/companyview.do?cp_seq=" + cp_seq);
@@ -114,30 +114,5 @@ public class AddReview extends HttpServlet {
 			writer.println("<script>alert('리뷰 등록에 실패했습니다.'); location.href='/good/user/company/review/addreview.do?cp_seq=" + cp_seq + "';</script>");
 			writer.close();
 		}
-		
-		// 태그 처리
-		 if (result == 1) {
-		        // 태그 처리
-		        String[] tags = req.getParameterValues("tag_keyword");
-		        TagDAO tagDao = new TagDAO();
-
-		        if (tags != null) {
-		            for (String tag : tags) {
-		                // 기존에 등록된 태그인지 확인
-		                String tagSeq = tagDao.getTagSeq(tag);
-
-		                if (tagSeq == null) {
-		                    // 새로운 태그 등록
-		                    tagDao.insertTag(tag);
-		                    tagSeq = tagDao.getTagSeq(tag);
-		                }
-
-		                // 리뷰-태그 관계 등록
-		                tagDao.insertReviewTag(tagSeq, cp_rv_seq); // cp_rv_seq 사용
-		            }
-		        }
-		 }
 	}
-		
-	
 }

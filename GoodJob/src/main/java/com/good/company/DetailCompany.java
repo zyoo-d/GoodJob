@@ -1,6 +1,7 @@
 package com.good.company;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
@@ -11,6 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
+
+import com.good.board.model.CommentDTO;
 import com.good.company.model.CompanyDTO;
 import com.good.company.model.RecruitDTO;
 import com.good.company.model.ReviewDTO;
@@ -66,10 +70,15 @@ public class DetailCompany extends HttpServlet {
 
 		// 태그출력
 		ReviewDAO tdao = new ReviewDAO();
+
 		//ArrayList<ReviewDTO> ComTaglist = tdao.tagList(cp_seq); 
 		// 상위 태그 목록 조회
         CompanyDAO cdao = new CompanyDAO();
         ArrayList<String> topTags = cdao.getTopTagsByCpSeq(cp_seq);
+
+		
+
+
 		// 기업직무정보
 		RecruitDAO jdao = new RecruitDAO();
 		ArrayList<String> comJobList = jdao.comJob(cp_seq);
@@ -98,8 +107,14 @@ public class DetailCompany extends HttpServlet {
 		String cp_name = dto.getCp_name();
 		NewsDAO ndao = new NewsDAO();
 		ArrayList<NewsDTO> nlist = ndao.search(cp_name);
+		System.out.println(nlist);
 
+		// 실시간 댓글
+		ArrayList<CommentDTO> livecommentlist = dao.listComment(cp_seq);
+		
+		System.out.println(livecommentlist);
 		req.setAttribute("nlist", nlist);
+
 		req.setAttribute("dto", dto);
 		req.setAttribute("word", word);
 		req.setAttribute("page", page);
@@ -107,8 +122,11 @@ public class DetailCompany extends HttpServlet {
 		req.setAttribute("comRecruitList", comRecruitList);
 		req.setAttribute("search", search);
 		req.setAttribute("hiring", hiring);
-		//req.setAttribute("ComTaglist", ComTaglist);
-		req.setAttribute("topTags", topTags);
+		// req.setAttribute("ComTaglist", ComTaglist);
+		// req.setAttribute("flist",flist);
+		
+		req.setAttribute("livecommentlist", livecommentlist);
+		req.setAttribute("ComTaglist", ComTaglist);
 		req.setAttribute("comJobList", comJobList);
 		req.setAttribute("salesList", flist[0]);
 		req.setAttribute("ebitList", flist[1]);

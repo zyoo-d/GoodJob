@@ -33,7 +33,7 @@ public class InterviewWrite extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 	    
 		String ITV_CPNAME = request.getParameter("itvCpName");
-	    String cpSeq = request.getParameter("cp_seq");
+	    String cp_seq = request.getParameter("cp_seq");
 	    String itvCareer = request.getParameter("ITV_CAREER");
 	    String itvMeetdate = request.getParameter("ITV_MEETDATE");
 	    String itvEvaluation = request.getParameter("ITV_EVALUATION");
@@ -45,9 +45,15 @@ public class InterviewWrite extends HttpServlet {
 	    String itvWhether = request.getParameter("ITV_WHETHER");
 	
 
+	    System.out.println(cp_seq);
+	    System.out.println(ITV_CPNAME);
+	    System.out.println(itvDifficulty);
+	    
+	    
+	    
 	    InterviewDTO dto = new InterviewDTO();
 	    dto.setITV_CPNAME(ITV_CPNAME);
-	    dto.setCP_SEQ(cpSeq);
+	    dto.setCP_SEQ(cp_seq);
 	    dto.setITV_CAREER(itvCareer);
 	    dto.setITV_MEETDATE(itvMeetdate);
 	    dto.setITV_EVALUATION(itvEvaluation);
@@ -58,16 +64,17 @@ public class InterviewWrite extends HttpServlet {
 	    dto.setITV_TIP(itvTip);
 	    dto.setITV_WHETHER(itvWhether);
 	    dto.setID(id);
-	    
+
 	    InterviewDAO dao = new InterviewDAO();
 	    int result = dao.Write(dto);
-	    // >>>>
+	    
+	    System.out.println(result);
 	    
 	    if (result > 0) {
 	      response.sendRedirect("/good/user/mypage/myinterview.do");
 	    } else {
 	    	System.out.println("interviewWrite 글쓰기 실패");
-	      response.sendRedirect("/good/interview.do");
+	      response.sendRedirect("/good/board/interview/interview.do");
 	    }
 	  }
 	}
