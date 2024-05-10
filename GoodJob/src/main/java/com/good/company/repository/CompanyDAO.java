@@ -570,6 +570,30 @@ public class CompanyDAO {
 		return null;
 		
 	}
+	public CompanyDTO getCompanyBySeq(String cp_seq) {
+		try {
+			
+			String sql = "select * from tblCompany where cp_seq = ?";
+			pstat = conn.prepareStatement(sql);
+			pstat.setString(1,cp_seq);
+			rs = pstat.executeQuery();
+			
+			if(rs.next()){
+				CompanyDTO dto = new CompanyDTO();
+				dto.setCp_name(rs.getString("cp_name"));
+				dto.setCp_address(rs.getString("cp_address"));
+				dto.setImage(rs.getString("image"));
+			
+				return dto;
+			}
+		}catch (Exception e) {
+	            System.out.println("CompanyDAO.getCompanyByCpSeq");
+	            e.printStackTrace();
+	        }
+	        return null;
+	    }
+
+	}
 	
 	
 	
@@ -581,7 +605,7 @@ public class CompanyDAO {
 	
 	
 
-}
+
 
 
 

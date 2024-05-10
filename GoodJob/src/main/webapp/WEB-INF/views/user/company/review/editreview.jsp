@@ -287,7 +287,7 @@ textarea {
 									<div class="box_item mx-0 bg-white px-10">
 										<!-- 추가된 이미지 컨테이너 -->
 										<div class="com-image">
-											<img src="${dto.image}"
+											<img src="${cdto.image}"
 												onerror="this.src='/good/asset/images/default.jpg'"
 												alt="Company Logo">
 										</div>
@@ -297,14 +297,11 @@ textarea {
 												<div class="job_tit">
 													<h2>
 														<a class="str_tit_title new" href="#" target="_blank">
-															${dto.cp_name} </a>
+															${cdto.cp_name} </a>
 													</h2>
 												</div>
 												<div class="job_meta">
-													<span class="job-keyword"><b>위치 </b>${dto.cp_address}</span>
-													<span class="job-keyword"><b>총매출액 </b>${dto.idst_name}</span>
-													<span class="job-keyword"><b>평균연봉 </b>${dto.hire_avr_salary}
-														만원</span>
+													<span class="job-keyword"><b>위치 </b>${cdto.cp_address}</span>
 												</div>
 											</div>
 										</div>
@@ -327,72 +324,63 @@ textarea {
 
 								<!-- 별점등록START -->
 								<div class="rating-section">
-									<h3>별점 등록</h3>
-									<div class="category">
-										<label>연봉</label>
-										<div class="stars" data-category="salary">
-											<span class="star fa-solid fa-star" data-value="1"></span> <span
-												class="star fa-solid fa-star" data-value="2"></span> <span
-												class="star fa-solid fa-star" data-value="3"></span> <span
-												class="star fa-solid fa-star" data-value="4"></span> <span
-												class="star fa-solid fa-star" data-value="5"></span>
-										</div>
-										<input type="hidden" name="salary_score" value=""
-											id="salary-highest">
-									</div>
-									<div class="category">
-										<label>복지</label>
-										<div class="stars" data-category="welfare">
-											<span class="star fa-solid fa-star" data-value="1"></span> <span
-												class="star fa-solid fa-star" data-value="2"></span> <span
-												class="star fa-solid fa-star" data-value="3"></span> <span
-												class="star fa-solid fa-star" data-value="4"></span> <span
-												class="star fa-solid fa-star" data-value="5"></span>
-										</div>
-										<input type="hidden" name="welfare_score" value=""
-											id="welfare-highest">
-									</div>
-
-									<div class="category">
-										<label>조직안정성</label>
-										<div class="stars" data-category="stability">
-											<span class="star fa-solid fa-star" data-value="1"></span> <span
-												class="star fa-solid fa-star" data-value="2"></span> <span
-												class="star fa-solid fa-star" data-value="3"></span> <span
-												class="star fa-solid fa-star" data-value="4"></span> <span
-												class="star fa-solid fa-star" data-value="5"></span>
-										</div>
-										<input type="hidden" name="stability_score" value=""
-											id="stability-highest">
-									</div>
-
-									<div class="category">
-										<label>조직문화</label>
-										<div class="stars" data-category="culture">
-											<span class="star fa-solid fa-star" data-value="1"></span> <span
-												class="star fa-solid fa-star" data-value="2"></span> <span
-												class="star fa-solid fa-star" data-value="3"></span> <span
-												class="star fa-solid fa-star" data-value="4"></span> <span
-												class="star fa-solid fa-star" data-value="5"></span>
-										</div>
-										<input type="hidden" name="culture_score" value=""
-											id="culture-highest">
-									</div>
-
-									<div class="category">
-										<label>성장가능성</label>
-										<div class="stars" data-category="growth">
-											<span class="star fa-solid fa-star" data-value="1"></span> <span
-												class="star fa-solid fa-star" data-value="2"></span> <span
-												class="star fa-solid fa-star" data-value="3"></span> <span
-												class="star fa-solid fa-star" data-value="4"></span> <span
-												class="star fa-solid fa-star" data-value="5"></span>
-										</div>
-										<input type="hidden" name="growth_score" value=""
-											id="growth-highest">
-									</div>
-
-								</div>
+    <h3>별점 등록</h3>
+    <div class="category">
+        <label>연봉</label>
+        <div class="stars" data-category="salary" data-initial-value="${rdto.salary_score}">
+            <span class="star fa-solid fa-star" data-value="1"></span>
+            <span class="star fa-solid fa-star" data-value="2"></span>
+            <span class="star fa-solid fa-star" data-value="3"></span>
+            <span class="star fa-solid fa-star" data-value="4"></span>
+            <span class="star fa-solid fa-star" data-value="5"></span>
+        </div>
+        <input type="hidden" name="salary_score" value="${rdto.salary_score}" id="salary-highest">
+    </div>
+    <div class="category">
+        <label>복지</label>
+        <div class="stars" data-category="welfare" data-initial-value="${rdto.welfare_score}">
+            <span class="star fa-solid fa-star" data-value="1"></span>
+            <span class="star fa-solid fa-star" data-value="2"></span>
+            <span class="star fa-solid fa-star" data-value="3"></span>
+            <span class="star fa-solid fa-star" data-value="4"></span>
+            <span class="star fa-solid fa-star" data-value="5"></span>
+        </div>
+        <input type="hidden" name="welfare_score" value="${rdto.welfare_score}" id="welfare-highest">
+    </div>
+    <div class="category">
+        <label>조직안정성</label>
+        <div class="stars" data-category="stability" data-initial-value="${rdto.stability_score}">
+            <span class="star fa-solid fa-star" data-value="1"></span>
+            <span class="star fa-solid fa-star" data-value="2"></span>
+            <span class="star fa-solid fa-star" data-value="3"></span>
+            <span class="star fa-solid fa-star" data-value="4"></span>
+            <span class="star fa-solid fa-star" data-value="5"></span>
+        </div>
+        <input type="hidden" name="stability_score" value="${rdto.stability_score}" id="stability-highest">
+    </div>
+    <div class="category">
+        <label>조직문화</label>
+        <div class="stars" data-category="culture" data-initial-value="${rdto.culture_score}">
+            <span class="star fa-solid fa-star" data-value="1"></span>
+            <span class="star fa-solid fa-star" data-value="2"></span>
+            <span class="star fa-solid fa-star" data-value="3"></span>
+            <span class="star fa-solid fa-star" data-value="4"></span>
+            <span class="star fa-solid fa-star" data-value="5"></span>
+        </div>
+        <input type="hidden" name="culture_score" value="${rdto.culture_score}" id="culture-highest">
+    </div>
+    <div class="category">
+        <label>성장가능성</label>
+        <div class="stars" data-category="growth" data-initial-value="${rdto.growth_score}">
+            <span class="star fa-solid fa-star" data-value="1"></span>
+            <span class="star fa-solid fa-star" data-value="2"></span>
+            <span class="star fa-solid fa-star" data-value="3"></span>
+            <span class="star fa-solid fa-star" data-value="4"></span>
+            <span class="star fa-solid fa-star" data-value="5"></span>
+        </div>
+        <input type="hidden" name="growth_score" value="${rdto.growth_score}" id="growth-highest">
+    </div>
+</div>
 								<!-- 별점등록END -->
 
 
@@ -471,16 +459,13 @@ textarea {
 							</p>
 						</div>
 						<div class="moving-btn">
-							<a href="/good/user/company/companyview.do?cp_seq=${rdto.cp_seq}"
+							<a href="/good/user/mypage/myreview.do?id=${id}"
 								class="btn btnBefore">이전으로</a>
 							<c:choose>
 								<c:when test="${rdto.cp_rv_confirm == 0}">
-									<!-- 대기 상태일 때 수정/삭제 버튼 표시 -->
-									<button type="submit" name="action" value="update"
-										class="btn btnList submitRatings">수정하기</button>
-									<button type="button" onclick="confirmDelete()"
-										class="btn btnList submitRatings">삭제하기</button>
-
+									<!-- 대기 상태일 때 수정 버튼 표시 -->
+									
+										<button type="submit" name="action" value="update" class="btn btnList submitRatings">수정하기</button>
 								</c:when>
 								<c:otherwise>
 									<!-- 승인 또는 거절 상태일 때 수정/삭제 버튼 숨김 -->
@@ -513,14 +498,6 @@ $('#lineBox').keyup(function (e) {
         alert('글자수는 30자까지 입력 가능합니다.');
     };
 });
-
-function confirmDelete() {
-    if (confirm("리뷰를 삭제하시겠습니까?")) {
-        location.href = "/good/user/company/review/delreview.do?cp_seq=${dto.cp_seq}&cp_rv_seq=${rdto.cp_rv_seq}";
-    }
-}
-
-
 
 
 $('#textGood').keyup(function (e) {
@@ -558,9 +535,11 @@ $('#textBad').keyup(function (e) {
         alert('글자수는 300자까지 입력 가능합니다.');
     };
 });
-
-
 document.querySelectorAll('.category .stars').forEach(starsContainer => {
+    const initialValue = parseFloat(starsContainer.getAttribute('data-initial-value'));
+    updateStars(starsContainer, initialValue);
+    updateHighestValue(starsContainer);
+
     starsContainer.addEventListener('click', function(e) {
         if (e.target.classList.contains('star')) {
             const starIndex = parseInt(e.target.getAttribute('data-value'), 10);
@@ -588,7 +567,7 @@ function updateStars(container, value) {
     const stars = container.querySelectorAll('.star');
     stars.forEach(star => {
         const starValue = parseFloat(star.getAttribute('data-value'));
-        star.classList.remove('fas', 'half-rated', 'far'); 
+        star.classList.remove('fas', 'half-rated', 'far');
         if (value >= starValue) {
             star.classList.add('fas');
         } else if (value + 0.5 == starValue) {
@@ -613,8 +592,6 @@ function updateHighestValue(container) {
     const category = container.getAttribute('data-category');
     document.getElementById(category + '-highest').value = highestValue;
 }
-
-
 //태그
 new Tagify(document.getElementById('tag'));
 

@@ -83,14 +83,14 @@
 												<td><div class="">
 														<c:if test="${dto.cp_rv_confirm=='0'}">
 															<a
-																href="/good/user/company/review/editreview.do?cp_rv_seq=${dto.cp_rv_seq}">수정</a> / <a
-																href="#" class="text-danger">삭제</a>
+																href="/good/user/company/review/editreview.do?cp_rv_seq=${dto.cp_rv_seq}">수정</a> /  <a 
+																href="#" class="text-danger delete-review" data-cp-rv-seq="${dto.cp_rv_seq}">삭제</a>
 														</c:if>
 														<c:if test="${dto.cp_rv_confirm=='1'}">
 															-
 														</c:if>
 														<c:if test="${dto.cp_rv_confirm=='2'}">
-															<a href="#" class="text-danger">삭제</a>
+															 <a href="#" class="text-danger delete-review" data-cp-rv-seq="${dto.cp_rv_seq}">삭제</a>
 														</c:if>
 														<input type="hidden" name="cp_rv_seq" value="${dto.cp_rv_seq}">
 													</div></td>
@@ -114,7 +114,7 @@
 	</div>
 	<%@include file="/WEB-INF/views/inc/adminfooter.jsp"%>
 	<script>
-	$('.text-danger')
+	 $('.text-danger')
 	.click(
 			function() {
 				if (confirm('리뷰를 삭제하시겠습니까?')) {
@@ -124,7 +124,10 @@
 							+ cpRvSeqValue;
 					$(this).parents().eq(2).remove();
 				}
-			});
+			}); 
+			
+			
+
 	</script>
 </body>
 </html>
