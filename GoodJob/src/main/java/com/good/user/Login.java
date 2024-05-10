@@ -20,8 +20,9 @@ public class Login extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
 		
+		String cp_seq = req.getParameter("cp_seq"); // j
+        req.setAttribute("cp_seq", cp_seq); //j
 
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/user/signin.jsp");
 		dispatcher.forward(req, resp);
@@ -33,6 +34,7 @@ public class Login extends HttpServlet {
 
 		String id = req.getParameter("id");
 		String pw = req.getParameter("pw");
+		String cp_seq = req.getParameter("cp_seq"); // 
 		
 		UserDTO dto = new UserDTO();
 		UserDAO dao = new UserDAO();
@@ -58,7 +60,13 @@ public class Login extends HttpServlet {
 			//접속 기록 추가하기
 			
 			
-			resp.sendRedirect("/good/main.do");
+			 if (cp_seq != null && !cp_seq.equals("")) {
+			        // 기업 번호가 전달된 경우 리뷰 작성 페이지로 리다이렉트
+			        resp.sendRedirect("/good/user/company/review/addreview.do?cp_seq=" + cp_seq);
+			    } else {
+			        // 기업 번호가 전달되지 않은 경우 메인 페이지로 리다이렉트
+			        resp.sendRedirect("/good/main.do");
+			    }
 			
 		} else {
 			//실패 처리

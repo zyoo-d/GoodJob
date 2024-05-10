@@ -1,6 +1,7 @@
 package com.good.company;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -16,6 +17,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+import com.good.alert.Alert;
 import com.good.board.repository.BoardDAO;
 import com.good.company.model.CompanyDTO;
 import com.good.company.model.ReviewDTO;
@@ -27,7 +29,15 @@ public class AddReview extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+		HttpSession session = req.getSession();
+		String id = (String)session.getAttribute("id");
+		
+		if(id == null || id.equals("")) {
+			// 로그인되어 있지 않은 경우 로그인 페이지로 이동
+			resp.sendRedirect("/good/user/signin.do"); 
+			return;
+		}
+		
 		String cp_seq = req.getParameter("cp_seq");
 		String page = req.getParameter("page");
 
@@ -35,9 +45,7 @@ public class AddReview extends HttpServlet {
 		CompanyDTO dto = dao.get(cp_seq);
 
 		ReviewDAO rdao = new ReviewDAO();
-		// ReviewDTO rdto = new ReviewDTO();
 		ArrayList<String> showTagList = rdao.showTagList();
-		// System.out.println(showTagList.size());
 
 		req.setAttribute("cp_seq", cp_seq);
 		req.setAttribute("page", page);
@@ -46,14 +54,12 @@ public class AddReview extends HttpServlet {
 
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/user/company/review/addreview.jsp");
 		dispatcher.forward(req, resp);
-
 	}
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
 		HttpSession session = req.getSession();
 		String id = (String) session.getAttribute("id");
-
+		
 		double salary_score = Double.parseDouble(req.getParameter("salary_score"));
 		double welfare_score = Double.parseDouble(req.getParameter("welfare_score"));
 		double stability_score = Double.parseDouble(req.getParameter("stability_score"));
@@ -63,13 +69,25 @@ public class AddReview extends HttpServlet {
 		String linereview = req.getParameter("linereview");
 		String good = req.getParameter("good");
 		String bad = req.getParameter("bad");
-		String tag_keyword = req.getParameter("tag_keyword");
-		int cp_rv_confirm = Integer.parseInt(req.getParameter("cp_rv_confirm"));
-		String cp_seq = req.getParameter("cp_seq");
-
-		ReviewDAO dao = new ReviewDAO();
+		
+		ReviewDAO rdao = new ReviewDAO();
+		
 		ReviewDTO dto = new ReviewDTO();
+		
+		//String cp_rv_seq = rdao.getCp_rv_seq();
+		String cp_seq = req.getParameter("cp_seq");
+		if (cp_seq == null || cp_seq.isEmpty()) {
+		    // cp_seq 값이 null이거나 빈 문자열인 경우 에러 처리
+		    // 예: 적절한 에러 메시지를 출력하고 리뷰 작성 페이지로 이동
+		    resp.setContentType("text/html; charset=UTF-8");
+		    PrintWriter out = resp.getWriter();
+		    out.println("<script>alert('잘못된 접근입니다. 기업 정보가 선택되지 않았습니다.'); location.href='/good/user/company/review/addreview.do';</script>");
+		    out.flush();
+		    return;
+		}
+		
 
+		//dto.setCp_rv_seq(cp_rv_seq+1);
 		dto.setSalary_score(salary_score);
 		dto.setWelfare_score(welfare_score);
 		dto.setStability_score(stability_score);
@@ -79,54 +97,19 @@ public class AddReview extends HttpServlet {
 		dto.setGood(good);
 		dto.setBad(bad);
 		dto.setId(id);
-		dto.setCp_rv_confirm(cp_rv_confirm);
+		dto.setCp_rv_confirm(0);
 		dto.setCp_seq(cp_seq);
 
-		/// TODO 해시태그작업
-		if (tag_keyword != null && !tag_keyword.equals("") && !tag_keyword.equals("[]")) {
-			try {
-
-				// [{"value":"자바"},{"value":"코딩"},{"value":"게시판"}]
-				// System.out.println(tag);
-				JSONParser parser = new JSONParser();
-				JSONArray arr = (JSONArray) parser.parse(tag_keyword); // 배열 > JSONArray
-
-				for (Object obj : arr) { // arr(JSONObject)이지만 바로 가져오면 오류나서 일단 Object로 가져옴
-					JSONObject tagObj = (JSONObject) obj;
-					String tagName = (String) tagObj.get("value");
-					// System.out.println(tagName);
-
-					// 해시태그 추가 (유니크조건확인)
-					if (dao.existHashtag(tagName)) {
-						dao.addHashtag(tagName);
-					}
-					// 해시태그번호
-					String hseq = dao.getHseq(tagName);
-
-					// 관계추가
-					HashMap<String, String> map = new HashMap<String, String>();
-					// map.put("bseq", bseq);
-					map.put("hseq", hseq);
-					dao.addTagging(map);
-
-				}
-			} catch (Exception e) {
-				e.getStackTrace();
-			}
+		// 리뷰 등록
+		int result = rdao.addReview(dto);
+		
+		if (result == 1) {
+			resp.sendRedirect("/good/user/company/companyview.do?cp_seq=" + cp_seq);
+		} else {
+			resp.setCharacterEncoding("UTF-8");
+			PrintWriter writer = resp.getWriter();
+			writer.println("<script>alert('리뷰 등록에 실패했습니다.'); location.href='/good/user/company/review/addreview.do?cp_seq=" + cp_seq + "';</script>");
+			writer.close();
 		}
-
-		// TODO DB작업하기
-		// int result = dao.addReview();
-		// String path = "/good/user/company/companyview.do?cp_seq="+cp_seq;
-		// if (result == 1) {
-//		resp.sendRedirect("path");
-
-		resp.sendRedirect("/good/user/company/companylist.do");
-		/*
-		 * } else { resp.setCharacterEncoding("UTF-8"); PrintWriter writer =
-		 * resp.getWriter(); writer.print(OutputUtil.redirect("실패했습니다."));
-		 * writer.close(); }
-		 */
-
 	}
 }

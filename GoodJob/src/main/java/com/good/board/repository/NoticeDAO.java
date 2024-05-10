@@ -7,7 +7,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.good.board.model.BoardDTO;
+import com.good.board.model.BoardCommonDTO;
 import com.good.board.model.NoticeDTO;
 import com.good.board.model.QnaBoardDTO;
 import com.test.util.DBUtil;
@@ -32,7 +32,7 @@ public class NoticeDAO {
 		}
 	}
 
-	public int addNotice(BoardDTO dto) {
+	public int addNotice(BoardCommonDTO dto) {
 
 		try {
 			String sql = "Insert into tblNotice (nt_seq, nt_title, nt_content, id, nt_regdate) values (nt_seq.nextVal, ?, ?, ?, sysdate)";

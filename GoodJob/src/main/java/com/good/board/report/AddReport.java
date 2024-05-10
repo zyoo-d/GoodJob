@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.good.alert.Alert;
+
 
 @WebServlet("/user/report/addreport.do")
 public class AddReport extends HttpServlet{
@@ -22,26 +24,36 @@ public class AddReport extends HttpServlet{
 		String seq = req.getParameter("seq");
 		String rp_seq = req.getParameter("reason");
 		String description = req.getParameter("description");
-		String boardType = req.getParameter("boardType");
+		String boardType = req.getParameter("boardtype");
 		
-		if(CheckReport.check(id,boardType,seq)) {
-			req.setAttribute("alertMessage", "이미 신고한 게시글입니다.");
-	        resp.sendRedirect(req.getHeader("Referer"));
-	        return;
-		}
+		System.out.println(description);
 		
-		ReportService reportService = new ReportService();
-		int result = reportService.createReport(id, seq, rp_seq, description, boardType);
+		if(rp_seq == null || description == null || description.isEmpty()) {
+			
+			Alert.failReportNull(resp);
+		}	
 		
-		if(result == 1) {
-			//성공
+		else if(CheckReport.check(id,boardType,seq)) {
+			
+			Alert.failReport(resp);
+			
 		} else {
-			//실패
+			
+			ReportService reportService = new ReportService();
+			int result = reportService.createReport(id, seq, rp_seq, description, boardType);
+			
+			if(result == 1) {
+				//성공
+			} else {
+				//실패
+			}
+			
+			
+			
+			resp.sendRedirect(req.getHeader("Referer"));
+			
 		}
 		
-		
-		
-		resp.sendRedirect(req.getHeader("Referer"));
 	
 		
 	}

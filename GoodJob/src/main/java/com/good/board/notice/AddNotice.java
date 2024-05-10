@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.good.board.model.BoardDTO;
+import com.good.board.model.BoardCommonDTO;
 import com.good.board.repository.NoticeDAO;
 
 @WebServlet("/board/noticewrite.do")
@@ -44,7 +44,7 @@ public class AddNotice extends HttpServlet {
 	String title= req.getParameter("title");
 	String content = req.getParameter("content");
 	
-	BoardDTO dto = new BoardDTO();
+	BoardCommonDTO dto = new BoardCommonDTO();
 	NoticeDAO dao = new NoticeDAO();
 	
 	dto.setId(id);
