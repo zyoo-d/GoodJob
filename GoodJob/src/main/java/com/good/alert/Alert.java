@@ -84,5 +84,30 @@ public class Alert {
 		
 	}
 	
+	public static void failReport(HttpServletResponse resp) throws IOException {
+	    PrintWriter writer = resp.getWriter();
+	    writer.println("<html><head><meta charset=\"UTF-8\"><title>Access Denied</title></head><body>");
+	    writer.println("<script type='text/javascript'>");
+	    writer.println("alert('이미 신고한 게시글입니다.');");
+	    writer.println("history.back();"); // 이전 페이지로 이동
+	    writer.println("if (window.opener) {"); // 부모 창(모달창을 연 창)이 있는 경우
+	    writer.println("    window.opener.hideModal();"); // 부모 창에서 hideModal() 함수 호출
+	    writer.println("}");
+	    writer.println("</script>");
+	    writer.println("</body></html>");
+	    writer.close();
+	}
+	
+	public static void failReportNull(HttpServletResponse resp) throws IOException {
+	    PrintWriter writer = resp.getWriter();
+	    writer.println("<html><head><meta charset=\"UTF-8\"><title>Access Denied</title></head><body>");
+	    writer.println("<script type='text/javascript'>");
+	    writer.println("alert('신고 유형 및 사유를 모두 입력하세요.');");
+	    writer.println("history.back();"); // 이전 페이지로 이동
+	    writer.println("</script>");
+	    writer.println("</body></html>");
+	    writer.close();
+	}
+	
 	
 }

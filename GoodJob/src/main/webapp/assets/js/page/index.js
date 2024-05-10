@@ -122,9 +122,6 @@ var myChart = new Chart(ctx, {
   }
 });
 
-
-
-
 // 일일 방문자수 그래프 label에 날짜 data에 방문자수
 var balance_chart = document.getElementById("balance-chart").getContext('2d');
 

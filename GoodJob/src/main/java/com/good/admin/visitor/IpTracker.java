@@ -1,4 +1,4 @@
-package com.good.admin;
+package com.good.admin.visitor;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
