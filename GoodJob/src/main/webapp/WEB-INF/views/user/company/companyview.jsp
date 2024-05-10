@@ -837,6 +837,7 @@ h3>#scrap {
 
 			<div id="comment">
 				<div class="card chat-box" id="mychatbox">
+
 					<div id="commentList">
 						<c:forEach items="${livecommentlist}" var="livecommentdto">
 							<div class="mb-2">
@@ -858,6 +859,7 @@ h3>#scrap {
 								</div>
 							</div>
 						</c:forEach>
+
 					</div>
 				</div>
 
@@ -891,6 +893,7 @@ h3>#scrap {
 
 
 	<%@include file="/WEB-INF/views/inc/footer.jsp"%>
+	<%@include file="/WEB-INF/views/user/report/reportmodal.jsp"%>
 	<script src="https://code.highcharts.com/highcharts.js"></script>
 	<script src="https://code.highcharts.com/modules/exporting.js"></script>
 	<script src="https://code.highcharts.com/modules/export-data.js"></script>

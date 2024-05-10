@@ -37,7 +37,7 @@ public class StdReportDAO implements ReportDAO<StdReportDTO> {
 		
 		try {
 			
-			String sql = "insert into tblStdReport(std_rp_seq, std_rp_regdate, id, std_seq, rp_seq, std_rp_detail)";
+			String sql = "insert into tblStdReport(std_rp_seq, std_rp_regdate, id, std_seq, rp_seq, std_rp_detail) values(seqStdReport.nextVal,sysdate,?,?,?,?)";
 			
 			pstat = conn.prepareStatement(sql);
 			pstat.setString(1, dto.getId());
@@ -96,7 +96,7 @@ public class StdReportDAO implements ReportDAO<StdReportDTO> {
 	}
 
 	@Override
-	public int isReport(String id, String seq) {
+	public boolean isReported(String id, String seq) {
 		
 		try {
 			
@@ -110,7 +110,7 @@ public class StdReportDAO implements ReportDAO<StdReportDTO> {
 			
 			if(rs.next()) {
 				
-				return rs.getInt("cnt");
+				return rs.getInt("cnt") > 0;
 				
 			}
 			
@@ -120,7 +120,7 @@ public class StdReportDAO implements ReportDAO<StdReportDTO> {
 		}
 		
 		
-		return 0;
+		return false;
 	}
 
 	@Override

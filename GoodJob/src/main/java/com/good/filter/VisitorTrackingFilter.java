@@ -10,8 +10,8 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 
-import com.good.admin.IpTracker;
-import com.good.admin.VisitorTracker;
+import com.good.admin.visitor.IpTracker;
+import com.good.admin.visitor.VisitorTracker;
 
 @WebFilter(filterName = "3.VisitorTrackingFilter", urlPatterns = "*.do")
 public class VisitorTrackingFilter implements Filter{

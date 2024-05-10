@@ -4,6 +4,9 @@
 <!-- favicon -->
 <link rel="icon" href="/good/assets/favicon.ico" type="image/x-icon"/>
 
+<!-- title -->
+<title>Admin</title>
+
 <!-- responsive meta -->
 <meta charset="UTF-8">
 <meta

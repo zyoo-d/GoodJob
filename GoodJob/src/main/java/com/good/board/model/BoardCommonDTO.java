@@ -5,12 +5,14 @@ import java.util.Date;
 import lombok.Data;
 
 @Data
-public class BoardDTO {
+public class BoardCommonDTO {
 	
-	private int seq;
+	private String seq;
 	private String title;
 	private String content;
-	private Date regDate;
+	private String regDate;
 	private String id;
+	private String views;
+	private String board_type;
 	
 }
