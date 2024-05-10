@@ -163,13 +163,8 @@ public class ListCompany extends HttpServlet {
 			}*/
 
 			// 평균연봉
-			//int avg_salary = dto.getHire_avr_salary();
-			//if(avg_salary !=0 ) {
-			//dto.setHire_avr_salary((int) Math.round((float) avg_salary / 10000));// (단위:만원)
-			//} 
-			
-			ArrayList<String> topTags = dao.getTopTagsByCpSeq(dto.getCp_seq());
-	        dto.setTag_list(topTags);
+			int avg_salary = dto.getHire_avr_salary();
+			dto.setHire_avr_salary((int) Math.round((float) avg_salary / 10000));// (단위:만원)
 			
 		}
 		
