@@ -55,14 +55,12 @@ public class BoardCommonDAO {
 				list.add(dto);
 			}
 			
-			return list;
-			
 		} catch (Exception e) {
 			System.out.println("BoardCommonDAO.enclosing_method");
 			e.printStackTrace();
 		}
 		
-		return null;
+		return list;
 		
 	}
 	
