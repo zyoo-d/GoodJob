@@ -18,7 +18,7 @@
 					<div
 						class="integration-single-container rounded-xl bg-white py-16 shadow-lg px-16 tab"
 						data-tab-group="service-tab" id="itvWriteQnA">
-						<form action="/good/itvWrite.do" method="post">
+						<form action="/good/board/interview/itvWrite.do" method="post">
 							<div class="px-4 text-center">
 								<h1 class="mt-3 gradiTitle">
 									<span>면접 후기</span>
@@ -127,10 +127,10 @@
 								<div class="mt-6">
 									<label class="itv-label" for="name">가장 기억에 남는 면접 질문</label>
 									<div class="form-group mt-2">
-										<form>
+										
 											<input class="form-control h-1" type="text"
 												name="ITV_QUESTION" placeholder="ex) 회사를 선택한 이유" />
-										</form>
+									
 									</div>
 								</div>
 								<div class="form-group mt-6">

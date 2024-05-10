@@ -20,7 +20,8 @@
 					<div
 						class="integration-single-container rounded-xl bg-white py-16 px-5 shadow-lg md:px-10 tab"
 						data-tab-group="service-tab" id="itvWriteQnA">
-						<form action="/good/editWrite.do" method="post">
+						<form action="/good/board/interview/itvEdit.do" method="post"
+							id="editForm">
 							<div class="px-4 text-center">
 								<h1 class="mt-3 gradiTitle">
 									<span>면접 후기</span>
@@ -156,11 +157,11 @@
 								<div class="mt-6">
 									<label class="itv-label" for="name">가장 기억에 남는 면접 질문</label>
 									<div class="form-group mt-2">
-										<form>
-											<input class="form-control h-1" type="text"
-												name="ITV_QUESTION" placeholder="ex) 회사를 선택한 이유"
-												value="${dto.ITV_QUESTION}" />
-										</form>
+
+										<input class="form-control h-1" type="text"
+											name="ITV_QUESTION" placeholder="ex) 회사를 선택한 이유"
+											value="${dto.ITV_QUESTION}" />
+
 									</div>
 								</div>
 								<div class="form-group mt-6">
@@ -193,12 +194,13 @@
 									면접 후기에 대한 저작권은 IT's Good Job에 있습니다. <br>등록하신 콘텐츠는 임의로 삭제하실
 									수 없습니다.
 								</p>
+								<input type="hidden" name="ITV_SEQ" value="${ITV_SEQ}"
+									id="ITV_SEQ" />
 								<div class="moving-btn">
 									<button type="button" class="btn btnBefore"
 										onclick="history.back()">이전으로</button>
-									<button type="submit" class="btn btnList">수정하기</button>
+									<button type="submit" class="btn btnList" id="itvEditBtn">수정하기</button>
 								</div>
-								<input type="hidden" name="itv_seq" value="${dto.itv_seq}" />
 							</div>
 						</form>
 					</div>
@@ -217,6 +219,16 @@
 	<%@include file="/WEB-INF/views/inc/footer.jsp"%>
 	<script>
 	//기업 검색 자동완성 js
+	
+	$(document).ready(function() {
+    // itv_seq 값을 가져옵니다.
+    var itvSeq = $("#itv_seq").val();
+    
+    // itv_seq 값을 console에 출력합니다.
+    console.log("itv_seq 값:", itvSeq);
+});
+	
+	
 	$(document).ready(function(){
 		$('#searchInputCompany').keyup(function(){
 			var input = $(this).val();
@@ -251,7 +263,11 @@
 	
 
 	 $(document).ready(function() {
-        $("#itvWriteBtn").click(function() {
+		 
+		 
+		 
+		
+        $("#itvEditBtn").click(function() {
             // 폼 데이터를 가져옵니다.
            	var cpName = $("input[name='ITV_CPNAME']").val();
             var career = $("input[name='ITV_CAREER']:checked").val();
@@ -264,7 +280,6 @@
             var tip = $("input[name='ITV_TIP']").val();
             var whether = $("input[name='ITV_WHETHER']:checked").val();
             var id = $("input[name=id]").val();
-
             // 사용자가 입력하지 않은 부분이 있으면 알림창을 띄웁니다.
             if (cpName === "" || career === undefined || meetDate === "" || evaluation === undefined ||
                 difficulty === undefined || categories === 0 || personnel === undefined || question === "" ||
@@ -272,7 +287,7 @@
                 alert("모든 정보를 입력해주세요.");
             } else {
                 // 모든 정보를 입력한 경우에만 폼을 제출합니다.
-                $("form").submit();
+                $('#editForm').submit();
             }
         });
     });

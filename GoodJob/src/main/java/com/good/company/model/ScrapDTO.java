@@ -6,7 +6,8 @@ import lombok.Data;
 public class ScrapDTO {
 
 	private String ID;
-	private String sp_seq;
-	
+	private String image;
+	private String cp_name;
+	private String idst_name;
 	private String cp_seq;
 }

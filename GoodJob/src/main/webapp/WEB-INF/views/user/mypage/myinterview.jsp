@@ -95,10 +95,10 @@
 														<c:if test="${dto.ITV_CONFIRM=='0'}">
 															<a
 																href="/good/board/interview/itvEdit.do?itv_seq=${dto.ITV_SEQ}">수정</a> / <a
-																href="#" class="text-danger">삭제</a>
+																href="#" class="text-danger">삭제</a> 
 														</c:if>
 														<c:if test="${dto.ITV_CONFIRM=='1'}">
-															-
+															
 														</c:if>
 														<c:if test="${dto.ITV_CONFIRM=='2'}">
 															<a href="#" class="text-danger">삭제</a>
@@ -128,11 +128,20 @@
 				.click(
 						function() {
 							if (confirm('게시물을 삭제하시겠습니까?')) {
-								var itvSeqValue = $(this).closest('div').find(
+								
+						        var itvSeqValue = $(this).closest('tr').find('input[name="itv_seq"]').val();
+						        
+						        var url = "/good/board/interview/itvDel.do?itv_seq=" + itvSeqValue;
+						        
+						        location.href = url;
+						        
+						        $(this).closest('tr').remove();
+								
+						/* 		var itvSeqValue = $(this).closest('div').find(
 										'input[type="hidden"]').val();
 								location.href = "/good/board/interview/itvDel.do?itv_seq="
 										+ itvSeqValue;
-								$(this).parents().eq(2).remove();
+								$(this).parents().eq(2).remove(); */
 								//데이터 처리도 해주기
 							}
 						});

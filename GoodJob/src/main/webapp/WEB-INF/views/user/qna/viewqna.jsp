@@ -159,8 +159,6 @@
 
 
 
-
-	<%@include file="/WEB-INF/views/user/report/reportmodal.jsp"%>
 	<%@include file="/WEB-INF/views/inc/footer.jsp"%>
 
 	<script>
@@ -170,7 +168,11 @@ var QnaSeq = ${dto.qna_seq};
 console.log(commentBegin);
 console.log(QnaSeq);
 
-
+function confirmDelete(qna_seq) {
+    if (confirm("삭제하시겠습니까?")) {
+        location.href = '/good/user/qna/delqna.do?qna_seq=' + qna_seq;
+    }
+}
 $("#btnAddComment")
 .click(
 	function() {
@@ -371,7 +373,7 @@ if (confirm('삭제하겠습니까?')) {
 	
 	
 
-	
+
 </script>
 </body>
 </html>

@@ -17,6 +17,7 @@ public class CommentDTO {
 	private String id;			// 댓글 작성자 id > 화면에 출력은 x
 	private String cm_seq;	// 댓글 번호
 	private String nickname;	// 작성자 닉네임
+	private String cp_seq;
 	
 
 }
