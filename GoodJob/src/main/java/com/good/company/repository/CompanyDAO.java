@@ -505,6 +505,7 @@ public class CompanyDAO {
 				dto.setCp_seq(rs.getString("cp_seq"));
 				dto.setRegdate(rs.getString("live_cm_regdate"));
 				dto.setNickname(rs.getString("nickname"));
+				dto.setId(rs.getString("id"));
 
 				clist.add(dto);
 			}

@@ -20,7 +20,7 @@
 					<div
 						class="integration-single-container rounded-xl bg-white py-16 px-5 shadow-lg md:px-10 tab"
 						data-tab-group="service-tab" id="itvWriteQnA">
-						<form action="/good/itvWrite.do" method="post">
+						<form action="/good/board/interview/itvWrite.do" method="post">
 							<div class="px-4 text-center">
 								<h1 class="mt-3 gradiTitle">
 									<span>면접 후기</span>

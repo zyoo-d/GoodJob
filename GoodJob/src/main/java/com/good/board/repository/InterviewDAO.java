@@ -77,9 +77,8 @@ public class InterviewDAO {
 
 	public int Write(InterviewDTO dto) {
 	    try {
-	        String sql = "INSERT INTO tblInterview (ITV_SEQ, ITV_CPNAME, ITV_MEETDATE, ITV_EVALUATION, ITV_REGDATE, CP_SEQ, ID, ITV_DIFFICULTY, ITV_CATEGORY, ITV_CAREER, ITV_PERSONNEL, ITV_QUESTION, ITV_TIP, ITV_WHETHER) " +
-	                     "VALUES (seqinterview.NEXTVAL, ?,  TO_DATE(?, 'YYYY-MM-DD'), ?, SYSDATE, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-	        //sql에서 조건절로  리뷰승인 컬럼추가하고 
+	        String sql = "INSERT INTO tblInterview (ITV_SEQ, ITV_CPNAME, ITV_MEETDATE, ITV_EVALUATION, ITV_REGDATE, CP_SEQ, ID, ITV_DIFFICULTY, ITV_CATEGORY, ITV_CAREER, ITV_PERSONNEL, ITV_QUESTION, ITV_TIP, ITV_WHETHER, ITV_CONFIRM) " +
+	                     "VALUES (seqinterview.NEXTVAL, ?,  TO_DATE(?, 'YYYY-MM-DD'), ?, SYSDATE, ?, ?, ?, ?, ?, ?, ?, ?, ?, DEFAULT)";
 	        
 	        pstat = conn.prepareStatement(sql);
 	        
@@ -97,7 +96,7 @@ public class InterviewDAO {
 	        pstat.setString(12, dto.getITV_WHETHER());
 	        
 	        
-	        
+	        	
 	        int result = pstat.executeUpdate();
 	        
 	        return result;

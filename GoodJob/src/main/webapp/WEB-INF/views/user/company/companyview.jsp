@@ -834,7 +834,9 @@ h3>#scrap {
 								<span id="chat_regdate">${livecommentdto.regdate}</span><br>
 								<div id="CplivecommentBtn">
 								<button id="singo">[ 신고 ]</button>
-								<c:if test="${not empty id && (livecommentdto.id == id || lv == 2)}">
+								<c:if
+																test="${not empty id && (livecommentdto.id == id || lv == 2)}">
+								
 								<button id="liveCommentDelBtn" data-seq="${livecommentdto.cm_seq}" onclick="del(${livecommentdto.cm_seq});">[ 삭제 ]</button>
 								</c:if>
 								</div>

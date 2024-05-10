@@ -95,7 +95,7 @@
 														<c:if test="${dto.ITV_CONFIRM=='0'||dto.ITV_CONFIRM=='2'}">
 															<a
 																href="/good/board/interview/itvEdit.do?itv_seq=${dto.ITV_SEQ}">수정</a> / <a
-																href="#" class="text-danger">삭제</a>
+																href="#" class="text-danger">삭제</a> 
 														</c:if>
 														<c:if test="${dto.ITV_CONFIRM=='1'}">
 															-
