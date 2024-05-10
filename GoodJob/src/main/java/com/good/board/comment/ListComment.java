@@ -37,12 +37,5 @@ public class ListComment extends HttpServlet {
    
         ArrayList<CommentDTO> comments = dao.getComments(STD_SEQ);
         
-        System.out.println(comments);
-              
-	
-		
-	
-		
-
     }
 }
