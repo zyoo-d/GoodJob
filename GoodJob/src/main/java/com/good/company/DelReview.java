@@ -17,13 +17,13 @@ public class DelReview extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String cp_seq = req.getParameter("cp_seq");
+	
         String cp_rv_seq = req.getParameter("cp_rv_seq");
         
         ReviewDAO rdao = new ReviewDAO();
-        rdao.deleteReview(cp_seq, cp_rv_seq);
+        rdao.deleteReview(cp_rv_seq);
         
-        resp.sendRedirect("/good/user/company/companyview.do?cp_seq=" + cp_seq);
+        resp.sendRedirect("/good/user/mypage/myreview.do");
     }
 }
 
