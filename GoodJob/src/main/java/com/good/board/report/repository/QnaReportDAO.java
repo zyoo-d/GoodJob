@@ -125,7 +125,7 @@ public class QnaReportDAO implements ReportDAO<QnaReportDTO> {
 	}
 
 	@Override
-	public int isReport(String id, String seq) {
+	public boolean isReported(String id, String seq) {
 		
 		try {
 			
@@ -139,7 +139,7 @@ public class QnaReportDAO implements ReportDAO<QnaReportDTO> {
 			
 			if(rs.next()) {
 				
-				return rs.getInt("cnt");
+				return rs.getInt("cnt") > 0;
 				
 			}
 			
@@ -148,8 +148,8 @@ public class QnaReportDAO implements ReportDAO<QnaReportDTO> {
 			e.printStackTrace();
 		}
 		
+		return false;
 		
-		return 0;
 	}
 
 	@Override

@@ -1,9 +1,11 @@
 package com.good.user.repository;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.time.LocalDate;
 
 import com.good.user.model.UserDTO;
 import com.test.util.DBUtil;
@@ -280,6 +282,34 @@ public class UserDAO {
 		}
 		
 		return null;
+		
+	}
+	
+	public int getNewSubscriberCount() {
+		
+		try {
+			
+			LocalDate currentDate = LocalDate.now();
+
+			String sql = "select count(*) as cnt from tblUser where regdate = ?";
+			
+
+			pstat = conn.prepareStatement(sql);
+			pstat.setDate(1, Date.valueOf(currentDate));
+			
+			rs = pstat.executeQuery();
+
+			if (rs.next()) {
+				return rs.getInt("cnt");
+			}
+
+		} catch (Exception e) {
+			System.out.println("일일 신규 가입자수 로드 실패");
+			e.printStackTrace();
+		}
+		
+		return 0;
+		
 		
 	}
 

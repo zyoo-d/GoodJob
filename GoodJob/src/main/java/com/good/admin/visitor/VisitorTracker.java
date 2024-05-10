@@ -1,4 +1,4 @@
-package com.good.admin;
+package com.good.admin.visitor;
 
 import java.time.LocalDate;
 import java.util.Map;
@@ -18,12 +18,14 @@ public class VisitorTracker {
 		visitorCounts = dao.getVisitorsUntilDate(currentDate);
 		
 		if(!visitorCounts.containsKey(currentDate)) {
-			visitorCounts.put(currentDate, 0);
-			dao.insertToday(currentDate);
+		    visitorCounts.put(currentDate, 0);
+		    if(!dao.existsForDate(currentDate)) {
+		        dao.insertToday(currentDate);
+		    }
 		}
 		
 	}
-	
+
 	/**
 	 * 싱글톤 객체 반환
 	 * @return
