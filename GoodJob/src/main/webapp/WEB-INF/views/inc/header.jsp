@@ -11,15 +11,26 @@
 				height="30" width="147" alt="logo" />
 			</a>
 		</div>
+
 		<!-- navbar toggler -->
-		<input id="nav-toggle" type="checkbox" class="hidden" /> <label
+		<input id="nav-toggle" type="checkbox" class="hidden"> <label
 			id="show-button" for="nav-toggle"
 			class="order-1 flex cursor-pointer items-center lg:order-1 lg:hidden">
-			<title>Menu Open</title>
+			<svg class="h-6 fill-current" viewBox="0 0 20 20">
+        <title>Menu Open</title>
+        <path d="M0 3h20v2H0V3z m0 6h20v2H0V9z m0 6h20v2H0V0z"></path>
+      </svg>
 		</label> <label id="hide-button" for="nav-toggle"
 			class="order-2 hidden cursor-pointer items-center lg:order-1">
-			<title>Menu Close</title>
+			<svg class="h-6 fill-current" viewBox="0 0 20 20">
+        <title>Menu Close</title>
+        <polygon
+					points="11 9 22 9 22 11 11 11 11 22 9 22 9 11 -2 11 -2 9 9 9 9 -2 11 -2"
+					transform="rotate(45 10 10)"></polygon>
+      </svg>
 		</label>
+
+
 		<!-- /navbar toggler -->
 		<ul id="nav-menu"
 			class="navbar-nav order-2 hidden flex-[0_0_100%] lg:order-1 lg:flex lg:w-auto lg:flex-auto lg:justify-center space-x-4">
@@ -36,13 +47,18 @@
 				</c:if></li>
 			<li class="nav-item nav-dropdown group relative"><span
 				id="communav" class="nav-link inline-flex items-center"> 커뮤니티
+					<svg class="h-4 w-4 fill-current" viewBox="0 0 20 20">
+            <path
+							d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"></path>
+          </svg>
 			</span>
 				<ul
 					class="nav-dropdown-list hidden group-hover:block lg:invisible lg:absolute lg:block lg:opacity-0 lg:group-hover:visible lg:group-hover:opacity-100"
 					id="commu-menu">
 					<li class="nav-dropdown-item"><a
 						href="/good/user/study/liststudy.do" class="nav-dropdown-link">스터디</a></li>
-					<li class="nav-dropdown-item"><a href="/good/board/interview/interview.do"
+					<li class="nav-dropdown-item"><a
+						href="/good/board/interview/interview.do"
 						class="nav-dropdown-link">면접후기</a></li>
 					<li class="nav-dropdown-item"><a
 						href="/good/user/qna/listqna.do" class="nav-dropdown-link">여기어때?</a></li>
@@ -138,6 +154,10 @@ $(document).ready(function(){
 			}
 		});
 		}
+	});
+	
+	$('#searchInputHead').focus(function(){
+		$('#searchResults').html("");
 	});
 	
 	$('#searchResults').on('click', '.dropdown-item', function() {
