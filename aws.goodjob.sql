@@ -18,7 +18,7 @@ SELECT
     qna_regdate AS regdate,
     id,
     qna_views AS views,
-    'QnA' AS board_type
+    'qna' AS board_type
 FROM 
     tblQnA
 WHERE 
@@ -33,7 +33,7 @@ SELECT
     TO_DATE(std_regdate, 'YYYY-MM-DD') AS regdate,
     id,
     CAST(std_views AS NUMBER) AS views,
-    'Study' AS board_type
+    'study' AS board_type
 FROM 
     tblStudy
 WHERE 
