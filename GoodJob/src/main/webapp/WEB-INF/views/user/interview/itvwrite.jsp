@@ -4,7 +4,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-
 <meta charset="UTF-8">
 <%@include file="/WEB-INF/views/inc/asset.jsp"%>
 <style>
@@ -12,13 +11,12 @@
 </head>
 <%@include file="/WEB-INF/views/inc/header.jsp"%>
 <body>
-	<section class="integration-single section pt-0">
+	<section class="page-hero pt-16 pb-6">
 		<div class="container">
 			<div class="row justify-center">
-				<div class="lg:col-10 mt-16">
-
+				<div class="">
 					<div
-						class="integration-single-container rounded-xl bg-white py-16 px-5 shadow-lg md:px-10 tab"
+						class="integration-single-container rounded-xl bg-white py-16 shadow-lg px-16 tab"
 						data-tab-group="service-tab" id="itvWriteQnA">
 						<form action="/good/itvWrite.do" method="post">
 							<div class="px-4 text-center">
@@ -29,10 +27,10 @@
 							</div>
 							<div class="mt-8 border-y border-border py-10 text-left">
 								<div>
-									<h5>기본 정보 입력</h5>
+									<h5 class="mb-2">기본 정보 입력</h5>
 
 									<!-- 기업 검색창 -->
-									<div class="view-form addqna">
+									<div class="view-form addqna mb-2">
 										<div class="addqna-form">
 											<div id="searchResults1" class="dropdown-content addqna"></div>
 											<span id="write-company">기업</span> <input type="text"
@@ -45,7 +43,7 @@
 
 									<!-- 여기까지 복사해서 쓰시면 됩니다 -->
 								</div>
-								<div class="space-btw mt-2">
+								<div class="space-btw mt-4">
 									<div class="itvCpContent">
 										<label class="itv-label">면접 당시 경력</label>
 										<div class="form-group itvCpContent">
@@ -65,6 +63,7 @@
 							</div>
 							<div class="border-b border-border py-10">
 								<h5>면접 정보 입력</h5>
+								<div class="gap-10 flex">
 								<div class="itvCpContent">
 									<label class="itv-label" for="name">전반적 평가</label>
 									<div class="itv-toolbar">
@@ -88,6 +87,7 @@
 											for="opinion6">어려움</label>
 									</div>
 
+								</div>
 								</div>
 								<div class="mt-6">
 									<label class="itv-label" for="name">면접 및 전형 유형 필수 (다중
@@ -162,7 +162,6 @@
 								<input class="btn btn-primary mt-4" id="itvWriteBtn"
 									type="submit" value="등록" />
 							</div>
-							
 							
 						</form>
 					</div>

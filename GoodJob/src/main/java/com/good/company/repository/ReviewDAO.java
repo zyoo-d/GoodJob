@@ -48,7 +48,6 @@ public class ReviewDAO {
 
 			while (rs.next()) {
 				int cnt = rs.getInt("cnt");
-				System.out.println(cnt);
 				return cnt;
 			}
 

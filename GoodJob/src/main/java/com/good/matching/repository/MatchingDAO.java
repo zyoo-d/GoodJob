@@ -91,7 +91,6 @@ public class MatchingDAO {
 			
 			rs = stat.executeQuery(sql);
 			
-			System.out.println(rs == null);
 			if (rs != null) {
 				while (rs.next()) {
 				

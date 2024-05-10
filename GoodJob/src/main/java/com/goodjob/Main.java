@@ -53,6 +53,7 @@ public class Main extends HttpServlet {
 		req.setAttribute("clist", clist);
 
 		System.out.println(id);
+		cdao.close();
 
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/user/main.jsp");
 		dispatcher.forward(req, resp);

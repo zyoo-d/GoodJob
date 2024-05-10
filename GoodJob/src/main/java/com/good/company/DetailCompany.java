@@ -97,6 +97,10 @@ public class DetailCompany extends HttpServlet {
 		NewsDAO ndao = new NewsDAO();
 		ArrayList<NewsDTO> nlist = ndao.search(cp_name);
 
+		dao.close();
+		rcdao.close();
+		rdao.close();
+		
 		req.setAttribute("nlist", nlist);
 		req.setAttribute("dto", dto);
 		req.setAttribute("word", word);

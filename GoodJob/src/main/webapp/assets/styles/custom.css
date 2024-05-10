@@ -21,6 +21,14 @@
 	color: gold;
 }
 
+.image-container {
+	width: 120px; /* 필요에 따라 조정 */
+	height: 100px; /* 필요에 따라 조정 */
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
 #headSearch {
 	margin-bottom: 3px;
 	align-items: unset;
@@ -927,7 +935,6 @@ textarea:focus {
 }
 
 #write-company, #write-title {
-	/* margin-right: 8px; */
 	white-space: nowrap;
 	font-size: 20px;
 	border: 1px solid #ddd;
@@ -937,6 +944,7 @@ textarea:focus {
 	background-color: #E0E3EA;
 	min-width: 80px;
 	text-align: center;
+	min-height: 49.5px;
 }
 
 #write-form {
@@ -1118,7 +1126,7 @@ textarea:focus {
 
 /*설문조사*/
 .survey-form {
-	margin: 50px 20px;
+	margin: 0 20px 50px 20px;
 	background-color: white;
 	padding: 10px;
 	border-radius: 8px;
@@ -1206,7 +1214,11 @@ textarea:focus {
 
 .space-btw {
 	display: flex;
-	gap: 13%;
+	gap: 20%;
+}
+
+.gap-10{
+	gap: 10%;	
 }
 
 .itv-toolbar {
@@ -1362,7 +1374,7 @@ textarea:focus {
 	color: #515CEB;
 }
 
-.commentInfo span {
+.commentInfo span, .mcard {
 	cursor: pointer;
 }
 
@@ -1563,8 +1575,8 @@ textarea:focus {
 	width: 890px;
 	margin-bottom: 30px;
 	min-height: auto;
-	border: 1px solid #3741C4;
-	margin-left: 49px;
+	margin-left: 10%;
+	padding-top: 3rem;
 }
 
 .card-tags i {
