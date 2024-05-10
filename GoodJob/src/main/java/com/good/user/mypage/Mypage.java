@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.good.board.repository.StudyDAO;
+import com.good.matching.model.MatchingDTO;
+import com.good.matching.repository.MatchingDAO;
 
 @WebServlet("/user/mypage/main.do")
 public class Mypage extends HttpServlet {
@@ -23,9 +25,14 @@ public class Mypage extends HttpServlet {
 		
 		StudyDAO dao = new StudyDAO();
 		int stdCnt = dao.getCount(id);
+		
+		MatchingDAO matdao = new MatchingDAO();
+		MatchingDTO dto = matdao.getScore(id);
+		
 		dao.close();
 		
 		req.setAttribute("stdCnt", stdCnt);
+		req.setAttribute("dto", dto);
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/user/mypage/mymain.jsp");
 		dispatcher.forward(req, resp);
 

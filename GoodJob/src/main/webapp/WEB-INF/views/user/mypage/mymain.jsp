@@ -73,7 +73,7 @@
 								</div>
 								<div class="profile-widget-item left card" id="preferMain">
 									<div class="card-body">
-										<canvas id="preferChart" height="70%" width="90%"></canvas>
+										<canvas id="cpSugradarChart" height="70%" width="90%"></canvas>
 									</div>
 									<button class="btn btn-outline-primary" id="btnTest">검사
 										다시하기</button>
@@ -157,6 +157,32 @@
 	<script>
 		$('.card-body').click(function() {
 			window.location.href = $(this).find('input[name="link"]').val();
+		});
+		
+		var ctx = document.getElementById('cpSugradarChart').getContext('2d');
+		var myRadarChart = new Chart(ctx, {
+			type : 'radar',
+			data : {
+				label: '회원',
+				labels : [ '성장 가능성', '연봉', '조직문화', '조직안정성', '복지' ],
+				datasets : [ {
+					data : [${dto.potential}, ${dto.salary}, ${dto.culture}, ${dto.stability}, ${dto.welfare} ], // 새로운 데이터셋의 데이터
+					backgroundColor : 'rgba(54, 162, 235, 0.2)', // fill color
+					borderColor : 'rgba(54, 162, 235, 1)', // border color
+					borderWidth : 1
+				} ]
+			},
+			options : {
+				scales : {
+					r : {
+						min : 0,
+						max : 100,
+						ticks : {
+							stepSize : 20
+						}
+					}
+				}
+			}
 		});
 
 	</script>
