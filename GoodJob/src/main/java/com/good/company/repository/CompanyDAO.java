@@ -242,7 +242,12 @@ public class CompanyDAO {
 				dto.setHire_new(rs.getInt("hire_new"));
 				dto.setHire_retired(rs.getInt("hire_retired"));
 				dto.setHire_avr_year(rs.getInt("hire_avr_year"));
-				dto.setHire_avr_salary(rs.getInt("hire_avr_salary"));
+				Object hireAvrSalary = rs.getObject("hire_avr_salary");
+			    if (hireAvrSalary != null) {
+			        dto.setHire_avr_salary(Integer.parseInt(hireAvrSalary.toString()));
+			    } else {
+			        dto.setHire_avr_salary(0);
+			    }
 				//dto.setHire_regdate(rs.getString("hire_regdate"));
 				
 				
@@ -593,9 +598,33 @@ public class CompanyDAO {
 	        return null;
 	    }
 
+	
+	
+	public ArrayList<String> getTopTagsByCpSeq(String cp_seq) {
+	    try {
+	        ArrayList<String> topTags = new ArrayList<>();
+	        String sql = "select t.tag_keyword from tblReviewTag rt join tblTag t on rt.tag_seq = t.tag_seq join tblcompanyreview cr on rt.cp_rv_seq = cr.cp_rv_seq where cr.cp_seq =? group by t.tag_keyword order by count(*) desc ";
+
+	        pstat = conn.prepareStatement(sql);
+	        pstat.setString(1, cp_seq);
+	        rs = pstat.executeQuery();
+
+	        while (rs.next()) {
+	            topTags.add(rs.getString("tag_keyword"));
+	        }
+	        System.out.println(topTags);
+	        return topTags;
+
+	    } catch (Exception e) {
+	        System.out.println("CompanyDAO.getTopTagsByCpSeq");
+	        e.printStackTrace();
+	        return null;
+	    }
 	}
-	
-	
+
+
+
+}
 	
 	
 	
