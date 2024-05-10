@@ -160,7 +160,7 @@
 												<th class="p-0 text-center">게시판 종류</th>
 											</tr>
 											<c:forEach items="${boardList}" var="board" begin="0" end="4">
-												<tr>
+												<tr class="go-to-board" onclick="goToBoard('${board.board_type}', ${board.seq});">
 													<td class="p-0 text-center">${board.id }</td>
 													<td class="font-weight-600 p-0 text-center">${board.title}</td>
 													<td class="p-0 text-center">${board.views}</td>
