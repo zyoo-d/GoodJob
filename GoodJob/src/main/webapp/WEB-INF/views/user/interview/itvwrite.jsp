@@ -127,10 +127,10 @@
 								<div class="mt-6">
 									<label class="itv-label" for="name">가장 기억에 남는 면접 질문</label>
 									<div class="form-group mt-2">
-										<form>
+										
 											<input class="form-control h-1" type="text"
 												name="ITV_QUESTION" placeholder="ex) 회사를 선택한 이유" />
-										</form>
+									
 									</div>
 								</div>
 								<div class="form-group mt-6">

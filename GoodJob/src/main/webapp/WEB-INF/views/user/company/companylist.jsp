@@ -219,7 +219,7 @@
 															class="str_tit_title new">
 															<h2>${dto.cp_name}</h2>
 														</a>
-														<button id="scrap" style="margin-left: 8px;">
+														<button id="scrap" style="margin-left: 8px;" onclick="addScrap(${dto.cp_seq}, '${sessionScope.id}')">
 															<i class="fa-regular fa-bookmark"></i>
 														</button>
 													</div>
@@ -523,6 +523,27 @@
 			$(this).next().addBack().remove();
 		});
 		/* 선호근무지역 End */
+		
+		 function addScrap(cpSeq, userId) {
+   
+        $.ajax({
+            url: '/good/test/mg/addscrap.do',
+            method: 'POST',
+            data: {
+                cp_seq: cpSeq,
+                id: userId
+            },
+            success: function(response) {
+   
+                alert('스크랩 성공');
+            },
+            error: function(xhr, status, error) {
+
+            	alert('스크랩 실패');
+            }
+        });
+    }
+		
 	</script>
 </body>
 

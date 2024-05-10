@@ -38,7 +38,7 @@ public class InterviewDAO {
 			if (map.get("search").equals("y")) {
 				where = String.format("and ITV_CPNAME like '%%%s%%'", map.get("cp_name"));
 			}
-			String sql = String.format("select * from (select a.*, rownum as rnum from (select * from vwinterview where ITV_CONFIRM = 1 %s) a) where rnum between %s and %s", where, map.get("begin"), map.get("end"));
+			String sql = String.format("select ITV_SEQ, ITV_CPNAME, TO_CHAR(ITV_MEETDATE, 'YYYY-MM-DD') AS ITV_MEETDATE, ITV_EVALUATION, TO_CHAR(ITV_REGDATE, 'YYYY-MM-DD') AS ITV_REGDATE, CP_SEQ, ID, ITV_DIFFICULTY, ITV_CATEGORY, ITV_CAREER, ITV_PERSONNEL, ITV_QUESTION, ITV_TIP, ITV_WHETHER, IMAGE, rnum from (select a.*, rownum as rnum from (select * from vwinterview where ITV_CONFIRM = 1 %s) a) where rnum between %s and %s", where, map.get("begin"), map.get("end"));
 			
 			// where 컬럼 1
 			stat = conn.createStatement();
@@ -112,7 +112,7 @@ public InterviewDTO getItv(String itv_seq) {
 		
 		try {
 
-			String sql = "select * from vwinterview where itv_seq = ? ";
+			String sql = "select ITV_SEQ, ITV_CPNAME, TO_CHAR(ITV_MEETDATE, 'YYYY-MM-DD') AS ITV_MEETDATE, ITV_EVALUATION, TO_CHAR(ITV_REGDATE, 'YYYY-MM-DD') AS ITV_REGDATE, CP_SEQ, ID, ITV_DIFFICULTY, ITV_CATEGORY, ITV_CAREER, ITV_PERSONNEL, ITV_QUESTION, ITV_TIP, ITV_WHETHER, IMAGE from vwinterview where itv_seq = ? ";
 
 			pstat = conn.prepareStatement(sql);
 			pstat.setString(1, itv_seq);
@@ -156,7 +156,6 @@ public int edit(InterviewDTO dto) {
 		             "SET ITV_CPNAME = ?, " +
 		             "    ITV_MEETDATE = TO_DATE(?, 'YYYY-MM-DD'), " +
 		             "    ITV_EVALUATION = ?, " +
-		             "    ITV_REGDATE = SYSDATE, " +
 		             "    CP_SEQ = ?, " +
 		             "    ITV_DIFFICULTY = ?, " +
 		             "    ITV_CATEGORY = ?, " +
@@ -164,8 +163,8 @@ public int edit(InterviewDTO dto) {
 		             "    ITV_PERSONNEL = ?, " +
 		             "    ITV_QUESTION = ?, " +
 		             "    ITV_TIP = ?, " +
-		             "    ITV_WHETHER = ? " +
-		             "WHERE ITV_SEQ = ?;";
+		             "    ITV_WHETHER = ? " +	
+		             "WHERE ITV_SEQ = ?";
 	        //sql에서 조건절로  리뷰승인 컬럼추가하고 
 	        
 	        pstat = conn.prepareStatement(sql);
@@ -266,7 +265,7 @@ public int getCount(String id) {
 public ArrayList<InterviewDTO> myInterview(HashMap<String, String> map) {
 	try {
 		String sql = String.format(
-				"select * from (select a.*, rownum as rnum from (select * from vwinterview where id = '%s' order by ITV_REGDATE desc) a) where rnum between %s and %s",
+				"select ITV_SEQ, ITV_CPNAME, TO_CHAR(ITV_MEETDATE, 'YYYY-MM-DD') AS ITV_MEETDATE, TO_CHAR(ITV_REGDATE, 'YYYY-MM-DD') AS ITV_REGDATE, ITV_WHETHER, ITV_CONFIRM, rnum from (select a.*, rownum as rnum from (select * from vwinterview where id = '%s' order by ITV_REGDATE desc) a) where rnum between %s and %s",
 				map.get("id"), map.get("begin"), map.get("end"));
 
 		stat = conn.createStatement();

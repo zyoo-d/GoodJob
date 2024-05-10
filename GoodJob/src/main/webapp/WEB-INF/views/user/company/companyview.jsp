@@ -517,11 +517,9 @@ h3>#scrap {
 }
 
 #CplivecommentBtn {
-	display:inline;
+	display: inline;
 	float: right;
-	
 }
-
 </style>
 </head>
 <%@include file="/WEB-INF/views/inc/header.jsp"%>
@@ -707,7 +705,7 @@ h3>#scrap {
 						<button id="add_review"
 							onclick="checkLogin(${dto.cp_seq}, '${word}', '${map.search}', '${map.hiring}', ${nowPage})">리뷰
 							쓰러가기</button>
-						
+
 
 						<div>
 
@@ -783,9 +781,7 @@ h3>#scrap {
 														<i class="fa-solid fa-star"></i>
 													</c:forEach>
 												</div>
-												<div>
-
-												</div>
+												<div></div>
 										</c:if>
 									</c:forEach>
 								</c:if>
@@ -843,29 +839,30 @@ h3>#scrap {
 				<div class="card chat-box" id="mychatbox">
 					<div id="commentList">
 						<c:forEach items="${livecommentlist}" var="livecommentdto">
-						<div class="mb-2">
-							<br />
-							<p class="bg-gray-200 text-gray-700 rounded-lg py-2 px-4"
-								id="chatchat">${livecommentdto.content}</p>
-							<div id="comment_content">
-								${livecommentdto.nickname} 
-								<span id="chat_regdate">${livecommentdto.regdate}</span><br>
-								<div id="CplivecommentBtn">
-								<button id="singo">[ 신고 ]</button>
-								<c:if
-																test="${not empty id && (livecommentdto.id == id || lv == 2)}">
-								
-								<button id="liveCommentDelBtn" data-seq="${livecommentdto.cm_seq}" onclick="del(${livecommentdto.cm_seq});">[ 삭제 ]</button>
-								</c:if>
+							<div class="mb-2">
+								<br />
+								<p class="bg-gray-200 text-gray-700 rounded-lg py-2 px-4"
+									id="chatchat">${livecommentdto.content}</p>
+								<div id="comment_content">
+									${livecommentdto.nickname} <span id="chat_regdate">${livecommentdto.regdate}</span><br>
+									<div id="CplivecommentBtn">
+										<button id="singo">[ 신고 ]</button>
+										<c:if
+											test="${not empty id && (livecommentdto.id == id || lv == 2)}">
+
+											<button id="liveCommentDelBtn"
+												data-seq="${livecommentdto.cm_seq}"
+												onclick="del(${livecommentdto.cm_seq});">[ 삭제 ]</button>
+										</c:if>
+									</div>
 								</div>
 							</div>
-						</div>
-					</c:forEach>
+						</c:forEach>
 					</div>
 				</div>
 
 
-												
+
 
 
 
@@ -901,6 +898,13 @@ h3>#scrap {
 	<!-- <script src="/good/assets/modules/chart.min.js"></script> -->
 	<script src="/good/assets/js/page/index-0.js"></script>
 	<script>
+	$(document).ready(function() {
+	    $("#scrap").click(function() {
+	        var cpSeq = ${dto.cp_seq};
+	        var id = '${sessionScope.id}';
+	        addScrap(cpSeq, id);
+	    });
+	});
 		// .chat-box 요소의 스크롤을 맨 아래로 이동하는 함수
 		function scrollToBottom() {
 			var chatBox = document.querySelector(".chat-box");
@@ -1064,6 +1068,31 @@ h3>#scrap {
 	        });
 	    }
 	}
+	function addScrap(cpSeq, id) {
+	    if (!id) {
+	        alert("로그인이 필요합니다.");
+	        return;
+	    }
+
+	    $.ajax({
+	        url: "/good/test/mg/addscrap.do",
+	        type: "POST",
+	        data: {
+	            id: id,
+	            cp_seq: cpSeq
+	        },
+	        success: function(response) {
+	            alert("스크랩 되었습니다.");
+	            // 스크랩 수 업데이트
+	            var scrapCount = parseInt($("#scrap").text().replace("+", "")) + 1;
+	            $("#scrap").html('<i class="fa-regular fa-bookmark"></i> ' + scrapCount + '+');
+	        },
+	        error: function() {
+	            alert("스크랩 중 오류가 발생했습니다.");
+	        }
+	    });
+	}
+	
 			
 		
 	</script>

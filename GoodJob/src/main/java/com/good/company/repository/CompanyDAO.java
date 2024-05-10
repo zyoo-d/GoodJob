@@ -10,6 +10,7 @@ import java.util.List;
 
 import com.good.board.model.CommentDTO;
 import com.good.company.model.CompanyDTO;
+import com.good.company.model.ScrapDTO;
 import com.good.matching.model.MatchingDTO;
 import com.test.util.DBUtil;
 
@@ -605,14 +606,70 @@ public class CompanyDAO {
 		return null;
 		
 	}
-	
-	
-	
-	
-	
-	
-	
-	
+
+	public int addScrap(String id, String cpSeq) {
+		// 실시간 댓글 insert
+				try {
+
+					String sql = "INSERT INTO tblscrap (id, cp_seq) VALUES (?, ?)";
+					pstat = conn.prepareStatement(sql);
+					pstat.setString(1, id);
+					pstat.setString(2, cpSeq);
+					
+					return pstat.executeUpdate();
+
+				} catch (Exception e) {
+					e.printStackTrace();
+					System.out.println("스크랩 insert 실패");
+				}
+
+				return 0;
+	}
+
+	public ArrayList<ScrapDTO> writeScrap(String id) {
+	    try {
+	    	String sql = "SELECT s.id, c.cp_name, c.image AS image, c.cp_seq, i.idst_name FROM tblScrap s JOIN tblCompany c ON s.cp_seq = c.cp_seq JOIN tblIndustry i ON c.idst_code = i.idst_code LEFT JOIN tblRecruit r ON c.cp_seq = r.cp_seq where s.id=?";
+	        pstat = conn.prepareStatement(sql);
+	        pstat.setString(1, id);
+	        rs = pstat.executeQuery(); 
+
+	        ArrayList<ScrapDTO> ScrapList = new ArrayList<ScrapDTO>();
+	        while (rs.next()) {
+	            ScrapDTO dto = new ScrapDTO();
+	            dto.setCp_name(rs.getString("cp_name"));
+	            dto.setID(rs.getString("id"));
+	            dto.setImage(rs.getString("image"));
+	            dto.setIdst_name(rs.getString("idst_name"));
+	            dto.setCp_seq(rs.getString("cp_seq"));
+	            ScrapList.add(dto);
+	        }
+	        return ScrapList;
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return null;
+	}
+
+	public int delScrap(String cp_seq) {
+		try {
+			String sql = "delete from tblscrap where cp_seq = ?";
+
+			pstat = conn.prepareStatement(sql);
+		
+			pstat.setString(1, cp_seq);
+				
+			return pstat.executeUpdate();
+			
+
+		} catch (Exception e) {
+			System.out.println("delScrap");
+			e.printStackTrace();
+		}
+
+		return 0;
+		
+	}
+
 	
 	
 
