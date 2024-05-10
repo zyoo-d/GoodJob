@@ -1473,11 +1473,14 @@ display: flex;
 }
 
 
-.cpCimg img {
-	max-width: 70px;
-	max-height: 70px;
+.cpCimg {
+	HEIGHT: 100px;
+	padding: none;
 }
-
+.cpComInfo {
+	padding: none;
+	height: 500px;
+}
 .cpcCpChart {
 	width: 800px;
 	height: 400px;
@@ -1529,13 +1532,12 @@ display: flex;
 	height: 70px;
 }
 
-.cpComInfo {
-	height: 380px;
-}
-
 .cpComFont {
 	width: 106px;
 	height: 23px;
+}
+.border-y.compare_fnc {
+	border-top: none;
 }
 
 /* 희연 */
@@ -2500,8 +2502,8 @@ textarea:focus {
 
 
 .cpCimg img {
-	max-width: 100px;
-	max-height: 100px;
+	width: 100px;
+	height: 100px;
 }
 
 .cpcCpChart {
@@ -2558,9 +2560,7 @@ textarea:focus {
 	height: 70px;
 }
 
-.cpComInfo {
-	height: 380px;
-}
+
 
 .cpComFont {
 	width: 106px;

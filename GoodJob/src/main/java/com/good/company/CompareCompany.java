@@ -1,10 +1,9 @@
 package com.good.company;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.good.company.model.CompanyDTO;
+import com.good.company.model.ReviewDTO;
 import com.good.company.repository.CompareDAO;
 
 @WebServlet("/user/company/comparecompany.do")
@@ -46,19 +46,42 @@ public class CompareCompany extends HttpServlet {
 				date = "-";
 				dto.setFounded(date);
 			}
+			
+			 	int hireAvrSalary = dto.getHire_avr_salary();
+	            int formattedHireAvrSalary = (int) Math.round((double) hireAvrSalary / 10000); 
+	            dto.setHire_avr_salary(formattedHireAvrSalary);
+
+	            long fncEbit = dto.getFnc_ebit();
+	            long formattedFncEbit = Math.round((double) fncEbit / 10000); 
+	            dto.setFnc_ebit(formattedFncEbit); 
+	            
+	            long fncSales = dto.getFnc_sales();
+	            long formattedFncSales = Math.round((double) fncSales / 10000);
+	            dto.setFnc_sales(formattedFncSales);
+	            
+	            long fncIncome = dto.getFnc_income();
+	            long formattedFncIncome = Math.round((double) fncIncome / 10000);
+	            dto.setFnc_income(formattedFncIncome);
 		}
 		
-//		ArrayList<String> taglist = dao.tagList(map);
-//		
-//
-//		req.setAttribute("taglist", taglist);
+		//리뷰 점수
+		ArrayList<ReviewDTO> rvlist = dao.getReviewscore(map);
+		//재무 정보
+		ArrayList<Long>[] flist = dao.getCompanyFinance(map);
+		
+		dao.close();
+		
 
 		req.setAttribute("list", list);
+		req.setAttribute("flist", flist);
 		req.setAttribute("map", map);
+		req.setAttribute("rvlist", rvlist);
 		
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/user/company/comparecompany.jsp");
 		dispatcher.forward(req, resp);
 
 	}
+	
+
 
 }
