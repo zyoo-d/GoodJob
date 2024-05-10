@@ -556,9 +556,7 @@ h3>#scrap {
 
 						<span class="menu">예상 평균 연봉 / 평균 근속 연수</span>
 						<div id="salary">
-							<!-- 				<div id="salary_won"> -->
-							<!-- 				<div id="left_line"><i class="fa-solid fa-won-sign"></i></div><div id="money">4,800,000<i class="fa-solid fa-won-sign"></i></div> -->
-							<!-- 				</div> -->
+
 							<div
 								class="row mx-0 rounded-[20px] bg-white px-10 shadow-lg lg:py-10">
 								<h2>
@@ -698,73 +696,88 @@ h3>#scrap {
 							</div>
 
 						</div>
-						<span class="menu">기업 리뷰 보기</span> <a id="add_review"
-							href="/good/user/company/review/addreview.do?cp_seq=${dto.cp_seq}&word=${map.word}&search=${map.search}&hiring=${map.hiring}&page=${nowPage}">리뷰
-							쓰러가기</a>
+						<span class="menu">기업 리뷰 보기</span>
+						<button id="add_review"
+							onclick="checkLogin(${dto.cp_seq}, '${word}', '${map.search}', '${map.hiring}', ${nowPage})">리뷰
+							쓰러가기</button>
+						
+
+						<div>
 
 
 
-						<div id="review">
-							<c:if test="${not empty listReview}">
-								<c:forEach items="${listReview}" var="rdto">
-									<div id="review_content">
-										<div id="oneline">"${rdto.linereview}"</div>
-										<div id="score">
-											<div class="score_rating" id="score_detail">
-												<div id="salary_score">
-													<span id="salary_review">연봉 </span><br />
-													<c:forEach var="i" begin="1" end="${rdto.salary_score}">
-														<i class="fa-solid fa-star"></i>
-													</c:forEach>
+							<div id="review">
+								<c:if test="${not empty listReview}">
+									<c:forEach items="${listReview}" var="rdto">
+										<c:if
+											test="${rdto.cp_rv_confirm == 1 || sessionScope.user.id == rdto.id || sessionScope.user.lv == 2}">
+											<div id="review_content">
+												<div id="review_content">
+													<div id="oneline">"${rdto.linereview}"</div>
+													<div id="score">
+														<div class="score_rating" id="score_detail">
+															<div id="salary_score">
+																<span id="salary_review">연봉 </span><br />
+																<c:forEach var="i" begin="1" end="${rdto.salary_score}">
+																	<i class="fa-solid fa-star"></i>
+																</c:forEach>
+															</div>
+															<div class="score_rating" id="welfare_score">
+																<span id="welfare_review">복지 </span> <br />
+																<c:forEach var="i" begin="1" end="${rdto.welfare_score}">
+																	<i class="fa-solid fa-star"></i>
+																</c:forEach>
+															</div>
+															<div class="score_rating" id="ingvt_score">
+																<span id="ingvt_review">근무 안정성 </span> <br />
+																<c:forEach var="i" begin="1"
+																	end="${rdto.stability_score}">
+																	<i class="fa-solid fa-star"></i>
+																</c:forEach>
+															</div>
+															<div class="score_rating" id="culture_score">
+																<span id="culture_review">조직문화</span> <br />
+																<c:forEach var="i" begin="1" end="${rdto.culture_score}">
+																	<i class="fa-solid fa-star"></i>
+																</c:forEach>
+															</div>
+															<div class="score_rating" id="growth_score">
+																<span id="growth_review">성장 가능성 <br /></span>
+																<c:forEach var="i" begin="1" end="${rdto.growth_score}">
+																	<i class="fa-solid fa-star"></i>
+																</c:forEach>
+
+															</div>
+															<div class="score_rating" id="total_score">
+																<span id="total_review">총 평점 </span> <br />
+																<c:forEach var="i" begin="1"
+																	end="${(rdto.salary_score+rdto.welfare_score+rdto.stability_score+rdto.culture_score+rdto.growth_score)/5}">
+																	<i class="fa-solid fa-star"></i>
+																</c:forEach>
+															</div>
+														</div>
+													</div>
+													<div class="goodbad_title" id="good_title">
+														<i class="fa-regular fa-thumbs-up"></i> 이런 부분은 좋았아요.
+														<div id="good">${rdto.good}</div>
+													</div>
+
+													<div class="goodbad_title" id="bad_title">
+														<i class="fa-regular fa-thumbs-down"></i> 이런 부분은 아쉬웠어요.
+														<div id="bad">${rdto.bad}</div>
+													</div>
+
+
 												</div>
-												<div class="score_rating" id="welfare_score">
-													<span id="welfare_review">복지 </span> <br />
-													<c:forEach var="i" begin="1" end="${rdto.welfare_score}">
-														<i class="fa-solid fa-star"></i>
-													</c:forEach>
 												</div>
-												<div class="score_rating" id="ingvt_score">
-													<span id="ingvt_review">근무 안정성 </span> <br />
-													<c:forEach var="i" begin="1" end="${rdto.stability_score}">
-														<i class="fa-solid fa-star"></i>
-													</c:forEach>
-												</div>
-												<div class="score_rating" id="culture_score">
-													<span id="culture_review">조직문화</span> <br />
-													<c:forEach var="i" begin="1" end="${rdto.culture_score}">
-														<i class="fa-solid fa-star"></i>
-													</c:forEach>
-												</div>
-												<div class="score_rating" id="growth_score">
-													<span id="growth_review">성장 가능성 <br /></span>
-													<c:forEach var="i" begin="1" end="${rdto.growth_score}">
-														<i class="fa-solid fa-star"></i>
-													</c:forEach>
+												<div>
 
 												</div>
-												<div class="score_rating" id="total_score">
-													<span id="total_review">총 평점 </span> <br /> 
-													<c:forEach var="i" begin="1" end="${(rdto.salary_score+rdto.welfare_score+rdto.stability_score+rdto.culture_score+rdto.growth_score)/5}">
-													<i class="fa-solid fa-star"></i> 
-													</c:forEach>
-												</div>
-											</div>
-										</div>
-										<div class="goodbad_title" id="good_title">
-											<i class="fa-regular fa-thumbs-up"></i> 이런 부분은 좋았아요.
-											<div id="good">${rdto.good}</div>
-										</div>
-
-										<div class="goodbad_title" id="bad_title">
-											<i class="fa-regular fa-thumbs-down"></i> 이런 부분은 아쉬웠어요.
-											<div id="bad">${rdto.bad}</div>
-										</div>
-
-
-									</div>
-								</c:forEach>
-							</c:if>
-							<c:if test="${empty listReview}">등록된 리뷰가 없습니다. 직접 등록해보세요!</c:if>
+										</c:if>
+									</c:forEach>
+								</c:if>
+								<c:if test="${empty listReview}">등록된 리뷰가 없습니다. 직접 등록해보세요!</c:if>
+							</div>
 						</div>
 					</div>
 
@@ -783,25 +796,26 @@ h3>#scrap {
 			<div id="news">
 				<span class="menu">관련 기사 보기</span>
 				<c:forEach items="${nlist}" var="ndto" end="1">
-				<div class="card" id="card_news">
-					<div id="card_news_content">
-						<h1 class="h4 card-title" id="news-title"><a href="${ndto.link}">${ndto.title}</a>
-					</h1>
-						<p id="article">${ndto.description}</p>
-						<div class="card-footer mt-6 flex space-x-4">
-							<span class="inline-flex items-center text-xs text-[#666]">
-								<svg class="mr-1.5" width="14" height="16" viewBox="0 0 14 16"
-									fill="none" xmlns="http://www.w3.org/2000/svg">
+					<div class="card" id="card_news">
+						<div id="card_news_content">
+							<h1 class="h4 card-title" id="news-title">
+								<a href="${ndto.link}">${ndto.title}</a>
+							</h1>
+							<p id="article">${ndto.description}</p>
+							<div class="card-footer mt-6 flex space-x-4">
+								<span class="inline-flex items-center text-xs text-[#666]">
+									<svg class="mr-1.5" width="14" height="16" viewBox="0 0 14 16"
+										fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path
-										d="M12.5 2H11V0.375C11 0.16875 10.8313 0 10.625 0H9.375C9.16875 0 9 0.16875 9 0.375V2H5V0.375C5 0.16875 4.83125 0 4.625 0H3.375C3.16875 0 3 0.16875 3 0.375V2H1.5C0.671875 2 0 2.67188 0 3.5V14.5C0 15.3281 0.671875 16 1.5 16H12.5C13.3281 16 14 15.3281 14 14.5V3.5C14 2.67188 13.3281 2 12.5 2ZM12.3125 14.5H1.6875C1.58438 14.5 1.5 14.4156 1.5 14.3125V5H12.5V14.3125C12.5 14.4156 12.4156 14.5 12.3125 14.5Z"
-										fill="#939393" />
+											d="M12.5 2H11V0.375C11 0.16875 10.8313 0 10.625 0H9.375C9.16875 0 9 0.16875 9 0.375V2H5V0.375C5 0.16875 4.83125 0 4.625 0H3.375C3.16875 0 3 0.16875 3 0.375V2H1.5C0.671875 2 0 2.67188 0 3.5V14.5C0 15.3281 0.671875 16 1.5 16H12.5C13.3281 16 14 15.3281 14 14.5V3.5C14 2.67188 13.3281 2 12.5 2ZM12.3125 14.5H1.6875C1.58438 14.5 1.5 14.4156 1.5 14.3125V5H12.5V14.3125C12.5 14.4156 12.4156 14.5 12.3125 14.5Z"
+											fill="#939393" />
                 </svg> ${ndto.pubDate}
-							</span>
+								</span>
+							</div>
 						</div>
 					</div>
-				</div>
 				</c:forEach>
-						
+
 
 			</div>
 			<span class="menu">실시간 댓글
@@ -874,9 +888,23 @@ h3>#scrap {
 		};
 		
    
-
-		
-		
+		function checkLogin(cp_seq, word, search, hiring, page) {
+		    const id = '<%=session.getAttribute("id")%>';
+		    if (id === 'null') {
+		        // 로그인되어 있지 않은 경우 로그인 페이지로 이동
+		        location.href = '/good/user/signin.do?cp_seq=' + cp_seq;
+		    } else {
+		        // 로그인되어 있는 경우 리뷰 작성 페이지로 이동
+		        location.href = '/good/user/company/review/addreview.do?cp_seq=' + cp_seq + '&word=' + word + '&search=' + search + '&hiring=' + hiring + '&page=' + page;
+		    }
+		}
+		//리뷰삭제
+		function confirmDelete() {
+		    if (confirm("리뷰를 삭제하시겠습니까?")) {
+		       
+		        document.forms[0].submit();
+		    }
+		}
 		
 		$(document).ready(function() {
 		    // 데이터 리스트

@@ -249,6 +249,7 @@ textarea {
 <div id="itvWriteContainer">
 	<section class="page-hero pt-16 pb-6">
 			<form method="post" action="/good/user/company/review/addreview.do">
+			<input type="hidden" name="cp_seq" value="${dto.cp_seq}">
 		<div class="container">
 			<div class="card" id="itvWriteQnA">
 				<div class="card-content-wrapper">
