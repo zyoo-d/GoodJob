@@ -66,10 +66,8 @@ public class DetailCompany extends HttpServlet {
 
 		// 태그출력
 		ReviewDAO tdao = new ReviewDAO();
-		//ArrayList<ReviewDTO> ComTaglist = tdao.ComTaglist(cp_seq);
-		// 상위 태그 목록 조회
-        CompanyDAO cdao = new CompanyDAO();
-        ArrayList<String> topTags = cdao.getTopTagsByCpSeq(cp_seq);
+		ArrayList<ReviewDTO> ComTaglist = tdao.tagList(cp_seq);
+
 		// 기업직무정보
 		RecruitDAO jdao = new RecruitDAO();
 		ArrayList<String> comJobList = jdao.comJob(cp_seq);
@@ -107,8 +105,7 @@ public class DetailCompany extends HttpServlet {
 		req.setAttribute("comRecruitList", comRecruitList);
 		req.setAttribute("search", search);
 		req.setAttribute("hiring", hiring);
-		//req.setAttribute("ComTaglist", ComTaglist);
-		req.setAttribute("topTags", topTags);
+		req.setAttribute("ComTaglist", ComTaglist);
 		req.setAttribute("comJobList", comJobList);
 		req.setAttribute("salesList", flist[0]);
 		req.setAttribute("ebitList", flist[1]);

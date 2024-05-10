@@ -365,26 +365,25 @@ textarea {
          <!-- com-tag section -->
         <div class="com-tag">
     <div class="click-tag">
-    <h3>추천 태그</h3>
-    <p class="tag-info mt-6">클릭하면 태그로 바로 등록!</p>
-    <div class="tag_meta" id="exampleTags">
+        <h3>추천 태그</h3>
+        <p class="tag-info mt-6">클릭하면 태그로 바로 등록!</p>
+        <div class="tag_meta">
         <c:forEach items="${showTagList}" var="tlist">
-            <span class="tag-keyword" onclick="addExampleTag(this)">${tlist}</span>
-        </c:forEach>
+            <span class="tag-keyword">${tlist}</span>
+           </c:forEach>
+        </div>
     </div>
-</div>
-     <div class="add-tag-text">
+    <!-- <div class="add-tag-text">
         <h3>태그 추가</h3>
         <p class="tag-info mt-6">추천 태그가 마음에 들지 않다면?</p>
         <div class="add-tag">
-        <input name='tag_keyword' placeholder='추가하실 태그를 입력하세요' value=''>
-            <!-- <input type="text" name="tag_keyword" id="tag" placeholder="추가하실 태그를 입력하세요"> -->
-         <!--    <input type="button">추가</input> -->
+            <input type="text" name="tag_keyword" id="tag" placeholder="추가하실 태그를 입력하세요">
+            <input type="button">추가</input>
         </div>
-        <div class="tag-list tag_meta" id="tagList">
-    <!-- 추가된 태그가 여기에 동적으로 표시됩니다 -->
+        <div class="tag-list tag_meta">
+    Dynamically added tags will go here
 </div>
-        </div> 
+        </div> -->
 
     </div>
 
@@ -554,35 +553,20 @@ function updateHighestValue(container) {
 
 
 //태그
- // 예시 태그 선택 시 호출되는 함수
-    function addExampleTag(element) {
-        var tagValue = element.textContent;
+new Tagify(document.getElementById('tag'));
 
-        var tagList = document.getElementById('tagList');
-        var tagElement = document.createElement('span');
-        tagElement.className = 'tag-keyword';
-        tagElement.textContent = tagValue;
-
-        var hiddenInput = document.createElement('input');
-        hiddenInput.type = 'hidden';
-        hiddenInput.name = 'tag_keyword';
-        hiddenInput.value = tagValue;
-
-        tagElement.appendChild(hiddenInput);
-        tagList.appendChild(tagElement);
+/* function addTag() {
+    var input = document.getElementById('new-tag');
+    var newTag = input.value.trim();
+    if(newTag) {
+        var tagList = document.querySelector('.tag-list');
+        var tag = document.createElement('span');
+        tag.className = 'tag-keyword';
+        tag.textContent = newTag;
+        tagList.appendChild(tag);
+        input.value = ''; // Clear input after adding
     }
-
-  var input = document.querySelector('input[name=tag_keyword]');
-    var tagify = new Tagify(input, {
-        whitelist: ${showTagList},
-        maxTags: 10,
-        dropdown: {
-            maxItems: 20,
-            classname: "tags-look",
-            enabled: 0,
-            closeOnSelect: false
-        }
-    });
+} */
 
 
 

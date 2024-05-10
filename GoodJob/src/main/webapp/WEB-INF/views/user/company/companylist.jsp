@@ -226,12 +226,10 @@
 												<div class="job_meta">
 													<c:forEach items="${ComTaglist}" var="tdto">
 														<c:if test="${tdto.cp_seq == dto.cp_seq}">
-															<div class="job_meta">
-																<c:forEach items="${dto.tag_list}" var="tag" begin="0"
-																	end="4">
-																	<span class="job-keyword">${tag}</span>
-																</c:forEach>
-															</div>
+															<c:forEach items="${tdto.tag_keyword}" var="tag"
+																begin="0" end="4">
+																<span class="job-keyword">${tag}</span>
+															</c:forEach>
 														</c:if>
 													</c:forEach>
 

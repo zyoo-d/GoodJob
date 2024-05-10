@@ -67,23 +67,17 @@ public class ReviewDAO {
 	 * @return
 	 */
 	public ArrayList<ReviewDTO> listReview(String cp_seq) {
-		
-			 try {
-			        String sql = "SELECT r.*, t.tag_keyword " +
-			                     "FROM tblCompanyReview r " +
-			                     "LEFT JOIN tblReviewTag rt ON r.cp_rv_seq = rt.cp_rv_seq " +
-			                     "LEFT JOIN tblTag t ON rt.tag_seq = t.tag_seq " +
-			                     "WHERE r.cp_seq = ? " +
-			                     "ORDER BY r.cp_rv_regdate DESC";
+		try {
+			String sql = "select * from vwCompanyReview where cp_seq = ?";
 
-			        pstat = conn.prepareStatement(sql);
-			        pstat.setString(1, cp_seq);
-			        
-			        rs = pstat.executeQuery();
-			        
-			        ArrayList<ReviewDTO> listReview = new ArrayList<ReviewDTO>();
-			        while (rs.next()) {
-			            ReviewDTO dto = new ReviewDTO();
+			pstat = conn.prepareStatement(sql);
+			pstat.setString(1, cp_seq);
+
+			rs = pstat.executeQuery();
+
+			ArrayList<ReviewDTO> listReview = new ArrayList<ReviewDTO>();
+			while (rs.next()) {
+				ReviewDTO dto = new ReviewDTO();
 
 				dto.setCp_seq(rs.getString("cp_seq"));
 				dto.setId(rs.getString("id"));
@@ -99,46 +93,26 @@ public class ReviewDAO {
 				dto.setCp_rv_regdate(rs.getString("cp_rv_regdate"));
 				dto.setCp_rv_confirm(rs.getInt("cp_rv_confirm"));
 				dto.setNickname(rs.getString("nickname"));
-				  dto.setTag_keyword(rs.getString("tag_keyword"));
-				  listReview.add(dto);
-			        }
-			        return listReview;
-			        
-			    } catch (Exception e) {
-			        System.out.println("ReviewDAO.listReview");
-			        e.printStackTrace();
-			    }
-			    
-			    return null;
-			
+
+				listReview.add(dto);
+			}
+			return listReview;
+
+		} catch (Exception e) {
+			System.out.println("ReviewDAO.listReview");
+			e.printStackTrace();
+		}
+
+		return null;
 	}
-	public ArrayList<String> showComTagList() {
-		 try {
-	            ArrayList<String> showTagList = new ArrayList<>();
-	            String sql = "SELECT tag_keyword FROM tblTag";
 
-	            stat = conn.createStatement();
-	            rs = stat.executeQuery(sql);
-
-	            while (rs.next()) {
-	                showTagList.add(rs.getString("tag_keyword"));
-	            }
-
-	            return showTagList;
-
-	        } catch (Exception e) {
-	            System.out.println("ReviewDAO.showTagList");
-	            e.printStackTrace();
-	            return null;
-	        }
-	}
 	/**
 	 * 지유)기업별 태그리스트를 호출하는 메서드
 	 * 
 	 * @param cp_seq
 	 * @return
 	 */
-	/*public ArrayList<ReviewDTO> tagList(String cp_seq) {
+	public ArrayList<ReviewDTO> tagList(String cp_seq) {
 		ArrayList<ReviewDTO> tagList = new ArrayList<>();
 		String sql = "SELECT cr.cp_seq, t.tag_keyword, COUNT(*) as tag_count " + "FROM tblCompanyReview cr "
 				+ "JOIN tblReviewTag rt ON cr.cp_rv_seq = rt.cp_rv_seq " + "JOIN tblTag t ON t.tag_seq = rt.tag_seq "
@@ -161,7 +135,7 @@ public class ReviewDAO {
 			e.printStackTrace();
 		}
 		return tagList;
-	}*/
+	}
 
 	/**
 	 * 등록수 기준 상위 태그 조회 메서드
@@ -286,20 +260,20 @@ public class ReviewDAO {
 	 * @param confirm
 	 */
 	public boolean updateReviewConfirm(String cp_rv_seq, int confirm) {
-		try {
-			String sql = "UPDATE tblCompanyReview SET cp_rv_confirm = ? WHERE cp_rv_seq = ?";
-			pstat = conn.prepareStatement(sql);
-			pstat.setInt(1, confirm);
-			pstat.setString(2, cp_rv_seq);
-			int result = pstat.executeUpdate();
-			return result > 0;
-		} catch (Exception e) {
-			System.out.println("ReviewDAO.updateReviewConfirm()");
-			e.printStackTrace();
-		} finally {
-			close();
-		}
-		return false;
+	    try {
+	        String sql = "UPDATE tblCompanyReview SET cp_rv_confirm = ? WHERE cp_rv_seq = ?";
+	        pstat = conn.prepareStatement(sql);
+	        pstat.setInt(1, confirm);
+	        pstat.setString(2, cp_rv_seq);
+	        int result = pstat.executeUpdate();
+	        return result > 0;
+	    } catch (Exception e) {
+	        System.out.println("ReviewDAO.updateReviewConfirm()");
+	        e.printStackTrace();
+	    } finally {
+	        close();
+	    }
+	    return false;
 	}
 
 	/**
@@ -442,106 +416,61 @@ public class ReviewDAO {
 	}
 
 	/**
-	 * 모든 리뷰 목록을 출력하는 메서드
-	 * 
-	 * @return
-	 */
-	public ArrayList<ReviewDTO> getAllReviews() {
+		 * 모든 리뷰 목록을 출력하는 메서드
+		 * @return
+		 */
+		public ArrayList<ReviewDTO> getAllReviews() {
 
-		try {
-
-			String sql = "select * from vwAllReview";
-
-			stat = conn.createStatement();
-			rs = stat.executeQuery(sql);
-
-			ArrayList<ReviewDTO> list = new ArrayList<>();
-
-			while (rs.next()) {
-				ReviewDTO dto = new ReviewDTO();
-				dto.setCp_rv_seq(rs.getString("cp_rv_seq"));
-				dto.setId(rs.getString("id"));
-				dto.setSalary_score(rs.getDouble("salary_score"));
-				dto.setWelfare_score(rs.getDouble("welfare_score"));
-				dto.setStability_score(rs.getDouble("stability_score"));
-				dto.setCulture_score(rs.getDouble("culture_score"));
-				dto.setGrowth_score(rs.getDouble("growth_score"));
-				dto.setLinereview(rs.getString("linereview"));
-				dto.setGood(rs.getString("good"));
-				dto.setBad(rs.getString("bad"));
-				dto.setCp_rv_regdate(rs.getString("cp_rv_regdate"));
-				dto.setCp_rv_confirm(rs.getInt("cp_rv_confirm"));
-				dto.setCp_name(rs.getString("cp_name"));
-
-				list.add(dto);
+			try {
+				
+				String sql = "select * from vwAllReview";
+				
+				stat = conn.createStatement();
+				rs = stat.executeQuery(sql);
+				
+				ArrayList<ReviewDTO> list = new ArrayList<>();
+				
+				while (rs.next()) {
+					ReviewDTO dto = new ReviewDTO();
+					  dto.setCp_rv_seq(rs.getString("cp_rv_seq"));
+		                dto.setId(rs.getString("id"));
+		                dto.setSalary_score(rs.getDouble("salary_score"));
+		                dto.setWelfare_score(rs.getDouble("welfare_score"));
+		                dto.setStability_score(rs.getDouble("stability_score"));
+		                dto.setCulture_score(rs.getDouble("culture_score"));
+		                dto.setGrowth_score(rs.getDouble("growth_score"));
+		                dto.setLinereview(rs.getString("linereview"));
+		                dto.setGood(rs.getString("good"));
+		                dto.setBad(rs.getString("bad"));
+		                dto.setCp_rv_regdate(rs.getString("cp_rv_regdate"));
+		                dto.setCp_rv_confirm(rs.getInt("cp_rv_confirm"));
+		                dto.setCp_name(rs.getString("cp_name"));
+		               
+		                list.add(dto);
+				}
+				return list;	
+					
+				}catch (Exception e) {
+					System.out.println("ReviewDAO.getAllReviews");
+					e.printStackTrace();
 			}
-			return list;
 
-		} catch (Exception e) {
-			System.out.println("ReviewDAO.getAllReviews");
-			e.printStackTrace();
+	return null;
+}
+		public boolean insertRejectReview(String cp_rv_seq, String rejectReason) {
+		    try {
+		        String sql = "INSERT INTO tblRejectReview (cp_rv_seq, rj_reason) VALUES (?, ?)";
+		        pstat = conn.prepareStatement(sql);
+		        pstat.setString(1, cp_rv_seq);
+		        pstat.setString(2, rejectReason);
+		        int result = pstat.executeUpdate();
+		        return result > 0;
+		    } catch (Exception e) {
+		        System.out.println("ReviewDAO.insertRejectReview()");
+		        e.printStackTrace();
+		    } finally {
+		        close();
+		    }
+		    return false;
 		}
-
-		return null;
-	}
-
-	public boolean insertRejectReview(String cp_rv_seq, String rejectReason) {
-		try {
-			String sql = "INSERT INTO tblRejectReview (cp_rv_seq, rj_reason) VALUES (?, ?)";
-			pstat = conn.prepareStatement(sql);
-			pstat.setString(1, cp_rv_seq);
-			pstat.setString(2, rejectReason);
-			int result = pstat.executeUpdate();
-			return result > 0;
-		} catch (Exception e) {
-			System.out.println("ReviewDAO.insertRejectReview()");
-			e.printStackTrace();
-		} finally {
-			close();
-		}
-		return false;
-	}
-	
-	public String getLastInsertedCpRvSeq() {
-	    try {
-	        String sql = "SELECT cp_rv_seq FROM tblCompanyReview WHERE ROWNUM = 1 ORDER BY cp_rv_seq DESC";
-	        stat = conn.createStatement();
-	        rs = stat.executeQuery(sql);
-
-	        if (rs.next()) {
-	            return rs.getString("cp_rv_seq");
-	        }
-	    } catch (Exception e) {
-	        System.out.println("ReviewDAO.getLastInsertedCpRvSeq");
-	        e.printStackTrace();
-	    }
-	    return null;
-	}
-
-	public ArrayList<String> getTagsByCpRvSeq(String cp_rv_seq) {
-        try {
-            ArrayList<String> tags = new ArrayList<>();
-            String sql = "SELECT t.tag_keyword " +
-                         "FROM tblReviewTag rt " +
-                         "JOIN tblTag t ON rt.tag_seq = t.tag_seq " +
-                         "WHERE rt.cp_rv_seq = ?";
-
-            pstat = conn.prepareStatement(sql);
-            pstat.setString(1, cp_rv_seq);
-            rs = pstat.executeQuery();
-
-            while (rs.next()) {
-                tags.add(rs.getString("tag_keyword"));
-            }
-
-            return tags;
-
-        } catch (Exception e) {
-            System.out.println("ReviewDAO.getTagsByCpRvSeq");
-            e.printStackTrace();
-            return null;
-        }
-    }
-	
-	
 }

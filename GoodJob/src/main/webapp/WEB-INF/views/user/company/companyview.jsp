@@ -601,9 +601,9 @@ h3>#scrap {
 						<span class="menu">해당 기업 공고</span>
 						<!-- 채용정보 -->
 						<div id="recruit">
-    <c:choose>
-        <c:when test="${not empty comRecruitList}">
-            <c:forEach items="${comRecruitList}" var="rcdto" begin="0" end="5">
+
+
+							<c:forEach items="${comRecruitList}" var="rcdto" begin="0"
 								end="5">
 								<div
 									class="rounded-xl border border-primary bg-white px-8 py-6 shadow-lg lg:-mt-16"
@@ -669,24 +669,21 @@ h3>#scrap {
 									</div>
 								</div>
 							</c:forEach>
-							</c:when>
 							<%--  </c:forEach> --%>
-								<c:otherwise>
-							
+
+							<c:if test="${dto.com_rcrt_cnt ==0}">
 								<span class="px-8 py-10 lg:-mt-16 h-[48px]"
 									style="color: #595959; font-size: 18px;"> " 현재 모집중인
 									채용공고가 없습니다. " </span>
-							
-							 </c:otherwise>
-    </c:choose>
+							</c:if>
 						</div>
 						<!-- div:recruit -->
 						<span class="menu">기업 키워드</span>
 						<div id="keyword">
 
 							<div class="job_meta">
-								<c:if test="${not empty topTags}">
-									<c:forEach items="${topTags}" var="tdto" begin="0" end="1">
+								<c:if test="${not empty ComTaglist}">
+									<c:forEach items="${ComTaglist}" var="tdto" begin="0" end="1">
 										<c:if test="${tdto.cp_seq == dto.cp_seq}">
 											<c:forEach items="${tdto.tag_keyword}" var="tag" begin="0"
 												end="4">

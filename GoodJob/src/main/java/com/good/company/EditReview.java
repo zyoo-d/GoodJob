@@ -29,7 +29,7 @@ public class EditReview extends HttpServlet {
 
 	        ReviewDAO rdao = new ReviewDAO();
 	        ReviewDTO rdto = rdao.getReviewByCpRvSeq(cp_rv_seq);
-	        ArrayList<String> existingTags = rdao.getTagsByCpRvSeq(cp_rv_seq);
+	        
 	        CompanyDAO cdao = new CompanyDAO();
 	        CompanyDTO cdto = cdao.getCompanyBySeq(rdto.getCp_seq());
 	        
@@ -41,7 +41,7 @@ public class EditReview extends HttpServlet {
 	            req.setAttribute("isAuthor", isAuthor);
 	            req.setAttribute("rdto", rdto);
 	            req.setAttribute("cdto", cdto);
-	            req.setAttribute("existingTags", existingTags);
+	            
 	            RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/user/company/review/editreview.jsp");
 	            dispatcher.forward(req, resp);
 	        } else {
