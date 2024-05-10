@@ -12,6 +12,10 @@
 .space-evenly {
 	justify-content: space-evenly;
 }
+.matchplus {
+	min-height: 200px;
+    align-content: center;
+}
 </style>
 </head>
 <%@include file="/WEB-INF/views/inc/header.jsp"%>
@@ -31,7 +35,7 @@
 
 					<div class="cpsContent pt-4">
 						<div class="cpsMember">
-							<h3>${name}님의성향</h3>
+							<h3>${name}님의 성향</h3>
 							<div class="job_meta">
 								<span class="job-keyword">사람중심</span> <span class="job-keyword">돈보다
 									성장</span>
@@ -41,11 +45,11 @@
 					</div>
 				</div>
 				<div>
-					<div class="border-t border-border py-10">
+					<div class="border-y border-border py-8 mt-6 mb-8">
 						<div class="cpsCompanyList">
-							<h3>${name}님과어울리는 회사</h3>
+							<h3 class="pl-8">매칭 기업 Top3 for U!</h3>
 							<div class="cpsCompanyInfo">
-								<div class="row mt-10 integration-tab-items">
+								<div class="row mt-8 integration-tab-items">
 
 									<c:forEach var="companyDTO" items="${top3}" varStatus="status">
 										<div class="mb-8 md:col-6 lg:col-4 integration-tab-item"
@@ -53,7 +57,7 @@
 											<div
 												class="rounded-xl bg-white px-8 py-8 shadow-lg min-h-400">
 												<div
-													class="pb-5 integration-card-head flex items-center space-x-4 border-b border-border">
+													class="pb-5 integration-card-head flex items-center space-x-4 border-b border-border min-h-[105px]">
 													<img src="${companyDTO.dto.image}" alt="" />
 													<div>
 														<h5 class="h5">${companyDTO.dto.cp_name}</h5>
@@ -94,12 +98,12 @@
 				</div>
 
 				<div class="cpsCompany">
-					<h3>아쉽게 순위에 들지 못한 기업 :)</h3>
-					<div class="row mt-14 cpsCompanyInfo">
+					<h3 class="pl-8">매칭률 높은 기업 더 보기</h3>
+					<div class="row mt-8 cpsCompanyInfo">
 
 						<c:forEach items="${list}" var="list">
 							<div class="mb-8 sm:col-6 lg:col-4">
-								<div class="rounded-xl bg-white p-6 shadow-lg lg:p-8">
+								<div class="rounded-xl bg-white p-6 shadow-lg lg:p-match matchplus">
 									<div class="integration-card-head flex items-center space-x-4">
 										<img src="${list.dto.image}" alt="">
 										<div>
@@ -110,11 +114,11 @@
 									</div>
 									<div class="job_meta mt-2">
 										<c:forEach items="${list.dto.tag_list}" var="tag">
-											<span class="job-keyword">${tag}</span>
+											<span class="job-keyword text-xs">${tag}</span>
 										</c:forEach>
 									</div>
 
-									<div class="text-right">
+									<div class="text-right text-lg">
 										<i class="fa-solid fa-star gold"></i> ${list.dto.review_avg}
 									</div>
 								</div>
@@ -137,9 +141,9 @@
 		var myRadarChart = new Chart(ctx, {
 			type : 'radar',
 			data : {
+				label: '회원',
 				labels : [ '성장 가능성', '연봉', '조직문화', '조직안정성', '복지' ],
 				datasets : [ {
-					label : '회원', // 새로운 데이터셋의 라벨
 					data : [${dto.potential}, ${dto.salary}, ${dto.culture}, ${dto.stability}, ${dto.welfare} ], // 새로운 데이터셋의 데이터
 					backgroundColor : 'rgba(54, 162, 235, 0.2)', // fill color
 					borderColor : 'rgba(54, 162, 235, 1)', // border color

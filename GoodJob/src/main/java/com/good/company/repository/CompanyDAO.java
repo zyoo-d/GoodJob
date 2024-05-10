@@ -68,8 +68,8 @@ public class CompanyDAO {
 		
 		try {
 			
-			String sql ="select * from vwMainComList";
-			String where = " where com_rcrt_cnt > 0";
+			String sql ="select * from vwMainComList where score > 3.5";
+			String where = " and com_rcrt_cnt > 0";
 			
 			//검색
 			if(map.get("hiring").equals("y")) {
@@ -92,8 +92,7 @@ public class CompanyDAO {
 				dto.setCp_name(rs.getString("cp_name"));
 				
 				dto.setImage(rs.getString("image"));
-				
-				dto.setIdst_code(rs.getString("idst_code"));
+				dto.setReview_avg(rs.getString("score"));
 				dto.setIdst_name(rs.getString("idst_name"));
 				dto.setCom_rcrt_cnt(rs.getInt("com_rcrt_cnt"));
 				mainComInfo.add(dto);
