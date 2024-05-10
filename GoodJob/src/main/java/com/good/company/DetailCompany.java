@@ -70,7 +70,14 @@ public class DetailCompany extends HttpServlet {
 
 		// 태그출력
 		ReviewDAO tdao = new ReviewDAO();
-		ArrayList<ReviewDTO> ComTaglist = tdao.tagList(cp_seq);
+
+		//ArrayList<ReviewDTO> ComTaglist = tdao.tagList(cp_seq); 
+		// 상위 태그 목록 조회
+        CompanyDAO cdao = new CompanyDAO();
+        ArrayList<String> topTags = cdao.getTopTagsByCpSeq(cp_seq);
+
+		
+
 
 		// 기업직무정보
 		RecruitDAO jdao = new RecruitDAO();
