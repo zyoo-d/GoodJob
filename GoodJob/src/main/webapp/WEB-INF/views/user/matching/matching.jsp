@@ -23,6 +23,25 @@
 	border-right-width: 1px;
 	border-color: rgb(235, 235, 235);
 }
+
+.contents_item_row {
+	display: flex;
+	justify-content: flex-start;
+}
+
+#matchscore {
+	margin-left: 35px;
+	line-height: 2rem;
+}
+
+.contents_item_label {
+	width: 68%;
+}
+#matchtotal {
+	justify-content: center;
+    gap: 26%;
+    margin-bottom: 5px;
+}
 </style>
 </head>
 <%@include file="/WEB-INF/views/inc/header.jsp"%>
@@ -38,12 +57,12 @@
 				</div>
 				<div id="matchinfo" class="mt-4">
 					<h3>'${name}'님의 성향 :</h3>
-					<h5>"결국 일은 '사람'들과 모여서 하는 것!"</h5>
+					<h5>"${keywords.best}${keywords.worst} 사람!"</h5>
 				</div>
 				<div>
-					<div class="border-y border-border py-8 mt-6 mb-8">
+					<div class="border-b border-border py-8 mt-6 mb-8">
 						<div class="cpsCompanyList">
-							<h3 class="pl-6">매칭 기업 Top3 for U!</h3>
+							<h3 class="pl-6">매칭 기업 Top3</h3>
 							<div class="cpsCompanyInfo">
 								<div
 									class="row mt-8 integration-tab-items rounded-xl bg-white shadow-lg ml-4 mr-4"
@@ -64,16 +83,63 @@
 												<div class="my-5 py-5 smallradarChart">
 													<canvas id="cp${status.index + 1}SugradarChart"></canvas>
 												</div>
-												<div
-													class="my-5 py-5 flex space-evenly">
+												<div class="my-5 py-5 flex space-evenly pl-4 border-border border-b">
 													<div>
 														<span
 															class="bg-gradient inline-flex h-16 w-16 items-center justify-center rounded-full">
 															${companyDTO.matchScore}% </span>
 													</div>
-													<span class="m-auto">"여기다.<br> ${name}님이 갈 곳!"
+													<span class="m-auto">"${companyDTO.matchText}"
 													</span>
 
+												</div>
+												<div class="mb-5 pb-5">
+													<div class="flex" id="matchtotal">
+														<h4>리뷰 평점</h4><h4><i
+																	class="fa-solid fa-star cornflowerblue"></i> ${companyDTO.dto.review_avg}</h4>
+													</div>
+													<div id="matchscore">
+														<div class="contents_item_row">
+															<div class="contents_item_label">연봉</div>
+															<div class="avg_wrap">
+																<span class="avg_icon color_or_400"><i
+																	class="fa-solid fa-star gold"></i></span> <span
+																	class="avg_text"> ${companyDTO.dto.sal_avg}</span>
+															</div>
+														</div>
+														<div class="contents_item_row">
+															<div class="contents_item_label">조직문화</div>
+															<div class="avg_wrap">
+																<span class="avg_icon color_or_400"><i
+																	class="fa-solid fa-star gold"></i></span> <span
+																	class="avg_text"> ${companyDTO.dto.cul_avg}</span>
+															</div>
+														</div>
+														<div class="contents_item_row">
+															<div class="contents_item_label">복지</div>
+															<div class="avg_wrap">
+																<span class="avg_icon color_or_400"><i
+																	class="fa-solid fa-star gold"></i></span> <span
+																	class="avg_text"> ${companyDTO.dto.wel_avg}</span>
+															</div>
+														</div>
+														<div class="contents_item_row">
+															<div class="contents_item_label">성장 가능성</div>
+															<div class="avg_wrap">
+																<span class="avg_icon color_or_400"><i
+																	class="fa-solid fa-star gold"></i></span> <span
+																	class="avg_text"> ${companyDTO.dto.pot_avg}</span>
+															</div>
+														</div>
+														<div class="contents_item_row">
+															<div class="contents_item_label">조직 안정성</div>
+															<div class="avg_wrap">
+																<span class="avg_icon color_or_400"><i
+																	class="fa-solid fa-star gold"></i></span> <span
+																	class="avg_text"> ${companyDTO.dto.stab_avg}</span>
+															</div>
+														</div>
+													</div>
 												</div>
 												<div class="job_meta">
 
@@ -95,7 +161,7 @@
 				</div>
 
 				<div class="cpsCompany">
-					<h3 class="pl-6">매칭률 높은 기업 더 보기</h3>
+					<h3 class="pl-6">아쉽게 순위에 들지 못한 기업</h3>
 					<div class="row mt-8 cpsCompanyInfo">
 
 						<c:forEach items="${list}" var="list">
