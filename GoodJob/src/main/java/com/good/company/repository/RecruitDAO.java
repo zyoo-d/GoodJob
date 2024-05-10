@@ -12,6 +12,7 @@ import java.util.Locale;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import com.good.company.model.CompanyDTO;
 import com.good.company.model.RecruitDTO;
 import com.test.util.DBUtil;
 
@@ -172,7 +173,8 @@ public class RecruitDAO {
 	    }
 	    return null;
 	}
-
+	
+	
 
 	public int getTotalCount(HashMap<String, Object> map) {
 		try {
