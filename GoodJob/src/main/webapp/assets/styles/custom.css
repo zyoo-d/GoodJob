@@ -733,7 +733,7 @@ textarea:focus {
 }
 
 /*기업목록 로고 이미지*/
-.com-list.com-image, com-image {
+.com-list.com-image, .com-image {
 	flex-shrink: 0;
 	width: 100px;
 	height: 100px;
@@ -754,7 +754,6 @@ textarea:focus {
 .moving-btn {
 	text-align: center;
 	margin-top: 30px;
-	margin-bottom: 50px;
 }
 
 .list-header>.moving-btn {
@@ -1711,4 +1710,147 @@ textarea:focus {
 	border-radius: 10px;
 	border-top: 0;
 	padding: 10px;
+}
+
+/* 지유님 */
+
+.category {
+	margin: 20px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.category label {
+	flex: 0 0 auto;
+	margin-right: 10px;
+	font-size: 1.5rem;
+	text-align: left;
+	width: 30%;
+}
+.ps-com {
+	display: flex;
+	flex-wrap: wrap;
+	padding: 10px;
+	border-bottom: 1px solid #eee;
+}
+
+.ps-com>div {
+	flex: 1 1 50%;
+	padding: 10px;
+	padding-left: 20px;
+}
+
+/*태그 추가*/
+.add-tag {
+	position: relative;
+	max-width: 400px;
+	margin: 20px auto;
+	display: flex;
+	align-items: center;
+	border-radius: 20px;
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+	background: #fff;
+}
+
+.add-tag input[type="text"] {
+	flex-grow: 1;
+	border: none;
+	padding: 10px 20px;
+	border-radius: 20px 0 0 20px;
+	font-size: 16px;
+}
+
+.add-tag input:focus {
+	outline: none;
+	border: none;
+	box-shadow: none;
+}
+
+.add-tag button {
+	border: none;
+	background-color: #5569D2;
+	color: #FFF;
+	padding: 10px;
+	cursor: pointer;
+	outline: none;
+	position: absolute;
+	right: 0;
+	border-radius: 0 20px 20px 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.add-tag button:hover {
+	background-color: #3656CB;
+}
+
+.tag-list {
+	padding-left: 20px;
+	max-width: 400px;
+	margin: 10px auto;
+}
+
+.tag-list .tag-keyword {
+	display: inline-block;
+	background-color: #E8E8E8;
+	border-radius: 10px;
+	padding: 5px 10px;
+	margin: 5px 5px 5px 0;
+	font-size: 14px;
+	color: #333;
+}
+
+.stars {
+	flex: 1 1 auto;
+	justify-content: center;
+	display: flex;
+	font-size: 2.5rem;
+	margin: 0 2px;
+	cursor: pointer;
+	transition: color 0.2s ease-in-out;
+}
+
+.star:hover {
+	color: #ffd700;
+}
+
+.stars::before {
+	letter-spacing: 5px;
+	background: linear-gradient(90deg, #ffc107 0%, #e4e5e9 0%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	display: block;
+	text-align: center;
+}
+
+.star {
+	color: #CCC;
+	cursor: pointer;
+	font-size: 24px;
+}
+
+.star.rated {
+	color: gold;
+}
+
+.half-rated:before {
+	content: "\f5c0";
+}
+
+.eee {
+	color: #eee;
+}
+.textAreaWrapper {
+	position: relative;
+	display: flex;
+	align-items: flex-end;
+	justify-content: space-between;
+}
+
+.textLengthWrap {
+	display: flex;
+	align-items: center;
+	gap: 5px; /* 자간 조정 */
 }

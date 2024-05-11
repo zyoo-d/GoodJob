@@ -10,13 +10,9 @@
 <style>
 </style>
 </head>
-
 <%@include file="/WEB-INF/views/inc/header.jsp"%>
-
 <body>
-
 	<section class="page-hero pt-16 pb-6">
-
 		<div class="container">
 			<div class="card" id="itvWriteQnA">
 				<div class="card-content-wrapper">
@@ -35,12 +31,11 @@
 										placeholder="기업명으로 검색하세요.">
 									<button type="submit" class="search" id="search-btn">
 										<span class="material-symbols-outlined">search</span>
-
 									</button>
 								</div>
 
 								<button type="button" class="btn btnList w-full"
-									id="detail-search-btn">평균연봉 / 지역 / 업종으로 상세조회하기</button>
+									id="detail-search-btn">평균연봉 / 지역으로 상세조회하기</button>
 
 							</div>
 
@@ -273,12 +268,7 @@
 					</section>
 				</div>
 			</div>
-
-
 		</div>
-
-
-
 		<nav class="PageBox z-custom" aria-label="Page navigation example">
 			<ul class="pagination z-custom">${pagebar}</ul>
 		</nav>
@@ -287,9 +277,6 @@
 	<%@include file="/WEB-INF/views/inc/footer.jsp"%>
 
 	<script type="text/javascript">
-		
-	
-	
 		<c:if test="${map.search == 'y'}">
 		//검색중 상태 유지
 		$('input[name=word]').val('${map.word}');
@@ -550,5 +537,4 @@
 		/* 선호근무지역 End */
 	</script>
 </body>
-
 </html>

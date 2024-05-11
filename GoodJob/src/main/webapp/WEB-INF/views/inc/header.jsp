@@ -75,7 +75,7 @@
 								placeholder="기업을 검색해보세요." aria-label="Search"
 								id="searchInputHead">
 							<button id="btnSearch" class="btn" type="submit">
-								<i class="fas fa-search"></i>
+								<i class="fas fa-search" style="color: #888;"></i>
 							</button>
 							<input type="hidden" id="headcp_seq" value="" name="headcp_seq">
 						</div>

@@ -148,7 +148,7 @@
 													</c:forEach>
 
 												</div>
-												<div>
+												<div class="">
 												<a href="/good/user/company/companyview.do?cp_seq=${companyDTO.dto.cp_seq}" class="btn btn-sm btn-primary">상세보기</a></div>
 											</div>
 										</div>
