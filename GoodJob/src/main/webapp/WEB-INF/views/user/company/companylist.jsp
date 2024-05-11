@@ -210,29 +210,32 @@
 													<span>지원가능한 채용공고 <b>${dto.com_rcrt_cnt}</b>건
 													</span>
 												</div>
+											</div>
+											<div class="col notification_info">
 
-												<div class="col notification_info">
-
-													<div class="job_tit"
-														style="display: flex; align-items: flex-start;">
-														<a
-															href="/good/user/company/companyview.do?cp_seq=${dto.cp_seq}&word=${map.word}&search=${map.search}&hiring=${map.hiring}&page=${nowPage}"
-															class="str_tit_title new">
-															<h2>${dto.cp_name}</h2>
-														</a>
-														<button id="scrap" style="margin-left: 8px;" onclick="addScrap(${dto.cp_seq}, '${sessionScope.id}')">
-															<i class="fa-regular fa-bookmark"></i>
-														</button>
-													</div>
-													<div class="job_meta">
-														<c:forEach items="${ComTaglist}" var="tdto">
-															<c:if test="${tdto.cp_seq == dto.cp_seq}">
-																<c:forEach items="${tdto.tag_keyword}" var="tag"
-																	begin="0" end="4">
+												<div class="job_tit"
+													style="display: flex; align-items: flex-start;">
+													<a
+														href="/good/user/company/companyview.do?cp_seq=${dto.cp_seq}&word=${map.word}&search=${map.search}&hiring=${map.hiring}&page=${nowPage}"
+														class="str_tit_title new">
+														<h2>${dto.cp_name}</h2>
+													</a>
+													<button id="scrap" style="margin-left: 8px;">
+														<i class="fa-regular fa-bookmark"></i>
+													</button>
+												</div>
+												<div class="job_meta">
+													<c:forEach items="${ComTaglist}" var="tdto">
+														<c:if test="${tdto.cp_seq == dto.cp_seq}">
+															<div class="job_meta">
+																<c:forEach items="${dto.tag_list}" var="tag" begin="0"
+																	end="4">
 																	<span class="job-keyword">${tag}</span>
 																</c:forEach>
-															</c:if>
-														</c:forEach>
+															</div>
+														</c:if>
+													</c:forEach>
+
 												</div>
 											</div>
 										</div>
@@ -545,27 +548,6 @@
 			$(this).next().addBack().remove();
 		});
 		/* 선호근무지역 End */
-		
-		 function addScrap(cpSeq, userId) {
-   
-        $.ajax({
-            url: '/good/test/mg/addscrap.do',
-            method: 'POST',
-            data: {
-                cp_seq: cpSeq,
-                id: userId
-            },
-            success: function(response) {
-   
-                alert('스크랩 성공');
-            },
-            error: function(xhr, status, error) {
-
-            	alert('스크랩 실패');
-            }
-        });
-    }
-		
 	</script>
 </body>
 

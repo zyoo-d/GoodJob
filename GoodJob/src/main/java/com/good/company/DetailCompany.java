@@ -122,11 +122,11 @@ public class DetailCompany extends HttpServlet {
 		req.setAttribute("comRecruitList", comRecruitList);
 		req.setAttribute("search", search);
 		req.setAttribute("hiring", hiring);
-		// req.setAttribute("ComTaglist", ComTaglist);
+		//req.setAttribute("ComTaglist", ComTaglist);
 		// req.setAttribute("flist",flist);
 		
 		req.setAttribute("livecommentlist", livecommentlist);
-		req.setAttribute("ComTaglist", ComTaglist);
+		//req.setAttribute("ComTaglist", ComTaglist);
 		req.setAttribute("comJobList", comJobList);
 		req.setAttribute("salesList", flist[0]);
 		req.setAttribute("ebitList", flist[1]);
