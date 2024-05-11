@@ -16,7 +16,7 @@
 			<div class="main-content">
 				<section class="section">
 					<div class="section-header">
-						<h1>신고 접수 관리</h1>
+						<h1>차단 유저 관리</h1>
 					</div>
 
 					<div class="section-body">
@@ -25,7 +25,7 @@
 							<div class="col-12">
 								<div class="card">
 									<div class="card-header">
-										<h4>신고 내역 목록</h4>
+										<h4>차단 유저 목록</h4>
 										<div class="card-header-form">
 											<form>
 												<div class="input-group">
@@ -37,9 +37,7 @@
 														</button>
 													</div>
 													<a href="#" class="btn btn-icon icon-left btn-primary"><i
-														class="far fa-edit"></i> 차단 관리</a> <a href="#"
-														class="btn btn-icon icon-left btn-danger"><i
-														class="fas fa-times"></i> 회원 탈퇴</a>
+														class="far fa-edit"></i> 수정</a>
 												</div>
 											</form>
 										</div>
@@ -61,8 +59,9 @@
 													<th class="p-0 text-center">제목</th>
 													<th class="p-0 text-center">신고자</th>
 
-													<th class="p-0 text-center">
-													<select id="reportType" name="reportType" onchange="sortReportType()" style="padding: 4px 8px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px; color: #333; background-color: #fff; width: 120px;">
+													<th class="p-0 text-center"><select id="reportType"
+														name="reportType" onchange="sortReportType()"
+														style="padding: 4px 8px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px; color: #333; background-color: #fff; width: 120px;">
 															<option value="" ${empty param.rp_seq ? 'selected' : ''}>전체</option>
 															<option value="1"
 																${param.rp_seq == '1' ? 'selected' : ''}>비방/욕설</option>
@@ -87,28 +86,36 @@
 													<th class="p-0 text-center">신고 일자</th>
 												</tr>
 
-												<c:forEach items="${reportList}" var="report"
-													varStatus="status">
-													<tr>
-														<td class="p-0 text-center">
-															<div class="custom-checkbox custom-control">
-																<input type="checkbox" data-checkboxes="mygroup"
-																	class="custom-control-input"
-																	id="checkbox-${status.index}"> <label
-																	for="checkbox-${status.index}"
-																	class="custom-control-label">&nbsp;</label>
-															</div>
-														</td>
-														<td class="p-0 text-center">${report.writer_id}</td>
-														<td class="p-0 text-center">${report.sub_type}</td>
-														<td class="p-0 text-center">${report.title}</td>
-														<td class="p-0 text-center">${report.reporter_id}</td>
-														<td class="p-0 text-center">${report.rp_seq}</td>
-														<td class="p-0 text-center">${report.report_detail}</td>
-														<td class="p-0 text-center">${report.report_regdate}</td>
-													</tr>
-												</c:forEach>
-
+												<c:choose>
+													<c:when test="${not empty reportList}">
+														<c:forEach items="${reportList}" var="report"
+															varStatus="status">
+															<tr>
+																<td class="p-0 text-center">
+																	<div class="custom-checkbox custom-control">
+																		<input type="checkbox" data-checkboxes="mygroup"
+																			class="custom-control-input"
+																			id="checkbox-${status.index}"> <label
+																			for="checkbox-${status.index}"
+																			class="custom-control-label">&nbsp;</label>
+																	</div>
+																</td>
+																<td class="p-0 text-center">${report.writer_id}</td>
+																<td class="p-0 text-center">${report.sub_type}</td>
+																<td class="p-0 text-center">${report.title}</td>
+																<td class="p-0 text-center">${report.reporter_id}</td>
+																<td class="p-0 text-center">${report.rp_seq}</td>
+																<td class="p-0 text-center">${report.report_detail}</td>
+																<td class="p-0 text-center">${report.report_regdate}</td>
+															</tr>
+														</c:forEach>
+													</c:when>
+													<c:otherwise>
+														<tr>
+															<td colspan="8" class="p-0 text-center">회원 목록이 없습니다.</td>
+														</tr>
+													</c:otherwise>
+												</c:choose>
 											</table>
 										</div>
 									</div>
@@ -121,7 +128,7 @@
 											<ul class="pagination mb-0">
 												<c:if test="${pageUtil.hasPreviousPage()}">
 													<li class="page-item"><a class="page-link"
-														href="/good/admin/userreport.do?page=${pageUtil.startPage - 1}&rp_seq=${param.rp_seq}">
+														href="/good/admin/listreportuser.do?page=${pageUtil.startPage - 1}&rp_seq=${param.rp_seq}">
 															<i class="fas fa-chevron-left"></i>
 													</a></li>
 												</c:if>
@@ -132,14 +139,14 @@
 													<li
 														class="page-item ${page == pageUtil.currentPage ? 'active' : ''}">
 														<a class="page-link"
-														href="/good/admin/userreport.do?page=${page}&rp_seq=${param.rp_seq}">
+														href="/good/admin/listreportuser.do?page=${page}&rp_seq=${param.rp_seq}">
 															${page} </a>
 													</li>
 												</c:forEach>
 
 												<c:if test="${pageUtil.hasNextPage()}">
 													<li class="page-item"><a class="page-link"
-														href="/good/admin/userreport.do?page=${pageUtil.startPage + 5}&rp_seq=${param.rp_seq}">
+														href="/good/admin/listreportuser.do?page=${pageUtil.startPage + 5}&rp_seq=${param.rp_seq}">
 															<i class="fas fa-chevron-right"></i>
 													</a></li>
 												</c:if>
@@ -181,14 +188,13 @@
 	
 	
 	
-  $("#modal-1").fireModal({body: '차단회원 관리.'});
   
   let modalInputs;
   let selectedUser = {};
 
   $('#btn-block-user').fireModal({
     body: $('#modal-part'),
-    title: '회원 정보 변경',
+    title: '차단 회원 관리',
     footerClass: 'text-right',
     buttons: [
       {
@@ -270,6 +276,50 @@
       bulkModalInputs.userCount.val(userCount + '명');
     }
   });
+  
+  $(document).on('change', 'input[type="checkbox"][data-checkboxes="mygroup"]', function() {
+	  const checkedUsers = $('input[type="checkbox"][data-checkboxes="mygroup"]:checked');
+	  const userCount = checkedUsers.length;
+
+	  if (userCount === 1) {
+	    // 선택한 행의 정보 가져오기
+	    const row = $(this).closest('tr');
+	    const userId = row.find('td:nth-child(2)').text();
+	    const blockDate = row.find('td:nth-child(3)').text();
+	    const releaseDate = row.find('td:nth-child(4)').text();
+	    const reason = row.find('td:nth-child(5)').text();
+	    const status = row.find('td:nth-child(6)').text();
+
+	    // 모달창 입력 필드에 값 설정
+	    $('#user-id').val(userId);
+	    $('#block-date').val(blockDate);
+	    $('#release-date').val(releaseDate);
+	    $('#block-reason').val(reason);
+	    $('#status').val(status);
+
+	    // modal-part 모달창 열기
+	    $('#modal-part').modal('show');
+	  } else if (userCount > 1) {
+	    // 선택한 행의 아이디 목록 가져오기
+	    const selectedIds = checkedUsers.map(function() {
+	      return $(this).closest('tr').find('td:nth-child(2)').text();
+	    }).get();
+
+	    // 모달창 입력 필드에 값 설정
+	    $('#user-ids').val(selectedIds.join(','));
+
+	    // modal-bulk-part 모달창 열기
+	    $('#modal-bulk-part').modal('show');
+	  } else {
+	    // 모달창 입력 필드 초기화
+	    $('#user-id').val('');
+	    $('#block-date').val('');
+	    $('#release-date').val('');
+	    $('#block-reason').val('');
+	    $('#status').val('정상');
+	    $('#user-ids').val('');
+	  }
+	});
   
   
   </script>

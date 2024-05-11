@@ -593,7 +593,6 @@ public class CompanyDAO {
 	        return null;
 	    }
 
-	}
 	
 	
 	public HashMap<String, String> getUpdateDate(){
@@ -624,7 +623,7 @@ public class CompanyDAO {
 	
 	
 	
-	
+}	
 	
 	
 	

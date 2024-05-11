@@ -72,6 +72,7 @@
   <script src="/good/assets/modules/jquery.sparkline.min.js"></script>
   <script src="/good/assets/modules/owlcarousel2/dist/owl.carousel.min.js"></script>
   <script src="/good/assets/modules/chocolat/dist/js/jquery.chocolat.min.js"></script>
+  <script src="/good/assets/modules/prism/prism.js"></script>
   
    <!-- Template JS File -->
   
