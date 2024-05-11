@@ -18,9 +18,11 @@ import com.good.board.model.CommentDTO;
 import com.good.company.model.CompanyDTO;
 import com.good.company.model.RecruitDTO;
 import com.good.company.model.ReviewDTO;
+import com.good.company.model.WelFareDTO;
 import com.good.company.repository.CompanyDAO;
 import com.good.company.repository.RecruitDAO;
 import com.good.company.repository.ReviewDAO;
+import com.good.company.repository.WelFareDAO;
 import com.good.news.NewsDAO;
 import com.good.news.NewsDTO;
 
@@ -82,7 +84,7 @@ public class DetailCompany extends HttpServlet {
 		// 기업직무정보
 		RecruitDAO jdao = new RecruitDAO();
 		ArrayList<String> comJobList = jdao.comJob(cp_seq);
-
+		
 		// 채용공고목록
 		RecruitDAO rcdao = new RecruitDAO();
 		ArrayList<RecruitDTO> comRecruitList = rcdao.comRecruitList(cp_seq);
@@ -103,18 +105,22 @@ public class DetailCompany extends HttpServlet {
 		}
 
 		// 기업뉴스
-
 		String cp_name = dto.getCp_name();
 		NewsDAO ndao = new NewsDAO();
 		ArrayList<NewsDTO> nlist = ndao.search(cp_name);
-		System.out.println(nlist);
+		//System.out.println(nlist);
 
+		//기업 복지
+		WelFareDAO wdao = new WelFareDAO();
+		ArrayList<WelFareDTO> wlist = wdao.companyWelfare(cp_seq);
+		req.setAttribute("wlist", wlist);
+		
 		// 실시간 댓글
 		ArrayList<CommentDTO> livecommentlist = dao.listComment(cp_seq);
 		
 		System.out.println(livecommentlist);
+		
 		req.setAttribute("nlist", nlist);
-
 		req.setAttribute("dto", dto);
 		req.setAttribute("word", word);
 		req.setAttribute("page", page);
@@ -122,7 +128,7 @@ public class DetailCompany extends HttpServlet {
 		req.setAttribute("comRecruitList", comRecruitList);
 		req.setAttribute("search", search);
 		req.setAttribute("hiring", hiring);
-		//req.setAttribute("ComTaglist", ComTaglist);
+		req.setAttribute("topTags", topTags);
 		// req.setAttribute("flist",flist);
 		
 		req.setAttribute("livecommentlist", livecommentlist);
@@ -131,7 +137,8 @@ public class DetailCompany extends HttpServlet {
 		req.setAttribute("salesList", flist[0]);
 		req.setAttribute("ebitList", flist[1]);
 		req.setAttribute("incomeList", flist[2]);
-
+		
+		
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/user/company/companyview.jsp");
 		dispatcher.forward(req, resp);
 

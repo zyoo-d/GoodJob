@@ -31,8 +31,8 @@ public ArrayList<NewsDTO> search(String word) {
             throw new RuntimeException("검색어 인코딩 실패",e);
         }
 
-        String apiURL = "https://openapi.naver.com/v1/search/news.json?query=" + word;
-        System.out.println(apiURL);
+        String apiURL = "https://openapi.naver.com/v1/search/news.json?dispaly=2&query=" + word;
+        //System.out.println(apiURL);
 
         Map<String, String> requestHeaders = new HashMap<>();
         requestHeaders.put("X-Naver-Client-Id", clientId);
@@ -49,16 +49,13 @@ public ArrayList<NewsDTO> search(String word) {
         	JSONObject root 
         		= (JSONObject)parser.parse(responseBody);
         	
-        	//System.out.println(root.get("total"));
+        	
         	
         	JSONArray list = (JSONArray)root.get("items");
         	
         	for (int i=0; i<list.size(); i++) {
         		
         		
-        		//JSON Object = 책 1권 > BookDTO 1개
-        		//JSONObject book = (JSONObject)list.get(i);
-        		//System.out.println(book.get("title"));
         		
         		NewsDTO dto = new NewsDTO();
         		dto.setTitle(((JSONObject)list.get(i)).get("title").toString());
@@ -67,7 +64,7 @@ public ArrayList<NewsDTO> search(String word) {
         		dto.setDescription(((JSONObject)list.get(i)).get("description").toString());
         		dto.setPubDate(((JSONObject)list.get(i)).get("pubDate").toString());
         		
-        		System.out.println(dto);
+        		//System.out.println(dto);
         		
         		nlist.add(dto);
         		

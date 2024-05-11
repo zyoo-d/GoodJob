@@ -133,9 +133,6 @@
 									</div>
 								</section>
 							</div>
-						</form>
-
-
 					</div>
 
 				</div>
@@ -147,26 +144,20 @@
 									<p>
 										<span class="material-symbols-outlined">subject</span>
 									</p>
-									<c:if test="${map.search =='n' && map.hiring == 'n'}">
-										<p>
-											전체 기업은 총 <span id="list-cnt">${totalCount}</span>건입니다.
-										</p>
-									</c:if>
-									<c:if test="${map.search=='y' || map.hiring=='y'}">
-										<p>
-											검색된 기업은 총 <span id="list-cnt">${searchTotalCount}</span>건입니다.
-										</p>
-									</c:if>
+									<%-- <c:if test="${map.search =='n' && map.hiring == 'n'}"> --%>
+									<p>
+										조회된 기업은 총 <span id="list-cnt">${totalCount}</span>건입니다.
+									</p>
+
 
 									<div class="checkbox-wrapper">
 										<!-- 체크박스와 레이블 -->
-
 										<input type="checkbox" id="hiring-only"
-											class="sorting filter-checkbox" name="hiring"> <label
+											class="sorting filter-checkbox" name="hiring" value="y"
+											${hiring == 'y' ? 'checked' : ''}> <label
 											for="hiring-only" class="filter-label">채용중인 기업</label>
 										<button type="submit"
 											style="border: 1px solid #ccc; margin-left: 3px; padding: 1px 3px; border-radius: 8px; font-size: 14px;">검색</button>
-
 									</div>
 								</div>
 
@@ -224,12 +215,13 @@
 														<i class="fa-regular fa-bookmark"></i>
 													</button>
 												</div>
-												<div class="job_meta">
-													<c:forEach items="${ComTaglist}" var="tdto">
-														<c:if test="${tdto.cp_seq == dto.cp_seq}">
+												<div class="job_meta"
+													style="display: flex; align-items: flex-start;">
+													<c:forEach items="${dto.tag_list}" var="tdto" begin="0"
+														end="4">
+														<c:if test="${not empty tdto}">
 															<div class="job_meta">
-																<c:forEach items="${dto.tag_list}" var="tag" begin="0"
-																	end="4">
+																<c:forEach items="${tdto}" var="tag">
 																	<span class="job-keyword">${tag}</span>
 																</c:forEach>
 															</div>
@@ -260,7 +252,14 @@
 															 만원</c:if>
 														</p></li>
 													<li><p class="salary">
-															<b>리뷰등록 </b>${dto.com_rcrt_cnt}건</p></li>
+															<b>리뷰등록 </b>
+															<c:if test="${empty dto.com_rv_cnt}">수집 정보 없음</c:if>
+															<c:if
+																test="${dto.com_rv_cnt !=0 || not empty dto.com_rv_cnt}">
+																
+															${dto.com_rv_cnt}건
+															</c:if>
+														</p></li>
 												</ul>
 											</div>
 										</div>
@@ -273,7 +272,7 @@
 					</section>
 				</div>
 			</div>
-
+			</form>
 
 		</div>
 
@@ -293,10 +292,28 @@
 		<c:if test="${map.search == 'y'}">
 		//검색중 상태 유지
 		$('input[name=word]').val('${map.word}');
-		$('select[name=column]').val('${map.column}');
 		$('input[name=hiring]').val('${map.hiring}');
 		</c:if>
-
+		$(document).ready(function() {
+		    $("#sort").change(function() {
+		        var selectedSort = $(this).val();
+		        var hiring = $("#hiring-only").is(":checked") ? "y" : "n";
+		        var searchParams = $("#searchForm").serialize();
+		        
+		        $.ajax({
+		            url: "/good/user/company/companylist.do",
+		            method: "GET",
+		            data: searchParams + "&sort=" + selectedSort + "&hiring=" + hiring,
+		            success: function(response) {
+		                $(".list-body").html($(response).find(".list-body").html());
+		                $(".pagination").html($(response).find(".pagination").html());
+		            },
+		            error: function(a, b, c) {
+		                console.log(a, b, c);
+		            }
+		        });
+		    });
+		});
 		$(document).ready(function() {
 		    $("#sort").change(function() {
 		        var selectedSort = $(this).val();
