@@ -31,6 +31,33 @@ public class ReviewDAO {
 		}
 	}
 
+	/**
+	 * 지유)등록된 리뷰수 불러오는 메서드
+	 * 
+	 * @return 리뷰수
+	 */
+	public int countRiview(String input) {
+		try {
+			String sql = "select count(*) as cnt from tblCompanyReview where cp_seq = ?";
+
+			pstat = conn.prepareStatement(sql);
+			String cp_seq = input;
+
+			pstat.setString(1, cp_seq);
+			rs = pstat.executeQuery();
+
+			while (rs.next()) {
+				int cnt = rs.getInt("cnt");
+				return cnt;
+			}
+
+		} catch (Exception e) {
+			System.out.println("ReviewDAO.countRiview");
+			e.printStackTrace();
+		}
+
+		return 0;
+	}
 	
 
 	/**

@@ -17,7 +17,14 @@ public class ScrapDAO {
 		this.conn = DBUtil.open();
 	}
 	
-	
+	public void close() {
+		try {
+			this.conn.close();
+		} catch (Exception e) {
+			System.out.println("ScrapDAO.close 오류");
+			e.printStackTrace();
+		}
+	}
 	
 	
 }

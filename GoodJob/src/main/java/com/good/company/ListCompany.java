@@ -1,13 +1,8 @@
 package com.good.company;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,13 +10,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.good.company.model.CompanyDTO;
-import com.good.company.model.ReviewDTO;
 import com.good.company.repository.CompanyDAO;
-import com.good.company.repository.ReviewDAO;
-import com.test.util.DBUtil;
 
 @WebServlet("/user/company/companylist.do")
 public class ListCompany extends HttpServlet {
@@ -127,6 +118,7 @@ public class ListCompany extends HttpServlet {
 		
 		// 총게시물수
 		totalCount = dao.getCompanyCount(map);
+		totalPage = (int) Math.ceil((double) totalCount / pageSize);
 		//req.setAttribute("companyCount", companyCount);
 		
 
@@ -171,6 +163,9 @@ public class ListCompany extends HttpServlet {
 		    sb.append(String.format("<li class='page-item z-custom'><a class='page-link' href='/good/user/company/companylist.do?page=%d&hiring=%s&word=%s&sort=%s'><span class='material-symbols-outlined paging-icon z-custom'>keyboard_double_arrow_right</span></a></li>", n + 5, hiring, word, sort));
 		}
 
+		dao.close();
+		
+		
 		req.setAttribute("comListInfo", comListInfo);
 		req.setAttribute("map", map); // 페이지 begin. end hiring
 		req.setAttribute("hiring", hiring);

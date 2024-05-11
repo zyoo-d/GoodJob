@@ -8,25 +8,6 @@
 <meta charset="UTF-8">
 <%@include file="/WEB-INF/views/inc/asset.jsp"%>
 <style>
-.comment-section {
-	margin-top: 20px;
-}
-
-.category {
-	margin: 20px;
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-}
-
-.category label {
-	flex: 0 0 auto;
-	margin-right: 10px;
-	font-size: 1.5rem;
-	text-align: left;
-	width: 30%;
-}
-
 textarea {
 	width: 100%;
 	height: 100px;
@@ -35,52 +16,6 @@ textarea {
 	padding: 10px;
 	margin-top: 10px;
 	resize: none;
-}
-
-.box_item {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	padding: 30px;
-	margin-bottom: 15px;
-	border-bottom: 1px solid #eee;
-}
-
-.com-image {
-	flex-shrink: 0;
-	width: 100px;
-	height: 100px;
-	margin-right: 20px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
-
-.com-image img {
-	width: 100%;
-	height: auto;
-}
-
-.com-title {
-	flex: 6;
-}
-
-.com-info {
-	flex: 2;
-	border-left: 2px solid #ccc;
-	padding-left: 20px;
-}
-
-.support_detail {
-	text-align: right;
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: flex-end;
-}
-
-.com-name {
-	font-size: 1.1rem;
-	color: #707070;
 }
 
 .tag_meta {
@@ -97,77 +32,18 @@ textarea {
 }
 
 .job_meta .job-keyword, .tag_meta .tag-keyword {
-	padding: 3px 5px;
-	color: #6777EE;
-	text-decoration: none;
-	border: 1px solid #6777EE;
-	border-radius: 5px;
-	background-color: #fff;
-	transition: background-color 0.3s, color 0.3s;
-	cursor: pointer;
-	display: inline-block;
-	margin-bottom: 5px;
-}
-
-.ps-com {
-	display: flex;
-	flex-wrap: wrap;
-	padding: 10px;
-	border-bottom: 1px solid #eee;
-}
-
-.ps-com>div {
-	flex: 1 1 50%;
-	padding: 10px;
-	padding-left: 20px;
+    cursor: pointer; 
+    display: inline-block;
+    margin-bottom: 5px;
 }
 
 .comment-section {
 	flex-basis: 100%;
 	margin-top: 20px;
 }
-
-.stars {
-	flex: 1 1 auto;
-	justify-content: center;
-	display: flex;
-	font-size: 2.5rem;
-	margin: 0 2px;
-	cursor: pointer;
-	transition: color 0.2s ease-in-out;
-}
-
-.star:hover {
-	color: #ffd700;
-}
-
-.stars::before {
-	letter-spacing: 5px;
-	background: linear-gradient(90deg, #ffc107 0%, #e4e5e9 0%);
-	-webkit-background-clip: text;
-	-webkit-text-fill-color: transparent;
-	display: block;
-	text-align: center;
-}
-
-.star {
-	color: #CCC;
-	cursor: pointer;
-	font-size: 24px;
-}
-
-.star.rated {
-	color: gold;
-}
-
-.half-rated:before {
-	content: "\f5c0";
-}
-
 .fas {
 	color: gold;
 }
-
 .far {
 	color: #eee;
 }
@@ -223,20 +99,28 @@ textarea {
 </head>
 <%@include file="/WEB-INF/views/inc/header.jsp"%>
 <body>
-	<div id="itvWriteContainer">
-		<section class="page-hero pt-16 pb-6">
+	<section class="page-hero pt-16 pb-6">
 			<form method="post" action="/good/user/company/review/addreview.do">
-				<input type="hidden" name="cp_seq" value="${dto.cp_seq}">
-				<div class="container">
-					<div class="card" id="itvWriteQnA">
-						<div class="card-content-wrapper">
+			<input type="hidden" name="cp_seq" value="${dto.cp_seq}">
+		<div class="container">
+			<div class="integration-single-container rounded-xl bg-white py-16 shadow-lg px-16 tab" id="itvWriteQnA">
+				<div class="card-content-wrapper">
+					
+                    <div class="px-4 text-center">
+                        <h1 class="mt-3 gradiTitle"><span>기업리뷰등록</span></h1>
+                        <p class="mt-2">작성해 주신 기업리뷰는 다른 구직자분들께 큰 도움이 될 거예요</p>
+                    </div>
 
-							<div class="px-4 text-center sizing">
-								<h1 class="mt-3 gradiTitle">
-									<span>기업리뷰등록</span>
-								</h1>
-								<p class="mt-6">작성해 주신 기업리뷰는 다른 구직자분들께 큰 도움이 될 거예요</p>
-							</div>
+        	<div class="list_body mt-8 border-y border-border">
+							<div class="list_item">
+							
+							<!-- 기업정보start -->
+						
+								<div class="list-header py-6 border-b-0 mx-0 bg-white px-10">
+    <!-- 추가된 이미지 컨테이너 -->
+    <div class="com-image">
+        <img src="${dto.image}" onerror="this.src='/good/asset/images/default.jpg'" alt="Company Logo">
+    </div>
 
 							<hr>
 							<div class="list_body">

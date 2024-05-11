@@ -7,9 +7,7 @@
 <meta charset="UTF-8">
 <%@include file="/WEB-INF/views/inc/asset.jsp"%>
 <style>
-.font-sm {
-	font-size: 0.8rem;
-}
+
 </style>
 </head>
 <%@include file="/WEB-INF/views/inc/header.jsp"%>
