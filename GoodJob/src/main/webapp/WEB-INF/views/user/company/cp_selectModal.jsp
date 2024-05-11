@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -129,15 +130,16 @@ button {
 			<h4>기업 선택하기</h4>
 
 			<form id="searchForm">
-				<input type="text" name="input" class="input" id="search-input"
+				<input type="text" name="word" class="input" id="search-input"
 					placeholder="${totalCount }">
-				<button type="button" class="search" id="search-btn">
+				<button type="submit" class="search" id="search-btn">
 					<span class="material-symbols-outlined"> <span
 						class="material-symbols-outlined">search</span>
 					</span>
 				</button>
 			</form>
-			<form action="/good/user/company/comparecompany.do" method="GET">
+			
+			<form action="/good/user/company/cp_selectModal.do" method="GET">
 			<div>
 			<div id="cp_selected">
 			<span id="cptag"></span>
@@ -147,11 +149,11 @@ button {
 			</div>
 
 			<div id="compare">
-				<div id="check">
-				<c:forEach items="${comListInfo}" var="dto">
-						<input type="checkbox" name="" value="${dto.cp_seq}"/>
-				</c:forEach>
-				</div>
+    <div id="check">
+        <c:forEach items="${comListInfo}" var="dto">
+            <input type="checkbox" name="compareCp" value="${dto.cp_seq}" ${fn:contains(selectedCp, dto.cp_seq) ? 'checked' : ''}/>
+        </c:forEach>
+    </div>
 				<div id="right">
 				<c:forEach items="${comListInfo}" var="dto">
 				<div id="company">
@@ -252,6 +254,41 @@ button {
 		$(this).next().addBack().remove();
 	});
 	
+	
+	
+// 	$(document).ready(function() {
+// 	    // 페이지 이동 시 선택된 항목을 URL에 추가하여 서버로 전송
+// 	    $('a.page-link').click(function(event) {
+// 	        event.preventDefault();
+// 	        var nextPage = $(this).attr('href');
+	        
+// 	        // 체크된 항목의 값을 담을 배열 생성
+// 	        var selectedItems = [];
+// 	        $('#check input[type="checkbox"]:checked').each(function() {
+// 	            selectedItems.push($(this).val());
+// 	        });
+
+// 	        // 선택된 항목을 쿼리 문자열로 추가
+// 	        if (selectedItems.length > 0) {
+// 	            nextPage += (nextPage.indexOf('?') === -1 ? '?' : '&') + 'compareCp=' + encodeURIComponent(selectedItems.join(','));
+// 	        }
+	        
+// 	        // 페이지 이동
+// 	        window.location.href = nextPage;
+// 	    });
+
+// 	    // 페이지 로드 시 선택된 항목을 체크박스에 반영
+// 	    var selectedItems = "${selectedCp}";
+// 	    if (selectedItems) {
+// 	        selectedItems = selectedItems.split(',');
+// 	        selectedItems.forEach(function(item) {
+// 	            $('#check input[type="checkbox"][value="' + item + '"]').prop('checked', true);
+// 	        });
+// 	    }
+// 	});
+
+
+
 
 	
 
