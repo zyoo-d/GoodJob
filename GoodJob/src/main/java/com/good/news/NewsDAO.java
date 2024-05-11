@@ -31,7 +31,7 @@ public ArrayList<NewsDTO> search(String word) {
             throw new RuntimeException("검색어 인코딩 실패",e);
         }
 
-        String apiURL = "https://openapi.naver.com/v1/search/news.json?dispaly=2&query=" + word;
+        String apiURL = "https://openapi.naver.com/v1/search/news.json?display=2&query=" + word;
         //System.out.println(apiURL);
 
         Map<String, String> requestHeaders = new HashMap<>();

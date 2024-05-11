@@ -94,7 +94,7 @@ public class Matching extends HttpServlet {
 				keywords.put("best", "안정을 추구하고, ");
 				break;
 			case "culture":
-				keywords.put("best", "함께 지내는 동료가 좋고, ");
+				keywords.put("best", "함께 지내는 좋은 동료를 원하며, ");
 				break;
 			case "potential":
 				keywords.put("best", "지속적으로 성장하길 원하며, ");

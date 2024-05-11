@@ -6,8 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <%@include file="/WEB-INF/views/inc/asset.jsp"%>
-<link rel="stylesheet"
-	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <style>
 </style>
 </head>
@@ -18,28 +16,26 @@
 		<div class="container">
 			<div class="card" id="itvWriteQnA">
 				<form method="POST" action="/good/user/qna/addqna.do">
-				<div class="card-content-wrapper">
-					<div class="card-content">
-						<div class="px-4 text-center">
-							<h1 class="mt-3 gradiTitle">
-								<span>여기어때</span>
-							</h1>
-							<p class="recruit-list mt-6">기업에 대해 궁금한 점을 자유롭게 물어보세요.</p>
-						</div>
+					<div class="card-content-wrapper">
+						<div class="card-content">
+							<div class="px-4 text-center">
+								<h1 class="mt-3 gradiTitle">
+									<span>여기어때</span>
+								</h1>
+								<p class="recruit-list mt-6">기업에 대해 궁금한 점을 자유롭게 물어보세요.</p>
+							</div>
+
+							<div id="write-form">
+
+								<div class="form-group mt-8">
+									<div class="view-form addqna">
 
 
-
-
-						<div id="write-form">
-						
-							<div class="form-group mt-8">
-								<div class="view-form addqna">
-
-									
 										<div class="view-form addqna">
 											<div class="addqna-form">
 												<span id="write-title">제목</span> <input type="text"
-													class="title write-title" placeholder="✏️제목을 입력하세요." name="qna_title" maxlength="50">
+													class="title write-title" placeholder="✏️제목을 입력하세요."
+													name="qna_title" maxlength="50">
 											</div>
 											<div class="addqna-form">
 												<div id="searchResults1" class="dropdown-content addqna"></div>
@@ -48,21 +44,22 @@
 													placeholder="🔍기업명을 입력하세요." name="cp_name">
 											</div>
 										</div>
+									</div>
 								</div>
-							</div>
-							<div class="textarea-group">
-								<textarea cols="30" rows="10" placeholder="내용을 입력하세요." name="qna_content"></textarea>
+								<div class="textarea-group">
+									<textarea cols="30" rows="10" placeholder="내용을 입력하세요."
+										name="qna_content"></textarea>
+								</div>
+
 							</div>
 
 						</div>
-
 					</div>
-				</div>
 
-				<div class="moving-btn">
-					<button type="button" class="btn btnBefore">이전으로</button> 
-					<button type="submit" class="btn btnList">등록하기</button>
-				</div>
+					<div class="moving-btn">
+						<button type="button" class="btn btnBefore">이전으로</button>
+						<button type="submit" class="btn btnList">등록하기</button>
+					</div>
 				</form>
 			</div>
 		</div>

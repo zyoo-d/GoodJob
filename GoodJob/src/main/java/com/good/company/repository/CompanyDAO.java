@@ -79,8 +79,7 @@ public class CompanyDAO {
 				sql += where;
 			
 			}
-			System.out.println(sql);
-
+			
 			stat = conn.createStatement();
 			rs = stat.executeQuery(sql);
 
@@ -100,7 +99,6 @@ public class CompanyDAO {
 				mainComInfo.add(dto);
 
 			}
-			System.out.println(mainComInfo.size());
 			return mainComInfo;
 
 		} catch (Exception e) {

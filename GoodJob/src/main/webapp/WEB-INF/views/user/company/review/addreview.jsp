@@ -7,29 +7,6 @@
     <meta charset="UTF-8">
     <%@include file="/WEB-INF/views/inc/asset.jsp" %>
 <style>
-
-
-.comment-section {
-    margin-top: 20px;
-}
-
-.category {
-    margin: 20px;
-    display: flex; 
-    align-items: center; 
-    justify-content: space-between; 
-}
-
-.category label {
-    flex: 0 0 auto;
-    margin-right: 10px;
-    font-size: 1.5rem;
-    text-align: left; 
-    width: 30%;
-}
-
-
-
 textarea {
     width: 100%;
     height: 100px;
@@ -38,48 +15,6 @@ textarea {
     padding: 10px;
     margin-top: 10px;
     resize: none;
-}
-.box_item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 30px;
-    margin-bottom: 15px;
-    border-bottom: 1px solid #eee;
-}
-.com-image {
-    flex-shrink: 0; 
-    width: 100px;
-    height: 100px;
-    margin-right: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.com-image img {
-    width: 100%;
-    height: auto;
-}
-.com-title {
-	flex: 6;
-}
-
-.com-info {
-	flex: 2;
-	border-left: 2px solid #ccc;
-	padding-left: 20px;
-}
-
-.support_detail {
-	text-align: right;
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: flex-end;
-}
-.com-name {
-	font-size: 1.1rem;
-	color: #707070;
 }
 
 .tag_meta {
@@ -96,177 +31,43 @@ textarea {
 }
 
 .job_meta .job-keyword, .tag_meta .tag-keyword {
-    padding: 3px 5px;
-    color: #6777EE;
-    text-decoration: none;
-    border: 1px solid #6777EE;
-    border-radius: 5px;
-    background-color: #fff;
-    transition: background-color 0.3s, color 0.3s;
     cursor: pointer; 
     display: inline-block;
     margin-bottom: 5px;
-}
-.ps-com {
-    display: flex;
-    flex-wrap: wrap;
-    padding: 10px;
-    border-bottom: 1px solid #eee;
-
-}
-
-.ps-com > div {
-    flex: 1 1 50%;
-    padding: 10px; 
-    padding-left:20px;
 }
 
 .comment-section {
     flex-basis: 100%; 
     margin-top: 20px;
 }
-
-/*태그 추가*/
-.add-tag {
-    position: relative;
-    max-width: 400px;
-    margin: 20px auto;
-    display: flex;
-    align-items: center;
-    border-radius: 20px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    background: #fff;
-}
-
-.add-tag input[type="text"] {
-    flex-grow: 1;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 20px 0 0 20px;
-    font-size: 16px;
-}
-.add-tag input:focus {
-	outline: none;
-	border: none;
-	box-shadow: none;
-}
-.add-tag button {
-    border: none;
-    background-color: #5569D2;
-    color:#FFF;
-    padding: 10px;
-    cursor: pointer;
-    outline: none;
-    position: absolute;
-    right: 0;
-    border-radius: 0 20px 20px 0; 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.add-tag button:hover {
-    background-color: #3656CB;
-}
-
-
-.tag-list {
-    padding-left: 20px;
-    max-width: 400px; 
-    margin: 10px auto;
-}
-
-.tag-list .tag-keyword {
-    display: inline-block;
-    background-color: #E8E8E8;
-    border-radius: 10px;
-    padding: 5px 10px;
-    margin: 5px 5px 5px 0;
-    font-size: 14px;
-    color: #333;
-}
-.stars {
-    flex: 1 1 auto; 
-    justify-content: center;
-    display: flex; 
-    font-size: 2.5rem; 
-    margin: 0 2px;
-    cursor: pointer;
-    transition: color 0.2s ease-in-out;
-}
-
-
-.star:hover {
-    color: #ffd700;
-}
-
-.stars::before {
-    letter-spacing: 5px; 
-    background: linear-gradient(90deg, #ffc107 0%, #e4e5e9 0%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    display: block;
-    text-align: center;
-}
-.star {
-    color: #CCC;
-    cursor: pointer;
-    font-size: 24px;
-}
-
-.star.rated {
-    color: gold;
-}
-
-.half-rated:before {
-    content: "\f5c0";
-}
 .fas {
     color: gold;
 }
-
 .far {
     color: #eee; 
-}
-
-.textAreaWrapper {
-    position: relative;
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-}
-
-
-
-.textLengthWrap {
-    display: flex;
-    align-items: center;
-    gap: 5px; /* 자간 조정 */
 }
     </style>
 </head>
 <%@include file="/WEB-INF/views/inc/header.jsp" %>
 <body>
-<div id="itvWriteContainer">
 	<section class="page-hero pt-16 pb-6">
 			<form method="post" action="/good/user/company/review/addreview.do">
 			<input type="hidden" name="cp_seq" value="${dto.cp_seq}">
 		<div class="container">
-			<div class="card" id="itvWriteQnA">
+			<div class="integration-single-container rounded-xl bg-white py-16 shadow-lg px-16 tab" id="itvWriteQnA">
 				<div class="card-content-wrapper">
 					
-                    <div class="px-4 text-center sizing">
+                    <div class="px-4 text-center">
                         <h1 class="mt-3 gradiTitle"><span>기업리뷰등록</span></h1>
-                        <p class="mt-6">작성해 주신 기업리뷰는 다른 구직자분들께 큰 도움이 될 거예요</p>
+                        <p class="mt-2">작성해 주신 기업리뷰는 다른 구직자분들께 큰 도움이 될 거예요</p>
                     </div>
 
-                  <hr>
-        	<div class="list_body">
+        	<div class="list_body mt-8 border-y border-border">
 							<div class="list_item">
 							
 							<!-- 기업정보start -->
 						
-								<div class="box_item mx-0 bg-white px-10">
+								<div class="list-header py-6 border-b-0 mx-0 bg-white px-10">
     <!-- 추가된 이미지 컨테이너 -->
     <div class="com-image">
         <img src="${dto.image}" onerror="this.src='/good/asset/images/default.jpg'" alt="Company Logo">
@@ -297,7 +98,7 @@ textarea {
 		
         <!-- 별점등록START -->
         <div class="rating-section">
-            <h3>별점 등록</h3>
+            <h4>별점 등록</h4>
              <div class="category">
 				    <label>연봉</label>
 				    <div class="stars" data-category="salary">
@@ -366,7 +167,7 @@ textarea {
          <!-- com-tag section -->
         <div class="com-tag">
     <div class="click-tag">
-        <h3>추천 태그</h3>
+        <h4>추천 태그</h4>
         <p class="tag-info mt-6">클릭하면 태그로 바로 등록!</p>
         <div class="tag_meta">
         <c:forEach items="${showTagList}" var="tlist">
@@ -396,7 +197,7 @@ textarea {
         <!-- Comment section -->
         <div class="review-text comment-section">
          <div class="textAreaWrapper">
-            <h3>한 줄 기업 평가</h3>
+            <h4>한 줄 기업 평가</h4>
              <div class="textLengthWrap">
    				 <p class="lineCount">0자</p>
     			<p class="lineTotal">/30자</p>
@@ -407,7 +208,7 @@ textarea {
         
         <div class="review-text comment-section">
             <div class="textAreaWrapper">
-            <h3>이런 부분은 좋았어요</h3>
+            <h4>이런 부분은 좋았어요</h4>
             <div class="textLengthWrap">
             <p class="goodCount">0자</p>
             <p class="goodTotal">/330자</p>
@@ -418,7 +219,7 @@ textarea {
     </div>
         <div class="review-text comment-section">
          <div class="textAreaWrapper">
-            <h3>이런 부분은 아쉬웠어요</h3>
+            <h4>이런 부분은 아쉬웠어요</h4>
              <div class="textLengthWrap">
     <p class="badCount">0자</p>
     <p class="badTotal">/330자</p>
@@ -428,7 +229,7 @@ textarea {
         </div>
         <hr>
 				<div class="submit-info">
-                <p>면접 후기에 대한 저작권은 (주)사람인에 있습니다.<br> 등록하신 콘텐츠는 임의로 삭제하실 수 없습니다.</p>
+                <p>면접 후기에 대한 저작권은 IT's Good Job에 있습니다. <br> 등록하신 콘텐츠는 임의로 삭제하실 수 없습니다.</p>
                 </div>
                 <div class="moving-btn">
                             <a href="/good/user/company/companyview.do?cp_seq=${dto.cp_seq}" class="btn btnBefore">이전으로</a>
@@ -439,7 +240,6 @@ textarea {
          </form>
     </section>
    
-</div>
 <%@include file="/WEB-INF/views/inc/footer.jsp" %>
 <script src="/good/assets/js/tagify.min.js"></script>
 <script>

@@ -29,7 +29,7 @@ input[type="text"] {
 				<div
 					class="mt-16 integration-single-container rounded-xl bg-white py-16 px-5 shadow-lg md:px-10 tab w-70 min-h-[600px]">
 					<div class="mx-auto w-full max-w-[480px]">
-						<h2 class="mb-0">계정찾기</h2>
+						<h2 class="mb-0 mt-4">계정찾기</h2>
 						<p id="login_letter">잃어버린 계정을 찾을 수 있습니다.</p>
 
 						<div class="button-group">

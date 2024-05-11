@@ -17,7 +17,7 @@
 				<div class="main_container">
 					<div
 						class="mt-16 integration-single-container rounded-xl bg-white py-16 px-5 shadow-lg md:px-10 tab">
-						<h2 class="mb-2">회원 가입</h2>
+						<h2 class="mb-2 mt-4">회원 가입</h2>
 						<p>정보를 등록 해주세요</p>
 						<div
 							class="relative my-8 text-center after:absolute after:left-0 after:top-1/2 after:z-[0] after:w-full after:border-b after:border-border after:content-['']">
