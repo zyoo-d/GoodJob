@@ -647,35 +647,7 @@ public class CompanyDAO {
 		
 	}
 	
-	public ArrayList<String> getTaglist(String cp_seq){
-		
-		try {	
-				
-				String sql = "select * from vwCompanyTag where cp_seq = ?";
-				
-				pstat = conn.prepareStatement(sql);
-				pstat.setString(1, cp_seq);
-				
-				rs = pstat.executeQuery();
-				
-				ArrayList<String> list = new ArrayList<>();
-				
-				while(rs.next() && list.size() != 2) {
-					
-					list.add(rs.getString("tag_keyword"));
-					
-				}
-				
-				return list;
-				
-			} catch (Exception e) {
-				System.out.println("CompanyDAO.getTaglist");
-				e.printStackTrace();
-			}
-		
-		return null;
-		
-	}
+	
 
 	public int addScrap(String id, String cpSeq) {
 		// 실시간 댓글 insert
@@ -719,30 +691,8 @@ public class CompanyDAO {
 	    }
 	    return null;
 	}
-	public CompanyDTO getCompanyBySeq(String cp_seq) {
-		try {
-			
-			String sql = "select * from tblCompany where cp_seq = ?";
-			pstat = conn.prepareStatement(sql);
-			pstat.setString(1,cp_seq);
-			rs = pstat.executeQuery();
-			
-			if(rs.next()){
-				CompanyDTO dto = new CompanyDTO();
-				dto.setCp_name(rs.getString("cp_name"));
-				dto.setCp_address(rs.getString("cp_address"));
-				dto.setImage(rs.getString("image"));
-			
-				return dto;
-			}
-		}catch (Exception e) {
-	            System.out.println("CompanyDAO.getCompanyByCpSeq");
-	            e.printStackTrace();
-	        }
-	        return null;
-	    }
+	
 
-	}
 	
 	
 	public HashMap<String, String> getUpdateDate(){
@@ -788,6 +738,82 @@ public class CompanyDAO {
 		return 0;
 		
 	}
+public ArrayList<String> getTaglist(String cp_seq){
+		
+		try {	
+				
+				String sql = "select * from vwCompanyTag where cp_seq = ?";
+				
+				pstat = conn.prepareStatement(sql);
+				pstat.setString(1, cp_seq);
+				
+				rs = pstat.executeQuery();
+				
+				ArrayList<String> list = new ArrayList<>();
+				
+				while(rs.next() && list.size() != 2) {
+					
+					list.add(rs.getString("tag_keyword"));
+					
+				}
+				
+				return list;
+				
+			} catch (Exception e) {
+				System.out.println("CompanyDAO.getTaglist");
+				e.printStackTrace();
+			}
+		
+		return null;
+		
+	}
+	public CompanyDTO getCompanyBySeq(String cp_seq) {
+		try {
+			
+			String sql = "select * from tblCompany where cp_seq = ?";
+			pstat = conn.prepareStatement(sql);
+			pstat.setString(1,cp_seq);
+			rs = pstat.executeQuery();
+			
+			if(rs.next()){
+				CompanyDTO dto = new CompanyDTO();
+				dto.setCp_name(rs.getString("cp_name"));
+				dto.setCp_address(rs.getString("cp_address"));
+				dto.setImage(rs.getString("image"));
+			
+				return dto;
+			}
+		}catch (Exception e) {
+	            System.out.println("CompanyDAO.getCompanyByCpSeq");
+	            e.printStackTrace();
+	        }
+	        return null;
+	    }
+
+	
+	
+	public ArrayList<String> getTopTagsByCpSeq(String cp_seq) {
+	    try {
+	        ArrayList<String> topTags = new ArrayList<>();
+	        String sql = "select t.tag_keyword from tblReviewTag rt join tblTag t on rt.tag_seq = t.tag_seq join tblcompanyreview cr on rt.cp_rv_seq = cr.cp_rv_seq where cr.cp_seq =? group by t.tag_keyword order by count(*) desc ";
+
+	        pstat = conn.prepareStatement(sql);
+	        pstat.setString(1, cp_seq);
+	        rs = pstat.executeQuery();
+
+	        while (rs.next()) {
+	            topTags.add(rs.getString("tag_keyword"));
+	        }
+	        System.out.println(topTags);
+	        return topTags;
+
+	    } catch (Exception e) {
+	        System.out.println("CompanyDAO.getTopTagsByCpSeq");
+	        e.printStackTrace();
+	        return null;
+	    }
+	}
+
 
 	
 	

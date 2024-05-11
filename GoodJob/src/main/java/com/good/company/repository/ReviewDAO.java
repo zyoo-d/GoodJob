@@ -472,4 +472,25 @@ public class ReviewDAO {
 		    }
 		    return false;
 		}
+		public ArrayList<String> showComTagList() {
+			 try {
+		            ArrayList<String> showTagList = new ArrayList<>();
+		            String sql = "SELECT tag_keyword FROM tblTag";
+
+		            stat = conn.createStatement();
+		            rs = stat.executeQuery(sql);
+
+		            while (rs.next()) {
+		                showTagList.add(rs.getString("tag_keyword"));
+		            }
+
+		            return showTagList;
+
+		        } catch (Exception e) {
+		            System.out.println("ReviewDAO.showTagList");
+		            e.printStackTrace();
+		            return null;
+		        }
+		}
+
 }
