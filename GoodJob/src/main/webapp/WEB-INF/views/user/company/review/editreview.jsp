@@ -126,50 +126,7 @@ textarea {
 	margin-top: 20px;
 }
 
-/*태그 추가*/
-.add-tag {
-	position: relative;
-	max-width: 400px;
-	margin: 20px auto;
-	display: flex;
-	align-items: center;
-	border-radius: 20px;
-	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-	background: #fff;
-}
 
-.add-tag input[type="text"] {
-	flex-grow: 1;
-	border: none;
-	padding: 10px 20px;
-	border-radius: 20px 0 0 20px;
-	font-size: 16px;
-}
-
-.add-tag input:focus {
-	outline: none;
-	border: none;
-	box-shadow: none;
-}
-
-.add-tag button {
-	border: none;
-	background-color: #5569D2;
-	color: #FFF;
-	padding: 10px;
-	cursor: pointer;
-	outline: none;
-	position: absolute;
-	right: 0;
-	border-radius: 0 20px 20px 0;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
-
-.add-tag button:hover {
-	background-color: #3656CB;
-}
 
 .tag-list {
 	padding-left: 20px;
@@ -244,6 +201,24 @@ textarea {
 	align-items: center;
 	gap: 5px; /* 자간 조정 */
 }
+/*태그*/
+.tagify {
+	width: 100%;
+	max-width: 700px;
+	position: relative;
+	max-width: 400px;
+	margin: 10px auto;
+	display: flex;
+	font-size: 16px;
+	align-items: center;
+	border-radius: 10px;
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+	background: #fff;
+}
+.add-tag .tagify__tag>div {
+	border-radius: 25px;
+}
+
 </style>
 </head>
 <%@include file="/WEB-INF/views/inc/header.jsp"%>
@@ -251,24 +226,19 @@ textarea {
 
 	<div id="itvWriteContainer">
 		<section class="page-hero pt-16 pb-6">
-			<form method="post" action="/good/user/company/review/editreview.do">
+			<form id="editForm" method="post" action="/good/user/company/review/editreview.do">
 				<input type="hidden" name="cp_seq" value="${dto.cp_seq}"> <input
 					type="hidden" name="cp_rv_seq" value="${rdto.cp_rv_seq}">
 
 				<div class="container">
 					<div class="card" id="itvWriteQnA">
 						<div class="card-content-wrapper">
-
-
-
 							<div class="px-4 text-center sizing">
 								<h1 class="mt-3 gradiTitle">
 									<span>기업리뷰 수정</span>
 								</h1>
 								<p class="mt-6">기존에 작성해 주신 기업리뷰입니다. 관리자의 승인 후에는 수정/삭제가
 									불가능하며, 반려된 리뷰는 삭제만 가능합니다.</p>
-
-
 							</div>
 
 							<hr>
@@ -276,9 +246,7 @@ textarea {
 								<div class="list_item">
 
 									<!-- 기업정보start -->
-
 									<div class="box_item mx-0 bg-white px-10">
-										<!-- 추가된 이미지 컨테이너 -->
 										<div class="com-image">
 											<img src="${cdto.image}"
 												onerror="this.src='/good/asset/images/default.jpg'"
@@ -298,23 +266,11 @@ textarea {
 												</div>
 											</div>
 										</div>
-
 									</div>
 									<!--기업정보end -->
-
 								</div>
 							</div>
-
-
-
-
-
 							<div class="ps-com">
-
-
-
-
-
 								<!-- 별점등록START -->
 								<div class="rating-section">
 									<h3>별점 등록</h3>
@@ -385,38 +341,15 @@ textarea {
 									</div>
 								</div>
 								<!-- 별점등록END -->
-
-
-
-
-								<!-- com-tag section -->
-								<div class="com-tag">
-									<div class="click-tag">
-										<h3>추천 태그</h3>
-										<p class="tag-info mt-6">클릭하면 태그로 바로 등록!</p>
-										<div class="tag_meta">
-											<c:forEach items="${showTagList}" var="tlist">
-												<span class="tag-keyword">${tlist}</span>
-											</c:forEach>
+								<!-- tag 수정 -->							
+									<div class="add-tag-text">
+										<h3>태그 수정</h3>
+										<p class="tag-info mt-6">태그를 수정할 수 있습니다.</p>
+										<div class="add-tag">
+											<input name='tag_keyword' placeholder='변경하실 태그를 입력하세요(최대 3개)'
+												id="tag">
 										</div>
 									</div>
-									<!-- <div class="add-tag-text">
-        <h3>태그 추가</h3>
-        <p class="tag-info mt-6">추천 태그가 마음에 들지 않다면?</p>
-        <div class="add-tag">
-            <input type="text" name="tag_keyword" id="tag" placeholder="추가하실 태그를 입력하세요">
-            <input type="button">추가</input>
-        </div>
-        <div class="tag-list tag_meta">
-    Dynamically added tags will go here
-</div>
-        </div> -->
-
-								</div>
-
-
-
-
 							</div>
 						</div>
 						<!-- Comment section -->
@@ -467,7 +400,6 @@ textarea {
 									class="btn btnBefore">이전으로</a>
 							</c:if>
 
-
 							<c:choose>
 								<c:when test="${rdto.cp_rv_confirm == 0 && rdto.id==id}">
 									<!-- 대기 상태일 때 수정 버튼 표시 -->
@@ -482,34 +414,19 @@ textarea {
 						</div>
 					</div>
 				</div>
-
 			</form>
 		</section>
-
 	</div>
-
 	<%@include file="/WEB-INF/views/inc/footer.jsp"%>
-	<script src="/good/assets/js/tagify.min.js"></script>
+	<script src="https://unpkg.com/@yaireo/tagify"></script>
+	<script
+		src="https://unpkg.com/@yaireo/tagify/dist/tagify.polyfills.min.js"></script>
+	<link href="https://unpkg.com/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
 	<script>
 	
-//관리자 승인,반려
-function approveReview(cp_rv_seq) {
-        if (confirm("리뷰를 승인하시겠습니까?")) {
-            location.href = "/good/user/company/review/editreview.do?cp_rv_seq=" + cp_rv_seq + "&action=approve";
-        }
-    }
 
-    function rejectReview(cp_rv_seq) {
-        if (confirm("리뷰를 반려하시겠습니까?")) {
-            location.href = "/good/user/company/review/editreview.do?cp_rv_seq=" + cp_rv_seq + "&action=reject";
-        }
-    }
 
-    function rejectReview(cp_rv_seq) {
-        document.getElementById("rejectModal").style.display = "block";
-    }
 
-	
 $('#lineBox').keyup(function (e) {
 	let linecontent = $(this).val();
     
@@ -624,24 +541,28 @@ function updateHighestValue(container) {
 }
 
 
-//태그
-new Tagify(document.getElementById('tag'));
+//태그 수정
 
-/* function addTag() {
-    var input = document.getElementById('new-tag');
-    var newTag = input.value.trim();
-    if(newTag) {
-        var tagList = document.querySelector('.tag-list');
-        var tag = document.createElement('span');
-        tag.className = 'tag-keyword';
-        tag.textContent = newTag;
-        tagList.appendChild(tag);
-        input.value = ''; // Clear input after adding
-    }
-} */
-
-
-
+//태그 수정
+		let taglist = '';
+		<c:forEach items="${rdto.tag_list}" var="tag">
+		taglist += '${tag},';
+		</c:forEach>
+		
+		$('#tag').val(taglist);
+		
+		const tagify = new Tagify(document.getElementById('tag'));
+		
+		// 태그 삭제
+		tagify.on('remove', (e)=>{
+			
+			//alert(e.detail.data.value);
+			$('#editForm').append(`<input type="hidden" name="removeTag" value="\${e.detail.data.value}">`);
+			
+		}).on('add', (e)=>{
+			//alert(e.detail.data.value);
+			$(`#editForm input[value=\${e.detail.data.value}]`).remove();
+		});
 
 </script>
 </body>
