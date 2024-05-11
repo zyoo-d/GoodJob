@@ -52,23 +52,24 @@ public class CompareCompany extends HttpServlet {
 	            dto.setHire_avr_salary(formattedHireAvrSalary);
 
 	            long fncEbit = dto.getFnc_ebit();
-	            long formattedFncEbit = Math.round((double) fncEbit / 10000); 
+	            long formattedFncEbit = Math.round((double) fncEbit / 10000000); 
 	            dto.setFnc_ebit(formattedFncEbit); 
 	            
 	            long fncSales = dto.getFnc_sales();
-	            long formattedFncSales = Math.round((double) fncSales / 10000);
+	            long formattedFncSales = Math.round((double) fncSales / 10000000);
 	            dto.setFnc_sales(formattedFncSales);
 	            
 	            long fncIncome = dto.getFnc_income();
-	            long formattedFncIncome = Math.round((double) fncIncome / 10000);
+	            long formattedFncIncome = Math.round((double) fncIncome / 10000000);
 	            dto.setFnc_income(formattedFncIncome);
+
 		}
 		
 		//리뷰 점수
 		ArrayList<ReviewDTO> rvlist = dao.getReviewscore(map);
 		//재무 정보
 		ArrayList<Long>[] flist = dao.getCompanyFinance(map);
-		
+		System.out.println(list.size());
 		dao.close();
 		
 

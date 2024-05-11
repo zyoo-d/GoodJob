@@ -35,7 +35,7 @@ public class CompareDAO {
 	
 	public ArrayList<CompanyDTO> getCompareInfo(HashMap<String, String> map) {
 	    try {
-	        String sql = "SELECT * from vwComInfoScore where cp_seq in (?, ?, ?)";
+	        String sql = "SELECT * from vwComInfoScore where cp_seq in (?, ?, ?)  order by cp_seq desc";
 
        pstat = conn.prepareStatement(sql);
        pstat.setString(1, map.get("tag1"));
@@ -87,7 +87,7 @@ public class CompareDAO {
 		ArrayList<Long> salesList = new ArrayList<>();
         ArrayList<Long> ebitList = new ArrayList<>();
         ArrayList<Long> incomeList = new ArrayList<>();
-    String sql = "select * from tblFinance where cp_seq in (?, ?, ?)";
+    String sql = "select * from tblFinance where cp_seq in (?, ?, ?)  order by cp_seq desc, fnc_period asc";
    
  
     try (PreparedStatement pstat = conn.prepareStatement(sql)) {
@@ -97,9 +97,9 @@ public class CompareDAO {
         try (ResultSet rs = pstat.executeQuery()) {
             while (rs.next()) {
               
-               long sales = rs.getLong("fnc_sales");
-               long ebit = rs.getLong("fnc_ebit");
-               long income = rs.getLong("fnc_income");
+               long sales = rs.getLong("fnc_sales") / 10000;
+               long ebit = rs.getLong("fnc_ebit") / 10000;
+               long income = rs.getLong("fnc_income") / 10000;
                
                salesList.add(sales);
                ebitList.add(ebit);
@@ -110,19 +110,23 @@ public class CompareDAO {
         System.out.println("getCompanyFinance");
         e.printStackTrace();
     }
-    
     return new ArrayList[]{salesList, ebitList, incomeList};
+    
 }
 	public ArrayList<ReviewDTO> getReviewscore(HashMap<String, String> map) {
 		try {
-			String sql = "SELECT NVL(ROUND(avg(salary_score), 1), 0) AS salary_score,\r\n"
-					+ "       NVL(ROUND(avg(welfare_score), 1), 0) AS welfare_score,\r\n"
-					+ "       NVL(ROUND(avg(stability_score), 1), 0) AS stability_score,\r\n"
-					+ "       NVL(ROUND(avg(culture_score), 1), 0) AS culture_score,\r\n"
-					+ "       NVL(ROUND(avg(growth_score), 1), 0) AS growth_score\r\n"
-					+ "FROM tblCompanyReview\r\n"
-					+ "where cp_seq in (?,?,?)\r\n"
-					+ "GROUP BY cp_seq";
+			String sql = "SELECT \r\n"
+					+ "    c.cp_name,\r\n"
+					+ "    NVL(ROUND(avg(salary_score), 1), 0) AS salary_score,\r\n"
+					+ "    NVL(ROUND(avg(welfare_score), 1), 0) AS welfare_score,\r\n"
+					+ "    NVL(ROUND(avg(stability_score), 1), 0) AS stability_score,\r\n"
+					+ "    NVL(ROUND(avg(culture_score), 1), 0) AS culture_score,\r\n"
+					+ "    NVL(ROUND(avg(growth_score), 1), 0) AS growth_score,\r\n"
+					+ "    NVL(ROUND((avg(salary_score) + avg(welfare_score) + avg(stability_score) + avg(culture_score) + avg(growth_score)) / 5, 1), 0) AS total_average_score\r\n"
+					+ "FROM tblCompanyReview r\r\n"
+					+ "RIGHT OUTER JOIN tblCompany c ON r.cp_seq = c.cp_seq\r\n"
+					+ "WHERE c.cp_seq IN (?, ?, ?)\r\n"
+					+ "GROUP BY c.cp_seq, c.cp_name order by c.cp_seq desc";
 
 			pstat = conn.prepareStatement(sql);
 			pstat.setString(1, map.get("tag1"));
@@ -139,6 +143,8 @@ public class CompareDAO {
 				dto.setStability_score(rs.getInt("stability_score"));
 				dto.setWelfare_score(rs.getInt("welfare_score"));
 				dto.setSalary_score(rs.getInt("salary_score"));
+				dto.setAvg_score(rs.getDouble("total_average_score"));
+				dto.setCp_name(rs.getString("cp_name"));
 				
 				list.add(dto);
 			}

@@ -128,19 +128,22 @@ button {
 
 			<h4>기업 선택하기</h4>
 
-			<div id="searchForm">
+			<form id="searchForm">
 				<input type="text" name="input" class="input" id="search-input"
-					placeholder="기업명으로 검색하세요.">
+					placeholder="${totalCount }">
 				<button type="button" class="search" id="search-btn">
 					<span class="material-symbols-outlined"> <span
 						class="material-symbols-outlined">search</span>
 					</span>
 				</button>
-			</div>
+			</form>
 			<form action="/good/user/company/comparecompany.do" method="GET">
 			<div>
 			<div id="cp_selected">
 			<span id="cptag"></span>
+			<c:forEach items="${selectedCp}" var="cp">
+			<p>${selectedCpValue}</p>
+			</c:forEach>
 			</div>
 
 			<div id="compare">
@@ -249,27 +252,7 @@ button {
 		$(this).next().addBack().remove();
 	});
 	
-	function goToPage(pageNumber) {
-	    var hiring = (document.getElementById("hiring").checked ? "y" : "n"); // 고용 여부 체크 여부에 따라 값 설정
-	    var word = document.getElementById("search-input").value; // 검색어 가져오기
 
-	    $.ajax({
-	        url: "/good/user/company/cp_selectModal.do",
-	        type: "GET",
-	        data: {
-	            page: pageNumber,
-	            hiring: hiring,
-	            word: word
-	        },
-	        success: function(data) {
-	            // 서버에서 받은 데이터를 사용하여 모달 창의 내용 업데이트
-	            $(".modal-content").html(data);
-	        },
-	        error: function(xhr, status, error) {
-	            console.error("Error: " + status + ", Message: " + error);
-	        }
-	    });
-	}
 	
 
 
