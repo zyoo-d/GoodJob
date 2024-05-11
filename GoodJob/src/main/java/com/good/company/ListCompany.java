@@ -52,33 +52,26 @@ public class ListCompany extends HttpServlet {
 		end = begin + pageSize - 1;
 
 		// 검색 기록 가져오기
+		String search = "n"; // 목록보기(n), 검색하기(y)
 		String sort = req.getParameter("sort");
 		String column = (req.getParameter("column") != null ? req.getParameter("column") : "");
-		
 		String word = (req.getParameter("word") != null ? req.getParameter("word") : "");
 		String hiring = req.getParameter("hiring");
 		
-		
-		String search = "n"; // 목록보기(n), 검색하기(y)
-		
-		if (!word.isEmpty()) {
-			search = "y";
-		}
-		if(hiring == null) {
-			hiring = "n";
-		}
-		
-		
-		
-		
 		if (sort == null || sort.isEmpty()) {
-			sort = "salary"; // 기본 정렬 기준
+		    sort = "review"; // 기본 정렬 기준
 		}
 		if ((column == null && word == null) || word.equals("")) {
-			search = "n";
+		    search = "n";
 		} else {
-			search = "y";
+		    search = "y";
 		}
+		
+		if(hiring == null) {
+		    hiring = "n";
+		}
+		
+		
 		String salary_seq = req.getParameter("salary_seq");
 		String[] cp_address = req.getParameterValues("cp_address");
 		String selectedLocations = "";
@@ -103,16 +96,12 @@ public class ListCompany extends HttpServlet {
 
 		// 목록 출력
 		CompanyDAO dao = new CompanyDAO();
-		ArrayList<CompanyDTO> comListInfo;
+		ArrayList<CompanyDTO> comListInfo = dao.comListInfo(map);
 		
-		if (hiring.equals("y")) {
-		    comListInfo = dao.getCompaniesWithRecruitment();
-		} else {
-		    comListInfo = dao.comListInfo(map);
-		}
+		
 
 		String unit = "";
-		int com_rcrt_cnt =0;
+		
 		for (CompanyDTO dto : comListInfo) {
 
 			// 주소
@@ -125,66 +114,21 @@ public class ListCompany extends HttpServlet {
 			address = address.substring(0, secondSpaceIndex);
 			dto.setCp_address(address);
 
-			/*// 총매출액
-			long fnc_sales = dto.getFnc_sales();
-			if (fnc_sales >= 10000000) { // (단위:천만)
-				fnc_sales = (long) (Math.round((double) fnc_sales / 10000000));
-				unit = "천만원";
-			} else if (fnc_sales >= 1000000) { // (단위:백만)
-				fnc_sales = (long) (Math.round((double) fnc_sales / 1000000));
-				unit = "백만원";
-			} else if (fnc_sales >= 100000) { // (단위:십만)
-				fnc_sales = (long) (Math.round((double) fnc_sales / 100000));
-				unit = "십만원";
-			} else if (fnc_sales >= 10000) { // (단위:만)
-				fnc_sales = (long) (Math.round((double) fnc_sales / 10000));
-				unit = "만원";
-			} else {
-				unit = "원";// (원)
-			}
-			dto.setFnc_sales(fnc_sales);
-			dto.setUnit(unit);
-			com_rcrt_cnt = dto.getCom_rv_cnt();
 			
-			// 당기순이익
-			long ebit = dto.getFnc_ebit();
-			if (Math.abs(ebit) >= 100000000) { // (단위:억)
-				dto.setFnc_ebit((long) (Math.round((double) ebit / 100000000)));
-			} else if (Math.abs(ebit) >= 10000000) { // (단위:천만)
-				dto.setFnc_ebit((long) (Math.round((double) ebit / 10000000)));
-			} else if (Math.abs(ebit) >= 1000000) { // (단위:백만)
-				dto.setFnc_ebit((long) (Math.round((double) ebit / 1000000)));
-			} else if (Math.abs(ebit) >= 100000) { // (단위:십만)
-				dto.setFnc_ebit((long) (Math.round((double) ebit / 100000)));
-			} else if (Math.abs(ebit) >= 10000) { // (단위:만)
-				dto.setFnc_ebit((long) (Math.round((double) ebit / 10000)));
-			} else {
-				dto.setFnc_ebit(ebit); // (원)
-			}*/
 
 			// 평균연봉
 			int avg_salary = dto.getHire_avr_salary();
 
-			//if(avg_salary !=0 ) {
-			//	dto.setHire_avr_salary((int) Math.round((float) avg_salary / 10000));// (단위:만원)
-			//} 
 			
-			//ArrayList<String> topTags = dao.getTopTagsByCpSeq(dto.getCp_seq());
-			//dto.setTag_list(topTags);
-
-			
-
-			
+			// 태그리스트출력
+			ArrayList<String> topTags = dao.getTopTagsByCpSeq(dto.getCp_seq());
+			dto.setTag_list(topTags);
 		}
 		
 		// 총게시물수
-		totalCount = dao.countCompanys();
-		int searchTotalCount = dao.searchCompanyCount(map);
-		totalPage = (int) Math.ceil((double) searchTotalCount / pageSize);
-
-		// 태그리스트출력
-		//ReviewDAO rdao = new ReviewDAO();
-		//ArrayList<ReviewDTO> ComTaglist = rdao.tagList(cp_seq);
+		totalCount = dao.getCompanyCount(map);
+		//req.setAttribute("companyCount", companyCount);
+		
 
 		// 페이지 바 작업
 		StringBuilder sb = new StringBuilder();
@@ -194,70 +138,46 @@ public class ListCompany extends HttpServlet {
 
 		// 이전 5페이지
 		if (n == 1) {
-			sb.append(
-					"<li class='page-item z-custom'><a class='page-link' href='#!'><span class='material-symbols-outlined paging-icon z-custom'>keyboard_double_arrow_left</span></a></li>");
-			sb.append(
-					"<li class='page-item z-custom'><a class='page-link' href='#!'><span class='material-symbols-outlined paging-icon z-custom'>navigate_before</span></a></li>");
+		    sb.append("<li class='page-item z-custom'><a class='page-link' href='#!'><span class='material-symbols-outlined paging-icon z-custom'>keyboard_double_arrow_left</span></a></li>");
+		    sb.append("<li class='page-item z-custom'><a class='page-link' href='#!'><span class='material-symbols-outlined paging-icon z-custom'>navigate_before</span></a></li>");
 		} else if (n <= 5) {
-			sb.append(
-					"<li class='page-item z-custom'><a class='page-link' href='#!'><span class='material-symbols-outlined paging-icon z-custom'>keyboard_double_arrow_left</span></a></li>");
-			sb.append(String.format(
-					"<li class='page-item z-custom'><a class='page-link' href='/good/user/company/companylist.do?page=%d&hiring=%s&word=%s'><span class='material-symbols-outlined paging-icon z-custom'>navigate_before</span></a></li>",
-					n - 1, hiring, word));
+		    sb.append("<li class='page-item z-custom'><a class='page-link' href='#!'><span class='material-symbols-outlined paging-icon z-custom'>keyboard_double_arrow_left</span></a></li>");
+		    sb.append(String.format("<li class='page-item z-custom'><a class='page-link' href='/good/user/company/companylist.do?page=%d&hiring=%s&word=%s&sort=%s'><span class='material-symbols-outlined paging-icon z-custom'>navigate_before</span></a></li>", n - 1, hiring, word, sort));
 		} else if (n > 5) {
-			sb.append(String.format(
-					"<li class='page-item z-custom'><a class='page-link' href='/good/user/company/companylist.do?page=%d&hiring=%s&word=%s'><span class='material-symbols-outlined paging-icon z-custom'>keyboard_double_arrow_left</span></a></li>",
-					n - 5, hiring, word));
-			sb.append(String.format(
-					"<li class='page-item z-custom'><a class='page-link' href='/good/user/company/companylist.do?page=%d&hiring=%s&word=%s'><span class='material-symbols-outlined paging-icon z-custom'>navigate_before</span></a></li>",
-					n - 1, hiring, word));
+		    sb.append(String.format("<li class='page-item z-custom'><a class='page-link' href='/good/user/company/companylist.do?page=%d&hiring=%s&word=%s&sort=%s'><span class='material-symbols-outlined paging-icon z-custom'>keyboard_double_arrow_left</span></a></li>", n - 5, hiring, word, sort));
+		    sb.append(String.format("<li class='page-item z-custom'><a class='page-link' href='/good/user/company/companylist.do?page=%d&hiring=%s&word=%s&sort=%s'><span class='material-symbols-outlined paging-icon z-custom'>navigate_before</span></a></li>", n - 1, hiring, word, sort));
 		}
 
+		// 페이지 번호
 		while (!(loop > blockSize || n > totalPage)) {
-			if (n == nowPage) {
-
-				sb.append(String.format(
-						"<li class='page-item z-custom'><a class='page-link' href='#!' style='background-color: #6777EE; color: #FFF; border-color: #6777EE;'>%d</a></li>",
-						n));
-			} else {
-				sb.append(String.format(
-						"<li class='page-item z-custom'><a class='page-link' href='/good/user/company/companylist.do?page=%d&hiring=%s&word=%s'>%d</a></li>",
-						n, hiring, word, n));
-			}
-			loop++;
-			n++;
+		    if (n == nowPage) {
+		        sb.append(String.format("<li class='page-item z-custom'><a class='page-link' href='#!' style='background-color: #6777EE; color: #FFF; border-color: #6777EE;'>%d</a></li>", n));
+		    } else {
+		        sb.append(String.format("<li class='page-item z-custom'><a class='page-link' href='/good/user/company/companylist.do?page=%d&hiring=%s&word=%s&sort=%s'>%d</a></li>", n, hiring, word, sort, n));
+		    }
+		    loop++;
+		    n++;
 		}
 
 		// 다음 5페이지
 		if (n >= totalPage) {
-			sb.append(
-					"<li class='page-item z-custom'><a class='page-link' href='#!'><span class='material-symbols-outlined paging-icon z-custom'>navigate_next</span></a></li>");
-			sb.append(
-					"<li class='page-item z-custom'><a class='page-link' href='#!'><span class='material-symbols-outlined paging-icon z-custom'>keyboard_double_arrow_right</span></a></li>");
+		    sb.append("<li class='page-item z-custom'><a class='page-link' href='#!'><span class='material-symbols-outlined paging-icon z-custom'>navigate_next</span></a></li>");
+		    sb.append("<li class='page-item z-custom'><a class='page-link' href='#!'><span class='material-symbols-outlined paging-icon z-custom'>keyboard_double_arrow_right</span></a></li>");
 		} else if (n >= totalPage - 5) {
-			sb.append(String.format(
-					"<li class='page-item z-custom'><a class='page-link' href='/good/user/company/companylist.do?page=%d&hiring=%s&word=%s'><span class='material-symbols-outlined paging-icon z-custom'>navigate_next</span></a></li>",
-					n, hiring, word));
-			sb.append(
-					"<li class='page-item z-custom'><a class='page-link' href='#!'><span class='material-symbols-outlined paging-icon z-custom'>keyboard_double_arrow_right</span></a></li>");
+		    sb.append(String.format("<li class='page-item z-custom'><a class='page-link' href='/good/user/company/companylist.do?page=%d&hiring=%s&word=%s&sort=%s'><span class='material-symbols-outlined paging-icon z-custom'>navigate_next</span></a></li>", n, hiring, word, sort));
+		    sb.append("<li class='page-item z-custom'><a class='page-link' href='#!'><span class='material-symbols-outlined paging-icon z-custom'>keyboard_double_arrow_right</span></a></li>");
 		} else {
-			sb.append(String.format(
-					"<li class='page-item z-custom'><a class='page-link' href='/good/user/company/companylist.do?page=%d&hiring=%s&word=%s'><span class='material-symbols-outlined paging-icon z-custom'>navigate_next</span></a></li>",
-					n, hiring, word));
-			sb.append(String.format(
-					"<li class='page-item z-custom'><a class='page-link' href='/good/user/company/companylist.do?page=%d&hiring=%s&word=%s'><span class='material-symbols-outlined paging-icon z-custom'>keyboard_double_arrow_right</span></a></li>",
-					n + 5, hiring, word));
+		    sb.append(String.format("<li class='page-item z-custom'><a class='page-link' href='/good/user/company/companylist.do?page=%d&hiring=%s&word=%s&sort=%s'><span class='material-symbols-outlined paging-icon z-custom'>navigate_next</span></a></li>", n, hiring, word, sort));
+		    sb.append(String.format("<li class='page-item z-custom'><a class='page-link' href='/good/user/company/companylist.do?page=%d&hiring=%s&word=%s&sort=%s'><span class='material-symbols-outlined paging-icon z-custom'>keyboard_double_arrow_right</span></a></li>", n + 5, hiring, word, sort));
 		}
 
 		req.setAttribute("comListInfo", comListInfo);
 		req.setAttribute("map", map); // 페이지 begin. end hiring
-		req.setAttribute("com_rcrt_cnt", com_rcrt_cnt);
-		// req.setAttribute("ComTaglist", ComTaglist);
-
+		req.setAttribute("hiring", hiring);
+		
 		// 페이징
 		req.setAttribute("nowPage", nowPage); // 페이지 번호
 		req.setAttribute("totalCount", totalCount);
-		req.setAttribute("searchTotalCount", searchTotalCount);
 		req.setAttribute("totalPage", totalPage); // 페이지 번호
 		req.setAttribute("pagebar", sb.toString()); // 페이지 바 작업
 		
