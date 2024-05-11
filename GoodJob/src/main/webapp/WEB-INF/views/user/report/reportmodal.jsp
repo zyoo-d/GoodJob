@@ -86,7 +86,7 @@
             width: 60%;
             height: 50px;
             padding: 10px;
-            background-color: #353535;
+            background-color: #5566cc;
             color: #fff;
             border: none;
             border-radius: 4px;

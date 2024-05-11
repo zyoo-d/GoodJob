@@ -68,7 +68,7 @@
 										<div class="itvContentFooter">
 											<h3>${dto.ITV_CPNAME}</h3>
 											<div id="itvContentSummary">
-												<p>${dto.ITV_CAREER}/${dto.ITV_MEETDATE}/ 전반적평가 :
+												<p>${dto.ITV_CAREER} / ${dto.ITV_MEETDATE} / 전반적평가 :
 													${dto.ITV_DIFFICULTY}</p>
 											</div>
 										</div>

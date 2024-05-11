@@ -14,7 +14,7 @@
 	<!-- ./end floating assets -->
 	<section class="page-hero pt-16 pb-6">
 		<div class="container">
-			<div class="z-custom card" id="itvWriteQnA">
+			<div class="card" id="itvWriteQnA">
 				<div class="card-content-wrapper">
 					<div class="card-content">
 						<div class="px-4 text-center">

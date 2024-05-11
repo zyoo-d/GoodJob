@@ -31,16 +31,9 @@ textarea {
 }
 
 .job_meta .job-keyword, .tag_meta .tag-keyword {
-	padding: 3px 5px;
-	color: #6777EE;
-	text-decoration: none;
-	border: 1px solid #6777EE;
-	border-radius: 5px;
-	background-color: #fff;
-	transition: background-color 0.3s, color 0.3s;
-	cursor: pointer;
 	display: inline-block;
 	margin-bottom: 5px;
+	cursor: pointer;
 }
 
 .comment-section {

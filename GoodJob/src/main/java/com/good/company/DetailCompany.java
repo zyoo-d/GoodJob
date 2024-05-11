@@ -1,7 +1,6 @@
 package com.good.company;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
@@ -11,8 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import org.json.simple.JSONObject;
 
 import com.good.board.model.CommentDTO;
 import com.good.company.model.CompanyDTO;
@@ -73,18 +70,15 @@ public class DetailCompany extends HttpServlet {
 		// 태그출력
 		ReviewDAO tdao = new ReviewDAO();
 
-		//ArrayList<ReviewDTO> ComTaglist = tdao.tagList(cp_seq); 
+		// ArrayList<ReviewDTO> ComTaglist = tdao.tagList(cp_seq);
 		// 상위 태그 목록 조회
-        CompanyDAO cdao = new CompanyDAO();
-        ArrayList<String> topTags = cdao.getTopTagsByCpSeq(cp_seq);
-
-		
-
+		CompanyDAO cdao = new CompanyDAO();
+		ArrayList<String> topTags = cdao.getTopTagsByCpSeq(cp_seq);
 
 		// 기업직무정보
 		RecruitDAO jdao = new RecruitDAO();
 		ArrayList<String> comJobList = jdao.comJob(cp_seq);
-		
+
 		// 채용공고목록
 		RecruitDAO rcdao = new RecruitDAO();
 		ArrayList<RecruitDTO> comRecruitList = rcdao.comRecruitList(cp_seq);
@@ -108,22 +102,22 @@ public class DetailCompany extends HttpServlet {
 		String cp_name = dto.getCp_name();
 		NewsDAO ndao = new NewsDAO();
 		ArrayList<NewsDTO> nlist = ndao.search(cp_name);
-		//System.out.println(nlist);
+		// System.out.println(nlist);
 
-		//기업 복지
+		// 기업 복지
 		WelFareDAO wdao = new WelFareDAO();
 		ArrayList<WelFareDTO> wlist = wdao.companyWelfare(cp_seq);
 		req.setAttribute("wlist", wlist);
-		
+
 		// 실시간 댓글
 		ArrayList<CommentDTO> livecommentlist = dao.listComment(cp_seq);
-		
+
 		dao.close();
 		rcdao.close();
 		rdao.close();
 
 		System.out.println(livecommentlist);
-		
+
 		req.setAttribute("nlist", nlist);
 		req.setAttribute("dto", dto);
 		req.setAttribute("word", word);
@@ -134,15 +128,14 @@ public class DetailCompany extends HttpServlet {
 		req.setAttribute("hiring", hiring);
 		req.setAttribute("topTags", topTags);
 		// req.setAttribute("flist",flist);
-		
+
 		req.setAttribute("livecommentlist", livecommentlist);
-		//req.setAttribute("ComTaglist", ComTaglist);
+		// req.setAttribute("ComTaglist", ComTaglist);
 		req.setAttribute("comJobList", comJobList);
 		req.setAttribute("salesList", flist[0]);
 		req.setAttribute("ebitList", flist[1]);
 		req.setAttribute("incomeList", flist[2]);
-		
-		
+
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/user/company/companyview.jsp");
 		dispatcher.forward(req, resp);
 

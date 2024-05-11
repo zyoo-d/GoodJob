@@ -2868,6 +2868,9 @@ input#nav-toggle:checked ~ #nav-menu {
 .justify-between {
   justify-content: space-between;
 }
+.justify-around {
+  justify-content: space-around;
+}
 .gap-7 {
   gap: 1.75rem;
 }
@@ -3177,6 +3180,9 @@ input#nav-toggle:checked ~ #nav-menu {
 }
 .pt-4 {
   padding-top: 1rem;
+}
+.pt-5 {
+  padding-top: 1.25rem;
 }
 .pt-11 {
   padding-top: 2.75rem;

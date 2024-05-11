@@ -31,13 +31,6 @@ textarea {
 }
 
 .job_meta .job-keyword, .tag_meta .tag-keyword {
-    padding: 3px 5px;
-    color: #6777EE;
-    text-decoration: none;
-    border: 1px solid #6777EE;
-    border-radius: 5px;
-    background-color: #fff;
-    transition: background-color 0.3s, color 0.3s;
     cursor: pointer; 
     display: inline-block;
     margin-bottom: 5px;
@@ -105,7 +98,7 @@ textarea {
 		
         <!-- 별점등록START -->
         <div class="rating-section">
-            <h3>별점 등록</h3>
+            <h4>별점 등록</h4>
              <div class="category">
 				    <label>연봉</label>
 				    <div class="stars" data-category="salary">
@@ -174,7 +167,7 @@ textarea {
          <!-- com-tag section -->
         <div class="com-tag">
     <div class="click-tag">
-        <h3>추천 태그</h3>
+        <h4>추천 태그</h4>
         <p class="tag-info mt-6">클릭하면 태그로 바로 등록!</p>
         <div class="tag_meta">
         <c:forEach items="${showTagList}" var="tlist">
@@ -204,7 +197,7 @@ textarea {
         <!-- Comment section -->
         <div class="review-text comment-section">
          <div class="textAreaWrapper">
-            <h3>한 줄 기업 평가</h3>
+            <h4>한 줄 기업 평가</h4>
              <div class="textLengthWrap">
    				 <p class="lineCount">0자</p>
     			<p class="lineTotal">/30자</p>
@@ -215,7 +208,7 @@ textarea {
         
         <div class="review-text comment-section">
             <div class="textAreaWrapper">
-            <h3>이런 부분은 좋았어요</h3>
+            <h4>이런 부분은 좋았어요</h4>
             <div class="textLengthWrap">
             <p class="goodCount">0자</p>
             <p class="goodTotal">/330자</p>
@@ -226,7 +219,7 @@ textarea {
     </div>
         <div class="review-text comment-section">
          <div class="textAreaWrapper">
-            <h3>이런 부분은 아쉬웠어요</h3>
+            <h4>이런 부분은 아쉬웠어요</h4>
              <div class="textLengthWrap">
     <p class="badCount">0자</p>
     <p class="badTotal">/330자</p>
