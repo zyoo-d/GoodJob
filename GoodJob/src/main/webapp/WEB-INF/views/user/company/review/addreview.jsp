@@ -1,12 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<%@include file="/WEB-INF/views/inc/asset.jsp"%>
+    <meta charset="UTF-8">
+    <%@include file="/WEB-INF/views/inc/asset.jsp" %>
 <style>
 textarea {
 	width: 100%;
@@ -32,21 +31,16 @@ textarea {
 }
 
 .job_meta .job-keyword, .tag_meta .tag-keyword {
-    cursor: pointer; 
-    display: inline-block;
-    margin-bottom: 5px;
+	display: inline-block;
+	margin-bottom: 5px;
+	cursor: pointer;
 }
 
 .comment-section {
 	flex-basis: 100%;
 	margin-top: 20px;
 }
-.fas {
-	color: gold;
-}
-.far {
-	color: #eee;
-}
+
 
 .textAreaWrapper {
 	position: relative;
@@ -58,9 +52,53 @@ textarea {
 .textLengthWrap {
 	display: flex;
 	align-items: center;
-	gap: 5px; /* 자간 조정 */
+	gap: 5px; 
 }
 
+.stars {
+	flex: 1 1 auto;
+	justify-content: center;
+	display: flex;
+	font-size: 2.5rem;
+	margin: 0 2px;
+	cursor: pointer;
+	transition: color 0.2s ease-in-out;
+}
+
+.star:hover {
+	color: #ffd700;
+}
+
+.stars::before {
+	letter-spacing: 5px;
+	background: linear-gradient(90deg, #ffc107 0%, #e4e5e9 0%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	display: block;
+	text-align: center;
+}
+
+.star {
+	color: #CCC;
+	cursor: pointer;
+	font-size: 24px;
+}
+
+.star.rated {
+	color: gold;
+}
+
+.half-rated:before {
+	content: "\f5c0";
+}
+
+.fas {
+	color: gold;
+}
+
+.far {
+	color: #eee;
+}
 /*태그*/
 .tagify {
 	width: 100%;
@@ -80,24 +118,9 @@ textarea {
 	border-radius: 25px;
 }
 
-.tag-list {
-	padding-left: 20px;
-	max-width: 400px;
-	margin: 10px auto;
-}
-
-.tag-list .tag-keyword {
-	display: inline-block;
-	background-color: #E8E8E8;
-	border-radius: 10px;
-	padding: 5px 10px;
-	margin: 5px 5px 5px 0;
-	font-size: 14px;
-	color: #333;
-}
-</style>
+    </style>
 </head>
-<%@include file="/WEB-INF/views/inc/header.jsp"%>
+<%@include file="/WEB-INF/views/inc/header.jsp" %>
 <body>
 	<section class="page-hero pt-16 pb-6">
 			<form method="post" action="/good/user/company/review/addreview.do">
@@ -122,208 +145,179 @@ textarea {
         <img src="${dto.image}" onerror="this.src='/good/asset/images/default.jpg'" alt="Company Logo">
     </div>
 
-							<hr>
-							<div class="list_body">
-								<div class="list_item">
+    <div class="com-title">
+        <div class="col notification_info">
+            <div class="job_tit">
+                <h2><a class="str_tit_title new" href="#" target="_blank">
+                    ${dto.cp_name}
+                </a></h2>
+            </div>
+            <div class="job_meta">
+                <span class="job-keyword"><b>위치 </b>${dto.cp_address}</span>
+                <span class="job-keyword"><b>업종/산업 </b>${dto.idst_name}</span>
+                <span class="job-keyword"><b>평균연봉 </b><fmt:formatNumber type="number" maxFractionDigits="0" value="${dto.hire_avr_salary/10000}" /> 만원</span>
+            </div>
+        </div>
+    </div>
 
-									<!-- 기업정보start -->
-
-									<div class="box_item mx-0 bg-white px-10">
-										<!-- 추가된 이미지 컨테이너 -->
-										<div class="com-image">
-											<img src="${dto.image}"
-												onerror="this.src='/good/asset/images/default.jpg'"
-												alt="Company Logo">
-										</div>
-
-										<div class="com-title">
-											<div class="col notification_info">
-												<div class="job_tit">
-													<h2>
-														<a class="str_tit_title new" href="#" target="_blank">
-															${dto.cp_name} </a>
-													</h2>
-												</div>
-												<div class="job_meta">
-													<span class="job-keyword"><b>위치 </b>${dto.cp_address}</span>
-													<span class="job-keyword"><b>업종/산업 </b>${dto.idst_name}</span>
-													<span class="job-keyword"><b>평균연봉 </b>
-													<fmt:formatNumber type="number" maxFractionDigits="0"
-															value="${dto.hire_avr_salary/10000}" /> 만원</span>
-												</div>
-											</div>
-										</div>
-
-									</div>
-									<!--기업정보end -->
+</div>
+								<!--기업정보end -->
 								</div>
-							</div>
-							<div class="ps-com">
-
-
-
-								<!-- 별점등록START -->
-								<div class="rating-section">
-									<h3>별점 등록</h3>
-									<div class="category">
-										<label>연봉</label>
-										<div class="stars" data-category="salary">
-											<span class="star fa-solid fa-star" data-value="1"></span> <span
-												class="star fa-solid fa-star" data-value="2"></span> <span
-												class="star fa-solid fa-star" data-value="3"></span> <span
-												class="star fa-solid fa-star" data-value="4"></span> <span
-												class="star fa-solid fa-star" data-value="5"></span>
-										</div>
-										<input type="hidden" name="salary_score" value=""
-											id="salary-highest">
-									</div>
-									<div class="category">
-										<label>복지</label>
-										<div class="stars" data-category="welfare">
-											<span class="star fa-solid fa-star" data-value="1"></span> <span
-												class="star fa-solid fa-star" data-value="2"></span> <span
-												class="star fa-solid fa-star" data-value="3"></span> <span
-												class="star fa-solid fa-star" data-value="4"></span> <span
-												class="star fa-solid fa-star" data-value="5"></span>
-										</div>
-										<input type="hidden" name="welfare_score" value=""
-											id="welfare-highest">
-									</div>
-
-									<div class="category">
-										<label>조직안정성</label>
-										<div class="stars" data-category="stability">
-											<span class="star fa-solid fa-star" data-value="1"></span> <span
-												class="star fa-solid fa-star" data-value="2"></span> <span
-												class="star fa-solid fa-star" data-value="3"></span> <span
-												class="star fa-solid fa-star" data-value="4"></span> <span
-												class="star fa-solid fa-star" data-value="5"></span>
-										</div>
-										<input type="hidden" name="stability_score" value=""
-											id="stability-highest">
-									</div>
-
-									<div class="category">
-										<label>조직문화</label>
-										<div class="stars" data-category="culture">
-											<span class="star fa-solid fa-star" data-value="1"></span> <span
-												class="star fa-solid fa-star" data-value="2"></span> <span
-												class="star fa-solid fa-star" data-value="3"></span> <span
-												class="star fa-solid fa-star" data-value="4"></span> <span
-												class="star fa-solid fa-star" data-value="5"></span>
-										</div>
-										<input type="hidden" name="culture_score" value=""
-											id="culture-highest">
-									</div>
-
-									<div class="category">
-										<label>성장가능성</label>
-										<div class="stars" data-category="growth">
-											<span class="star fa-solid fa-star" data-value="1"></span> <span
-												class="star fa-solid fa-star" data-value="2"></span> <span
-												class="star fa-solid fa-star" data-value="3"></span> <span
-												class="star fa-solid fa-star" data-value="4"></span> <span
-												class="star fa-solid fa-star" data-value="5"></span>
-										</div>
-										<input type="hidden" name="growth_score" value=""
-											id="growth-highest">
-									</div>
-
 								</div>
-								<!-- 별점등록END -->
+		<div class="ps-com">
+		
+
+		
+        <!-- 별점등록START -->
+        <div class="rating-section">
+            <h4>별점 등록</h4>
+             <div class="category">
+				    <label>연봉</label>
+				    <div class="stars" data-category="salary">
+				        <span class="star fa-solid fa-star" data-value="1"></span>
+				        <span class="star fa-solid fa-star" data-value="2"></span>
+				        <span class="star fa-solid fa-star" data-value="3"></span>
+				        <span class="star fa-solid fa-star" data-value="4"></span>
+				        <span class="star fa-solid fa-star" data-value="5"></span> 
+				    </div>
+				    <input type="hidden" name="salary_score" value="" id="salary-highest">
+			</div>
+            <div class="category">
+				    <label>복지</label>
+				    <div class="stars" data-category="welfare">
+				        <span class="star fa-solid fa-star" data-value="1"></span>
+				        <span class="star fa-solid fa-star" data-value="2"></span>
+				        <span class="star fa-solid fa-star" data-value="3"></span>
+				        <span class="star fa-solid fa-star" data-value="4"></span>
+				        <span class="star fa-solid fa-star" data-value="5"></span>
+				    </div>
+				    <input type="hidden" name="welfare_score" value="" id="welfare-highest">
+				</div>
+				
+				<div class="category">
+				    <label>조직안정성</label>
+				    <div class="stars" data-category="stability">
+				        <span class="star fa-solid fa-star" data-value="1"></span>
+				        <span class="star fa-solid fa-star" data-value="2"></span>
+				        <span class="star fa-solid fa-star" data-value="3"></span>
+				        <span class="star fa-solid fa-star" data-value="4"></span>
+				        <span class="star fa-solid fa-star" data-value="5"></span>
+				    </div>
+				    <input type="hidden" name="stability_score" value="" id="stability-highest">
+				</div>
+				
+				<div class="category">
+				    <label>조직문화</label>
+				    <div class="stars" data-category="culture">
+				        <span class="star fa-solid fa-star" data-value="1"></span>
+				        <span class="star fa-solid fa-star" data-value="2"></span>
+				        <span class="star fa-solid fa-star" data-value="3"></span>
+				        <span class="star fa-solid fa-star" data-value="4"></span>
+				        <span class="star fa-solid fa-star" data-value="5"></span>
+				    </div>
+				    <input type="hidden" name="culture_score" value="" id="culture-highest">
+				</div>
+				
+				<div class="category">
+				    <label>성장가능성</label>
+				    <div class="stars" data-category="growth">
+				        <span class="star fa-solid fa-star" data-value="1"></span>
+				        <span class="star fa-solid fa-star" data-value="2"></span>
+				        <span class="star fa-solid fa-star" data-value="3"></span>
+				        <span class="star fa-solid fa-star" data-value="4"></span>
+				        <span class="star fa-solid fa-star" data-value="5"></span>
+				    </div>
+				    <input type="hidden" name="growth_score" value="" id="growth-highest">
+				</div>
+				
+        </div>
+        <!-- 별점등록END -->
+        
+        
+        
+        
+         <!-- com-tag section -->
+         <div class="com-tag">
+            <div class="click-tag">
+                <h3>추천 태그</h3>
+                <p class="tag-info mt-6">최근 가장 많이 등록된 태그!</p>
+                <div class="tag_meta">
+                    <c:forEach items="${showTagList}" var="tlist">
+                        <span class="tag-keyword">${tlist}</span>
+                    </c:forEach>
+                </div>
+            </div>
+            <div class="add-tag-text">
+                <h3>태그 추가</h3>
+                <p class="tag-info mt-6">추천 태그가 마음에 들지 않다면?</p>
+                <div class="add-tag">
+                    <input name='tag_keyword' placeholder='추가하실 태그를 입력하세요(최대 3개)'
+                        id="tag" value=''>
+                </div>
+
+            </div>
 
 
 
 
-								<!-- com-tag section -->
-								<div class="com-tag">
-									<div class="click-tag">
-										<h3>추천 태그</h3>
-										<p class="tag-info mt-6">최근 가장 많이 등록된 태그!</p>
-										<div class="tag_meta">
-											<c:forEach items="${showTagList}" var="tlist">
-												<span class="tag-keyword">${tlist}</span>
-											</c:forEach>
-										</div>
-									</div>
-									<div class="add-tag-text">
-										<h3>태그 추가</h3>
-										<p class="tag-info mt-6">추천 태그가 마음에 들지 않다면?</p>
-										<div class="add-tag">
-											<input name='tag_keyword' placeholder='추가하실 태그를 입력하세요(최대 3개)'
-												id="tag" value=''>
-										</div>
-
-									</div>
 
 
-
-
-								</div>
-							</div>
-							<!-- Comment section -->
-							<div class="review-text comment-section">
-								<div class="textAreaWrapper">
-									<h3>한 줄 기업 평가</h3>
-									<div class="textLengthWrap">
-										<p class="lineCount">0자</p>
-										<p class="lineTotal">/30자</p>
-									</div>
-								</div>
-								<textarea id="lineBox" name="linereview" maxlength="33"
-									placeholder="기업에 대한 한줄평을 작성해주세요!"></textarea>
-							</div>
-
-							<div class="review-text comment-section">
-								<div class="textAreaWrapper">
-									<h3>이런 부분은 좋았어요</h3>
-									<div class="textLengthWrap">
-										<p class="goodCount">0자</p>
-										<p class="goodTotal">/330자</p>
-									</div>
-								</div>
-								<textarea id="textGood" name="good" maxlength="330"
-									placeholder="해당 기업에서 근무하면서 좋았던 점을 작성해주세요!"></textarea>
-
-							</div>
-							<div class="review-text comment-section">
-								<div class="textAreaWrapper">
-									<h3>이런 부분은 아쉬웠어요</h3>
-									<div class="textLengthWrap">
-										<p class="badCount">0자</p>
-										<p class="badTotal">/330자</p>
-									</div>
-								</div>
-								<textarea id="textBad" name="bad" maxlength="330"
-									placeholder="해당 기업에서 근무하면서 아쉬웠던 점을 작성해주세요!"></textarea>
-							</div>
-							<hr>
-							<div class="submit-info">
-								<p>
-									면접 후기에 대한 저작권은 (주)사람인에 있습니다.<br> 등록하신 콘텐츠는 임의로 삭제하실 수
-									없습니다.
-								</p>
-							</div>
-							<div class="moving-btn">
-								<a href="/good/user/company/companyview.do?cp_seq=${dto.cp_seq}"
-									class="btn btnBefore">이전으로</a>
-								<button type="submit" name="cp_rv_confirm" value="0"
-									class="btn btnList submitRatings">등록하기</button>
-							</div>
-						</div>
-					</div>
-			</form>
-		</section>
-
-	</div>
-	<%@include file="/WEB-INF/views/inc/footer.jsp"%>
-	<script src="https://unpkg.com/@yaireo/tagify"></script>
+        
+        </div>
+        </div>
+        <!-- Comment section -->
+        <div class="review-text comment-section">
+         <div class="textAreaWrapper">
+            <h4>한 줄 기업 평가</h4>
+             <div class="textLengthWrap">
+   				 <p class="lineCount">0자</p>
+    			<p class="lineTotal">/30자</p>
+  			</div>
+  			</div>
+            <textarea id="lineBox" name="linereview" maxlength="33" placeholder="기업에 대한 한줄평을 작성해주세요!"></textarea>
+        </div>
+        
+        <div class="review-text comment-section">
+            <div class="textAreaWrapper">
+            <h4>이런 부분은 좋았어요</h4>
+            <div class="textLengthWrap">
+            <p class="goodCount">0자</p>
+            <p class="goodTotal">/330자</p>
+        </div>
+    </div>
+        <textarea id="textGood" name="good" maxlength="330" placeholder="해당 기업에서 근무하면서 좋았던 점을 작성해주세요!"></textarea>
+        
+    </div>
+        <div class="review-text comment-section">
+         <div class="textAreaWrapper">
+            <h4>이런 부분은 아쉬웠어요</h4>
+             <div class="textLengthWrap">
+    <p class="badCount">0자</p>
+    <p class="badTotal">/330자</p>
+  </div>
+  </div>
+            <textarea id="textBad" name="bad" maxlength="330" placeholder="해당 기업에서 근무하면서 아쉬웠던 점을 작성해주세요!"></textarea>
+        </div>
+        <hr>
+				<div class="submit-info">
+                <p>면접 후기에 대한 저작권은 IT's Good Job에 있습니다. <br> 등록하신 콘텐츠는 임의로 삭제하실 수 없습니다.</p>
+                </div>
+                <div class="moving-btn">
+                            <a href="/good/user/company/companyview.do?cp_seq=${dto.cp_seq}" class="btn btnBefore">이전으로</a>
+                            <button type="submit"  name="cp_rv_confirm" value="0" class="btn btnList submitRatings">등록하기</button>
+                </div>
+            </div>
+        </div>   
+         </form>
+    </section>
+   
+<%@include file="/WEB-INF/views/inc/footer.jsp" %>
+<script src="https://unpkg.com/@yaireo/tagify"></script>
 	<script
 		src="https://unpkg.com/@yaireo/tagify/dist/tagify.polyfills.min.js"></script>
 	<link href="https://unpkg.com/@yaireo/tagify/dist/tagify.css"
 		rel="stylesheet" type="text/css" />
-
-	<script>
+<script>
 $('#lineBox').keyup(function (e) {
 	let linecontent = $(this).val();
     
@@ -437,6 +431,7 @@ function updateHighestValue(container) {
 //태그
 var input = document.querySelector('input[name=tag_keyword]')
 var tagify = new Tagify(input, {maxTags: 3});
+
 
 
 

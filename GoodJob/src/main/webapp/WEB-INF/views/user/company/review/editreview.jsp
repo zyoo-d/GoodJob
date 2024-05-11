@@ -40,12 +40,7 @@ textarea {
 	flex-basis: 100%;
 	margin-top: 20px;
 }
-.fas {
-	color: gold;
-}
-.far {
-	color: #eee;
-}
+
 
 .textAreaWrapper {
 	position: relative;
@@ -57,7 +52,52 @@ textarea {
 .textLengthWrap {
 	display: flex;
 	align-items: center;
-	gap: 5px; /* 자간 조정 */
+	gap: 5px; 
+}
+
+.stars {
+	flex: 1 1 auto;
+	justify-content: center;
+	display: flex;
+	font-size: 2.5rem;
+	margin: 0 2px;
+	cursor: pointer;
+	transition: color 0.2s ease-in-out;
+}
+
+.star:hover {
+	color: #ffd700;
+}
+
+.stars::before {
+	letter-spacing: 5px;
+	background: linear-gradient(90deg, #ffc107 0%, #e4e5e9 0%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	display: block;
+	text-align: center;
+}
+
+.star {
+	color: #CCC;
+	cursor: pointer;
+	font-size: 24px;
+}
+
+.star.rated {
+	color: gold;
+}
+
+.half-rated:before {
+	content: "\f5c0";
+}
+
+.fas {
+	color: gold;
+}
+
+.far {
+	color: #eee;
 }
 /*태그*/
 .tagify {
@@ -73,9 +113,11 @@ textarea {
 	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 	background: #fff;
 }
+
 .add-tag .tagify__tag>div {
 	border-radius: 25px;
 }
+
 
 </style>
 </head>
@@ -129,6 +171,7 @@ textarea {
 											</div>
 										</div>
 									</div>
+
 								</div>
 								<!--기업정보end -->
 
@@ -214,136 +257,25 @@ textarea {
 										value="${rdto.growth_score}" id="growth-highest">
 								</div>
 							</div>
-							<div class="ps-com">
-								<!-- 별점등록START -->
-								<div class="rating-section">
-									<h3>별점 등록</h3>
-									<div class="category">
-										<label>연봉</label>
-										<div class="stars" data-category="salary"
-											data-initial-value="${rdto.salary_score}">
-											<span class="star fa-solid fa-star" data-value="1"></span> <span
-												class="star fa-solid fa-star" data-value="2"></span> <span
-												class="star fa-solid fa-star" data-value="3"></span> <span
-												class="star fa-solid fa-star" data-value="4"></span> <span
-												class="star fa-solid fa-star" data-value="5"></span>
-										</div>
-										<input type="hidden" name="salary_score"
-											value="${rdto.salary_score}" id="salary-highest">
-									</div>
-									<div class="category">
-										<label>복지</label>
-										<div class="stars" data-category="welfare"
-											data-initial-value="${rdto.welfare_score}">
-											<span class="star fa-solid fa-star" data-value="1"></span> <span
-												class="star fa-solid fa-star" data-value="2"></span> <span
-												class="star fa-solid fa-star" data-value="3"></span> <span
-												class="star fa-solid fa-star" data-value="4"></span> <span
-												class="star fa-solid fa-star" data-value="5"></span>
-										</div>
-										<input type="hidden" name="welfare_score"
-											value="${rdto.welfare_score}" id="welfare-highest">
-									</div>
-									<div class="category">
-										<label>조직안정성</label>
-										<div class="stars" data-category="stability"
-											data-initial-value="${rdto.stability_score}">
-											<span class="star fa-solid fa-star" data-value="1"></span> <span
-												class="star fa-solid fa-star" data-value="2"></span> <span
-												class="star fa-solid fa-star" data-value="3"></span> <span
-												class="star fa-solid fa-star" data-value="4"></span> <span
-												class="star fa-solid fa-star" data-value="5"></span>
-										</div>
-										<input type="hidden" name="stability_score"
-											value="${rdto.stability_score}" id="stability-highest">
-									</div>
-									<div class="category">
-										<label>조직문화</label>
-										<div class="stars" data-category="culture"
-											data-initial-value="${rdto.culture_score}">
-											<span class="star fa-solid fa-star" data-value="1"></span> <span
-												class="star fa-solid fa-star" data-value="2"></span> <span
-												class="star fa-solid fa-star" data-value="3"></span> <span
-												class="star fa-solid fa-star" data-value="4"></span> <span
-												class="star fa-solid fa-star" data-value="5"></span>
-										</div>
-										<input type="hidden" name="culture_score"
-											value="${rdto.culture_score}" id="culture-highest">
-									</div>
-									<div class="category">
-										<label>성장가능성</label>
-										<div class="stars" data-category="growth"
-											data-initial-value="${rdto.growth_score}">
-											<span class="star fa-solid fa-star" data-value="1"></span> <span
-												class="star fa-solid fa-star" data-value="2"></span> <span
-												class="star fa-solid fa-star" data-value="3"></span> <span
-												class="star fa-solid fa-star" data-value="4"></span> <span
-												class="star fa-solid fa-star" data-value="5"></span>
-										</div>
-										<input type="hidden" name="growth_score"
-											value="${rdto.growth_score}" id="growth-highest">
-									</div>
-								</div>
-								<!-- 별점등록END -->
-								<!-- tag 수정 -->							
-									<div class="add-tag-text">
-										<h3>태그 수정</h3>
-										<p class="tag-info mt-6">태그를 수정할 수 있습니다.</p>
-										<div class="add-tag">
-											<input name='tag_keyword' placeholder='변경하실 태그를 입력하세요(최대 3개)'
-												id="tag">
-										</div>
-									</div>
-							</div>
+							<!-- 별점등록END -->
 
-						<div class="review-text comment-section">
-							<div class="textAreaWrapper">
-								<h3>이런 부분은 좋았어요</h3>
-								<div class="textLengthWrap">
-									<p class="goodCount">0자</p>
-									<p class="goodTotal">/330자</p>
+
+							<!-- com-tag section -->
+							<!-- tag 수정 -->							
+							<div class="add-tag-text">
+								<h3>태그 수정</h3>
+								<p class="tag-info mt-6">태그를 수정할 수 있습니다.</p>
+								<div class="add-tag">
+									<input name='tag_keyword' placeholder='변경하실 태그를 입력하세요(최대 3개)'
+										id="tag">
 								</div>
 							</div>
-							<textarea id="textGood" name="good" maxlength="330"
-								placeholder="해당 기업에서 근무하면서 좋았던 점을 작성해주세요!">${rdto.good}</textarea>
-
-						</div>
-						<div class="review-text comment-section">
-							<div class="textAreaWrapper">
-								<h3>이런 부분은 아쉬웠어요</h3>
-								<div class="textLengthWrap">
-									<p class="badCount">0자</p>
-									<p class="badTotal">/330자</p>
-								</div>
-							</div>
-							<textarea id="textBad" name="bad" maxlength="330"
-								placeholder="해당 기업에서 근무하면서 아쉬웠던 점을 작성해주세요!">${rdto.bad}</textarea>
-						</div>
-						<hr>
-						<div class="submit-info">
-							<p>
-								면접 후기에 대한 저작권은 (주)사람인에 있습니다.<br> 등록하신 콘텐츠는 임의로 삭제하실 수 없습니다.
-							</p>
-						</div>
-						<div class="moving-btn">
-							<c:if test="${rdto.id==id}">
-								<a href="/good/user/mypage/myreview.do?id=${rdto.id}"
-									class="btn btnBefore">이전으로</a>
-							</c:if>
-
-							<c:choose>
-								<c:when test="${rdto.cp_rv_confirm == 0 && rdto.id==id}">
-									<!-- 대기 상태일 때 수정 버튼 표시 -->
-
-									<button type="submit" name="action" value="update"
-										class="btn btnList submitRatings">수정하기</button>
-								</c:when>
-								<c:otherwise>
-									<!-- 승인 또는 거절 상태일 때 수정/삭제 버튼 숨김 -->
-								</c:otherwise>
-							</c:choose>
-						</div>
 					</div>
+
+
+
+						</div>
+					
 					<!-- Comment section -->
 					<div class="review-text comment-section">
 						<div class="textAreaWrapper">
@@ -406,18 +338,18 @@ textarea {
 						</c:choose>
 					</div>
 				</div>
-			</form>
-		</section>
+			
 	</div>
+		</form>
+	</section>
+
 	<%@include file="/WEB-INF/views/inc/footer.jsp"%>
 	<script src="https://unpkg.com/@yaireo/tagify"></script>
 	<script
 		src="https://unpkg.com/@yaireo/tagify/dist/tagify.polyfills.min.js"></script>
 	<link href="https://unpkg.com/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
+
 	<script>
-	
-
-
 
 $('#lineBox').keyup(function (e) {
 	let linecontent = $(this).val();
@@ -533,7 +465,6 @@ function updateHighestValue(container) {
 }
 
 
-//태그 수정
 
 //태그 수정
 		let taglist = '';
@@ -555,6 +486,8 @@ function updateHighestValue(container) {
 			//alert(e.detail.data.value);
 			$(`#editForm input[value=\${e.detail.data.value}]`).remove();
 		});
+
+
 
 </script>
 </body>
