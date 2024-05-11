@@ -793,7 +793,6 @@ public ArrayList<String> getTaglist(String cp_seq){
 	    }
 
 	
-	
 	public ArrayList<String> getTopTagsByCpSeq(String cp_seq) {
 	    try {
 	        ArrayList<String> topTags = new ArrayList<>();
