@@ -9,10 +9,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
 
 import com.good.board.model.NoticeDTO;
+import com.good.board.qna.AuthQna;
 import com.good.board.repository.NoticeDAO;
 
 @WebServlet("/board/notice/editnotice.do")
@@ -20,6 +22,24 @@ public class EditNotice extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		
+		HttpSession session = req.getSession();
+		//접근 권한
+		if (!"2".equals((String) session.getAttribute("lv"))) {
+			resp.setContentType("text/html; charset=UTF-8");
+		    resp.setCharacterEncoding("UTF-8");
+		    PrintWriter writer = resp.getWriter();
+		    writer.print("<script>alert('접근권한이 없습니다.');location.href='/good/notice.do';</script>");
+		    writer.close();
+		}
+		
+		String qna_seq = req.getParameter("qna_seq");
+		
+		//인증
+		if(AuthQna.check(req, resp)) {
+			return;
+		}
 		
 		NoticeDAO dao = new NoticeDAO();
 		NoticeDTO dto = new NoticeDTO();

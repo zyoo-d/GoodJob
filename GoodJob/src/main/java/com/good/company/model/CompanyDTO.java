@@ -57,6 +57,13 @@ public class CompanyDTO {
 
 	private ArrayList<String> tag_list;
 	
+	//기업 점수
+	private int salary;
+	private int welfare;
+	private int stability;
+	private int culture;
+	private int potential;
+	private double matchScore;
 	//기업 리뷰평점
 	private String review_avg;
 	private String wel_avg;

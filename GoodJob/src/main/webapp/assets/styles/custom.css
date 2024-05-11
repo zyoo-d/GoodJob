@@ -1523,7 +1523,7 @@ textarea:focus {
 }
 
 .cpComInfo {
-	height: 380px;
+	height: 500px;
 }
 
 .cpComFont {
@@ -1598,8 +1598,17 @@ textarea:focus {
 }
 
 .cpCimg img {
-	max-width: 100px;
-	max-height: 100px;
+	width: 100px;
+	height: 100px;
+}
+
+.space-x-4.cpCimg {
+	height: 120px;
+	
+}
+.cpComInfo {
+	padding: none;
+	height: 500px;
 }
 
 .cpsContent h3 {
