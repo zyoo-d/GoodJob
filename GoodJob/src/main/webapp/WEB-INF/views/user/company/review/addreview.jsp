@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -280,8 +281,8 @@ textarea {
             </div>
             <div class="job_meta">
                 <span class="job-keyword"><b>위치 </b>${dto.cp_address}</span>
-                <span class="job-keyword"><b>총매출액 </b>${dto.idst_name}</span>
-                <span class="job-keyword"><b>평균연봉 </b>${dto.hire_avr_salary} 만원</span>
+                <span class="job-keyword"><b>업종/산업 </b>${dto.idst_name}</span>
+                <span class="job-keyword"><b>평균연봉 </b><fmt:formatNumber type="number" maxFractionDigits="0" value="${dto.hire_avr_salary/10000}" /> 만원</span>
             </div>
         </div>
     </div>
