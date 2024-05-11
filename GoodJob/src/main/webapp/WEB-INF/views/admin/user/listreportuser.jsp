@@ -25,7 +25,7 @@
 							<div class="col-12">
 								<div class="card">
 									<div class="card-header">
-										<h4>차단 유저 목록</h4>
+										<h4>신고 접수 목록</h4>
 										<div class="card-header-form">
 											<form>
 												<div class="input-group">
@@ -36,10 +36,14 @@
 															<i class="fas fa-search"></i>
 														</button>
 													</div>
-													<a href="#" class="btn btn-icon icon-left btn-primary"><i
-														class="far fa-edit"></i> 차단 관리</a> <a href="#"
-														class="btn btn-icon icon-left btn-danger"><i
-														class="fas fa-times"></i> 회원 탈퇴</a>
+													<button id="btn-block-user"
+														class="btn btn-icon icon-left btn-primary">
+														<i class="far fa-edit"></i> 차단 관리
+													</button>
+													<button id="btn-block-alluser"
+														class="btn btn-icon icon-left btn-primary">
+														<i class="far fa-edit"></i> 일괄 처리
+													</button>
 												</div>
 											</form>
 										</div>
@@ -61,8 +65,9 @@
 													<th class="p-0 text-center">제목</th>
 													<th class="p-0 text-center">신고자</th>
 
-													<th class="p-0 text-center">
-													<select id="reportType" name="reportType" onchange="sortReportType()" style="padding: 4px 8px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px; color: #333; background-color: #fff; width: 120px;">
+													<th class="p-0 text-center"><select id="reportType"
+														name="reportType" onchange="sortReportType()"
+														style="padding: 4px 8px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px; color: #333; background-color: #fff; width: 120px;">
 															<option value="" ${empty param.rp_seq ? 'selected' : ''}>전체</option>
 															<option value="1"
 																${param.rp_seq == '1' ? 'selected' : ''}>비방/욕설</option>
@@ -87,27 +92,36 @@
 													<th class="p-0 text-center">신고 일자</th>
 												</tr>
 
-												<c:forEach items="${reportList}" var="report"
-													varStatus="status">
-													<tr>
-														<td class="p-0 text-center">
-															<div class="custom-checkbox custom-control">
-																<input type="checkbox" data-checkboxes="mygroup"
-																	class="custom-control-input"
-																	id="checkbox-${status.index}"> <label
-																	for="checkbox-${status.index}"
-																	class="custom-control-label">&nbsp;</label>
-															</div>
-														</td>
-														<td class="p-0 text-center">${report.writer_id}</td>
-														<td class="p-0 text-center">${report.sub_type}</td>
-														<td class="p-0 text-center">${report.title}</td>
-														<td class="p-0 text-center">${report.reporter_id}</td>
-														<td class="p-0 text-center">${report.rp_seq}</td>
-														<td class="p-0 text-center">${report.report_detail}</td>
-														<td class="p-0 text-center">${report.report_regdate}</td>
-													</tr>
-												</c:forEach>
+												<c:choose>
+													<c:when test="${not empty reportList}">
+														<c:forEach items="${reportList}" var="report"
+															varStatus="status">
+															<tr>
+																<td class="p-0 text-center">
+																	<div class="custom-checkbox custom-control">
+																		<input type="checkbox" data-checkboxes="mygroup"
+																			class="custom-control-input"
+																			id="checkbox-${status.index}"> <label
+																			for="checkbox-${status.index}"
+																			class="custom-control-label">&nbsp;</label>
+																	</div>
+																</td>
+																<td class="p-0 text-center">${report.writer_id}</td>
+																<td class="p-0 text-center">${report.sub_type}</td>
+																<td class="p-0 text-center">${report.title}</td>
+																<td class="p-0 text-center">${report.reporter_id}</td>
+																<td class="p-0 text-center">${report.rp_seq}</td>
+																<td class="p-0 text-center">${report.report_detail}</td>
+																<td class="p-0 text-center">${report.report_regdate}</td>
+															</tr>
+														</c:forEach>
+													</c:when>
+													<c:otherwise>
+														<tr>
+															<td colspan="8" class="p-0 text-center">회원 목록이 없습니다.</td>
+														</tr>
+													</c:otherwise>
+												</c:choose>
 
 											</table>
 										</div>
@@ -121,7 +135,7 @@
 											<ul class="pagination mb-0">
 												<c:if test="${pageUtil.hasPreviousPage()}">
 													<li class="page-item"><a class="page-link"
-														href="/good/admin/userreport.do?page=${pageUtil.startPage - 1}&rp_seq=${param.rp_seq}">
+														href="/good/admin/listreportuser.do?page=${pageUtil.startPage - 1}&rp_seq=${param.rp_seq}">
 															<i class="fas fa-chevron-left"></i>
 													</a></li>
 												</c:if>
@@ -132,23 +146,20 @@
 													<li
 														class="page-item ${page == pageUtil.currentPage ? 'active' : ''}">
 														<a class="page-link"
-														href="/good/admin/userreport.do?page=${page}&rp_seq=${param.rp_seq}">
+														href="/good/admin/listreportuser.do?page=${page}&rp_seq=${param.rp_seq}">
 															${page} </a>
 													</li>
 												</c:forEach>
 
 												<c:if test="${pageUtil.hasNextPage()}">
 													<li class="page-item"><a class="page-link"
-														href="/good/admin/userreport.do?page=${pageUtil.startPage + 5}&rp_seq=${param.rp_seq}">
+														href="/good/admin/listreportuser.do?page=${pageUtil.startPage + 5}&rp_seq=${param.rp_seq}">
 															<i class="fas fa-chevron-right"></i>
 													</a></li>
 												</c:if>
 											</ul>
 										</nav>
 									</div>
-
-
-
 
 								</div>
 							</div>
@@ -167,6 +178,71 @@
 		</div>
 	</div>
 
+	<div id="modal-part" class="modal-part">
+		<form method="POST" action="/good/admin/listreportuser.do">
+			<div class="form-group">
+				<label for="user-id">아이디</label> <input type="text"
+					class="form-control" id="user-id" name="user-id">
+			</div>
+			<div class="form-group">
+				<label for="status">상태</label> <select class="form-control"
+					id="status">
+					<option value="0">정상</option>
+					<option value="3">3일 정지</option>
+					<option value="5">5일 정지</option>
+					<option value="7">7일 정지</option>
+					<option value="10">영구 정지</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<label for="block-date">차단 일자</label> <input type="text"
+					class="form-control" id="block-date" name="block-date">
+			</div>
+			<div class="form-group">
+				<label for="release-date">해제 일자</label> <input type="text"
+					class="form-control" id="release-date" name="release-date">
+			</div>
+			<div class="form-group">
+				<label for="block-reason">사유</label> <input type="text"
+					class="form-control" id="block-reason" name="block-reason">
+			</div>
+		</form>
+	</div>
+
+	<div id="modal-bulk-part" class="modal-part">
+		<form method="POST" action="/good/admin/listreportuser.do">
+			<input type="hidden" id="bulk-user-ids" name="user-id">
+			<div class="form-group">
+				<label for="bulk-user-count">선택된 유저 수</label> <input type="text"
+					class="form-control" id="bulk-user-count" readonly>
+			</div>
+			<div class="form-group">
+				<label for="bulk-status">상태</label> <select class="form-control"
+					id="bulk-status">
+					<option value="0">정상</option>
+					<option value="3">3일 정지</option>
+					<option value="5">5일 정지</option>
+					<option value="7">7일 정지</option>
+					<option value="10">영구 정지</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<label for="bulk-block-date">차단 일자</label> <input type="text"
+					class="form-control" id="bulk-block-date" name="block-date">
+			</div>
+			<div class="form-group">
+				<label for="bulk-release-date">해제 일자</label> <input type="text"
+					class="form-control" id="bulk-release-date"
+					name="release-date">
+			</div>
+			<div class="form-group">
+				<label for="bulk-block-reason">사유</label> <input type="text"
+					class="form-control" id="bulk-block-reason"
+					name="block-reason">
+			</div>
+		</form>
+	</div>
+
 
 	<!-- Page Specific JS File -->
 	<script src="/good/assets/js/page/components-table.js"></script>
@@ -175,100 +251,198 @@
 	<script>
 	function sortReportType() {
 		  var reportType = document.getElementById("reportType").value;
-		  location.href = "/good/admin/userreport.do?page=${pageUtil.currentPage}&rp_seq=" + reportType;
+		  location.href = "/good/admin/listreportuser.do?page=${pageUtil.currentPage}&rp_seq=" + reportType;
 	}
 	
 	
 	
-  $("#modal-1").fireModal({body: '차단회원 관리.'});
-  
-  let modalInputs;
-  let selectedUser = {};
+	let modalInputs;
+	let selectedUser = {};
 
-  $('#btn-block-user').fireModal({
-    body: $('#modal-part'),
-    title: '회원 정보 변경',
-    footerClass: 'text-right',
-    buttons: [
-      {
-        text: '저장',
-        class: 'btn btn-primary',
-        handler: function(modal) {
-          console.log('저장 버튼 클릭됨');
-        }
-      }
-    ],
-    created: function(modal) {
-      modalInputs = {
-        userId: modal.find('#user-id'),
-        blockDate: modal.find('#block-date'),
-        releaseDate: modal.find('#release-date'),
-        reason: modal.find('#block-reason'),
-        status: modal.find('#status')
-      };
-    }
-  });
-  
-  $(document).on('change', 'input[type="checkbox"][data-checkboxes="mygroup"]', function() {
+	$('#btn-block-user').fireModal({
+	  body: $('#modal-part'),
+	  title: '차단 회원 관리',
+	  footerClass: 'text-right',
+	  buttons: [
+	    {
+	      text: '저장',
+	      class: 'btn btn-primary',
+	      submit: true,
+	      handler: function(modal) {
+	        const userId = modalInputs.userId.val();
+	        const status = modalInputs.status.val();
+	        const changeReason = $('#change-reason').val();
+
+	        // 서버로 데이터 전송 또는 다른 작업 수행
+	        console.log('회원 차단:', userId, status, changeReason);
+
+	        // 모달 닫기
+	        modal.modal('hide');
+	      }
+	    }
+	  ],
+	  created: function(modal) {
+	    modalInputs = {
+	      userId: modal.find('#user-id'),
+	      status: modal.find('#status'),
+	      blockDate: modal.find('#block-date'),
+	      releaseDate: modal.find('#release-date'),
+	      blockReason: modal.find('#block-reason')
+	    };
+	  }
+	});
+
+	$(document).on('change', 'input[type="checkbox"][data-checkboxes="mygroup"]', function() {
 	  if ($(this).is(':checked')) {
 	    const row = $(this).closest('tr');
 	    selectedUser = {
-	      id: row.find('td:nth-child(2)').text(), // 아이디 열
-	      blockDate: row.find('td:nth-child(3)').text(), // 차단일자 열
-	      releaseDate: row.find('td:nth-child(4)').text(), // 해제일자 열
-	      reason: row.find('td:nth-child(5)').text(), // 사유 열
-	      status: row.find('td:nth-child(6)').text() // 상태 열
+	      id: row.find('td:nth-child(2)').text().trim(),
 	    };
 
 	    modalInputs.userId.val(selectedUser.id);
-	    modalInputs.blockDate.val(selectedUser.blockDate);
-	    modalInputs.releaseDate.val(selectedUser.releaseDate);
-	    modalInputs.reason.val(selectedUser.reason);
-	    modalInputs.status.val(selectedUser.status);
 	  } else {
 	    selectedUser = {};
 	    modalInputs.userId.val('');
-	    modalInputs.blockDate.val('');
-	    modalInputs.releaseDate.val('');
-	    modalInputs.reason.val('');
-	    modalInputs.status.val('정상');
 	  }
-
-	  const checkedUsers = $('input[type="checkbox"][data-checkboxes="mygroup"]:checked');
-	  const userCount = checkedUsers.length;
-	  bulkModalInputs.userCount.val(userCount + '명');
 	});
-  
-  
-  let bulkModalInputs;
 
-  $('#btn-block-alluser').fireModal({
-    body: $('#modal-bulk-part'),
-    title: '일괄 처리',
-    footerClass: 'text-right',
-    buttons: [
-      {
-        text: '일괄 처리',
-        class: 'btn btn-primary',
-        handler: function(modal) {
-          // 일괄 처리 로직 작성
-          console.log('일괄 처리 버튼 클릭됨');
-        }
-      }
-    ],
-    created: function(modal) {
-      bulkModalInputs = {
-        userCount: modal.find('#bulk-user-count'),
-        status: modal.find('#bulk-status'),
-        changeReason: modal.find('#bulk-change-reason')
-      };
+	let bulkModalInputs;
 
-      // 체크박스 선택된 유저 수 계산
-      const checkedUsers = $('input[type="checkbox"][data-checkboxes="mygroup"]:checked');
-      const userCount = checkedUsers.length;
-      bulkModalInputs.userCount.val(userCount + '명');
-    }
-  });
+	$('#btn-block-alluser').fireModal({
+		  body: $('#modal-bulk-part'),
+		  title: '일괄 처리',
+		  footerClass: 'text-right',
+		  buttons: [
+		    {
+		      text: '일괄 처리',
+		      class: 'btn btn-primary',
+		      submit: true,
+		      handler: function(modal) {
+		        const selectedUserIds = $('#bulk-user-ids').val().split(',');
+		        const status = bulkModalInputs.status.val();
+		        const changeReason = bulkModalInputs.changeReason.val();
+
+		        // 서버로 데이터 전송 또는 다른 작업 수행
+		        console.log('일괄 처리 실행:', selectedUserIds, status, changeReason);
+
+		        // 모달 닫기
+		        modal.modal('hide');
+		      }
+		    }
+		  ],
+		  created: function(modal) {
+		    bulkModalInputs = {
+		      userCount: modal.find('#bulk-user-count'),
+		      status: modal.find('#bulk-status'),
+		      blockDate: modal.find('#bulk-block-date'),
+		      releaseDate: modal.find('#bulk-release-date'),
+		      changeReason: modal.find('#bulk-block-reason')
+		    };
+
+		    // 체크박스 선택된 유저 수 계산
+		    const checkedUsers = $('input[type="checkbox"][data-checkboxes="mygroup"]:checked');
+		    const userCount = checkedUsers.length;
+		    bulkModalInputs.userCount.val(userCount + '명');
+
+		    // 체크박스 선택된 유저 아이디 가져오기
+		    const userIds = [];
+		    checkedUsers.each(function() {
+		      const selectedRow = $(this).closest('tr');
+		      const userId = selectedRow.find('td:nth-child(2)').text().trim();
+		      userIds.push(userId);
+		    });
+
+		    // 선택된 유저 아이디를 hidden 태그에 설정
+		    modal.find('#bulk-user-ids').val(userIds.join(','));
+		  }
+		});
+
+		$(document).on('change', '#bulk-status', function() {
+		  const selectedStatus = $(this).val();
+
+		  if (selectedStatus === '0') {
+		    bulkModalInputs.blockDate.val('');
+		    bulkModalInputs.releaseDate.val('');
+		  } else {
+		    const blockDate = new Date();
+		    bulkModalInputs.blockDate.val(formatDate(blockDate));
+
+		    const releaseDate = new Date(blockDate);
+		    if (selectedStatus === '3') {
+		      releaseDate.setDate(releaseDate.getDate() + 3);
+		    } else if (selectedStatus === '5') {
+		      releaseDate.setDate(releaseDate.getDate() + 5);
+		    } else if (selectedStatus === '7') {
+		      releaseDate.setDate(releaseDate.getDate() + 7);
+		    } else if (selectedStatus === '10') {
+		      releaseDate.setFullYear(releaseDate.getFullYear() + 1000);
+		    }
+		    bulkModalInputs.releaseDate.val(formatDate(releaseDate));
+		  }
+		});
+
+		$(document).on('change', 'input[type="checkbox"][data-checkboxes="mygroup"]', function() {
+			  const checkedUsers = $('input[type="checkbox"][data-checkboxes="mygroup"]:checked');
+			  const userCount = checkedUsers.length;
+			  bulkModalInputs.userCount.val(userCount + '명');
+
+			  // 체크박스 선택된 유저 아이디 가져오기
+			  const userIds = [];
+			  checkedUsers.each(function() {
+			    const selectedRow = $(this).closest('tr');
+			    const userId = selectedRow.find('td:nth-child(2)').text().trim();
+			    userIds.push(userId);
+			  });
+
+			  // 선택된 유저 아이디를 hidden 태그에 설정
+			  $('#bulk-user-ids').val(userIds.join(','));
+			});
+
+	$(document).ready(function() {
+	    // 모달 창이 열릴 때 초기 상태 설정
+	    $('#btn-block-user').on('show.bs.modal', function() {
+	      $('#status').val('0'); // 초기 상태를 '정상'으로 설정
+	      $('#block-date').val('');
+	      $('#release-date').val('');
+	    });
+
+	    $('#status').on('change', function() {
+	        const selectedStatus = $(this).val();
+	        const blockDateInput = $('#block-date');
+	        const releaseDateInput = $('#release-date');
+
+	        if (selectedStatus === '0') {
+	          blockDateInput.val('');
+	          releaseDateInput.val('');
+	        } else {
+	          const blockDate = new Date();
+	          console.log('Block date:', blockDate);
+	          blockDateInput.val(formatDate(blockDate));
+
+	          const releaseDate = new Date(blockDate);
+	          if (selectedStatus === '3') {
+	            releaseDate.setDate(releaseDate.getDate() + 3);
+	          } else if (selectedStatus === '5') {
+	            releaseDate.setDate(releaseDate.getDate() + 5);
+	          } else if (selectedStatus === '7') {
+	            releaseDate.setDate(releaseDate.getDate() + 7);
+	          } else if (selectedStatus === '10') {
+	            releaseDate.setFullYear(releaseDate.getFullYear() + 1000);
+	          }
+	          console.log('Release date:', releaseDate);
+	          releaseDateInput.val(formatDate(releaseDate));
+	        }
+	      });
+	    });
+	
+	
+	function formatDate(date) {
+	    const isoString = date.toISOString();
+	    const formattedDate = isoString.substring(0, 10);
+	    console.log('Formatted date:', formattedDate);
+	    return formattedDate;
+	  }
+	
   
   
   </script>

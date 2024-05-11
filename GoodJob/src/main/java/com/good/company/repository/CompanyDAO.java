@@ -826,6 +826,7 @@ public ArrayList<String> getTaglist(String cp_seq){
 	        return null;
 	    }
 
+
 	/**
 	 * 지유)등록된 리뷰수 불러오는 메서드
 	 * 
@@ -854,6 +855,7 @@ public ArrayList<String> getTaglist(String cp_seq){
 
 		return 0;
 	}
+
 	
 	public ArrayList<String> getTopTagsByCpSeq(String cp_seq) {
 	    try {
