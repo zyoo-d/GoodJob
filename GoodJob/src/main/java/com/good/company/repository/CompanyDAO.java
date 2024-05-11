@@ -793,39 +793,6 @@ public ArrayList<String> getTaglist(String cp_seq){
 	    }
 
 	
-	
-	public HashMap<String, String> getUpdateDate(){
-		
-		HashMap<String,String> map = new HashMap<>();
-		
-		try {	
-				
-				String sql = "select * from vwUpdateDate";
-				
-				stat = conn.createStatement();
-				rs = stat.executeQuery(sql);
-				
-				
-				while(rs.next()) {
-					map.put(rs.getString("data_type"), rs.getString("regdate"));
-				}
-				
-			} catch (Exception e) {
-				System.out.println("CompanyDAO.getUpdateDate");
-				e.printStackTrace();
-			}
-			
-		return map;
-	}
-	
-	
-	
-	
-	
-}	
-	
-	
-	
 	public ArrayList<String> getTopTagsByCpSeq(String cp_seq) {
 	    try {
 	        ArrayList<String> topTags = new ArrayList<>();
