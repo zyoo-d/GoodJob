@@ -224,12 +224,11 @@
 														<i class="fa-regular fa-bookmark"></i>
 													</button>
 												</div>
-												<div class="job_meta">
-													<c:forEach items="${ComTaglist}" var="tdto">
-														<c:if test="${tdto.cp_seq == dto.cp_seq}">
+												<div class="job_meta" style="display: flex; align-items: flex-start;">
+													<c:forEach items="${dto.tag_list}" var="tdto" begin="0" end="4">
+													<c:if test="${not empty tdto}">												
 															<div class="job_meta">
-																<c:forEach items="${dto.tag_list}" var="tag" begin="0"
-																	end="4">
+																<c:forEach items="${tdto}" var="tag">
 																	<span class="job-keyword">${tag}</span>
 																</c:forEach>
 															</div>
@@ -260,7 +259,13 @@
 															 만원</c:if>
 														</p></li>
 													<li><p class="salary">
-															<b>리뷰등록 </b>${dto.com_rcrt_cnt}건</p></li>
+															<b>리뷰등록 </b>
+															<c:if test="${empty dto.com_rv_cnt}">수집 정보 없음</c:if>
+															<c:if
+																 test="${dto.com_rv_cnt !=0 || not empty dto.com_rv_cnt}">
+																
+															${dto.com_rv_cnt}건
+															</c:if></p></li>
 												</ul>
 											</div>
 										</div>

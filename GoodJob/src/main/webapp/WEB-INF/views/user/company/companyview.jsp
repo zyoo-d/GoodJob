@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html>
 
@@ -116,7 +117,8 @@ span {
 	font-size: 1.1rem;
 }
 
-#summary, #income-info, #comment, #recruit, #keyword, #review {
+#summary, #income-info, #comment, #recruit, #keyword, #review, #welfare
+	{
 	border-radius: 15px;
 	border-color: rgb(234, 237, 244);
 	background-color: #FFFFFF;
@@ -520,6 +522,24 @@ h3>#scrap {
 	display: inline;
 	float: right;
 }
+#welfare {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.weltype {
+    width: 33.33%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.weltype h4 {
+    margin-bottom: 10px;
+}
+
+.weltype p {
+    margin: 5px 0;
+}
 </style>
 </head>
 <%@include file="/WEB-INF/views/inc/header.jsp"%>
@@ -551,10 +571,11 @@ h3>#scrap {
 									</button>
 								</h3>
 								<span>${dto.idst_name} </span> <span>사원 수
-									${dto.hire_member} 명</span> <span><c:if
+									${dto.hire_member} 명</span> <span> <%-- <c:if
 										test="${not empty comJobList}">
-										<c:forEach items="${comJobList}" var="jdto" begin="0" end="7">${jdto.job_name} </c:forEach>
-									</c:if></span> <i class="fa-solid fa-location-dot"><span id="cop_address">
+										<c:forEach items="${comJobList}" var="jdto" begin="0" end="7">${jdto} </c:forEach>
+									</c:if> --%>
+								</span> <i class="fa-solid fa-location-dot"><span id="cop_address">
 										${dto.cp_address}</span></i>
 							</div>
 						</div>
@@ -567,16 +588,23 @@ h3>#scrap {
 								<h2>
 									<span class="count"> <c:if
 											test="${dto.hire_avr_salary == 0}">정보 없음</c:if> <c:if
-											test="${dto.hire_avr_salary != 0}">${dto.hire_avr_salary} 만원</c:if></span>
-									<span class="text-[#A3A1FB]">+</span>
+											test="${dto.hire_avr_salary != 0}">
+											<fmt:formatNumber type="number" maxFractionDigits="0"
+												value="${dto.hire_avr_salary}" /> 만원</c:if></span> <span
+										class="text-[#A3A1FB]">+</span>
 								</h2>
 								<p>예상 연봉</p>
 							</div>
 							<div
 								class="row mx-0 rounded-[20px] bg-white px-10 shadow-lg lg:py-10">
 								<h2>
-									<span class="count">${dto.idst_avg_salary} 만원</span> <span
-										class="text-[#A3A1FB]">+</span>
+									<span class="count"> <c:if
+											test="${dto.idst_avg_salary == 0}">정보 없음</c:if> <c:if
+											test="${dto.idst_avg_salary != 0}">
+											<fmt:formatNumber type="number" maxFractionDigits="0"
+												value="${dto.idst_avg_salary}" /> 만원
+
+									</c:if></span> <span class="text-[#A3A1FB]">+</span>
 								</h2>
 								<p>업계 평균 연봉</p>
 							</div>
@@ -677,216 +705,234 @@ h3>#scrap {
 							<%--  </c:forEach> --%>
 
 							<c:if test="${dto.com_rcrt_cnt ==0}">
-								<span class="px-8 py-10 lg:-mt-16 h-[48px]"
-									style="color: #595959; font-size: 18px;"> " 현재 모집중인
-									채용공고가 없습니다. " </span>
+								<span>
+									<b>${dto.cp_name}</b>에서 모집중인 채용공고가 없습니다.
+								</span>
 							</c:if>
 						</div>
 						<!-- div:recruit -->
 						<span class="menu">기업 키워드</span>
-						<div id="keyword">
 
-							<div class="job_meta">
-								<c:if test="${not empty ComTaglist}">
-									<c:forEach items="${ComTaglist}" var="tdto" begin="0" end="1">
-										<c:if test="${tdto.cp_seq == dto.cp_seq}">
-											<c:forEach items="${tdto.tag_keyword}" var="tag" begin="0"
-												end="4">
-												<span class="job-keyword">${tag}</span>
-											</c:forEach>
-										</c:if>
-									</c:forEach>
-								</c:if>
-								<c:if test="${empty ComTaglist}">등록된 키워드가 없습니다. 리뷰를 작성하여 키워드를 등록해 보세요.</c:if>
-							</div>
-
+						<div id="keyword" class="job_meta" style="text-align: center;">
+							<c:if test="${not empty topTags}">
+								<c:forEach items="${topTags}" var="tag" begin="0" end="5">
+									<span class="job-keyword">${tag}</span>
+								</c:forEach>
+							</c:if>
+						<c:if test="${empty topTags}">
+							<span>등록된 키워드가
+								없습니다. 리뷰를 작성하여 키워드를 등록해 보세요.</span>
+						</c:if>
 						</div>
-						<span class="menu">기업 리뷰 보기</span>
-						<button id="add_review"
-							onclick="checkLogin(${dto.cp_seq}, '${word}', '${map.search}', '${map.hiring}', ${nowPage})">리뷰
-							쓰러가기</button>
 
+						<!-- 기업복지 -->
 
-						<div>
-
-
-
-							<div id="review">
-								<c:if test="${not empty listReview}">
-									<c:forEach items="${listReview}" var="rdto">
-										<c:if
-											test="${rdto.cp_rv_confirm == 1 || sessionScope.user.id == rdto.id || sessionScope.user.lv == 2}">
-											<div id="review_content">
-												<div id="review_content">
-													<div id="oneline">"${rdto.linereview}"</div>
-													<div id="score">
-														<div class="score_rating" id="score_detail">
-															<div id="salary_score">
-																<span id="salary_review">연봉 </span><br />
-																<c:forEach var="i" begin="1" end="${rdto.salary_score}">
-																	<i class="fa-solid fa-star"></i>
-																</c:forEach>
-															</div>
-															<div class="score_rating" id="welfare_score">
-																<span id="welfare_review">복지 </span> <br />
-																<c:forEach var="i" begin="1" end="${rdto.welfare_score}">
-																	<i class="fa-solid fa-star"></i>
-																</c:forEach>
-															</div>
-															<div class="score_rating" id="ingvt_score">
-																<span id="ingvt_review">근무 안정성 </span> <br />
-																<c:forEach var="i" begin="1"
-																	end="${rdto.stability_score}">
-																	<i class="fa-solid fa-star"></i>
-																</c:forEach>
-															</div>
-															<div class="score_rating" id="culture_score">
-																<span id="culture_review">조직문화</span> <br />
-																<c:forEach var="i" begin="1" end="${rdto.culture_score}">
-																	<i class="fa-solid fa-star"></i>
-																</c:forEach>
-															</div>
-															<div class="score_rating" id="growth_score">
-																<span id="growth_review">성장 가능성 <br /></span>
-																<c:forEach var="i" begin="1" end="${rdto.growth_score}">
-																	<i class="fa-solid fa-star"></i>
-																</c:forEach>
-
-															</div>
-															<div class="score_rating" id="total_score">
-																<span id="total_review">총 평점 </span> <br />
-																<c:forEach var="i" begin="1"
-																	end="${(rdto.salary_score+rdto.welfare_score+rdto.stability_score+rdto.culture_score+rdto.growth_score)/5}">
-																	<i class="fa-solid fa-star"></i>
-																</c:forEach>
-															</div>
-														</div>
-													</div>
-													<div class="goodbad_title" id="good_title">
-														<i class="fa-regular fa-thumbs-up"></i> 이런 부분은 좋았아요.
-														<div id="good">${rdto.good}</div>
-													</div>
-
-													<div class="goodbad_title" id="bad_title">
-														<i class="fa-regular fa-thumbs-down"></i> 이런 부분은 아쉬웠어요.
-														<div id="bad">${rdto.bad}</div>
-													</div>
-
-
-												</div>
-												<div class="score_rating" id="total_score">
-													<span id="total_review">총 평점 </span> <br />
-													<c:forEach var="i" begin="1"
-														end="${(rdto.salary_score+rdto.welfare_score+rdto.stability_score+rdto.culture_score+rdto.growth_score)/5}">
-														<i class="fa-solid fa-star"></i>
-													</c:forEach>
-												</div>
-												<div></div>
-										</c:if>
-									</c:forEach>
-								</c:if>
-								<c:if test="${empty listReview}">등록된 리뷰가 없습니다. 직접 등록해보세요!</c:if>
-							</div>
+						<span class="menu">기업 복지</span>
+						
+						<div id="welfare">
+						
+							<c:choose>
+								<c:when test="${not empty wlist}">
+									<c:set var="prevWeltype" value="" />
+									<c:forEach items="${wlist}" var="wdto">
+										<c:if test="${wdto.weltype_name != prevWeltype}">
+											<c:if test="${not empty prevWeltype}">
 						</div>
+						</c:if>
+						<div class="weltype">
+							<span class="menu">${wdto.weltype_name}</span>
+							<c:set var="prevWeltype" value="${wdto.weltype_name}" />
+							</c:if>
+							<p>${wdto.wel_name}</p>
+							</c:forEach>
+						</div>
+						</c:when>
+						<c:otherwise>
+							<span>등록된 복지가 없습니다.</span>
+						</c:otherwise>
+						</c:choose>
 					</div>
 
+					<!--  -->
+					<span class="menu">기업 리뷰 보기</span>
+					<button id="add_review"
+						onclick="checkLogin(${dto.cp_seq}, '${word}', '${map.search}', '${map.hiring}', ${nowPage})">리뷰
+						쓰러가기</button>
+
+
+					<div>
+
+
+
+						<div id="review">
+							<c:if test="${not empty listReview}">
+								<c:forEach items="${listReview}" var="rdto">
+									<c:if
+										test="${rdto.cp_rv_confirm == 1 || sessionScope.user.id == rdto.id || sessionScope.user.lv == 2}">
+
+										<div id="review_content">
+											<div id="oneline">"${rdto.linereview}"</div>
+											<div id="score">
+												<div class="score_rating" id="score_detail">
+													<div id="salary_score">
+														<span id="salary_review">연봉 </span><br />
+														<c:forEach var="i" begin="1" end="${rdto.salary_score}">
+															<i class="fa-solid fa-star"></i>
+														</c:forEach>
+													</div>
+													<div class="score_rating" id="welfare_score">
+														<span id="welfare_review">복지 </span> <br />
+														<c:forEach var="i" begin="1" end="${rdto.welfare_score}">
+															<i class="fa-solid fa-star"></i>
+														</c:forEach>
+													</div>
+													<div class="score_rating" id="ingvt_score">
+														<span id="ingvt_review">근무 안정성 </span> <br />
+														<c:forEach var="i" begin="1" end="${rdto.stability_score}">
+															<i class="fa-solid fa-star"></i>
+														</c:forEach>
+													</div>
+													<div class="score_rating" id="culture_score">
+														<span id="culture_review">조직문화</span> <br />
+														<c:forEach var="i" begin="1" end="${rdto.culture_score}">
+															<i class="fa-solid fa-star"></i>
+														</c:forEach>
+													</div>
+													<div class="score_rating" id="growth_score">
+														<span id="growth_review">성장 가능성 <br /></span>
+														<c:forEach var="i" begin="1" end="${rdto.growth_score}">
+															<i class="fa-solid fa-star"></i>
+														</c:forEach>
+
+													</div>
+													<div class="score_rating" id="total_score">
+														<span id="total_review">총 평점 </span> <br />
+														<c:forEach var="i" begin="1"
+															end="${(rdto.salary_score+rdto.welfare_score+rdto.stability_score+rdto.culture_score+rdto.growth_score)/5}">
+															<i class="fa-solid fa-star"></i>
+														</c:forEach>
+													</div>
+												</div>
+											</div>
+											<div class="goodbad_title" id="good_title">
+												<i class="fa-regular fa-thumbs-up"></i> 이런 부분은 좋았아요.
+												<div id="good">${rdto.good}</div>
+											</div>
+
+											<div class="goodbad_title" id="bad_title">
+												<i class="fa-regular fa-thumbs-down"></i> 이런 부분은 아쉬웠어요.
+												<div id="bad">${rdto.bad}</div>
+											</div>
+
+
+										</div>
+
+										<div></div>
+									</c:if>
+								</c:forEach>
+							</c:if>
+							<c:if test="${empty listReview}">등록된 리뷰가 없습니다. 직접 등록해보세요!</c:if>
+						</div>
+					</div>
 				</div>
+
 			</div>
+	</div>
 
-		</section>
-
-
-
-		<!--div:company-Info  -->
+	</section>
 
 
 
-		<div class="right-container">
-			<div id="news">
-				<span class="menu">관련 기사 보기</span>
-				<c:forEach items="${nlist}" var="ndto" end="1">
-					<div class="card" id="card_news">
-						<div id="card_news_content">
-							<h1 class="h4 card-title" id="news-title">
-								<a href="${ndto.link}">${ndto.title}</a>
-							</h1>
-							<p id="article">${ndto.description}</p>
-							<div class="card-footer mt-6 flex space-x-4">
-								<span class="inline-flex items-center text-xs text-[#666]">
-									<svg class="mr-1.5" width="14" height="16" viewBox="0 0 14 16"
-										fill="none" xmlns="http://www.w3.org/2000/svg">
+	<!--div:company-Info  -->
+
+
+
+	<div class="right-container">
+		<div id="news">
+			<span class="menu">관련 기사 보기</span>
+			<c:forEach items="${nlist}" var="ndto" end="1">
+				<div class="card" id="card_news">
+					<div id="card_news_content">
+						<h1 class="h4 card-title" id="news-title">
+							<a href="${ndto.link}">${ndto.title}</a>
+						</h1>
+						<p id="article">${ndto.description}</p>
+						<div class="card-footer mt-6 flex space-x-4">
+							<span class="inline-flex items-center text-xs text-[#666]">
+								<svg class="mr-1.5" width="14" height="16" viewBox="0 0 14 16"
+									fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path
-											d="M12.5 2H11V0.375C11 0.16875 10.8313 0 10.625 0H9.375C9.16875 0 9 0.16875 9 0.375V2H5V0.375C5 0.16875 4.83125 0 4.625 0H3.375C3.16875 0 3 0.16875 3 0.375V2H1.5C0.671875 2 0 2.67188 0 3.5V14.5C0 15.3281 0.671875 16 1.5 16H12.5C13.3281 16 14 15.3281 14 14.5V3.5C14 2.67188 13.3281 2 12.5 2ZM12.3125 14.5H1.6875C1.58438 14.5 1.5 14.4156 1.5 14.3125V5H12.5V14.3125C12.5 14.4156 12.4156 14.5 12.3125 14.5Z"
-											fill="#939393" />
+										d="M12.5 2H11V0.375C11 0.16875 10.8313 0 10.625 0H9.375C9.16875 0 9 0.16875 9 0.375V2H5V0.375C5 0.16875 4.83125 0 4.625 0H3.375C3.16875 0 3 0.16875 3 0.375V2H1.5C0.671875 2 0 2.67188 0 3.5V14.5C0 15.3281 0.671875 16 1.5 16H12.5C13.3281 16 14 15.3281 14 14.5V3.5C14 2.67188 13.3281 2 12.5 2ZM12.3125 14.5H1.6875C1.58438 14.5 1.5 14.4156 1.5 14.3125V5H12.5V14.3125C12.5 14.4156 12.4156 14.5 12.3125 14.5Z"
+										fill="#939393" />
                 </svg> ${ndto.pubDate}
-								</span>
-							</div>
+							</span>
 						</div>
 					</div>
-				</c:forEach>
-
-
-			</div>
-			<span class="menu">실시간 댓글
-				<button>
-					<i class="fa-solid fa-rotate-right"></i>
-				</button>
-			</span>
-
-
-
-			<div id="comment">
-				<div class="card chat-box" id="mychatbox">
-
-					<div id="commentList">
-						<c:forEach items="${livecommentlist}" var="livecommentdto">
-							<div class="mb-2">
-								<br />
-								<p class="bg-gray-200 text-gray-700 rounded-lg py-2 px-4"
-									id="chatchat">${livecommentdto.content}</p>
-								<div id="comment_content">
-									${livecommentdto.nickname} <span id="chat_regdate">${livecommentdto.regdate}</span><br>
-									<div id="CplivecommentBtn">
-										<button id="singo">[ 신고 ]</button>
-										<c:if
-											test="${not empty id && (livecommentdto.id == id || lv == 2)}">
-
-											<button id="liveCommentDelBtn"
-												data-seq="${livecommentdto.cm_seq}"
-												onclick="del(${livecommentdto.cm_seq});">[ 삭제 ]</button>
-										</c:if>
-									</div>
-								</div>
-							</div>
-						</c:forEach>
-
-					</div>
 				</div>
-
-
-
-
-
-
-				<div class="card-footer chat-form">
-					<div id="chat-form">
-						<input type="text" class="form-control"
-							placeholder="Type a message" name="liveCommentContent">
-						<button class="btn btn-primary" id="liveCommentBtn">
-							<i class="far fa-paper-plane"></i>
-						</button>
-					</div>
-				</div>
-			</div>
-			<div id="go_container">
-
-				<button class="go" id="goReview">기업리뷰 바로보기</button>
-				<button class="go" id="goInterview">면접후기 바로보기</button>
-			</div>
+			</c:forEach>
 
 
 		</div>
-		<!-- right-container -->
+		<span class="menu">실시간 댓글
+			<button>
+				<i class="fa-solid fa-rotate-right"></i>
+			</button>
+		</span>
+
+
+
+		<div id="comment">
+			<div class="card chat-box" id="mychatbox">
+
+				<div id="commentList">
+					<c:forEach items="${livecommentlist}" var="livecommentdto">
+						<div class="mb-2">
+							<br />
+							<p class="bg-gray-200 text-gray-700 rounded-lg py-2 px-4"
+								id="chatchat">${livecommentdto.content}</p>
+							<div id="comment_content">
+								${livecommentdto.nickname} <span id="chat_regdate">${livecommentdto.regdate}</span><br>
+								<div id="CplivecommentBtn">
+									<button id="singo">[ 신고 ]</button>
+									<c:if
+										test="${not empty id && (livecommentdto.id == id || lv == 2)}">
+
+										<button id="liveCommentDelBtn"
+											data-seq="${livecommentdto.cm_seq}"
+											onclick="del(${livecommentdto.cm_seq});">[ 삭제 ]</button>
+									</c:if>
+								</div>
+							</div>
+						</div>
+					</c:forEach>
+
+				</div>
+			</div>
+
+
+
+
+
+
+			<div class="card-footer chat-form">
+				<div id="chat-form">
+					<input type="text" class="form-control"
+						placeholder="Type a message" name="liveCommentContent">
+					<button class="btn btn-primary" id="liveCommentBtn">
+						<i class="far fa-paper-plane"></i>
+					</button>
+				</div>
+			</div>
+		</div>
+		<div id="go_container">
+
+			<button class="go" id="goReview">기업리뷰 바로보기</button>
+			<button class="go" id="goInterview">면접후기 바로보기</button>
+		</div>
+
+
+	</div>
+	<!-- right-container -->
 
 	</div>
 	<!-- main  -->

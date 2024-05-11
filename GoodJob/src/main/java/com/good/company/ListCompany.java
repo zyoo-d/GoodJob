@@ -72,7 +72,7 @@ public class ListCompany extends HttpServlet {
 		
 		
 		if (sort == null || sort.isEmpty()) {
-			sort = "salary"; // 기본 정렬 기준
+			sort = "review"; // 기본 정렬 기준
 		}
 		if ((column == null && word == null) || word.equals("")) {
 			search = "n";
@@ -105,14 +105,15 @@ public class ListCompany extends HttpServlet {
 		CompanyDAO dao = new CompanyDAO();
 		ArrayList<CompanyDTO> comListInfo;
 		
-		if (hiring.equals("y")) {
-		    comListInfo = dao.getCompaniesWithRecruitment();
-		} else {
-		    comListInfo = dao.comListInfo(map);
-		}
+		/*
+		 * if (hiring.equals("y")) { comListInfo = dao.getCompaniesWithRecruitment(); }
+		 * else {
+		 */
+		 comListInfo = dao.comListInfo(map);
+		//}
 
 		String unit = "";
-		int com_rcrt_cnt =0;
+		
 		for (CompanyDTO dto : comListInfo) {
 
 			// 주소
@@ -169,12 +170,8 @@ public class ListCompany extends HttpServlet {
 			//	dto.setHire_avr_salary((int) Math.round((float) avg_salary / 10000));// (단위:만원)
 			//} 
 			
-			//ArrayList<String> topTags = dao.getTopTagsByCpSeq(dto.getCp_seq());
-			//dto.setTag_list(topTags);
-
-			
-
-			
+			ArrayList<String> topTags = dao.getTopTagsByCpSeq(dto.getCp_seq());
+			dto.setTag_list(topTags);
 		}
 		
 		// 총게시물수
@@ -251,7 +248,7 @@ public class ListCompany extends HttpServlet {
 
 		req.setAttribute("comListInfo", comListInfo);
 		req.setAttribute("map", map); // 페이지 begin. end hiring
-		req.setAttribute("com_rcrt_cnt", com_rcrt_cnt);
+		//req.setAttribute("com_rcrt_cnt", com_rcrt_cnt);
 		// req.setAttribute("ComTaglist", ComTaglist);
 
 		// 페이징

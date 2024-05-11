@@ -218,7 +218,7 @@ public class CompanyDAO {
 	            orderBy = "hire_avr_salary DESC";
 	        }
 
-	        sql = "SELECT * FROM (SELECT a.*, ROWNUM AS rnum FROM (SELECT * FROM vwNewComListInfo " +
+	        sql = "SELECT * FROM (SELECT a.*, ROWNUM AS rnum FROM (SELECT * FROM vwListCompany " +
 	                (where.isEmpty() ? "" : "WHERE " + where) +
 	                " ORDER BY " + orderBy + ") a) WHERE rnum BETWEEN " + map.get("begin") + " AND " + map.get("end");
 
@@ -257,10 +257,12 @@ public class CompanyDAO {
 
 				dto.setCom_rcrt_cnt(rs.getInt("com_rcrt_cnt"));
 				dto.setCom_scrap_cnt(rs.getInt("com_scrap_cnt"));
-
+				dto.setCom_rv_cnt(rs.getInt("com_rv_cnt"));
+				
 				listCompanyInfo.add(dto);
 
 			}
+	        //System.out.println(listCompanyInfo);
 			return listCompanyInfo;
 
 		} catch (Exception e) {
@@ -792,7 +794,34 @@ public ArrayList<String> getTaglist(String cp_seq){
 	        return null;
 	    }
 
-	
+	/**
+	 * 지유)등록된 리뷰수 불러오는 메서드
+	 * 
+	 * @return 리뷰수
+	 */
+	public int countRiview(String cp_seq) {
+		try {
+			String sql = "select count(*) as cnt from tblCompanyReview where cp_seq = ?";
+		
+			pstat = conn.prepareStatement(sql);
+			
+
+			pstat.setString(1, cp_seq);
+			rs = pstat.executeQuery();
+
+			while (rs.next()) {
+				int cnt = rs.getInt("cnt");
+				System.out.println(cnt);
+				return cnt;
+			}
+
+		} catch (Exception e) {
+			System.out.println("ReviewDAO.countRiview");
+			e.printStackTrace();
+		}
+
+		return 0;
+	}
 	
 	public ArrayList<String> getTopTagsByCpSeq(String cp_seq) {
 	    try {
@@ -806,7 +835,7 @@ public ArrayList<String> getTaglist(String cp_seq){
 	        while (rs.next()) {
 	            topTags.add(rs.getString("tag_keyword"));
 	        }
-	        System.out.println(topTags);
+	        //System.out.println("getTopTagsByCpSeq"+topTags);
 	        return topTags;
 
 	    } catch (Exception e) {
