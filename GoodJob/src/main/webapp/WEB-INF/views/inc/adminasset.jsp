@@ -5,7 +5,7 @@
 <link rel="icon" href="/good/assets/favicon.ico" type="image/x-icon"/>
 
 <!-- title -->
-<title>Admin</title>
+<title>Good Job</title>
 
 <!-- responsive meta -->
 <meta charset="UTF-8">

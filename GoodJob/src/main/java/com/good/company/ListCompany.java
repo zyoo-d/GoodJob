@@ -164,7 +164,16 @@ public class ListCompany extends HttpServlet {
 
 			// 평균연봉
 			int avg_salary = dto.getHire_avr_salary();
-			dto.setHire_avr_salary((int) Math.round((float) avg_salary / 10000));// (단위:만원)
+
+			//if(avg_salary !=0 ) {
+			//	dto.setHire_avr_salary((int) Math.round((float) avg_salary / 10000));// (단위:만원)
+			//} 
+			
+			//ArrayList<String> topTags = dao.getTopTagsByCpSeq(dto.getCp_seq());
+			//dto.setTag_list(topTags);
+
+			
+
 			
 		}
 		
@@ -174,8 +183,8 @@ public class ListCompany extends HttpServlet {
 		totalPage = (int) Math.ceil((double) searchTotalCount / pageSize);
 
 		// 태그리스트출력
-		ReviewDAO rdao = new ReviewDAO();
-		// ArrayList<ReviewDTO> ComTaglist = rdao.tagList(cp_seq);
+		//ReviewDAO rdao = new ReviewDAO();
+		//ArrayList<ReviewDTO> ComTaglist = rdao.tagList(cp_seq);
 
 		// 페이지 바 작업
 		StringBuilder sb = new StringBuilder();
