@@ -5,6 +5,12 @@
 <html lang="en">
 
 <head>
+<style>
+.status:hover {
+	text-decoration: underline;
+	color: blue;
+}
+</style>
 <%@include file="/WEB-INF/views/inc/adminasset.jsp"%>
 </head>
 
@@ -30,7 +36,9 @@
 										<div class="card-header-form">
 											<form>
 												<div class="input-group">
-													<a href="#" class="btn btn-icon icon-left btn-primary" style="margin-left: 10px;" onclick="SelectReview()"><i class="far fa-edit"></i> 일괄 승인</a>
+													<a href="#" class="btn btn-icon icon-left btn-primary"
+														style="margin-left: 10px;" onclick="SelectReview()"><i
+														class="far fa-edit"></i> 일괄 승인</a>
 												</div>
 											</form>
 										</div>
@@ -58,17 +66,24 @@
 													<c:if test="${dto.cp_rv_confirm == 0}">
 														<tr>
 															<td class="p-0 text-center">
-																  <div class="custom-checkbox custom-control">
-                    <input type="checkbox" data-checkboxes="mygroup" class="custom-control-input" id="checkbox-${dto.cp_rv_seq}" name="selectedReviews" value="${dto.cp_rv_seq}">
-                    <label for="checkbox-${dto.cp_rv_seq}" class="custom-control-label">&nbsp;</label>
-                </div>
+																<div class="custom-checkbox custom-control">
+																	<input type="checkbox" data-checkboxes="mygroup"
+																		class="custom-control-input"
+																		id="checkbox-${dto.cp_rv_seq}" name="selectedReviews"
+																		value="${dto.cp_rv_seq}"> <label
+																		for="checkbox-${dto.cp_rv_seq}"
+																		class="custom-control-label">&nbsp;</label>
+																</div>
 															</td>
 															<td class="p-0 text-center">${dto.cp_rv_seq}</td>
 															<td class="p-0 text-center">${dto.cp_name}</td>
 															<td class="p-0 text-center"><a
 																href="/good/user/company/review/editreview.do?cp_rv_seq=${dto.cp_rv_seq}">${dto.id}</a></td>
 															<td class="p-0 text-center">${dto.cp_rv_regdate}</td>
-															<td class="p-0 text-center status"><c:if
+															<td class="p-0 text-center status" data-toggle="modal"
+																data-target="#reviewModal"
+																data-cp-rv-seq="${dto.cp_rv_seq}"
+																style="cursor: pointer;"><c:if
 																	test="${dto.cp_rv_confirm == 0}">대기</c:if> <c:if
 																	test="${dto.cp_rv_confirm == 1}">승인</c:if> <c:if
 																	test="${dto.cp_rv_confirm == 2}">거절</c:if></td>
@@ -125,8 +140,7 @@
 				</div>
 				<div class="modal-body">
 					<form id="reviewStatusForm" method="post"
-						action="/good/admin/review/checkreview.do">
-
+						action="/good/admin/review/review.do">
 						<input type="hidden" name="cp_rv_seq" id="cp_rv_seq">
 						<div class="form-group">
 							<label for="reviewStatus">상태:</label> <select
@@ -147,8 +161,7 @@
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary"
 						data-dismiss="modal">취소</button>
-					<button type="submit" form="reviewStatusForm"
-						class="btn btn-primary">변경</button>
+					<button type="submit" form="reviewStatusForm" class="btn btn-primary">변경</button>
 				</div>
 			</div>
 		</div>
@@ -164,7 +177,7 @@
                 $('#reviewModal').modal('show');
             });
 
-            $('table').on('click', '.review-status', function() {
+            $('table').on('click', '.status', function() {
                 var cpRvSeq = $(this).data('cp-rv-seq');
                 $('#cp_rv_seq').val(cpRvSeq);
                 $($(this).data('target')).modal('show');
@@ -176,7 +189,7 @@
                 var url = form.attr('action');
                 var data = form.serialize();
 
-                if ($('#reviewStatus').val() === 'reject' && $('#rejectReason').val().trim() === '') {
+                if ($('#reviewStatus').val() == 'reject' && $('#rejectReason').val().trim() == '') {
                     alert('거절 사유를 입력해주세요.');
                 } else {
                     $.ajax({
@@ -185,15 +198,20 @@
                         data: data,
                         success: function(response) {
                             if (response.success) {
+                            	alert('리뷰 상태를 변경했습니다.');
                                 $('#reviewModal').modal('hide');
                                 location.reload();
                             } else {
                                 alert('리뷰 상태 변경에 실패했습니다. 다시 시도해주세요.');
                             }
+                        },
+                        error: function() {
+                            alert('서버 요청 중 오류가 발생했습니다.');
                         }
                     });
                 }
             });
+        
             $('#reviewStatus').change(function() {
                 if ($(this).val() === 'reject') {
                     $('#rejectReasonGroup').show();
@@ -201,33 +219,34 @@
                     $('#rejectReasonGroup').hide();
                 }
             });
-            function SelectReview() {
-                var selectedReviews = [];
-                $('input[type="checkbox"][name="selectedReviews"]:checked').each(function() {
-                    selectedReviews.push($(this).val());
-                });
+        });
+        function SelectReview() {
+            var selectedReviews = [];
+            $('input[type="checkbox"][name="selectedReviews"]:checked').each(function() {
+                selectedReviews.push($(this).val());
+            });
 
-                if (selectedReviews.length > 0) {
-                    $.ajax({
-                        type: 'POST',
-                        url: '/good/admin/review/review.do',
-                        data: { cp_rv_seqs: selectedReviews },
-                        traditional: true,
-                        success: function(response) {
-                            if (response.success) {
-                                alert('승인이 완료되었습니다.');
-                                location.reload();
-                            } else {
-                                alert('일괄 승인에 실패했습니다. 다시 시도해주세요.');
-                            }
-                        },
-                        error: function() {
-                            alert('일괄 승인 요청 중 오류가 발생했습니다.');
+            if (selectedReviews.length > 0) {
+                $.ajax({
+                    type: 'POST',
+                    url: '/good/admin/review/review.do',
+                    data: { cp_rv_seqs: selectedReviews },
+                    traditional: true,
+                    success: function(response) {
+                        if (response.success) {
+                            alert('승인이 완료되었습니다.');
+                            location.reload();
+                        } else {
+                            alert('일괄 승인에 실패했습니다. 다시 시도해주세요.');
                         }
-                    });
-                }
+                    },
+                    error: function() {
+                        alert('일괄 승인 요청 중 오류가 발생했습니다.');
+                    }
+                });
             }
-            
+        }
+       
         </script>
 </body>
 </html>
