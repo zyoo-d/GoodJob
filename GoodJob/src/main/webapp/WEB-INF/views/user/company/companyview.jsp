@@ -480,7 +480,10 @@
 							<div id="comment_content">
 								${livecommentdto.nickname} <span id="chat_regdate">${livecommentdto.regdate}</span><br>
 								<div id="CplivecommentBtn">
-									<button id="singo">[ 신고 ]</button>
+									<c:if test="${not empty id}">
+									<button type="button" id="report-btn" data-boardtype="live" data-seq="${livecommentdto.cm_seq}"
+									> [ 신고 ]</button>
+								</c:if>
 									<c:if
 										test="${not empty id && (livecommentdto.id == id || lv == 2)}">
 

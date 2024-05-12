@@ -1,4 +1,4 @@
-package com.good.admin.report;
+package com.good.admin.usermanagement;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -12,12 +12,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.good.board.report.model.ReportCommonDTO;
 import com.good.board.report.repository.ReportCommonDAO;
 
 @WebServlet("/admin/listreportuser.do")
 public class ListReportUser extends HttpServlet {
+	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		ReportCommonDAO reportCommonDAO = new ReportCommonDAO();
@@ -46,33 +48,40 @@ public class ListReportUser extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		ReportCommonDAO reportCommonDAO = new ReportCommonDAO();
+		
+		HttpSession session = req.getSession();
+//		String id = (String)session.getAttribute("id");
 
 		String userId = req.getParameter("user-id");
 		String status = req.getParameter("status");
 		String blockDate = req.getParameter("block-date");
 		String releaseDate = req.getParameter("release-date");
 		String blockReason = req.getParameter("block-reason");
+		String report_seq  = req.getParameter("report_seq");
+		String report_type = req.getParameter("report_type");
+		String report_sub_type = req.getParameter("report_sub_type");
 
 		System.out.println(userId);
-		
-		
+		System.out.println(status);
+		System.out.println(blockDate);
+		System.out.println(releaseDate);
+		System.out.println(blockReason);
+		System.out.println(report_seq);
 
 		List<String> userIds = Arrays.asList(userId.split(","));
 		HashMap<String,String> blockStatus = reportCommonDAO.checkBlock(userIds);
 		
 		reportCommonDAO.blockuser(blockStatus,status,blockDate,releaseDate,blockReason);
-
-
-
-
-
-
-
-
-
-
-
+		
+		List<String> report_seqs = Arrays.asList(report_seq.split(","));
+		List<String> report_types = Arrays.asList(report_type.split(","));
+		List<String> report_sub_types = Arrays.asList(report_sub_type.split(","));
+		
+ 		reportCommonDAO.confirmReport(report_seqs, report_types, report_sub_types , "admin");
+		
+		resp.sendRedirect("/good/admin/listreportuser.do");
 
 	}
 }
+
 
