@@ -2,6 +2,7 @@ package com.good.company;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 import javax.servlet.RequestDispatcher;
@@ -10,11 +11,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.good.company.model.CompanyDTO;
 import com.good.company.repository.CompanyDAO;
-import com.good.company.repository.ReviewDAO;
 
 @WebServlet("/user/company/cp_selectModal.do")
 public class CompanyModal extends HttpServlet {
@@ -102,11 +101,12 @@ public class CompanyModal extends HttpServlet {
         
         String[] cp = req.getParameterValues("compareCp");
         String tag1 = (cp != null && cp.length > 0 && cp[0] != null) ? cp[0] : "";
-        String tag2 = (cp != null && cp.length > 1 && cp[1] != null) ? cp[1] : "";
-        String tag3 = (cp != null && cp.length > 2 && cp[2] != null) ? cp[2] : "";
 
+        String[] tag1Array = tag1.split(",");
+        
+        req.setAttribute("tag1Array", tag1Array);
+        System.out.println(Arrays.toString(tag1Array));
 		
-		System.out.println(tag1 + ":" + tag2 + ":" + tag3);
         
         
         HashMap<String, String> map = new HashMap<>();
@@ -219,6 +219,7 @@ public class CompanyModal extends HttpServlet {
         req.setAttribute("searchTotalCount", searchTotalCount);
         req.setAttribute("totalPage", totalPage); // 페이지 번호
         req.setAttribute("pagebar", sb.toString()); // 페이지 바 작업
+        req.setAttribute("tag1", tag1); // 페이지 바 작업
 
         RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/user/company/cp_selectModal.jsp");
         dispatcher.forward(req, resp);

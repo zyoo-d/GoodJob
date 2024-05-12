@@ -139,14 +139,22 @@ button {
 				</button>
 			</form>
 			
-			<form action="/good/user/company/cp_selectModal.do" method="GET">
+			<form action="/good/user/company/comparecompany.do" method="GET">
 			<div>
 			<div id="cp_selected">
-			<span id="cptag"></span>
-			<c:forEach items="${selectedCp}" var="cp">
-			<p>${selectedCpValue}</p>
-			</c:forEach>
-			</div>
+<div id="cptag">
+    <c:forEach items="${selectedCp}" var="companyId">
+        <c:forEach items="${comListInfo}" var="dto">
+            <c:if test="${dto.cp_seq == companyId}">
+                <input type="checkbox" name="compareCp" checked id="${dto.cp_seq}" value="${dto.cp_seq}">
+                <label for="${dto.cp_seq}">
+                    ${dto.cp_name}
+                    <i class="fa-solid fa-xmark"></i>
+                </label>
+            </c:if>
+        </c:forEach>
+    </c:forEach>
+</div>
 
 			<div id="compare">
     <div id="check">
@@ -286,6 +294,55 @@ button {
 // 	        });
 // 	    }
 // 	});
+
+// function sendCheckboxDataToServer() {
+//     var queryData = $('#check input[type="checkbox"]:checked').serialize();
+
+//     $.ajax({
+//         url: '/good/user/company/cp_selectModal.do',
+//         type: 'GET',
+//         data: queryData,
+//         success: function(response) {
+//             // 서버로부터의 응답 처리
+//             console.log('Success:', response);
+//         },
+//         error: function(xhr, status, error) {
+//             // 오류 처리
+//             console.error('Error:', error);
+//         }
+//     });
+// }
+
+    $(document).ready(function() {
+        // 페이지 이동 시 선택된 항목을 URL에 추가하여 서버로 전송
+        $('a.page-link').click(function(event) {
+            event.preventDefault();
+            var nextPage = $(this).attr('href');
+            
+            // 체크된 항목의 값을 담을 배열 생성
+            var selectedItems = [];
+            $('#check input[type="checkbox"]:checked').each(function() {
+                selectedItems.push($(this).val());
+            });
+
+            // 선택된 항목을 쿼리 문자열로 추가
+            if (selectedItems.length > 0) {
+                nextPage += (nextPage.indexOf('?') === -1 ? '?' : '&') + 'compareCp=' + encodeURIComponent(selectedItems.join(','));
+            }
+            
+            // 페이지 이동
+            window.location.href = nextPage;
+        });
+
+        // 페이지 로드 시 선택된 항목을 체크박스에 반영
+        var selectedItems = "${selectedCp}";
+        if (selectedItems) {
+            selectedItems = selectedItems.split(',');
+            selectedItems.forEach(function(item) {
+                $('#check input[type="checkbox"][value="' + item + '"]').prop('checked', true);
+            });
+        }
+    });
 
 
 
