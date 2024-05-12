@@ -84,4 +84,21 @@ public class SurveyDAO {
 		}
 		return null;
 	}
+
+	public int editQuestion(SurveyDTO dto) {
+		try {
+			String sql = "update tblsurvey set sv_content = ? where sv_seq = ?";
+
+			pstat = conn.prepareStatement(sql);
+			pstat.setString(1, dto.getSv_content());
+			pstat.setString(2, dto.getSv_seq());
+
+			return pstat.executeUpdate();
+
+		} catch (Exception e) {
+			System.out.println("SurveyDAO.editSurvey");
+			e.printStackTrace();
+		}
+		return 0;
+	}
 }
