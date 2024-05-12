@@ -1,3 +1,37 @@
+.space-evenly {
+	justify-content: space-evenly;
+}
+
+.matchplus {
+	min-height: 200px;
+	align-content: center;
+}
+
+#top3card>div:nth-child(2) {
+	border-left-width: 1px;
+	border-right-width: 1px;
+	border-color: rgb(235, 235, 235);
+}
+
+.contents_item_row {
+	display: flex;
+	justify-content: flex-start;
+}
+
+#matchscore {
+	margin-left: 35px;
+	line-height: 2rem;
+}
+
+.contents_item_label {
+	width: 68%;
+}
+
+#matchtotal {
+	justify-content: center;
+	gap: 26%;
+	margin-bottom: 5px;
+}
 #login_letter {
 	margin-bottom: 30px;
 	font-size: 1.2rem;
@@ -1818,9 +1852,6 @@ textarea:focus {
 	content: "\f5c0";
 }
 
-.eee {
-	color: #eee;
-}
 .textAreaWrapper {
 	position: relative;
 	display: flex;

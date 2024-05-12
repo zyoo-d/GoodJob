@@ -30,7 +30,7 @@
 							<div class="profile-widget-items">
 								<div class="profile-widget-item">
 									<div class="profile-widget-item-label">내 스크랩</div>
-									<div class="profile-widget-item-value">17</div>
+									<div class="profile-widget-item-value">${ScrapList.size()}</div>
 								</div>
 								<div class="profile-widget-item">
 									<div class="profile-widget-item-label">활동내역</div>
@@ -44,12 +44,11 @@
 							<div class="profile-widget-items" id="mypageWidget">
 								<div class="profile-widget-item">
 									<ul class="left">
-										<li class=""><a class="" href="#">삼성전자</a></li>
-										<li class=""><a class="" href="#">삼성전자</a></li>
-										<li class=""><a class="" href="#">삼성전자</a></li>
-										<li class=""><a class="" href="#">삼성전자</a></li>
+									<c:forEach var="scrap" items="${ScrapList}" begin="0" end="4">
+										<li class=""><a class="" href="/good/user/company/companyview.do?cp_seq=${scrap.cp_seq}">${scrap.cp_name}</a></li>
+										</c:forEach>
 									</ul>
-									<a class="btn btn-outline-primary" id="btnScrap">스크랩
+									<a class="btn btn-outline-primary" id="btnScrap" href="/good/user/mypage/myscrap.do">스크랩
 										더 보기</a>
 								</div>
 								<div class="profile-widget-item left card" id="activityList">
@@ -84,7 +83,7 @@
 					</div>
 				</div>
 
-				<div class="row col-11 col-md-11 col-lg-11" id="mypageMainCard">
+				<div class="row col-11 col-md-11 col-lg-11 m-auto" id="mypageMainCard">
 					<div class="col-12 col-md-6 col-lg-3">
 						<div class="card blue">
 							<div class="card-body">

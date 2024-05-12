@@ -15,20 +15,16 @@
         <ul class="navbar-nav navbar-right">
           <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
             <img alt="image" src="/good/assets/img/avatar/avatar-1.png" class="rounded-circle mr-1">
-            <div class="d-sm-none d-lg-inline-block">Hi, Ujang Maman</div></a>
+            <div class="d-sm-none d-lg-inline-block">관리자</div></a>
             <div class="dropdown-menu dropdown-menu-right">
-              <div class="dropdown-title">Logged in 5 min ago</div>
               <a href="features-profile.html" class="dropdown-item has-icon">
                 <i class="far fa-user"></i> Profile
-              </a>
-              <a href="features-activities.html" class="dropdown-item has-icon">
-                <i class="fas fa-bolt"></i> Activities
               </a>
               <a href="features-settings.html" class="dropdown-item has-icon">
                 <i class="fas fa-cog"></i> Settings
               </a>
               <div class="dropdown-divider"></div>
-              <a href="#" class="dropdown-item has-icon text-danger">
+              <a href="/good/user/logout.do" class="dropdown-item has-icon text-danger">
                 <i class="fas fa-sign-out-alt"></i> Logout
               </a>
             </div>
@@ -42,7 +38,7 @@
 				height="30" width="147" alt="logo" /></a>
           </div>
           <div class="sidebar-brand sidebar-brand-sm">
-            <a href="/good/gijun/index.jsp">St</a>
+            <a href="/good/gijun/index.jsp">GJ</a>
           </div>
           <ul class="sidebar-menu">
   <li class="dropdown" id="menu-user">
@@ -77,8 +73,7 @@
   <li class="dropdown" id="menu-survey">
     <a href="#" class="nav-link has-dropdown"><i class="far fa-file-alt"></i> <span>설문조사 관리</span></a>
     <ul class="dropdown-menu">
-      <li id="submenu-addsurvey"><a class="nav-link" href="/good/gijun/survey/addsurvey.jsp">설문조사 등록</a></li>
-      <li id="submenu-survey"><a class="nav-link" href="/good/gijun/survey/survey.jsp">설문조사 목록</a></li>
+      <li id="submenu-survey"><a class="nav-link" href="/good/admin/survey/survey.do">설문조사 목록/수정</a></li>
     </ul>
   </li>
 </ul>

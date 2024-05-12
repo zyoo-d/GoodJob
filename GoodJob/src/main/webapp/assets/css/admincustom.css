@@ -295,7 +295,7 @@ h4{
 	}
 }
 
-#profileWidget {
+#profileWidget, .m-auto {
 	margin: 0 auto;
 }
 
