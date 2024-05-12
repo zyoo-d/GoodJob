@@ -34,7 +34,7 @@ public class MatchingDAO {
 		}
 	}
 
-	public HashMap<Integer, String> getColumn(String id) {
+	public HashMap<String, Integer> getColumn(String id) {
 
 		try {	
 			String sql = "select * from vwUserSurvey where id = ?";
@@ -45,21 +45,21 @@ public class MatchingDAO {
 
 			rs = pstat.executeQuery();
 
-			HashMap<Integer, String> map = new HashMap<>();
+			HashMap<String,Integer> map = new HashMap<>();
 
 			if(rs.next()) {
 
-				map.put(rs.getInt("welfare"),"welfare");
-				map.put(rs.getInt("stability"),"stability");
-				map.put(rs.getInt("culture"),"culture");
-				map.put(rs.getInt("potential"),"potential");
+				map.put("welfare",rs.getInt("welfare"));
+				map.put("stability",rs.getInt("stability"));
+				map.put("culture",rs.getInt("culture"));
+				map.put("potential",rs.getInt("potential"));
 
 			}
 
 			return map;
 
 		} catch (Exception e) {
-			System.out.println("MatchingDAO.getScore");
+			System.out.println("매칭 컬럼 점수 가져오기 실패");
 			e.printStackTrace();
 		}
 

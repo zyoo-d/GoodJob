@@ -36,7 +36,7 @@ public class LiveCmReportDAO implements ReportDAO<LiveCmReportDTO> {
 		
 		try {
 			
-			String sql = "insert into tblLiveCmReport(live_cm_rp_seq, live_cm_rp_regdate, id, rp_seq, live_seq, live_cm_rp_detail) values(seqLiveCmReport, sysdate, ?,?,?,?)";
+			String sql = "insert into tblLiveCmReport(live_cm_rp_seq, live_cm_rp_regdate, id, rp_seq, live_seq, live_cm_rp_detail) values(seqLiveCmReport.nextVal, sysdate, ?,?,?,?)";
 			
 			pstat = conn.prepareStatement(sql);
 			pstat.setString(1, dto.getId() );

@@ -667,6 +667,9 @@ public class CompanyDAO {
 					dto.setCul_avg(rs.getString("cul_avg"));
 					dto.setPot_avg(rs.getString("pot_avg"));
 					dto.setHire_avr_salary(rs.getInt("hire_avr_salary"));
+					dto.setFnc_ebit(rs.getLong("fnc_ebit"));
+		            dto.setFnc_sales(rs.getLong("fnc_sales"));
+		            dto.setFnc_income(rs.getLong("fnc_income"));
 					
 					return dto;
 					

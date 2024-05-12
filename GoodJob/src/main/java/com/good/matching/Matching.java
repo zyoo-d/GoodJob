@@ -3,7 +3,6 @@ package com.good.matching;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -19,6 +18,7 @@ import javax.servlet.http.HttpSession;
 
 import com.good.alert.Alert;
 import com.good.company.repository.CompanyDAO;
+import com.good.company.repository.CompareDAO;
 import com.good.matching.model.MatchingDTO;
 import com.good.matching.repository.MatchingDAO;
 import com.good.user.repository.UserDAO;
@@ -61,7 +61,7 @@ public class Matching extends HttpServlet {
 
 			String name = userDAO.getName(id);
 
-			HashMap<Integer, String> scoreMap = dao.getColumn(id);
+			HashMap<String, Integer> scoreMap = dao.getColumn(id);
 
 			MatchingAlgo algo = new MatchingAlgo();
 
@@ -123,10 +123,32 @@ public class Matching extends HttpServlet {
 
 			ArrayList<MatchingDTO> top3 = new ArrayList<>(list.subList(0, 3));
 
+			HashMap<String, String> map = new HashMap<>();
+			int num = 1;
 			for (MatchingDTO mdto : top3) {
-				double matchScore = mdto.getMatchScore(); // 매칭률을 가져옵니다.
-				int scoreCategory = (int) matchScore / 10; // 매칭률을 10으로 나누어 범주를 생성합니다.
-
+				
+				int hireAvrSalary = mdto.getDto().getHire_avr_salary();
+	            int formattedHireAvrSalary = (int) Math.round((double) hireAvrSalary / 10000); 
+	            mdto.getDto().setHire_avr_salary(formattedHireAvrSalary);
+				
+	            long fncEbit = mdto.getDto().getFnc_ebit();
+	            long formattedFncEbit = Math.round((double) fncEbit / 10000000); 
+	            mdto.getDto().setFnc_ebit(formattedFncEbit); 
+	            
+	            long fncSales = mdto.getDto().getFnc_sales();
+	            long formattedFncSales = Math.round((double) fncSales / 10000000);
+	            mdto.getDto().setFnc_sales(formattedFncSales);
+	            
+	            long fncIncome = mdto.getDto().getFnc_income();
+	            long formattedFncIncome = Math.round((double) fncIncome / 10000000);
+	            mdto.getDto().setFnc_income(formattedFncIncome);
+	            
+	            map.put("tag"+num, mdto.getCp_seq());
+				num++;
+	            
+				double matchScore = mdto.getMatchScore(); 
+				int scoreCategory = (int) matchScore / 10;
+				
 				if (scoreCategory != 8) {
 					switch (scoreCategory) {
 					case 10:
@@ -173,6 +195,14 @@ public class Matching extends HttpServlet {
 
 			list.subList(0, 3).clear();
 
+			CompareDAO compareDAO = new CompareDAO();
+			//재무 정보
+			ArrayList<Long>[] flist = compareDAO.getCompanyFinance(map);
+			
+
+			req.setAttribute("flist", flist);
+			req.setAttribute("map", map);
+			
 			req.setAttribute("name", name);
 			req.setAttribute("top3", top3);
 			req.setAttribute("list", list);
@@ -182,6 +212,7 @@ public class Matching extends HttpServlet {
 			dao.close();
 			companyDAO.close();
 			userDAO.close();
+			compareDAO.close();
 			
 			RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/user/matching/matching.jsp");
 			dispatcher.forward(req, resp);

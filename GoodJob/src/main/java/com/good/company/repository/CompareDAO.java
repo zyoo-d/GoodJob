@@ -117,16 +117,17 @@ public class CompareDAO {
 		try {
 			String sql = "SELECT \r\n"
 					+ "    c.cp_name,\r\n"
-					+ "    NVL(ROUND(avg(salary_score), 1), 0) AS salary_score,\r\n"
-					+ "    NVL(ROUND(avg(welfare_score), 1), 0) AS welfare_score,\r\n"
-					+ "    NVL(ROUND(avg(stability_score), 1), 0) AS stability_score,\r\n"
-					+ "    NVL(ROUND(avg(culture_score), 1), 0) AS culture_score,\r\n"
-					+ "    NVL(ROUND(avg(growth_score), 1), 0) AS growth_score,\r\n"
-					+ "    NVL(ROUND((avg(salary_score) + avg(welfare_score) + avg(stability_score) + avg(culture_score) + avg(growth_score)) / 5, 1), 0) AS total_average_score\r\n"
+					+ "    NVL(ROUND(avg(r.salary_score), 1), 0) AS salary_score,\r\n"
+					+ "    NVL(ROUND(avg(r.welfare_score), 1), 0) AS welfare_score,\r\n"
+					+ "    NVL(ROUND(avg(r.stability_score), 1), 0) AS stability_score,\r\n"
+					+ "    NVL(ROUND(avg(r.culture_score), 1), 0) AS culture_score,\r\n"
+					+ "    NVL(ROUND(avg(r.growth_score), 1), 0) AS growth_score,\r\n"
+					+ "    NVL(ROUND(avg(r.salary_score + r.welfare_score + r.stability_score + r.culture_score + r.growth_score) / 5, 1), 0) AS total_average_score\r\n"
 					+ "FROM tblCompanyReview r\r\n"
 					+ "RIGHT OUTER JOIN tblCompany c ON r.cp_seq = c.cp_seq\r\n"
 					+ "WHERE c.cp_seq IN (?, ?, ?)\r\n"
-					+ "GROUP BY c.cp_seq, c.cp_name order by c.cp_seq desc";
+					+ "GROUP BY c.cp_seq, c.cp_name\r\n"
+					+ "ORDER BY c.cp_seq DESC";
 
 			pstat = conn.prepareStatement(sql);
 			pstat.setString(1, map.get("tag1"));

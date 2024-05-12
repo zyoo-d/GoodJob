@@ -54,41 +54,16 @@
 																class="custom-control-label">&nbsp;</label>
 														</div>
 													</th>
-													<th class="p-0 text-center">작성자</th>
-													<th class="p-0 text-center">게시판 유형</th>
-													<th class="p-0 text-center">제목</th>
-													<th class="p-0 text-center">신고자</th>
-
-													<th class="p-0 text-center"><select id="reportType"
-														name="reportType" onchange="sortReportType()"
-														style="padding: 4px 8px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px; color: #333; background-color: #fff; width: 120px;">
-															<option value="" ${empty param.rp_seq ? 'selected' : ''}>전체</option>
-															<option value="1"
-																${param.rp_seq == '1' ? 'selected' : ''}>비방/욕설</option>
-															<option value="2"
-																${param.rp_seq == '2' ? 'selected' : ''}>허위사실</option>
-															<option value="3"
-																${param.rp_seq == '3' ? 'selected' : ''}>개인정보노출</option>
-															<option value="4"
-																${param.rp_seq == '4' ? 'selected' : ''}>음란성</option>
-															<option value="5"
-																${param.rp_seq == '5' ? 'selected' : ''}>게시글 도배</option>
-															<option value="6"
-																${param.rp_seq == '6' ? 'selected' : ''}>부적절한
-																홍보</option>
-															<option value="7"
-																${param.rp_seq == '7' ? 'selected' : ''}>기타</option>
-													</select></th>
-
-
-
-													<th class="p-0 text-center">신고 내용</th>
-													<th class="p-0 text-center">신고 일자</th>
+						                            <th class="text-center">아이디</th>
+						                            <th class="text-center">차단 일자</th>
+						                            <th class="text-center">해제 일자</th>
+ 													<th class="text-center">사유</th>
+ 													<th class="text-center">상태</th>
 												</tr>
 
 												<c:choose>
-													<c:when test="${not empty reportList}">
-														<c:forEach items="${reportList}" var="report"
+													<c:when test="${not empty blockUserList}">
+														<c:forEach items="${blockUserList}" var="blockUserList"
 															varStatus="status">
 															<tr>
 																<td class="p-0 text-center">
@@ -98,16 +73,15 @@
 																			id="checkbox-${status.index}"> <label
 																			for="checkbox-${status.index}"
 																			class="custom-control-label">&nbsp;</label>
+																			<input type="hidden" name="ban_seq" value="${blockUserList.ban_seq}">
 																	</div>
 																</td>
-																<td class="p-0 text-center">${report.writer_id}</td>
-																<td class="p-0 text-center">${report.sub_type}</td>
-																<td class="p-0 text-center">${report.title}</td>
-																<td class="p-0 text-center">${report.reporter_id}</td>
-																<td class="p-0 text-center">${report.rp_seq}</td>
-																<td class="p-0 text-center">${report.report_detail}</td>
-																<td class="p-0 text-center">${report.report_regdate}</td>
-															</tr>
+																<td class="p-0 text-center">${blockUserList.id}</td>
+																<td class="p-0 text-center">${blockUserList.ban_startdate}</td>
+																<td class="p-0 text-center">${blockUserList.ban_enddate}</td>
+																<td class="p-0 text-center">${blockUserList.ban_reason}</td>
+																<td class="p-0 text-center">${blockUserList.remaining_time}</td>
+															</tr>												
 														</c:forEach>
 													</c:when>
 													<c:otherwise>
@@ -128,25 +102,28 @@
 											<ul class="pagination mb-0">
 												<c:if test="${pageUtil.hasPreviousPage()}">
 													<li class="page-item"><a class="page-link"
-														href="/good/admin/listreportuser.do?page=${pageUtil.startPage - 1}&rp_seq=${param.rp_seq}">
+														href="/good/admin/listblockuser.do?page=${Math.max(pageUtil.startPage - 1, 1)}">
 															<i class="fas fa-chevron-left"></i>
 													</a></li>
 												</c:if>
 
-												<c:forEach begin="${pageUtil.startPage}"
-													end="${pageUtil.startPage + 4 < pageUtil.totalPages ? pageUtil.startPage + 4 : pageUtil.totalPages}"
-													var="page">
+												<c:set var="startPage"
+													value="${pageUtil.currentPage - (pageUtil.currentPage - 1) % 5}" />
+												<c:set var="endPage"
+													value="${startPage + 4 < pageUtil.totalPages ? startPage + 4 : pageUtil.totalPages}" />
+
+												<c:forEach begin="${startPage}" end="${endPage}" var="page">
 													<li
 														class="page-item ${page == pageUtil.currentPage ? 'active' : ''}">
 														<a class="page-link"
-														href="/good/admin/listreportuser.do?page=${page}&rp_seq=${param.rp_seq}">
+														href="/good/admin/listblockuser.do?page=${page}">
 															${page} </a>
 													</li>
 												</c:forEach>
 
 												<c:if test="${pageUtil.hasNextPage()}">
 													<li class="page-item"><a class="page-link"
-														href="/good/admin/listreportuser.do?page=${pageUtil.startPage + 5}&rp_seq=${param.rp_seq}">
+														href="/good/admin/listblockuser.do?page=${endPage + 1}">
 															<i class="fas fa-chevron-right"></i>
 													</a></li>
 												</c:if>
@@ -181,10 +158,6 @@
 
 
 	<script>
-	function sortReportType() {
-		  var reportType = document.getElementById("reportType").value;
-		  location.href = "/good/admin/userreport.do?page=${pageUtil.currentPage}&rp_seq=" + reportType;
-	}
 	
 	
 	

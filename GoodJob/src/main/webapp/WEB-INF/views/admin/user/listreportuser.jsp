@@ -103,12 +103,29 @@
 																			class="custom-control-input"
 																			id="checkbox-${status.index}"> <label
 																			for="checkbox-${status.index}"
-																			class="custom-control-label">&nbsp;</label>
+																			class="custom-control-label">&nbsp;</label> <input
+																			type="hidden" id="report_seq" name="report_seq"
+																			value="${report.report_seq}"> <input
+																			type="hidden" id="report_type" name="report_type"
+																			value="${report.type}">
+
 																	</div>
 																</td>
 																<td class="p-0 text-center">${report.writer_id}</td>
 																<td class="p-0 text-center">${report.sub_type}</td>
-																<td class="p-0 text-center">${report.title}</td>
+																<c:if
+																	test="${report.sub_type ne 'qna' && report.sub_type ne 'study'}">
+																	<td class="p-0 text-center report_title"
+																		onclick="location.href='/good/user/${report.sub_type}/${report.sub_type}view.do?cp_seq=${report.parent_seq}';">${report.title}</td>
+																</c:if>
+																<c:if test="${report.sub_type eq 'study'}">
+																	<td class="p-0 text-center report_title"
+																		onclick="location.href='/good/user/${report.sub_type}/view${report.sub_type}.do?std_seq=${report.parent_seq}';">${report.title}</td>
+																</c:if>
+																<c:if test="${report.sub_type eq 'qna'}">
+																	<td class="p-0 text-center report_title"
+																		onclick="location.href='/good/user/${report.sub_type}/view${report.sub_type}.do?${report.sub_type}_seq=${report.parent_seq}';">${report.title}</td>
+																</c:if>
 																<td class="p-0 text-center">${report.reporter_id}</td>
 																<td class="p-0 text-center">${report.rp_seq}</td>
 																<td class="p-0 text-center">${report.report_detail}</td>
@@ -135,14 +152,17 @@
 											<ul class="pagination mb-0">
 												<c:if test="${pageUtil.hasPreviousPage()}">
 													<li class="page-item"><a class="page-link"
-														href="/good/admin/listreportuser.do?page=${pageUtil.startPage - 1}&rp_seq=${param.rp_seq}">
+														href="/good/admin/listreportuser.do?page=${Math.max(pageUtil.startPage - 1, 1)}&rp_seq=${param.rp_seq}">
 															<i class="fas fa-chevron-left"></i>
 													</a></li>
 												</c:if>
 
-												<c:forEach begin="${pageUtil.startPage}"
-													end="${pageUtil.startPage + 4 < pageUtil.totalPages ? pageUtil.startPage + 4 : pageUtil.totalPages}"
-													var="page">
+												<c:set var="startPage"
+													value="${pageUtil.currentPage - (pageUtil.currentPage - 1) % 5}" />
+												<c:set var="endPage"
+													value="${startPage + 4 < pageUtil.totalPages ? startPage + 4 : pageUtil.totalPages}" />
+
+												<c:forEach begin="${startPage}" end="${endPage}" var="page">
 													<li
 														class="page-item ${page == pageUtil.currentPage ? 'active' : ''}">
 														<a class="page-link"
@@ -153,13 +173,14 @@
 
 												<c:if test="${pageUtil.hasNextPage()}">
 													<li class="page-item"><a class="page-link"
-														href="/good/admin/listreportuser.do?page=${pageUtil.startPage + 5}&rp_seq=${param.rp_seq}">
+														href="/good/admin/listreportuser.do?page=${endPage + 1}&rp_seq=${param.rp_seq}">
 															<i class="fas fa-chevron-right"></i>
 													</a></li>
 												</c:if>
 											</ul>
 										</nav>
 									</div>
+									
 
 								</div>
 							</div>
@@ -180,13 +201,16 @@
 
 	<div id="modal-part" class="modal-part">
 		<form method="POST" action="/good/admin/listreportuser.do">
+			<input type="hidden" id="report_seq" name="report_seq" /> <input
+				type="hidden" id="report_type" name="report_type" /> <input
+				type="hidden" id="report_sub_type" name="report_sub_type" />
 			<div class="form-group">
 				<label for="user-id">아이디</label> <input type="text"
 					class="form-control" id="user-id" name="user-id">
 			</div>
 			<div class="form-group">
 				<label for="status">상태</label> <select class="form-control"
-					id="status">
+					id="status" name="status">
 					<option value="0">정상</option>
 					<option value="3">3일 정지</option>
 					<option value="5">5일 정지</option>
@@ -211,14 +235,17 @@
 
 	<div id="modal-bulk-part" class="modal-part">
 		<form method="POST" action="/good/admin/listreportuser.do">
-			<input type="hidden" id="bulk-user-ids" name="user-id">
+			<input type="hidden" id="bulk-user-seqs" name="report_seq" /> <input
+				type="hidden" id="bulk-user-ids" name="user-id"> <input
+				type="hidden" id="bulk-report_types" name="report_type" /> <input
+				type="hidden" id="bulk-report_sub_types" name="report_sub_type" />
 			<div class="form-group">
 				<label for="bulk-user-count">선택된 유저 수</label> <input type="text"
 					class="form-control" id="bulk-user-count" readonly>
 			</div>
 			<div class="form-group">
 				<label for="bulk-status">상태</label> <select class="form-control"
-					id="bulk-status">
+					id="bulk-status" name="status">
 					<option value="0">정상</option>
 					<option value="3">3일 정지</option>
 					<option value="5">5일 정지</option>
@@ -232,13 +259,11 @@
 			</div>
 			<div class="form-group">
 				<label for="bulk-release-date">해제 일자</label> <input type="text"
-					class="form-control" id="bulk-release-date"
-					name="release-date">
+					class="form-control" id="bulk-release-date" name="release-date">
 			</div>
 			<div class="form-group">
 				<label for="bulk-block-reason">사유</label> <input type="text"
-					class="form-control" id="bulk-block-reason"
-					name="block-reason">
+					class="form-control" id="bulk-block-reason" name="block-reason">
 			</div>
 		</form>
 	</div>
@@ -273,8 +298,6 @@
 	        const status = modalInputs.status.val();
 	        const changeReason = $('#change-reason').val();
 
-	        // 서버로 데이터 전송 또는 다른 작업 수행
-	        console.log('회원 차단:', userId, status, changeReason);
 
 	        // 모달 닫기
 	        modal.modal('hide');
@@ -284,6 +307,9 @@
 	  created: function(modal) {
 	    modalInputs = {
 	      userId: modal.find('#user-id'),
+	      seq: modal.find('#report_seq'),
+	      type: modal.find('#report_type'),
+	      subType: modal.find('#report_sub_type'),
 	      status: modal.find('#status'),
 	      blockDate: modal.find('#block-date'),
 	      releaseDate: modal.find('#release-date'),
@@ -297,12 +323,21 @@
 	    const row = $(this).closest('tr');
 	    selectedUser = {
 	      id: row.find('td:nth-child(2)').text().trim(),
+	      seq: row.find('input[name="report_seq"]').val(),
+	      type: row.find('input[name="report_type"]').val(),
+	      subType: row.find('td:nth-child(3)').text().trim(),
 	    };
 
 	    modalInputs.userId.val(selectedUser.id);
+	    modalInputs.seq.val(selectedUser.seq);
+	    modalInputs.type.val(selectedUser.type);
+	    modalInputs.subType.val(selectedUser.subType);
 	  } else {
-	    selectedUser = {};
-	    modalInputs.userId.val('');
+		  selectedUser = {};
+		  modalInputs.userId.val('');
+		  modalInputs.seq.val('');
+		  modalInputs.type.val('');
+		  modalInputs.subType.val('');
 	  }
 	});
 
@@ -323,7 +358,6 @@
 		        const changeReason = bulkModalInputs.changeReason.val();
 
 		        // 서버로 데이터 전송 또는 다른 작업 수행
-		        console.log('일괄 처리 실행:', selectedUserIds, status, changeReason);
 
 		        // 모달 닫기
 		        modal.modal('hide');
@@ -334,6 +368,9 @@
 		    bulkModalInputs = {
 		      userCount: modal.find('#bulk-user-count'),
 		      status: modal.find('#bulk-status'),
+		      seq: modal.find('#bulk-user-seqs'),
+		      type: modal.find('#bulk-report_types'),
+		      subType: modal.find('#bulk-report_sub_types'),
 		      blockDate: modal.find('#bulk-block-date'),
 		      releaseDate: modal.find('#bulk-release-date'),
 		      changeReason: modal.find('#bulk-block-reason')
@@ -346,14 +383,26 @@
 
 		    // 체크박스 선택된 유저 아이디 가져오기
 		    const userIds = [];
+		    const userSeqs = [];
+		    const reportTypes = [];
+		    const reportSubTypes = [];
 		    checkedUsers.each(function() {
 		      const selectedRow = $(this).closest('tr');
 		      const userId = selectedRow.find('td:nth-child(2)').text().trim();
+		      const userSeq = selectedRow.find('input[name="report_seq"]').val();
+		      const reportType = selectedRow.find('input[name="report_type"]').val();
+		      const reportSubType = selectedRow.find('td:nth-child(3)').text().trim();
 		      userIds.push(userId);
+		      userSeqs.push(userSeq);
+		      reportTypes.push(reportType);
+		      reportSubTypes.push(reportSubType);
 		    });
 
 		    // 선택된 유저 아이디를 hidden 태그에 설정
 		    modal.find('#bulk-user-ids').val(userIds.join(','));
+		    modal.find('#bulk-user-seqs').val(userSeqs.join(','));
+		    modal.find('#bulk-report_types').val(reportTypes.join(','));
+		    modal.find('#bulk-report_sub_types').val(reportSubTypes.join(','));
 		  }
 		});
 
@@ -388,14 +437,26 @@
 
 			  // 체크박스 선택된 유저 아이디 가져오기
 			  const userIds = [];
+			  const userSeqs = [];
+			  const reportTypes = [];
+			  const reportSubTypes = [];
 			  checkedUsers.each(function() {
 			    const selectedRow = $(this).closest('tr');
 			    const userId = selectedRow.find('td:nth-child(2)').text().trim();
+			    const userSeq = selectedRow.find('input[name="report_seq"]').val();
+			    const reportType = selectedRow.find('input[name="report_type"]').val();
+			    const reportSubType = selectedRow.find('td:nth-child(3)').text().trim();
 			    userIds.push(userId);
+			    userSeqs.push(userSeq);
+			    reportTypes.push(reportType);
+			    reportSubTypes.push(reportSubType);
 			  });
 
 			  // 선택된 유저 아이디를 hidden 태그에 설정
 			  $('#bulk-user-ids').val(userIds.join(','));
+			  $('#bulk-user-seqs').val(userSeqs.join(','));
+			  $('#bulk-report_types').val(reportTypes.join(','));
+			  $('#bulk-report_sub_types').val(reportSubTypes.join(','));
 			});
 
 	$(document).ready(function() {
