@@ -140,26 +140,15 @@ button {
 			</form>
 			
 			<form action="/good/user/company/comparecompany.do" method="GET">
-			<div>
 			<div id="cp_selected">
 <div id="cptag">
-    <c:forEach items="${selectedCp}" var="companyId">
-        <c:forEach items="${comListInfo}" var="dto">
-            <c:if test="${dto.cp_seq == companyId}">
-                <input type="checkbox" name="compareCp" checked id="${dto.cp_seq}" value="${dto.cp_seq}">
-                <label for="${dto.cp_seq}">
-                    ${dto.cp_name}
-                    <i class="fa-solid fa-xmark"></i>
-                </label>
-            </c:if>
-        </c:forEach>
-    </c:forEach>
+
 </div>
 
 			<div id="compare">
     <div id="check">
         <c:forEach items="${comListInfo}" var="dto">
-            <input type="checkbox" name="compareCp" value="${dto.cp_seq}" ${fn:contains(selectedCp, dto.cp_seq) ? 'checked' : ''}/>
+            <input type="checkbox" name="compareCp" value="${dto.cp_name}" ${fn:contains(selectedCp, dto.cp_seq) ? 'checked' : ''}/>
         </c:forEach>
     </div>
 				<div id="right">
