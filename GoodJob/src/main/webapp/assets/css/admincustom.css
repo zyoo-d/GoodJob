@@ -47,6 +47,9 @@ h4{
   padding-bottom: 20px; padding-top: 20px;
 }
 
+.report_title {
+	cursor: pointer;
+}
 
 
 

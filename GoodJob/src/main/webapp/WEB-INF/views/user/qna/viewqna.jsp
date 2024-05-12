@@ -158,7 +158,7 @@
 	</section>
 
 
-
+	<%@include file="/WEB-INF/views/user/report/reportmodal.jsp" %>
 	<%@include file="/WEB-INF/views/inc/footer.jsp"%>
 
 	<script>
