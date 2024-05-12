@@ -61,7 +61,7 @@ public class Matching extends HttpServlet {
 
 			String name = userDAO.getName(id);
 
-			HashMap<Integer, String> scoreMap = dao.getColumn(id);
+			HashMap<String, Integer> scoreMap = dao.getColumn(id);
 
 			MatchingAlgo algo = new MatchingAlgo();
 

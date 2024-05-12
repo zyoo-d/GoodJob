@@ -56,7 +56,7 @@ public class BoardCommonDAO {
 			}
 			
 		} catch (Exception e) {
-			System.out.println("BoardCommonDAO.enclosing_method");
+			System.out.println("당일 게시글 조회수 top5 로드 실패");
 			e.printStackTrace();
 		}
 		
@@ -95,6 +95,54 @@ public class BoardCommonDAO {
 	    }
 
 	    return map;
+	}
+
+	public String getTodayReportCount() {
+		
+		try {
+			
+			String sql = "select sum(report_count) as cnt from vwallreportlist";
+			
+			stat = conn.createStatement();
+			rs = stat.executeQuery(sql);
+			
+			if(rs.next()) {
+				
+				return rs.getString("cnt");
+				
+			}
+			
+		} catch (Exception e) {
+			System.out.println("당일 신고 게시글수 로드 실패");
+			e.printStackTrace();
+		}
+		
+		
+		return null;
+	}
+	
+	public int getTotalCompleteReport() {
+		
+		try {
+			
+			String sql = "select count(*) as cnt from tblReportCheck";
+			
+			stat = conn.createStatement();
+			rs = stat.executeQuery(sql);
+			
+			if(rs.next()) {
+				
+				return rs.getInt("cnt");
+				
+			}
+			
+		} catch (Exception e) {
+			System.out.println("처리 완료된 신고 수");
+			e.printStackTrace();
+		}
+		
+		return 0;
+
 	}
 
 }

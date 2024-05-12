@@ -15,21 +15,29 @@ import com.good.admin.block.repository.BlockUserDAO;
 
 @WebServlet("/admin/listblockuser.do")
 public class ListBlockUser extends HttpServlet{
-	
-	
+
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
+
 		BlockUserDAO blockUserDAO = new BlockUserDAO();
-		
-		ArrayList<BlockUserDTO> blockUserList = blockUserDAO.getBlockUserList();
-		
+		int totalCount = blockUserDAO.getTotalBlockUserCount();
+		int pageSize = 10;
+
+		int currentPage = PageUtil.parseCurrentPage(req.getParameter("page"));
+
+		PageUtil pageUtil = new PageUtil(totalCount, pageSize, currentPage);
+		int startIndex = pageUtil.calculateStartIndex();
+		int endIndex = pageUtil.calculateEndIndex();
+
+		ArrayList<BlockUserDTO> blockUserList = blockUserDAO.getBlockUserList(startIndex, endIndex);
+
 		req.setAttribute("blockUserList", blockUserList);
-		
-		
+		req.setAttribute("pageUtil", pageUtil);
+
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/admin/user/listblockuser.jsp");
 		dispatcher.forward(req, resp);
-		
+
 	}
 
 }
