@@ -158,8 +158,7 @@
 
 							</div>
 							<div class="list_info">
-								<button type="button" id="compare-btn" class="compare-button">기업
-									맞춤 비교</button>
+<button type="button" class="compare-button" onclick="window.open('/good/user/company/cp_selectModal.do', '_blank', 'resizable=yes, scrollbars=yes, width=590, height=1020, left=100, top=200')">기업 맞춤 비교</button>
 								<div class="InpBox">
 									<select id="sort" name="sort">
 										<option value="review"
