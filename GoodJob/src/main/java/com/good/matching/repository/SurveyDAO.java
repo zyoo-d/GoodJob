@@ -55,4 +55,33 @@ public class SurveyDAO {
 		}
 		return null;
 	}
+
+	public ArrayList<SurveyDTO> listSurvey(String category) {
+		try {
+			String sql = "SELECT * FROM tblsurvey where sv_category = ?";
+
+			pstat = conn.prepareStatement(sql);
+			pstat.setString(1, category);
+			rs = pstat.executeQuery();
+
+			ArrayList<SurveyDTO> list = new ArrayList<>();
+			while (rs.next()) {
+				SurveyDTO dto = new SurveyDTO();
+				
+				dto.setSv_seq(rs.getString("sv_seq"));
+				dto.setSv_content(rs.getString("sv_content"));
+				dto.setSv_category(rs.getString("sv_category"));
+				dto.setCompare(rs.getString("compare"));
+
+				list.add(dto);
+			}
+			pstat.close();
+			return list;
+
+		} catch (Exception e) {
+			System.out.println("SurveyDAO.listSurvey");
+			e.printStackTrace();
+		}
+		return null;
+	}
 }

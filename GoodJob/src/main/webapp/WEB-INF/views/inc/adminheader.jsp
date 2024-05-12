@@ -78,7 +78,7 @@
     <a href="#" class="nav-link has-dropdown"><i class="far fa-file-alt"></i> <span>설문조사 관리</span></a>
     <ul class="dropdown-menu">
       <li id="submenu-addsurvey"><a class="nav-link" href="/good/gijun/survey/addsurvey.jsp">설문조사 등록</a></li>
-      <li id="submenu-survey"><a class="nav-link" href="/good/gijun/survey/survey.jsp">설문조사 목록</a></li>
+      <li id="submenu-survey"><a class="nav-link" href="/good/admin/survey/survey.do">설문조사 목록</a></li>
     </ul>
   </li>
 </ul>

@@ -27,7 +27,7 @@
                         <a class="nav-link active" id="salary-tab" data-toggle="tab" href="#salary" role="tab" aria-controls="salary" aria-selected="true">연봉</a>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link" id="lngvt-tab" data-toggle="tab" href="#lngvt" role="tab" aria-controls="lngvt" aria-selected="false">근속률</a>
+                        <a class="nav-link" id="stab-tab" data-toggle="tab" href="#lngvt" role="tab" aria-controls="stability" aria-selected="false">조직안정성</a>
                       </li>
                       <li class="nav-item">
                         <a class="nav-link" id="culture-tab" data-toggle="tab" href="#culture" role="tab" aria-controls="culture" aria-selected="false">조직문화</a>
@@ -42,349 +42,66 @@
                     <div class="tab-content" id="myTabContent">
                       <div class="tab-pane fade show active" id="salary" role="tabpanel" aria-labelledby="salary-tab">
                         <div class="survey-container">
+                        
+                        <c:forEach items="${salList}" var="dto">
                           <div class="survey-group">
                             <div class="survey-header">
-                              <h4>설문조사 질문 1</h4>
+                              <h4>${dto.sv_content}</h4>
                               <div class="survey-buttons">
                                 <a href="#" class="btn btn-icon icon-left btn-primary" style="margin-left: 10px;"><i class="far fa-edit"></i> 수정</a>
-                                <a href="#" class="btn btn-icon icon-left btn-danger" style="margin-left: 10px;"><i class="fas fa-times"></i> 삭제</a>
                               </div>
                             </div>
-                            <div class="survey-answers">
-                              <div class="survey-answer">1. 답변 1</div>
-                              <div class="survey-answer">2. 답변 2</div>
-                              <div class="survey-answer">3. 답변 3</div>
-                              <div class="survey-answer">4. 답변 4</div>
-                              <div class="survey-answer">5. 답변 5</div>
-                            </div>
                           </div>
+                      </c:forEach>
                       
-                          <div class="survey-group">
-                            <div class="survey-header">
-                              <h4>설문조사 질문 2</h4>
-                              <div class="survey-buttons">
-                                <a href="#" class="btn btn-icon icon-left btn-primary" style="margin-left: 10px;"><i class="far fa-edit"></i> 수정</a>
-                                <a href="#" class="btn btn-icon icon-left btn-danger" style="margin-left: 10px;"><i class="fas fa-times"></i> 삭제</a>
-                              </div>
-                            </div>
-                            <div class="survey-answers">
-                              <div class="survey-answer">1. 답변 1</div>
-                              <div class="survey-answer">2. 답변 2</div>
-                              <div class="survey-answer">3. 답변 3</div>
-                              <div class="survey-answer">4. 답변 4</div>
-                              <div class="survey-answer">5. 답변 5</div>
-                            </div>
-                          </div>
-                          <div class="survey-group">
-                            <div class="survey-header">
-                              <h4>설문조사 질문 2</h4>
-                              <div class="survey-buttons">
-                                <a href="#" class="btn btn-icon icon-left btn-primary" style="margin-left: 10px;"><i class="far fa-edit"></i> 수정</a>
-                                <a href="#" class="btn btn-icon icon-left btn-danger" style="margin-left: 10px;"><i class="fas fa-times"></i> 삭제</a>
-                              </div>
-                            </div>
-                            <div class="survey-answers">
-                              <div class="survey-answer">1. 답변 1</div>
-                              <div class="survey-answer">2. 답변 2</div>
-                              <div class="survey-answer">3. 답변 3</div>
-                              <div class="survey-answer">4. 답변 4</div>
-                              <div class="survey-answer">5. 답변 5</div>
-                            </div>
-                          </div>
-                          <div class="survey-group">
-                            <div class="survey-header">
-                              <h4>설문조사 질문 2</h4>
-                              <div class="survey-buttons">
-                                <a href="#" class="btn btn-icon icon-left btn-primary" style="margin-left: 10px;"><i class="far fa-edit"></i> 수정</a>
-                                <a href="#" class="btn btn-icon icon-left btn-danger" style="margin-left: 10px;"><i class="fas fa-times"></i> 삭제</a>
-                              </div>
-                            </div>
-                            <div class="survey-answers">
-                              <div class="survey-answer">1. 답변 1</div>
-                              <div class="survey-answer">2. 답변 2</div>
-                              <div class="survey-answer">3. 답변 3</div>
-                              <div class="survey-answer">4. 답변 4</div>
-                              <div class="survey-answer">5. 답변 5</div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="tab-pane fade" id="lngvt" role="tabpanel" aria-labelledby="lngvt-tab">
+                      <div class="tab-pane fade" id="stability" role="tabpanel" aria-labelledby="stab-tab">
                         <div class="survey-container">
+                        <c:forEach items="${stabList}" var="dto">
                           <div class="survey-group">
                             <div class="survey-header">
-                              <h4>설문조사 질문 1</h4>
+                              <h4>${dto.sv_content}</h4>
                               <div class="survey-buttons">
                                 <a href="#" class="btn btn-icon icon-left btn-primary" style="margin-left: 10px;"><i class="far fa-edit"></i> 수정</a>
-                                <a href="#" class="btn btn-icon icon-left btn-danger" style="margin-left: 10px;"><i class="fas fa-times"></i> 삭제</a>
                               </div>
                             </div>
-                            <div class="survey-answers">
-                              <div class="survey-answer">1. 답변 1</div>
-                              <div class="survey-answer">2. 답변 2</div>
-                              <div class="survey-answer">3. 답변 3</div>
-                              <div class="survey-answer">4. 답변 4</div>
-                              <div class="survey-answer">5. 답변 5</div>
-                            </div>
                           </div>
-                      
-                          <div class="survey-group">
-                            <div class="survey-header">
-                              <h4>설문조사 질문 2</h4>
-                              <div class="survey-buttons">
-                                <a href="#" class="btn btn-icon icon-left btn-primary" style="margin-left: 10px;"><i class="far fa-edit"></i> 수정</a>
-                                <a href="#" class="btn btn-icon icon-left btn-danger" style="margin-left: 10px;"><i class="fas fa-times"></i> 삭제</a>
-                              </div>
-                            </div>
-                            <div class="survey-answers">
-                              <div class="survey-answer">1. 답변 1</div>
-                              <div class="survey-answer">2. 답변 2</div>
-                              <div class="survey-answer">3. 답변 3</div>
-                              <div class="survey-answer">4. 답변 4</div>
-                              <div class="survey-answer">5. 답변 5</div>
-                            </div>
-                          </div>
-                          <div class="survey-group">
-                            <div class="survey-header">
-                              <h4>설문조사 질문 2</h4>
-                              <div class="survey-buttons">
-                                <a href="#" class="btn btn-icon icon-left btn-primary" style="margin-left: 10px;"><i class="far fa-edit"></i> 수정</a>
-                                <a href="#" class="btn btn-icon icon-left btn-danger" style="margin-left: 10px;"><i class="fas fa-times"></i> 삭제</a>
-                              </div>
-                            </div>
-                            <div class="survey-answers">
-                              <div class="survey-answer">1. 답변 1</div>
-                              <div class="survey-answer">2. 답변 2</div>
-                              <div class="survey-answer">3. 답변 3</div>
-                              <div class="survey-answer">4. 답변 4</div>
-                              <div class="survey-answer">5. 답변 5</div>
-                            </div>
-                          </div>
-                          <div class="survey-group">
-                            <div class="survey-header">
-                              <h4>설문조사 질문 2</h4>
-                              <div class="survey-buttons">
-                                <a href="#" class="btn btn-icon icon-left btn-primary" style="margin-left: 10px;"><i class="far fa-edit"></i> 수정</a>
-                                <a href="#" class="btn btn-icon icon-left btn-danger" style="margin-left: 10px;"><i class="fas fa-times"></i> 삭제</a>
-                              </div>
-                            </div>
-                            <div class="survey-answers">
-                              <div class="survey-answer">1. 답변 1</div>
-                              <div class="survey-answer">2. 답변 2</div>
-                              <div class="survey-answer">3. 답변 3</div>
-                              <div class="survey-answer">4. 답변 4</div>
-                              <div class="survey-answer">5. 답변 5</div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+                      </c:forEach>
                       <div class="tab-pane fade" id="culture" role="tabpanel" aria-labelledby="culture-tab">
                         <div class="survey-container">
+                        <c:forEach items="${culList}" var="dto">
                           <div class="survey-group">
                             <div class="survey-header">
-                              <h4>설문조사 질문 1</h4>
+                              <h4>${dto.sv_content}</h4>
                               <div class="survey-buttons">
                                 <a href="#" class="btn btn-icon icon-left btn-primary" style="margin-left: 10px;"><i class="far fa-edit"></i> 수정</a>
-                                <a href="#" class="btn btn-icon icon-left btn-danger" style="margin-left: 10px;"><i class="fas fa-times"></i> 삭제</a>
                               </div>
                             </div>
-                            <div class="survey-answers">
-                              <div class="survey-answer">1. 답변 1</div>
-                              <div class="survey-answer">2. 답변 2</div>
-                              <div class="survey-answer">3. 답변 3</div>
-                              <div class="survey-answer">4. 답변 4</div>
-                              <div class="survey-answer">5. 답변 5</div>
-                            </div>
                           </div>
-                      
-                          <div class="survey-group">
-                            <div class="survey-header">
-                              <h4>설문조사 질문 2</h4>
-                              <div class="survey-buttons">
-                                <a href="#" class="btn btn-icon icon-left btn-primary" style="margin-left: 10px;"><i class="far fa-edit"></i> 수정</a>
-                                <a href="#" class="btn btn-icon icon-left btn-danger" style="margin-left: 10px;"><i class="fas fa-times"></i> 삭제</a>
-                              </div>
-                            </div>
-                            <div class="survey-answers">
-                              <div class="survey-answer">1. 답변 1</div>
-                              <div class="survey-answer">2. 답변 2</div>
-                              <div class="survey-answer">3. 답변 3</div>
-                              <div class="survey-answer">4. 답변 4</div>
-                              <div class="survey-answer">5. 답변 5</div>
-                            </div>
-                          </div>
-                          <div class="survey-group">
-                            <div class="survey-header">
-                              <h4>설문조사 질문 2</h4>
-                              <div class="survey-buttons">
-                                <a href="#" class="btn btn-icon icon-left btn-primary" style="margin-left: 10px;"><i class="far fa-edit"></i> 수정</a>
-                                <a href="#" class="btn btn-icon icon-left btn-danger" style="margin-left: 10px;"><i class="fas fa-times"></i> 삭제</a>
-                              </div>
-                            </div>
-                            <div class="survey-answers">
-                              <div class="survey-answer">1. 답변 1</div>
-                              <div class="survey-answer">2. 답변 2</div>
-                              <div class="survey-answer">3. 답변 3</div>
-                              <div class="survey-answer">4. 답변 4</div>
-                              <div class="survey-answer">5. 답변 5</div>
-                            </div>
-                          </div>
-                          <div class="survey-group">
-                            <div class="survey-header">
-                              <h4>설문조사 질문 2</h4>
-                              <div class="survey-buttons">
-                                <a href="#" class="btn btn-icon icon-left btn-primary" style="margin-left: 10px;"><i class="far fa-edit"></i> 수정</a>
-                                <a href="#" class="btn btn-icon icon-left btn-danger" style="margin-left: 10px;"><i class="fas fa-times"></i> 삭제</a>
-                              </div>
-                            </div>
-                            <div class="survey-answers">
-                              <div class="survey-answer">1. 답변 1</div>
-                              <div class="survey-answer">2. 답변 2</div>
-                              <div class="survey-answer">3. 답변 3</div>
-                              <div class="survey-answer">4. 답변 4</div>
-                              <div class="survey-answer">5. 답변 5</div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+                      </c:forEach>
                       <div class="tab-pane fade" id="potential" role="tabpanel" aria-labelledby="potential-tab">
                         <div class="survey-container">
+                          <c:forEach items="${potList}" var="dto">
                           <div class="survey-group">
                             <div class="survey-header">
-                              <h4>설문조사 질문 1</h4>
+                              <h4>${dto.sv_content}</h4>
                               <div class="survey-buttons">
                                 <a href="#" class="btn btn-icon icon-left btn-primary" style="margin-left: 10px;"><i class="far fa-edit"></i> 수정</a>
-                                <a href="#" class="btn btn-icon icon-left btn-danger" style="margin-left: 10px;"><i class="fas fa-times"></i> 삭제</a>
                               </div>
                             </div>
-                            <div class="survey-answers">
-                              <div class="survey-answer">1. 답변 1</div>
-                              <div class="survey-answer">2. 답변 2</div>
-                              <div class="survey-answer">3. 답변 3</div>
-                              <div class="survey-answer">4. 답변 4</div>
-                              <div class="survey-answer">5. 답변 5</div>
-                            </div>
                           </div>
-                      
-                          <div class="survey-group">
-                            <div class="survey-header">
-                              <h4>설문조사 질문 2</h4>
-                              <div class="survey-buttons">
-                                <a href="#" class="btn btn-icon icon-left btn-primary" style="margin-left: 10px;"><i class="far fa-edit"></i> 수정</a>
-                                <a href="#" class="btn btn-icon icon-left btn-danger" style="margin-left: 10px;"><i class="fas fa-times"></i> 삭제</a>
-                              </div>
-                            </div>
-                            <div class="survey-answers">
-                              <div class="survey-answer">1. 답변 1</div>
-                              <div class="survey-answer">2. 답변 2</div>
-                              <div class="survey-answer">3. 답변 3</div>
-                              <div class="survey-answer">4. 답변 4</div>
-                              <div class="survey-answer">5. 답변 5</div>
-                            </div>
-                          </div>
-                          <div class="survey-group">
-                            <div class="survey-header">
-                              <h4>설문조사 질문 2</h4>
-                              <div class="survey-buttons">
-                                <a href="#" class="btn btn-icon icon-left btn-primary" style="margin-left: 10px;"><i class="far fa-edit"></i> 수정</a>
-                                <a href="#" class="btn btn-icon icon-left btn-danger" style="margin-left: 10px;"><i class="fas fa-times"></i> 삭제</a>
-                              </div>
-                            </div>
-                            <div class="survey-answers">
-                              <div class="survey-answer">1. 답변 1</div>
-                              <div class="survey-answer">2. 답변 2</div>
-                              <div class="survey-answer">3. 답변 3</div>
-                              <div class="survey-answer">4. 답변 4</div>
-                              <div class="survey-answer">5. 답변 5</div>
-                            </div>
-                          </div>
-                          <div class="survey-group">
-                            <div class="survey-header">
-                              <h4>설문조사 질문 2</h4>
-                              <div class="survey-buttons">
-                                <a href="#" class="btn btn-icon icon-left btn-primary" style="margin-left: 10px;"><i class="far fa-edit"></i> 수정</a>
-                                <a href="#" class="btn btn-icon icon-left btn-danger" style="margin-left: 10px;"><i class="fas fa-times"></i> 삭제</a>
-                              </div>
-                            </div>
-                            <div class="survey-answers">
-                              <div class="survey-answer">1. 답변 1</div>
-                              <div class="survey-answer">2. 답변 2</div>
-                              <div class="survey-answer">3. 답변 3</div>
-                              <div class="survey-answer">4. 답변 4</div>
-                              <div class="survey-answer">5. 답변 5</div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+                      </c:forEach>
                       <div class="tab-pane fade" id="welfare" role="tabpanel" aria-labelledby="welfare-tab">
                         <div class="survey-container">
+                          <c:forEach items="${welList}" var="dto">
                           <div class="survey-group">
                             <div class="survey-header">
-                              <h4>설문조사 질문 1</h4>
+                              <h4>${dto.sv_content}</h4>
                               <div class="survey-buttons">
                                 <a href="#" class="btn btn-icon icon-left btn-primary" style="margin-left: 10px;"><i class="far fa-edit"></i> 수정</a>
-                                <a href="#" class="btn btn-icon icon-left btn-danger" style="margin-left: 10px;"><i class="fas fa-times"></i> 삭제</a>
                               </div>
                             </div>
-                            <div class="survey-answers">
-                              <div class="survey-answer">1. 답변 1</div>
-                              <div class="survey-answer">2. 답변 2</div>
-                              <div class="survey-answer">3. 답변 3</div>
-                              <div class="survey-answer">4. 답변 4</div>
-                              <div class="survey-answer">5. 답변 5</div>
-                            </div>
                           </div>
-                      
-                          <div class="survey-group">
-                            <div class="survey-header">
-                              <h4>설문조사 질문 2</h4>
-                              <div class="survey-buttons">
-                                <a href="#" class="btn btn-icon icon-left btn-primary" style="margin-left: 10px;"><i class="far fa-edit"></i> 수정</a>
-                                <a href="#" class="btn btn-icon icon-left btn-danger" style="margin-left: 10px;"><i class="fas fa-times"></i> 삭제</a>
-                              </div>
-                            </div>
-                            <div class="survey-answers">
-                              <div class="survey-answer">1. 답변 1</div>
-                              <div class="survey-answer">2. 답변 2</div>
-                              <div class="survey-answer">3. 답변 3</div>
-                              <div class="survey-answer">4. 답변 4</div>
-                              <div class="survey-answer">5. 답변 5</div>
-                            </div>
-                          </div>
-                          <div class="survey-group">
-                            <div class="survey-header">
-                              <h4>설문조사 질문 2</h4>
-                              <div class="survey-buttons">
-                                <a href="#" class="btn btn-icon icon-left btn-primary" style="margin-left: 10px;"><i class="far fa-edit"></i> 수정</a>
-                                <a href="#" class="btn btn-icon icon-left btn-danger" style="margin-left: 10px;"><i class="fas fa-times"></i> 삭제</a>
-                              </div>
-                            </div>
-                            <div class="survey-answers">
-                              <div class="survey-answer">1. 답변 1</div>
-                              <div class="survey-answer">2. 답변 2</div>
-                              <div class="survey-answer">3. 답변 3</div>
-                              <div class="survey-answer">4. 답변 4</div>
-                              <div class="survey-answer">5. 답변 5</div>
-                            </div>
-                          </div>
-                          <div class="survey-group">
-                            <div class="survey-header">
-                              <h4>설문조사 질문 2</h4>
-                              <div class="survey-buttons">
-                                <a href="#" class="btn btn-icon icon-left btn-primary" style="margin-left: 10px;"><i class="far fa-edit"></i> 수정</a>
-                                <a href="#" class="btn btn-icon icon-left btn-danger" style="margin-left: 10px;"><i class="fas fa-times"></i> 삭제</a>
-                              </div>
-                            </div>
-                            <div class="survey-answers">
-                              <div class="survey-answer">1. 답변 1</div>
-                              <div class="survey-answer">2. 답변 2</div>
-                              <div class="survey-answer">3. 답변 3</div>
-                              <div class="survey-answer">4. 답변 4</div>
-                              <div class="survey-answer">5. 답변 5</div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+                      </c:forEach>
                     
                   </div>
                 </div>
