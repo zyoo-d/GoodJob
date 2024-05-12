@@ -879,9 +879,73 @@ public ArrayList<String> getTaglist(String cp_seq){
 	        return null;
 	    }
 	}
-
-
 	
+	public HashMap<String, Integer> getTop5CompaniesByReviewCount() {
+		HashMap<String, Integer> map = new HashMap<>();
+		
+		try {
+			
+			String sql = "SELECT cp_name, cnt"
+					+ "FROM (SELECT cp_name, COUNT(*) AS cnt, ROWNUM AS rnum"
+					+ "      FROM tblCompanyReview cr"
+					+ "               INNER JOIN tblCompany c ON cr.cp_seq = c.cp_seq"
+					+ "      GROUP BY c.cp_seq, c.cp_name"
+					+ "      ORDER BY cnt DESC)"
+					+ "WHERE ROWNUM <= 5";
+			
+			stat = conn.createStatement();
+			rs = stat.executeQuery(sql);
+			
+			while(rs.next()) {
+				
+				map.put(rs.getString("cp_name"), rs.getInt("cnt"));
+				
+			}
+			
+			
+			
+		} catch (Exception e) {
+			System.out.println("기업 top 5 리뷰 수 로드 실패");
+			e.printStackTrace();
+		}
+		
+		return map;
+		
+	}
+	
+	public HashMap<String, Double> getTop5CompaniesByReviewScore() {
+		HashMap<String, Double> map = new HashMap<>();
+		
+		try {
+			
+			String sql ="SELECT rnum, cp_name, avg"
+					+ "FROM ("
+					+ "    SELECT ROWNUM AS rnum, cp_name, avg"
+					+ "    FROM ("
+					+ "        SELECT cp_name, avg"
+					+ "        FROM vwCompanyReviewAvg"
+					+ "        ORDER BY avg DESC"
+					+ "    )"
+					+ ")"
+					+ "WHERE rnum <= 5";
+
+			stat = conn.createStatement();
+			rs = stat.executeQuery(sql);
+			
+			while(rs.next()) {
+				
+				map.put(rs.getString("cp_name"), rs.getDouble("avg"));
+				
+			}
+			
+		} catch (Exception e) {
+			System.out.println("기업 top 5 리뷰 점수 로드 실패");
+			e.printStackTrace();
+		}
+		
+		return map;
+
+	}
 	
 
 }
