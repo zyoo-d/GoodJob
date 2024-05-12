@@ -7,7 +7,6 @@
 <meta charset="UTF-8">
 <%@include file="/WEB-INF/views/inc/asset.jsp"%>
 <style>
-
 </style>
 <%@include file="/WEB-INF/views/inc/header.jsp"%>
 </head>
@@ -23,15 +22,14 @@
 						함께하는 과정에서 당신이 빛을 발할 수 있도록 도와드릴게요.</p>
 					<c:if test="${prefer==null||prefer=='0'}">
 						<a href="/good/user/matching/viewsurvey.do"
-							class="btn btn-white mt-8">굿잡forU 이동하기</a>
+							class="btn btn-white mt-8 gradiTitle btnMatch"><span>굿잡forU 이동하기</span></a>
 					</c:if>
 					<c:if test="${wish=='0'&&prefer=='1'}">
 						<a href="/good/user/matching/viewwish.do"
-							class="btn btn-white mt-8">굿잡forU 이동하기</a>
+							class="btn btn-white mt-8 gradiTitle btnMatch"><span>굿잡forU 이동하기</span></a>
 					</c:if>
 					<c:if test="${wish=='1'&&prefer=='1'}">
-						<a href="/good/user/matching.do" class="btn btn-white mt-8">굿잡forU
-							이동하기</a>
+						<a href="/good/user/matching.do" class="btn btn-white mt-8 gradiTitle btnMatch"><span>굿잡forU 이동하기</span></a>
 					</c:if>
 				</div>
 				<div class="lg:col-6">

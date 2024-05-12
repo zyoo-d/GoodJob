@@ -17,10 +17,10 @@
             <img alt="image" src="/good/assets/img/avatar/avatar-1.png" class="rounded-circle mr-1">
             <div class="d-sm-none d-lg-inline-block">관리자</div></a>
             <div class="dropdown-menu dropdown-menu-right">
-              <a href="features-profile.html" class="dropdown-item has-icon">
-                <i class="far fa-user"></i> Profile
+              <a href="good/main.do" class="dropdown-item has-icon">
+                <i class="far fa-user"></i> Client Main
               </a>
-              <a href="features-settings.html" class="dropdown-item has-icon">
+              <a href="#!" class="dropdown-item has-icon">
                 <i class="fas fa-cog"></i> Settings
               </a>
               <div class="dropdown-divider"></div>
