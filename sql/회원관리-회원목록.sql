@@ -96,7 +96,7 @@ select * from vwWriterCommentCount;
 
 
 create or replace view vwUserReportCount as
-select REPORTER_ID as id, count(*) as cnt from vwallreportlist
-group by REPORTER_ID;
+select writer_ID as id, count(*) as cnt from vwallreportlist
+group by writer_ID;
 
 select * from vwUserReportCount;

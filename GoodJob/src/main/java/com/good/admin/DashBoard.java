@@ -46,6 +46,7 @@ public class DashBoard extends HttpServlet{
 		req.setAttribute("countCompanys",companyDAO.countCompanys());
 		req.setAttribute("jobPostings_count",recruitDAO.countOpenJobPostings());
 		req.setAttribute("pendingReview", reviewDAO.getPendingReviewsCount());
+		req.setAttribute("pendingInterview", reviewDAO.getPendingInterviewCount());
 		
 		List<LocalDate> recentDays = DateUtil.getRecentDays(10);
 		List<Integer> recentVisitors = VisitorStatisticsUtil.getRecentVisitorCounts(recentDays, visitorCounts);
@@ -62,10 +63,10 @@ public class DashBoard extends HttpServlet{
 	    req.setAttribute("yearLabels", yearLabels);
 	    req.setAttribute("yearVisitors", yearVisitors);
 	    
-	    ArrayList<BoardCommonDTO> boardList = boardCommonDAO.getDailyTopPosts();
+	    ArrayList<BoardCommonDTO> boardList = boardCommonDAO.getWeekTopPosts();
 	    HashMap<String, Double> countBoardList = boardCommonDAO.getPostRatioByBoard(); 
 	    
-	    System.out.println(countBoardList.get("QnA"));
+	    System.out.println(countBoardList);
 	    
 	    req.setAttribute("boardList", boardList);
 	    req.setAttribute("countBoardList", countBoardList);
@@ -76,10 +77,8 @@ public class DashBoard extends HttpServlet{
 	    
 	    
 	    ArrayList<ReportCommonDTO> recentReportList = reportCommonDAO.getRecentReportTitleList(4);
-//	    ArrayList<ReportCommonDTO> allReportList = reportCommonDAO.getAllReportList();
 	    
 	    req.setAttribute("recentReportList", recentReportList);
-//	    req.setAttribute("allReportList", allReportList);
 	    
 	    req.setAttribute("updateDate", companyDAO.getUpdateDate());
 	    
@@ -94,6 +93,8 @@ public class DashBoard extends HttpServlet{
 		
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/admin/index.jsp");
 		dispatcher.forward(req, resp);
+		
+		
 		
 		
 		

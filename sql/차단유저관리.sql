@@ -54,6 +54,8 @@ select * from vwAllReportList;
 insert into tblReportCheck values(seqReportCheck.nextVal, 'board','qna',61,'admin',sysdate);
 
 
+
+
 create or replace view vwListBanUser as
 select ban_seq,ban_reason,id,to_char(ban_startdate,'yyyy-mm-dd') as ban_startdate,to_char(ban_enddate,'yyyy-mm-dd') as ban_enddate, TRUNC(ban_enddate-ban_startdate) as remaining_time from tblBanLog b;
 
