@@ -60,7 +60,7 @@
     <a href="#" class="nav-link has-dropdown"><i class="fas fa-building"></i> <span>기업 관리</span></a>
     <ul class="dropdown-menu">
       <li id="submenu-addcompany"><a class="nav-link" href="/good/gijun/company/addcompany.jsp">기업 등록</a></li>
-      <li id="submenu-company"><a class="nav-link" href="/good/gijun/company/company.jsp">기업 목록</a></li>
+      <li id="submenu-company"><a class="nav-link" href="/good/admin/company/company.do">기업 목록</a></li>
     </ul>
   </li>
   <li class="dropdown" id="menu-review">
