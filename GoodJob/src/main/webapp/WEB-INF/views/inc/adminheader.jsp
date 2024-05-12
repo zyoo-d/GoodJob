@@ -54,7 +54,7 @@
     <ul class="dropdown-menu">
       <li id="submenu-notice"><a class="nav-link" href="#!">공지사항 관리</a></li>
       <li id="submenu-boardreport"><a class="nav-link" href="/good/admin/boardreport.do">신고 게시글 관리</a></li>
-    </ul>
+    </ul>																
   </li>
   <li class="dropdown" id="menu-company">
     <a href="#" class="nav-link has-dropdown"><i class="fas fa-building"></i> <span>기업 관리</span></a>

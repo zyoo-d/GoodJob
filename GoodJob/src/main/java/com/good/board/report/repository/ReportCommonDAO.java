@@ -185,7 +185,7 @@ public class ReportCommonDAO {
 			}
 
 		} catch (Exception e) {
-			System.out.println("ReportCommonDAO.getAllReportList");
+			System.out.println("신고접수 목록 불러오기 실패");
 			e.printStackTrace();
 		}
 
@@ -231,7 +231,7 @@ public class ReportCommonDAO {
 				parentSeq = rs.getString("seq");
 			}
 		} catch (Exception e) {
-			System.out.println("ReportCommonDAO.findParentSeq");
+			System.out.println("댓글 어디 게시글 인지 찾기 실패");
 			e.printStackTrace();
 		} finally {
 			// 자원 해제
@@ -316,7 +316,7 @@ public class ReportCommonDAO {
 				list.add(dto);
 			}
 		} catch (Exception e) {
-			System.out.println("ReportCommonDAO.getRecentReportTitleList");
+			System.out.println("최근 신고된 게시글 불러오기 5개 실패");
 			e.printStackTrace();
 		}
 
@@ -359,7 +359,7 @@ public class ReportCommonDAO {
 
 
 		} catch (Exception e) {
-			System.out.println("ReportCommonDAO.blockuser");
+			System.out.println("유저 밴 실패");
 			e.printStackTrace();
 		}
 	}
@@ -371,7 +371,6 @@ public class ReportCommonDAO {
 	private void changeLvUser(List<String> insertIds) {
 
 		try {
-			System.out.println("유저 권한 정지로 변경");
 			String sql = "UPDATE tblUser SET lv = 3 WHERE id = ?";
 			PreparedStatement pstate = conn.prepareStatement(sql);
 
@@ -379,12 +378,11 @@ public class ReportCommonDAO {
 				pstate.setString(1, userId);
 				pstate.addBatch();
 				System.out.println(userId);
-				System.out.println("유저 권한 정지로 변경 아이디 넣기");
 			}
 
 			pstate.executeBatch();
 		} catch (Exception e) {
-			System.out.println("ReportCommonDAO.changeLvUser");
+			System.out.println("유저 밴 권한변경 실패");
 			e.printStackTrace();
 		} 
 	}
@@ -415,7 +413,7 @@ public class ReportCommonDAO {
 
 			updatePstat.executeBatch();
 		} catch (Exception e) {
-			System.out.println("ReportCommonDAO.updateBlockPeriod");
+			System.out.println("이미 밴 당한 유저 차단일자 누적 실패");
 			e.printStackTrace();
 		}
 	}
@@ -452,7 +450,6 @@ public class ReportCommonDAO {
 
 			sql.append(")");
 
-			System.out.println("쿼리문: " +sql.toString());
 
 			pstat = conn.prepareStatement(sql.toString());
 
@@ -472,12 +469,11 @@ public class ReportCommonDAO {
 			for(String id : userIds) {
 				if(!blockStatus.containsKey(id)) {
 					blockStatus.put(id, null);
-					System.out.println("벤 안당했던 유저:" + id);
 				}
 			}
 
 		} catch (Exception e) {
-			System.out.println("ReportCommonDAO.checkBlock");
+			System.out.println("유저 밴 여부 확인 실패");
 			e.printStackTrace();
 		}
 
@@ -509,6 +505,139 @@ public class ReportCommonDAO {
 			System.out.println("신고 접수 확인 데이터 삽입 실패");
 			e.printStackTrace();
 		}
+	}
+	
+//	public ArrayList<ReportCommonDTO> getAllReportList(int startIndex, int endIndex){
+//
+//		ArrayList<ReportCommonDTO> list = new ArrayList<>();
+//		
+//		try {
+//			
+//			String sql = "SELECT writer_id as id, sub_type, type, title, regdate, report_count as cnt FROM (SELECT ROWNUM AS rnum, t.* FROM (SELECT * FROM vwAllReportList ORDER BY report_regdate DESC) t) WHERE rnum BETWEEN ? AND ?";
+//
+//			pstat = conn.prepareStatement(sql);
+//			
+//			int parameterIndex = 1;
+//			
+//			pstat.setInt(parameterIndex++, startIndex + 1);
+//			pstat.setInt(parameterIndex, endIndex);
+//
+//			rs = pstat.executeQuery();
+//
+//
+//			while(rs.next()) {
+//
+//				ReportCommonDTO dto = new ReportCommonDTO();
+//				String type = rs.getString("type");
+//				String sub_type = rs.getString("sub_type");
+//				String seq = rs.getString("seq");
+//
+//
+//				dto.setType(type);
+//				dto.setSub_type(sub_type);
+//				dto.setSeq(seq);
+//				dto.setRegdate(rs.getString("regdate"));
+//				dto.setWriter_id(rs.getString("id"));
+//				dto.setReport_count(rs.getString("cnt"));
+//
+//				System.out.println(type);
+//
+//				if(type.equals("comment")) {
+//					String parentSeq = findParentSeq(seq, type, sub_type);
+//					dto.setParent_seq(parentSeq != null ? parentSeq : seq);
+//				} else {
+//					dto.setParent_seq(seq);
+//				}
+//
+//				list.add(dto);
+//
+//			}
+//
+//		} catch (Exception e) {
+//			System.out.println("신고 접수 목록 로드 실패");
+//			e.printStackTrace();
+//		}
+//
+//		return list;
+//
+//	}
+	
+	public ArrayList<ReportCommonDTO> getAllReportBoardList(int startIndex, int endIndex){
+		
+		ArrayList<ReportCommonDTO> list = new ArrayList<>();
+		
+		try {
+			
+			String sql = "select * from (select rownum as rnum, t.* from (select writer_id, type, sub_type, seq, title, to_char(regdate,'yyyy-mm-dd') as regdate, count(*) as cnt from vwallreportlist group by writer_id, type, sub_type, seq, title,regdate order by cnt desc)t) where rnum between ? and ?";
+			
+			pstat = conn.prepareStatement(sql);
+			
+			int parameterIndex = 1;
+			
+			pstat.setInt(parameterIndex++, startIndex + 1);
+			pstat.setInt(parameterIndex, endIndex);
+			
+			rs = pstat.executeQuery();
+			
+			
+			while(rs.next()) {
+				
+				ReportCommonDTO dto = new ReportCommonDTO();
+				String type = rs.getString("type");
+				String sub_type = rs.getString("sub_type");
+				String seq = rs.getString("seq");
+				
+				
+				dto.setType(type);
+				dto.setSub_type(sub_type);
+				dto.setSeq(seq);
+				dto.setRegdate(rs.getString("regdate"));
+				dto.setTitle(rs.getString("title"));
+				System.out.println(rs.getString("writer_id"));
+				dto.setWriter_id(rs.getString("writer_id"));
+				dto.setReport_count(rs.getString("cnt"));
+				
+				
+				if(type.equals("comment")) {
+					String parentSeq = findParentSeq(seq, type, sub_type);
+					dto.setParent_seq(parentSeq != null ? parentSeq : seq);
+				} else {
+					dto.setParent_seq(seq);
+				}
+				
+				list.add(dto);
+				
+			}
+			
+		} catch (Exception e) {
+			System.out.println("신고 접수 목록 로드 실패");
+			e.printStackTrace();
+		}
+		
+		return list;
+		
+	}
+
+	public int getTotalReportBoardCount() {
+		
+		try {
+			
+			String sql = "select count(*) as cnt from (select count(*) from vwAllReportList group by type, sub_type, seq)";
+			
+			stat = conn.createStatement();
+			rs = stat.executeQuery(sql);
+			
+			if(rs.next()) {
+				
+				return rs.getInt("cnt");
+				
+			}
+			
+		} catch (Exception e) {
+			System.out.println("신고 게시글 수 로드 실패");
+			e.printStackTrace();
+		}
+		return 0;
 	}
 
 
