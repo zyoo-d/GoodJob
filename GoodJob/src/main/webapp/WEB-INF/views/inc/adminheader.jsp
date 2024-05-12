@@ -17,10 +17,10 @@
             <img alt="image" src="/good/assets/img/avatar/avatar-1.png" class="rounded-circle mr-1">
             <div class="d-sm-none d-lg-inline-block">관리자</div></a>
             <div class="dropdown-menu dropdown-menu-right">
-              <a href="features-profile.html" class="dropdown-item has-icon">
-                <i class="far fa-user"></i> Profile
+              <a href="good/main.do" class="dropdown-item has-icon">
+                <i class="far fa-user"></i> Client Main
               </a>
-              <a href="features-settings.html" class="dropdown-item has-icon">
+              <a href="#!" class="dropdown-item has-icon">
                 <i class="fas fa-cog"></i> Settings
               </a>
               <div class="dropdown-divider"></div>
@@ -53,7 +53,7 @@
     <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-chalkboard-user"></i> <span>게시판 관리</span></a>
     <ul class="dropdown-menu">
       <li id="submenu-notice"><a class="nav-link" href="#!">공지사항 관리</a></li>
-      <li id="submenu-boardreport"><a class="nav-link" href="/good/gijun/board/boardreport.jsp">신고 게시글 관리</a></li>
+      <li id="submenu-boardreport"><a class="nav-link" href="/good/admin/boardreport.do">신고 게시글 관리</a></li>
     </ul>
   </li>
   <li class="dropdown" id="menu-company">
@@ -67,7 +67,7 @@
     <a href="#" class="nav-link has-dropdown"><i class="fas fa-clipboard"></i> <span>리뷰 관리</span></a>
     <ul class="dropdown-menu">
       <li id="submenu-reviewmain"><a class="nav-link" href="/good/gijun/review/reviewmain.jsp">리뷰 통계</a></li>
-      <li id="submenu-review"><a class="nav-link" href="/good/gijun/review/review.jsp">승인 대기 리뷰</a></li>
+      <li id="submenu-review"><a class="nav-link" href="/good/admin/review/checkreview.do">승인 대기 리뷰</a></li>
     </ul>
   </li>
   <li class="dropdown" id="menu-survey">
