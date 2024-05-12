@@ -847,7 +847,7 @@ h3>#scrap {
 								<div id="comment_content">
 									${livecommentdto.nickname} <span id="chat_regdate">${livecommentdto.regdate}</span><br>
 									<div id="CplivecommentBtn">
-										<button id="singo">[ 신고 ]</button>
+										<button id="report-btn" data-boardtype="live" data-seq="${livecommentlist.cm_seq}">[ 신고 ]</button>
 										<c:if
 											test="${not empty id && (livecommentdto.id == id || lv == 2)}">
 
