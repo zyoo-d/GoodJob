@@ -244,7 +244,36 @@ public class ReviewDAO {
 	    }
 	    return false;
 	}
-
+	public boolean allApprove(String[] cp_rv_seqs) {
+	    try {
+	        String sql = "UPDATE tblCompanyReview SET cp_rv_confirm = 1 WHERE cp_rv_seq IN (";
+	        
+	        
+	        for (int i = 0; i < cp_rv_seqs.length; i++) {
+	            sql += "?";
+	            if (i < cp_rv_seqs.length - 1) {
+	                sql += ",";
+	            }
+	        }
+	        sql += ")";
+	        
+	        pstat = conn.prepareStatement(sql);
+	        
+	        
+	        for (int i = 0; i < cp_rv_seqs.length; i++) {
+	            pstat.setString(i + 1, cp_rv_seqs[i]);
+	        }
+	        
+	        int result = pstat.executeUpdate();
+	        return result > 0;
+	    } catch (Exception e) {
+	        System.out.println("ReviewDAO.allApprove()");
+	        e.printStackTrace();
+	    } finally {
+	        close();
+	    }
+	    return false;
+	}
 	/**
 	 * 리뷰 삭제
 	 * 

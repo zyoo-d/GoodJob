@@ -124,7 +124,7 @@ public class EditReview extends HttpServlet {
 	        
 
 	        
-	        boolean isAdmin = id != null && id.equals("admin"); // 관리자 여부 확인 로직
+	   /*     boolean isAdmin = id != null && id.equals("admin"); // 관리자 여부 확인 로직
 	        if (rdto != null) {
 	            if (isAdmin) {
 	                // 관리자일 경우 리뷰 승인/거절 로직 수행
@@ -133,7 +133,7 @@ public class EditReview extends HttpServlet {
 	                } else if (action != null && action.equals("reject")) {
 	                    rdao.updateReviewConfirm(cp_rv_seq, 2); // 리뷰 거절
 	                }
-	            } else if (action != null && action.equals("update")) {
+	            } else */if (action != null && action.equals("update")) {
 	                // 리뷰 수정 로직
 	                rdto.setLinereview(req.getParameter("linereview"));
 	                rdto.setGood(req.getParameter("good"));
@@ -148,5 +148,5 @@ public class EditReview extends HttpServlet {
 	            }
 	            resp.sendRedirect("/good/user/mypage/myreview.do");
 	        }
-	        }
+	        
 }
