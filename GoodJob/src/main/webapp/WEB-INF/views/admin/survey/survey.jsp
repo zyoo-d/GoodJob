@@ -10,10 +10,8 @@
 	text-align: right;
 }
 </style>
-
 <%@include file="/WEB-INF/views/inc/adminasset.jsp"%>
 </head>
-
 <body>
 	<div id="app">
 		<div class="main-wrapper main-wrapper-1">
@@ -24,7 +22,6 @@
 					<div class="section-header">
 						<h1>설문조사 관리</h1>
 					</div>
-
 					<div class="section-body">
 						<div class="row">
 							<div class="col-12">
