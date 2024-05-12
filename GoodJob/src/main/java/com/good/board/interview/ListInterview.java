@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import com.good.board.model.InterviewDTO;
 import com.good.board.model.QnaBoardDTO;
+import com.good.board.model.StudyDTO;
 import com.good.board.repository.InterviewDAO;
 import com.good.board.repository.QnaBoardDAO;
 
@@ -63,6 +64,13 @@ public class ListInterview extends HttpServlet {
 		InterviewDAO dao = new InterviewDAO();
 		ArrayList<InterviewDTO> list = dao.list(map);
 
+		for (InterviewDTO dto : list) {
+			// 날짜 자르기
+			String date = dto.getITV_MEETDATE().substring(0, 10);
+			dto.setITV_MEETDATE(date);
+		}
+
+		
 		// 총 게시물 수
 		totalCount = dao.getTotalCount(map);
 		totalPage = (int) Math.ceil((double) totalCount / pageSize);

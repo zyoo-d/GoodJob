@@ -4,44 +4,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-
 <meta charset="UTF-8">
 <%@include file="/WEB-INF/views/inc/asset.jsp"%>
-
 <style>
-.space-evenly {
-	justify-content: space-evenly;
-}
-
-.matchplus {
-	min-height: 200px;
-	align-content: center;
-}
-
-#top3card>div:nth-child(2) {
-	border-left-width: 1px;
-	border-right-width: 1px;
-	border-color: rgb(235, 235, 235);
-}
-
-.contents_item_row {
-	display: flex;
-	justify-content: flex-start;
-}
-
-#matchscore {
-	margin-left: 35px;
-	line-height: 2rem;
-}
-
-.contents_item_label {
-	width: 68%;
-}
-#matchtotal {
-	justify-content: center;
-    gap: 26%;
-    margin-bottom: 5px;
-}
 </style>
 </head>
 <%@include file="/WEB-INF/views/inc/header.jsp"%>
@@ -57,7 +22,7 @@
 				</div>
 				<div id="matchinfo" class="mt-4">
 					<h3>'${name}'님의 성향 :</h3>
-					<h5>"${keywords.best}${keywords.worst} 사람!"</h5>
+					<h5 style="color: #404040;">"${keywords.best}${keywords.worst} 사람!"</h5>
 				</div>
 				<div>
 					<div class="border-b border-border py-8 mt-6 mb-8">
@@ -83,20 +48,26 @@
 												<div class="my-5 py-5 smallradarChart">
 													<canvas id="cp${status.index + 1}SugradarChart"></canvas>
 												</div>
-												<div class="my-5 py-5 flex space-evenly pl-4 border-border border-b">
+												<div class="mt-5 py-5 flex space-evenly pl-4">
 													<div>
 														<span
 															class="bg-gradient inline-flex h-16 w-16 items-center justify-center rounded-full">
 															${companyDTO.matchScore}% </span>
 													</div>
-													<span class="m-auto">"${companyDTO.matchText}"
-													</span>
-
+													<span class="m-auto">"${companyDTO.matchText}" </span>
 												</div>
-												<div class="mb-5 pb-5">
+												<div class="job_meta">
+													<c:forEach var="tag" items="${companyDTO.dto.tag_list}">
+														<span class="job-keyword">${tag}</span>
+													</c:forEach>
+												</div>
+												<div class="my-6 py-6 border-border border-y">
 													<div class="flex" id="matchtotal">
-														<h4>리뷰 평점</h4><h4><i
-																	class="fa-solid fa-star cornflowerblue"></i> ${companyDTO.dto.review_avg}</h4>
+														<h4>리뷰 평점</h4>
+														<h4>
+															<i class="fa-solid fa-star cornflowerblue"></i>
+															${companyDTO.dto.review_avg}
+														</h4>
 													</div>
 													<div id="matchscore">
 														<div class="contents_item_row">
@@ -141,12 +112,30 @@
 														</div>
 													</div>
 												</div>
-												<div class="job_meta">
 
-													<c:forEach var="tag" items="${companyDTO.dto.tag_list}">
-														<span class="job-keyword">${tag}</span>
-													</c:forEach>
+												<div id="cp_fnc" class="mb-6">
+													<div>
+														<h6>매출액</h6>
+														<canvas id="salesChart_${status.index}" width="384"
+															height="200"></canvas>
+													</div>
+													<div>
+														<h6>영업이익</h6>
+														<canvas id="ebitChart_${status.index}" width="384"
+															height="200"></canvas>
+													</div>
+													<div>
+														<h6>당기순이익</h6>
+														<canvas id="incomeChart_${status.index}" width="384"
+															height="200"></canvas>
+													</div>
+												</div>
 
+
+												<div class="text-center">
+													<a
+														href="/good/user/company/companyview.do?cp_seq=${companyDTO.dto.cp_seq}"
+														class="btn btn-sm btn-primary">상세보기</a>
 												</div>
 											</div>
 										</div>
@@ -159,7 +148,6 @@
 						</div>
 					</div>
 				</div>
-
 				<div class="cpsCompany">
 					<h3 class="pl-6">아쉽게 순위에 들지 못한 기업</h3>
 					<div class="row mt-8 cpsCompanyInfo">
@@ -167,11 +155,11 @@
 						<c:forEach items="${list}" var="list">
 							<div class="mb-8 sm:col-6 lg:col-4">
 								<div
-									class="rounded-xl bg-white p-6 shadow-lg lg:p-match matchplus">
+									class="rounded-xl bg-white p-6 shadow-lg lg:p-match matchplus mcard">
 									<div class="integration-card-head flex items-center space-x-4">
 										<img src="${list.dto.image}" alt="">
 										<div>
-											<h5 class="h5">${list.dto.cp_name }</h5>
+											<h5 class="h5">${list.dto.cp_name}</h5>
 											<span class="font-medium">${list.dto.idst_name}</span>
 										</div>
 
@@ -185,6 +173,7 @@
 									<div class="text-right text-lg">
 										<i class="fa-solid fa-star gold"></i> ${list.dto.review_avg}
 									</div>
+									<input type="hidden" name="cp_seq" value="${list.dto.cp_seq}">
 								</div>
 							</div>
 						</c:forEach>
@@ -240,6 +229,94 @@
 	    });
 	  </c:forEach>
 
+	  $('.mcard').click(function() {
+			var cp_seq = $(this).find('input[name=cp_seq]').val();
+			location.href = '/good/user/company/companyview.do?cp_seq=' + cp_seq;
+		});
+	  
+	  var years = [2021, 2022, 2023];
+
+	    <c:forEach items="${top3}" var="company" varStatus="status">
+	    var salesData_${status.index} = [
+	        ${flist[0][status.index]}, 
+	        ${flist[0][status.index + 1]}, 
+	        ${flist[0][status.index + 2]}
+	    ];
+	    var ebitData_${status.index} = [
+	        ${flist[1][status.index]}, 
+	        ${flist[1][status.index + 1]}, 
+	        ${flist[1][status.index + 2]}
+	    ];
+	    var incomeData_${status.index} = [
+	        ${flist[2][status.index]}, 
+	        ${flist[2][status.index + 1]}, 
+	        ${flist[2][status.index + 2]}
+	    ];
+
+
+	    var salesCtx_${status.index} = document.getElementById('salesChart_${status.index}').getContext('2d');
+	    var salesChart_${status.index} = new Chart(salesCtx_${status.index}, {
+	        type: 'bar',
+	        data: {
+	            labels: years,
+	            datasets: [{
+	                label: '매출액',
+	                data: salesData_${status.index},
+	                backgroundColor: 'rgba(75, 192, 192, 0.6)',
+	                borderWidth: 1
+	            }]
+	        },
+	        options: {
+	            scales: {
+	                y: {
+	                    beginAtZero: true
+	                }
+	            }
+	        }
+	    });
+
+	    var ebitCtx_${status.index} = document.getElementById('ebitChart_${status.index}').getContext('2d');
+	    var ebitChart_${status.index} = new Chart(ebitCtx_${status.index}, {
+	        type: 'bar',
+	        data: {
+	            labels: years,
+	            datasets: [{
+	                label: '영업이익',
+	                data: ebitData_${status.index},
+	                backgroundColor: 'rgba(255, 99, 132, 0.6)',
+	                borderWidth: 1
+	            }]
+	        },
+	        options: {
+	            scales: {
+	                y: {
+	                    beginAtZero: true
+	                }
+	            }
+	        }
+	    });
+
+	    var incomeCtx_${status.index} = document.getElementById('incomeChart_${status.index}').getContext('2d');
+	    var incomeChart_${status.index} = new Chart(incomeCtx_${status.index}, {
+	        type: 'line',
+	        data: {
+	            labels: years,
+	            datasets: [{
+	                label: '당기순이익',
+	                data: incomeData_${status.index},
+	                backgroundColor: 'rgba(54, 162, 235, 0.6)',
+	                borderWidth: 1
+	            }]
+	        },
+	        options: {
+	            scales: {
+	                y: {
+	                    beginAtZero: true
+	                }
+	            }
+	        }
+	    });
+	</c:forEach>
 	</script>
 </body>
 </html>

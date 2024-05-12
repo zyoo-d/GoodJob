@@ -25,7 +25,7 @@ public class ListStudy extends HttpServlet {
 		String page = req.getParameter("page");
 		int nowPage = 0; // 현재 페이지 번호
 		int totalCount = 0; // 총 게시물 수
-		int pageSize = 10; // 한 페이지에서 출력할 게시물 수
+		int pageSize = 12; // 한 페이지에서 출력할 게시물 수
 		int totalPage = 0; // 총 페이지 수
 		int begin = 0; // 페이징 시작 위치
 		int end = 0; // 페이징 끝 위치

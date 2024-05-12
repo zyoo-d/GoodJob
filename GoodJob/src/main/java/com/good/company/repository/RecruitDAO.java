@@ -319,7 +319,6 @@ public class RecruitDAO {
 
 			String sql = String.format("SELECT * FROM (SELECT ROWNUM AS rnum, a.* FROM (SELECT * FROM vwRecruitList %s ORDER BY %s) a) WHERE rnum BETWEEN %s AND %s", where.isEmpty() ? "" : " WHERE " + where, map.get("sort"), map.get("begin"), map.get("end"));
 
-			System.out.println(sql);
 			pstat = conn.prepareStatement(sql);
 
 			int parameterIndex = 1;
