@@ -454,46 +454,52 @@
 							</span>
 						</div>
 					</div>
-				</c:forEach>
-
-
-			</div>
-			<span class="menu">실시간 댓글
-				<button>
-					<i class="fa-solid fa-rotate-right"></i>
-				</button>
-			</span>
-
-
-
-			<div id="comment">
-				<div class="card chat-box" id="mychatbox">
-
-					<div id="commentList">
-						<c:forEach items="${livecommentlist}" var="livecommentdto">
-							<div class="mb-2">
-								<br />
-								<p class="bg-gray-200 text-gray-700 rounded-lg py-2 px-4"
-									id="chatchat">${livecommentdto.content}</p>
-								<div id="comment_content">
-									${livecommentdto.nickname} <span id="chat_regdate">${livecommentdto.regdate}</span><br>
-									<div id="CplivecommentBtn">
-										<button id="report-btn" data-boardtype="live" data-seq="${livecommentlist.cm_seq}">[ 신고 ]</button>
-										<c:if
-											test="${not empty id && (livecommentdto.id == id || lv == 2)}">
-
-											<button id="liveCommentDelBtn"
-												data-seq="${livecommentdto.cm_seq}"
-												onclick="del(${livecommentdto.cm_seq});">[ 삭제 ]</button>
-										</c:if>
-									</div>
-								</div>
-							</div>
-						</c:forEach>
-
-					</div>
 				</div>
 			</c:forEach>
+
+
+		</div>
+		<h5 class="my-4">
+			실시간 댓글
+			<button>
+				<i class="fa-solid fa-rotate-right"></i>
+			</button>
+		</h5>
+
+
+
+		<div id="comment">
+			<div class="card chat-box" id="mychatbox">
+
+				<div id="commentList">
+					<c:forEach items="${livecommentlist}" var="livecommentdto">
+						<div class="mb-2">
+							<br />
+							<p class="bg-gray-200 text-gray-700 rounded-lg py-2 px-4"
+								id="chatchat">${livecommentdto.content}</p>
+							<div id="comment_content">
+								${livecommentdto.nickname} <span id="chat_regdate">${livecommentdto.regdate}</span><br>
+								<div id="CplivecommentBtn">
+									<c:if test="${not empty id}">
+									<button type="button" id="report-btn" data-boardtype="live" data-seq="${livecommentdto.cm_seq}"
+									> [ 신고 ]</button>
+								</c:if>
+									<c:if
+										test="${not empty id && (livecommentdto.id == id || lv == 2)}">
+
+										<button id="liveCommentDelBtn"
+											data-seq="${livecommentdto.cm_seq}"
+											onclick="del(${livecommentdto.cm_seq});">[ 삭제 ]</button>
+									</c:if>
+								</div>
+							</div>
+						</div>
+					</c:forEach>
+
+				</div>
+			</div>
+
+
 
 
 
