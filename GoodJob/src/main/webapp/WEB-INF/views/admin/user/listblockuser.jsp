@@ -102,25 +102,28 @@
 											<ul class="pagination mb-0">
 												<c:if test="${pageUtil.hasPreviousPage()}">
 													<li class="page-item"><a class="page-link"
-														href="/good/admin/listblockuser.do?page=${pageUtil.startPage - 1}&rp_seq=${param.rp_seq}">
+														href="/good/admin/listblockuser.do?page=${Math.max(pageUtil.startPage - 1, 1)}">
 															<i class="fas fa-chevron-left"></i>
 													</a></li>
 												</c:if>
 
-												<c:forEach begin="${pageUtil.startPage}"
-													end="${pageUtil.startPage + 4 < pageUtil.totalPages ? pageUtil.startPage + 4 : pageUtil.totalPages}"
-													var="page">
+												<c:set var="startPage"
+													value="${pageUtil.currentPage - (pageUtil.currentPage - 1) % 5}" />
+												<c:set var="endPage"
+													value="${startPage + 4 < pageUtil.totalPages ? startPage + 4 : pageUtil.totalPages}" />
+
+												<c:forEach begin="${startPage}" end="${endPage}" var="page">
 													<li
 														class="page-item ${page == pageUtil.currentPage ? 'active' : ''}">
 														<a class="page-link"
-														href="/good/admin/listblockuser.do?page=${page}&rp_seq=${param.rp_seq}">
+														href="/good/admin/listblockuser.do?page=${page}">
 															${page} </a>
 													</li>
 												</c:forEach>
 
 												<c:if test="${pageUtil.hasNextPage()}">
 													<li class="page-item"><a class="page-link"
-														href="/good/admin/listblockuser.do?page=${pageUtil.startPage + 5}&rp_seq=${param.rp_seq}">
+														href="/good/admin/listblockuser.do?page=${endPage + 1}">
 															<i class="fas fa-chevron-right"></i>
 													</a></li>
 												</c:if>

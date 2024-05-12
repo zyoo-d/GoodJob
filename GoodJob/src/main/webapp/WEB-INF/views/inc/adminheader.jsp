@@ -34,11 +34,11 @@
       <div class="main-sidebar sidebar-style-2">
         <aside id="sidebar-wrapper">
           <div class="sidebar-brand">
-            <a href="/good/gijun/index.jsp" id="main-logo"><img src="/good/assets/logo.png"
+            <a href="/good/admin/main.do" id="main-logo"><img src="/good/assets/logo.png"
 				height="30" width="147" alt="logo" /></a>
           </div>
           <div class="sidebar-brand sidebar-brand-sm">
-            <a href="/good/gijun/index.jsp">GJ</a>
+            <a href="/good/admin/main.do">GJ</a>
           </div>
           <ul class="sidebar-menu">
   <li class="dropdown" id="menu-user">

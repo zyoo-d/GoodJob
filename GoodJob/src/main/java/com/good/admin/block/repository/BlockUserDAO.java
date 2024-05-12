@@ -28,17 +28,49 @@ public class BlockUserDAO {
 			e.printStackTrace();
 		}
 	}
+	
+	public int getTotalBlockUserCount() {
 
-	public ArrayList<BlockUserDTO> getBlockUserList() {
+		try {
+
+			StringBuilder sql = new StringBuilder("SELECT COUNT(*) AS cnt FROM tblBanLog");
+			
+
+			pstat = conn.prepareStatement(sql.toString());
+			
+
+			rs = pstat.executeQuery();
+
+			if(rs.next()) {
+
+				return rs.getInt("cnt");
+
+			}
+
+		} catch (Exception e) {
+			System.out.println("총 차단 유저 수 로드 실패");
+			e.printStackTrace();
+		}
+
+		return 0;
+
+	}
+
+	public ArrayList<BlockUserDTO> getBlockUserList(int startIndex, int endIndex) {
 		
 		ArrayList<BlockUserDTO> list = new ArrayList<>();
 		
 		try {
 			
-			String sql = "select ban_seq,ban_reason,id,to_char(ban_startdate,'yyyy-mm-dd') as ban_startdate,to_char(ban_enddate,'yyyy-mm-dd') as ban_enddate, TRUNC(ban_enddate-ban_startdate) as remaining_time from tblBanLog b";
+			StringBuilder sql = new StringBuilder("SELECT * FROM (SELECT ROWNUM AS rnum, t.* FROM (SELECT * "
+                    + "FROM vwListBanUser "
+                    + "ORDER BY regdate asc) t) WHERE rnum BETWEEN ? AND ?");
 			
-			stat = conn.createStatement();
-			rs = stat.executeQuery(sql);
+			pstat = conn.prepareStatement(sql.toString());
+			int parameterIndex = 1;
+			
+			pstat.setInt(parameterIndex++, startIndex + 1);
+			pstat.setInt(parameterIndex, endIndex);
 			
 			while(rs.next()) {
 				

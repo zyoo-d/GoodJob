@@ -1,7 +1,27 @@
+select * from tblBanLog;
+
+SELECT * FROM (SELECT ROWNUM AS rnum, t.* FROM (SELECT * FROM vwAllReportList)t);
 select * from vwMainComList;
 
+SELECT * FROM (SELECT ROWNUM AS rnum, t.* FROM (SELECT * FROM vwAllReportList WHERE (TYPE, sub_type, report_seq) NOT IN (SELECT TYPE, sub_type, report_seq FROM tblReportCheck)) t);
+SELECT *
+FROM (
+    SELECT ROWNUM AS rnum, t.*
+    FROM (
+        SELECT *
+        FROM vwAllReportList
+        WHERE (TYPE, sub_type, report_seq) NOT IN (
+            SELECT TYPE, sub_type, report_seq
+            FROM tblReportCheck
+        )
+    ) t
+);
+SELECT * FROM (SELECT ROWNUM AS rnum, t.* FROM (SELECT * FROM vwAllReportList WHERE (TYPE, sub_type, report_seq) NOT IN (SELECT TYPE, sub_type, report_seq FROM tblReportCheck)) t);
 select * from tblVisitor;
 delete from tblVisitor;
+
+select qna_seq as seq from tblQnAComment where qna_cm_seq = 1; 
+select * from tblQnAComment;
 
 insert into tblVisitor values(to_date('2024-05-05','yyyy-mm-dd'), 15);
 insert into tblVisitor values(to_date('2024-05-06','yyyy-mm-dd'), 130);
@@ -9,6 +29,9 @@ insert into tblVisitor values(to_date('2024-05-07','yyyy-mm-dd'), 142);
 insert into tblVisitor values(to_date('2024-05-08','yyyy-mm-dd'), 66);
 insert into tblVisitor values(to_date('2024-05-09','yyyy-mm-dd'), 153);
 
+create sequence seqBanLog;
+
+select * from tblBanLog;
 
 CREATE OR REPLACE VIEW vwDailyPopularPosts AS
 SELECT 
