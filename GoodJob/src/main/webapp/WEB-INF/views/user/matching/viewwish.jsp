@@ -3,18 +3,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
-
 <head>
 <meta charset="UTF-8">
 <%@include file="/WEB-INF/views/inc/asset.jsp"%>
 <style>
 </style>
-
 </head>
 <%@include file="/WEB-INF/views/inc/header.jsp"%>
-
 <body>
-	<section class="integration-single section pt-0">
+	<section class="page-hero pt-16 pb-6">
 		<div class="container">
 			<div class="row justify-center">
 				<c:if test="${wish=='0'}">
@@ -26,9 +23,9 @@
 						id="wishForm">
 				</c:if>
 
-				<div class="lg:col-10 mt-16">
+				<div class="">
 					<div
-						class="integration-single-container rounded-xl bg-white py-16 px-5 shadow-lg md:px-10 tab"
+						class="integration-single-container rounded-xl bg-white py-16 px-16 shadow-lg tab"
 						data-tab-group="service-tab">
 						<div class="px-4 text-center">
 							<h1 class="mt-3 gradiTitle">

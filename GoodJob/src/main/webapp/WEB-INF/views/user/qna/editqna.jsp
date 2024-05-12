@@ -6,8 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <%@include file="/WEB-INF/views/inc/asset.jsp"%>
-<link rel="stylesheet"
-	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <style>
 </style>
 </head>
@@ -26,8 +24,6 @@
 							</h1>
 							<p class="recruit-list mt-6">기업에 대해 궁금한 점을 자유롭게 물어보세요.</p>
 						</div>
-
-
 
 
 						<div id="write-form">

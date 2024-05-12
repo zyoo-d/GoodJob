@@ -75,7 +75,7 @@
 								placeholder="기업을 검색해보세요." aria-label="Search"
 								id="searchInputHead">
 							<button id="btnSearch" class="btn" type="submit">
-								<i class="fas fa-search"></i>
+								<i class="fas fa-search" style="color: #888;"></i>
 							</button>
 							<input type="hidden" id="headcp_seq" value="" name="headcp_seq">
 						</div>
@@ -91,14 +91,14 @@
 					href="/good/user/signin.do">로그인</a></li>
 				<li class="nav-item">
 					<div
-						class="order-1 ml-auto hidden items-center md:order-2 md:ml-0 lg:flex mt-2">
+						class="order-1 ml-auto hidden items-center md:order-2 md:ml-0 lg:flex mt-1">
 						<a class="btn btn-primary no-shadow btn-sm"
 							href="/good/user/signin.do">로그인</a>
 					</div>
 				</li>
 				<li class="nav-item">
 					<div
-						class="mt-2 order-1 ml-auto hidden items-center md:order-2 md:ml-0 lg:flex">
+						class="mt-1 order-1 ml-auto hidden items-center md:order-2 md:ml-0 lg:flex">
 						<a class="btn btn-outline-primary btn-sm"
 							href="/good/user/signup.do">회원가입</a>
 					</div>
@@ -112,14 +112,14 @@
 					href="/good/user/logout.do">로그아웃</a></li>
 				<li class="nav-item">
 					<div
-						class="mt-2 order-1 ml-auto hidden items-center md:order-2 md:ml-0 lg:flex">
+						class="mt-1 order-1 ml-auto hidden items-center md:order-2 md:ml-0 lg:flex">
 						<a class="btn btn-primary no-shadow btn-sm"
 							href="/good/user/mypage/main.do">마이페이지</a>
 					</div>
 				</li>
 				<li class="nav-item">
 					<div
-						class="mt-2 order-1 ml-auto hidden items-center md:order-2 md:ml-0 lg:flex">
+						class="mt-1 order-1 ml-auto hidden items-center md:order-2 md:ml-0 lg:flex">
 						<a class="btn btn-outline-primary btn-sm"
 							href="/good/user/logout.do">로그아웃</a>
 					</div>

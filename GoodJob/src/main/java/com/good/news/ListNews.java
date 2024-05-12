@@ -1,7 +1,7 @@
 package com.good.news;
 
 
-import java.io.BufferedReader;
+/*import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -41,7 +41,7 @@ public class ListNews {
         requestHeaders.put("X-Naver-Client-Secret", clientSecret);
         String responseBody = get(apiURL,requestHeaders);
 
-        //System.out.println(responseBody);
+    
         
         //파싱
         JSONParser parser = new JSONParser();
@@ -51,16 +51,14 @@ public class ListNews {
         	JSONObject root 
         		= (JSONObject)parser.parse(responseBody);
         	
-        	//System.out.println(root.get("total"));
+     
         	
         	JSONArray list = (JSONArray)root.get("items");
         	
         	for (int i=0; i<list.size(); i++) {
         		
         		
-        		//JSON Object = 책 1권 > BookDTO 1개
-        		//JSONObject book = (JSONObject)list.get(i);
-        		//System.out.println(book.get("title"));
+        	
         		
         		NewsDTO dto = new NewsDTO();
         		dto.setTitle(((JSONObject)list.get(i)).get("title").toString());
@@ -139,7 +137,7 @@ public class ListNews {
         }
     }
 
-}
+}*/
 
 
 

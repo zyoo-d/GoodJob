@@ -19,6 +19,15 @@ public class CommentDAO {
 		this.conn = DBUtil.open();
 	}
 	
+	public void close() {
+		try {
+			this.conn.close();
+		} catch (Exception e) {
+			System.out.println("CommentDAO.close 오류");
+			e.printStackTrace();
+		}
+	}
+	
 	public int addComment(CommentDTO dto) {
 	    try {
 	        // SQL 문장 작성

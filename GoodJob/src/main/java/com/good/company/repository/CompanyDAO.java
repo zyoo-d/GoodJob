@@ -79,8 +79,7 @@ public class CompanyDAO {
 				sql += where;
 			
 			}
-			System.out.println(sql);
-
+			
 			stat = conn.createStatement();
 			rs = stat.executeQuery(sql);
 
@@ -100,7 +99,6 @@ public class CompanyDAO {
 				mainComInfo.add(dto);
 
 			}
-			System.out.println(mainComInfo.size());
 			return mainComInfo;
 
 		} catch (Exception e) {
@@ -218,7 +216,7 @@ public class CompanyDAO {
 	            orderBy = "hire_avr_salary DESC";
 	        }
 
-	        sql = "SELECT * FROM (SELECT a.*, ROWNUM AS rnum FROM (SELECT * FROM vwNewComListInfo " +
+	        sql = "SELECT * FROM (SELECT a.*, ROWNUM AS rnum FROM (SELECT * FROM vwListCompany " +
 	                (where.isEmpty() ? "" : "WHERE " + where) +
 	                " ORDER BY " + orderBy + ") a) WHERE rnum BETWEEN " + map.get("begin") + " AND " + map.get("end");
 
@@ -257,10 +255,12 @@ public class CompanyDAO {
 
 				dto.setCom_rcrt_cnt(rs.getInt("com_rcrt_cnt"));
 				dto.setCom_scrap_cnt(rs.getInt("com_scrap_cnt"));
-
+				dto.setCom_rv_cnt(rs.getInt("com_rv_cnt"));
+				
 				listCompanyInfo.add(dto);
 
 			}
+	        //System.out.println(listCompanyInfo);
 			return listCompanyInfo;
 
 		} catch (Exception e) {
@@ -270,11 +270,65 @@ public class CompanyDAO {
 		return null;
 
 	}
+	public int getCompanyCount(HashMap<String, String> map) {
+	    try {
+	        String sql = "";
+	        String where = "";
+
+	        // 검색어 조건 추가
+	        if (map.get("search").equals("y")) {
+	            where += "cp_name LIKE '%" + map.get("word") + "%' AND ";
+	        }
+
+	        // 채용 중인 기업 조건 추가
+	        if (map.get("hiring").equals("y")) {
+	            where += "com_rcrt_cnt > 0 AND ";
+	        }
+
+	        // 연봉 조건 추가
+	        if (map.get("salary_seq") != null && !map.get("salary_seq").isEmpty()) {
+	            where += "hire_avr_salary >= " + map.get("salary_seq") + " AND ";
+	        }
+
+	        // 지역 조건 추가
+	        if (map.get("cp_address") != null && !map.get("cp_address").isEmpty()) {
+	            String[] locations = map.get("cp_address").split(",");
+	            where += "(";
+	            for (int i = 0; i < locations.length; i++) {
+	                where += "cp_address LIKE '%" + locations[i] + "%'";
+	                if (i < locations.length - 1) {
+	                    where += " OR ";
+	                }
+	            }
+	            where += ") AND ";
+	        }
+
+	        // 조건절 마지막의 AND 제거
+	        if (where.endsWith("AND ")) {
+	            where = where.substring(0, where.length() - 4);
+	        }
+
+	        sql = "SELECT COUNT(*) AS cnt FROM vwListCompany " +
+	                (where.isEmpty() ? "" : "WHERE " + where);
+
+	        stat = conn.createStatement();
+	        rs = stat.executeQuery(sql);
+
+	        if (rs.next()) {
+	            return rs.getInt("cnt");
+	        }
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+
+	    return 0;
+	}
 	/**
 	 * 채용 공고가 있는 기업 목록 조회 메서드
 	 * @return
 	 */
-	public ArrayList<CompanyDTO> getCompaniesWithRecruitment() {
+	/*public ArrayList<CompanyDTO> getCompaniesWithRecruitment() {
 	    try {
 	        LocalDate currentDate = LocalDate.now();
 	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -313,14 +367,16 @@ public class CompanyDAO {
 	    }
 
 	    return null;
-	}
+	}*/
+	
+	
 	/**
 	 * 검색결과에 따른 기업수를 부러오는 메서드
 	 * 
 	 * @param map
 	 * @return
 	 */
-	public int searchCompanyCount(HashMap<String, String> map) {
+	/*public int searchCompanyCount(HashMap<String, String> map) {
 
 		try {
 
@@ -369,7 +425,7 @@ public class CompanyDAO {
 		}
 
 		return 0;
-	}
+	}*/
 
 //TODO 수정해야함
 	public CompanyDTO get(String cp_seq) {
@@ -413,30 +469,6 @@ public class CompanyDAO {
 				dto.setCom_rcrt_cnt(rs.getInt("com_rcrt_cnt"));
 				dto.setCom_scrap_cnt(rs.getInt("com_scrap_cnt"));
 
-				// 재무정보
-				/*
-				 * sql = "select * from tblFinance where cp_seq = ?"; pstat =
-				 * conn.prepareStatement(sql); pstat.setString(1, cp_seq); rs =
-				 * pstat.executeQuery();
-				 * 
-				 * ArrayList<CompanyDTO> flist = new ArrayList<CompanyDTO>();
-				 * 
-				 * while(rs.next()) {
-				 * 
-				 * dto.setFnc_sales(rs.getLong("fnc_sales"));
-				 * dto.setFnc_ebit(rs.getLong("fnc_ebit"));
-				 * dto.setFnc_income(rs.getLong("fnc_income"));
-				 * dto.setFnc_period(rs.getString("fnc_period"));
-				 * dto.setFnc_regdate(rs.getString("fnc_regdate"));
-				 * 
-				 * 
-				 * flist.add(dto);
-				 * 
-				 * 
-				 * }
-				 * 
-				 * dto.setFnc_list(flist);
-				 */
 
 				return dto;
 			}
@@ -792,7 +824,36 @@ public ArrayList<String> getTaglist(String cp_seq){
 	        return null;
 	    }
 
-	
+
+	/**
+	 * 지유)등록된 리뷰수 불러오는 메서드
+	 * 
+	 * @return 리뷰수
+	 */
+	public int countRiview(String cp_seq) {
+		try {
+			String sql = "select count(*) as cnt from tblCompanyReview where cp_seq = ?";
+		
+			pstat = conn.prepareStatement(sql);
+			
+
+			pstat.setString(1, cp_seq);
+			rs = pstat.executeQuery();
+
+			while (rs.next()) {
+				int cnt = rs.getInt("cnt");
+				System.out.println(cnt);
+				return cnt;
+			}
+
+		} catch (Exception e) {
+			System.out.println("ReviewDAO.countRiview");
+			e.printStackTrace();
+		}
+
+		return 0;
+	}
+
 	
 	public ArrayList<String> getTopTagsByCpSeq(String cp_seq) {
 	    try {
@@ -806,7 +867,7 @@ public ArrayList<String> getTaglist(String cp_seq){
 	        while (rs.next()) {
 	            topTags.add(rs.getString("tag_keyword"));
 	        }
-	        System.out.println(topTags);
+	        //System.out.println("getTopTagsByCpSeq"+topTags);
 	        return topTags;
 
 	    } catch (Exception e) {

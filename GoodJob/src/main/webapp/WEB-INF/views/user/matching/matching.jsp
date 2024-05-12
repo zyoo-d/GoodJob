@@ -148,6 +148,8 @@
 													</c:forEach>
 
 												</div>
+												<div class="">
+												<a href="/good/user/company/companyview.do?cp_seq=${companyDTO.dto.cp_seq}" class="btn btn-sm btn-primary">상세보기</a></div>
 											</div>
 										</div>
 
@@ -167,11 +169,11 @@
 						<c:forEach items="${list}" var="list">
 							<div class="mb-8 sm:col-6 lg:col-4">
 								<div
-									class="rounded-xl bg-white p-6 shadow-lg lg:p-match matchplus">
+									class="rounded-xl bg-white p-6 shadow-lg lg:p-match matchplus mcard">
 									<div class="integration-card-head flex items-center space-x-4">
 										<img src="${list.dto.image}" alt="">
 										<div>
-											<h5 class="h5">${list.dto.cp_name }</h5>
+											<h5 class="h5">${list.dto.cp_name}</h5>
 											<span class="font-medium">${list.dto.idst_name}</span>
 										</div>
 
@@ -185,6 +187,7 @@
 									<div class="text-right text-lg">
 										<i class="fa-solid fa-star gold"></i> ${list.dto.review_avg}
 									</div>
+									<input type="hidden" name="cp_seq" value="${list.dto.cp_seq}">
 								</div>
 							</div>
 						</c:forEach>
@@ -240,6 +243,10 @@
 	    });
 	  </c:forEach>
 
+	  $('.mcard').click(function() {
+			var cp_seq = $(this).find('input[name=cp_seq]').val();
+			location.href = '/good/user/company/companyview.do?cp_seq=' + cp_seq;
+		});
 	</script>
 </body>
 </html>

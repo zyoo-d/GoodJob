@@ -4,8 +4,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import com.good.board.report.model.ReportCommonDTO;
 import com.test.util.DBUtil;
@@ -264,6 +270,149 @@ public class ReportCommonDAO {
 		return list;
 	}
 
+	public void blockuser(HashMap<String,String> blockStatus, String status, String blockDate, String releaseDate,
+			String blockReason) {
+		
+		try {
+			
+			StringBuilder sql = new StringBuilder();
+			List<String> insertIds = new ArrayList<>();
+			HashMap<String, String> updateIds = new HashMap<>();
+			
+			for(Map.Entry<String, String> entry: blockStatus.entrySet()) {
+				
+				String id = entry.getKey();
+	            String oldReleaseDate = entry.getValue();
+				
+	            if (oldReleaseDate != null) {
+	                updateIds.put(id, oldReleaseDate);
+	            } else {
+	                insertIds.add(id);
+	                sql.append("INSERT INTO tblBanLog (ban_seq, ban_reason, ban_startdate, ban_enddate, id) VALUES (seqBanLog.nextVal, ?, ?, ?, ?);");
+	            }
+				
+			}
+			
+			if (!insertIds.isEmpty()) {
+	            pstat = conn.prepareStatement(sql.toString());
+	            int paramIndex = 1;
+	            for (int i = 0; i < insertIds.size(); i++) {
+	                pstat.setString(paramIndex++, blockReason);
+	                pstat.setString(paramIndex++, blockDate);
+	                pstat.setString(paramIndex++, releaseDate);
+	                pstat.setString(paramIndex++, insertIds.get(i));
+	            }
+	            pstat.executeBatch();
+	        }
+			
+			updateBlockPeriod(updateIds, status, blockDate, releaseDate, blockReason);
+			
+		} catch (Exception e) {
+			System.out.println("ReportCommonDAO.blockuser");
+			e.printStackTrace();
+		}
+	}
+	
+	
+	
+	
+
+	private void updateBlockPeriod(HashMap<String,String> updateIds, String status, String blockDate, String releaseDate, String blockReason) {
+	    try {
+	        
+	    	
+	        StringBuilder updateSql = new StringBuilder("UPDATE tblBanLog SET ban_reason = ?, ban_enddate = ? WHERE id = ?");
+	        PreparedStatement updatePstat = conn.prepareStatement(updateSql.toString());
+	        
+	        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+	        for (Map.Entry<String, String> entry : updateIds.entrySet()) {
+	            String id = entry.getKey();
+	            String oldReleaseDate = entry.getValue();
+
+	            if (oldReleaseDate != null) {
+	                // 이미 차단된 사용자
+	                Date newReleaseDate = calculateNewReleaseDate(oldReleaseDate, blockDate, releaseDate);
+
+	                updatePstat.setString(1, blockReason);
+	                updatePstat.setString(2, blockDate);
+	                updatePstat.setString(3, dateFormat.format(newReleaseDate));
+	                updatePstat.setString(4, id);
+	                updatePstat.addBatch();
+	            }
+	        }
+
+	        updatePstat.executeBatch();
+	    } catch (Exception e) {
+	        System.out.println("ReportCommonDAO.updateBlockPeriod");
+	        e.printStackTrace();
+	    }
+	}
+	
+	private Date calculateNewReleaseDate(String oldReleaseDate, String blockDate, String releaseDate) {
+	    try {
+	        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	        Date oldDate = dateFormat.parse(oldReleaseDate);
+	        Date startDate = dateFormat.parse(blockDate);
+	        Date endDate = dateFormat.parse(releaseDate);
+
+	        long diffDays = (endDate.getTime() - startDate.getTime()) / (24 * 60 * 60 * 1000);
+	        Calendar cal = Calendar.getInstance();
+	        cal.setTime(oldDate);
+	        cal.add(Calendar.DATE, (int) diffDays);
+
+	        return cal.getTime();
+	    } catch (ParseException e) {
+	        e.printStackTrace();
+	        return null;
+	    }
+	}
+
+	public HashMap<String, String> checkBlock(List<String> userIds) {
+		HashMap<String, String> blockStatus = new HashMap<>();
+		
+		try {
+			
+			StringBuilder sql= new StringBuilder("select id, ban_enddate from tblBanLog where ban_enddate > sysdate and id in(");
+
+			for(int i =0; i<userIds.size(); i++) {
+				sql.append((i==0) ? "?" : ",?");
+			}
+			
+			sql.append(")");
+			
+			pstat = conn.prepareStatement(sql.toString());
+			
+			for(int i=0; i<userIds.size(); i++) {
+				pstat.setString(i+1, userIds.get(i));
+			}
+			
+			rs = pstat.executeQuery();
+			
+			while(rs.next()) {
+				String id = rs.getString("id");
+				String endDate = rs.getString("ban_enddate");
+				blockStatus.put(id, endDate);
+				
+			}
+			
+			for(String id : userIds) {
+				if(!blockStatus.containsKey(id)) {
+					blockStatus.put(id, null);
+				}
+			}
+			
+		} catch (Exception e) {
+			System.out.println("ReportCommonDAO.checkBlock");
+			e.printStackTrace();
+		}
+		
+		return blockStatus;
+		
+	}
+	
+	
+	
 
 
 
