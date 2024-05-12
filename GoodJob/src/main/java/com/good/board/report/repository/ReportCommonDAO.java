@@ -208,8 +208,6 @@ public class ReportCommonDAO {
 
 		try {
 			String sql = "";
-			System.out.println(sub_type);
-			System.out.println(seq);
 
 			switch (sub_type) {
 			case "qna":
@@ -218,7 +216,7 @@ public class ReportCommonDAO {
 			case "study":
 				sql = "select std_seq as seq from tblStdComment where std_cm_seq = ? ";
 				break;
-			case "live":
+			case "company":
 				sql = "select cp_seq as seq from tblLiveComment where live_seq = ?";
 				break;
 			}

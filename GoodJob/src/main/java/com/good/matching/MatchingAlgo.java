@@ -17,10 +17,10 @@ public class MatchingAlgo {
 		
 	}
 
-	public String[] sort(HashMap<Integer, String> scoreMap) {
+	public String[] sort(HashMap<String, Integer> scoreMap) {
 		
-		List<Map.Entry<Integer, String>> list = new ArrayList<>(scoreMap.entrySet());
-		list.sort(Map.Entry.comparingByKey(Comparator.reverseOrder()));
+		List<Map.Entry<String, Integer>> list = new ArrayList<>(scoreMap.entrySet());
+		list.sort(Map.Entry.comparingByValue(Comparator.reverseOrder()));
 		
 		String[] columnNames = new String[list.size()];
 		
@@ -28,7 +28,7 @@ public class MatchingAlgo {
 		
 		for(int i=0; i<list.size(); i++) {
 			
-			columnNames[i] = list.get(i).getValue();
+			columnNames[i] = list.get(i).getKey();
 			
 		}
 		

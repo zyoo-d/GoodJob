@@ -14,5 +14,6 @@ public class BoardCommonDTO {
 	private String id;
 	private String views;
 	private String board_type;
+	private String totalReportCount;
 	
 }

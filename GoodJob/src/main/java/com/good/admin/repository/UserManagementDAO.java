@@ -95,7 +95,7 @@ public class UserManagementDAO {
 			}
 			
 		} catch (Exception e) {
-			System.out.println("UserManagementDAO.userlist");
+			System.out.println("(관리자) 유저 목록 로드 실패");
 			e.printStackTrace();
 		}
 		
