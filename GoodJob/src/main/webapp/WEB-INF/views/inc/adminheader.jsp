@@ -58,6 +58,9 @@
     <ul class="dropdown-menu">
       <li id="submenu-notice"><a class="nav-link" href="#!">공지사항 관리</a></li>
       <li id="submenu-boardreport"><a class="nav-link" href="/good/gijun/board/boardreport.jsp">신고 게시글 관리</a></li>
+      <li id="submenu-boardreport"><a class="nav-link" href="/good/board/interview/InterviewHold.do">면접 후기 대기 목록</a></li>
+       <li id="submenu-boardreport"><a class="nav-link" href="/good/board/interview/InterviewApproval.do">면접 후기 승인 목록</a></li>
+        <li id="submenu-boardreport"><a class="nav-link" href="/good/board/interview/InterviewCompanion.do">면접 후기 반려 목록</a></li>
     </ul>
   </li>
   <li class="dropdown" id="menu-company">
