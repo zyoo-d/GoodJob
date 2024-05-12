@@ -54,6 +54,9 @@ public class BoardReport extends HttpServlet {
 		req.setAttribute("allReportList", allReportList);
 		req.setAttribute("recentReportCount", recentReportCount);
 		
+		boardCommonDAO.close();
+		reportCommonDAO.close();
+		
 		
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/admin/board/boardreport.jsp");
 		dispatcher.forward(req, resp);

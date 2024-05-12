@@ -36,6 +36,8 @@ public class EditSurvey extends HttpServlet {
 		} else {
 			Alert.fail(resp);
 		}
+		
+		dao.close();
 
 
 	}

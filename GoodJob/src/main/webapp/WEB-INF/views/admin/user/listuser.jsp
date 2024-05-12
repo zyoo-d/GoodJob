@@ -37,10 +37,14 @@
 															<i class="fas fa-search"></i>
 														</button>
 													</div>
-													<a href="#" class="btn btn-icon icon-left btn-primary"><i
-														class="far fa-edit"></i> 차단 관리</a> <a href="#"
-														class="btn btn-icon icon-left btn-danger"><i
-														class="fas fa-times"></i> 회원 탈퇴</a>
+													<button id="btn-block-user"
+														class="btn btn-icon icon-left btn-primary">
+														<i class="far fa-edit"></i> 차단 관리
+													</button>
+													<button id="btn-resignation-user"
+														class="btn btn-icon icon-left btn-danger">
+														<i class="far fa-edit"></i> 회원 탈퇴
+													</button>
 												</div>
 											</form>
 										</div>
@@ -113,15 +117,14 @@
 													<li
 														class="page-item ${page == pageUtil.currentPage ? 'active' : ''}">
 														<a class="page-link"
-														href="/good/admin/listuser.do?page=${page}">
-															${page} </a>
+														href="/good/admin/listuser.do?page=${page}"> ${page} </a>
 													</li>
 												</c:forEach>
 
 												<c:if test="${pageUtil.hasNextPage()}">
 													<li class="page-item"><a class="page-link"
-														href="/good/admin/listuser.do?page=${endPage + 1}">
-															<i class="fas fa-chevron-right"></i>
+														href="/good/admin/listuser.do?page=${endPage + 1}"> <i
+															class="fas fa-chevron-right"></i>
 													</a></li>
 												</c:if>
 											</ul>
@@ -138,9 +141,92 @@
 					</div>
 				</section>
 			</div>
+
+			<div class="modal fade" id="resignationModal" tabindex="-1"
+				role="dialog" aria-labelledby="resignationModalLabel"
+				aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="resignationModalLabel">회원 탈퇴</h5>
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<form id="resignationForm" method="POST"
+								action="/good/admin/userWithdrawal.do">
+								<div class="form-group">
+									<label for="user-ids">선택된 회원 아이디</label> <input type="text"
+										class="form-control" id="user-ids" name="user-ids" readonly>
+								</div>
+								<div class="form-group">
+									<label for="status">상태</label> <select class="form-control"
+										id="status" name="status">
+										<option value="0">정상</option>
+										<option value="1">회원탈퇴</option>
+									</select>
+								</div>
+							</form>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary"
+								data-dismiss="modal">취소</button>
+							<button type="submit" form="resignationForm"
+								class="btn btn-danger">회원 탈퇴</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+
+
 			<%@include file="/WEB-INF/views/inc/adminfooter.jsp"%>
 		</div>
 	</div>
+
+	<script>
+	$(document).ready(function() {
+		  $('#btn-resignation-user').on('click', function() {
+		    const checkedCheckboxes = $('input[type="checkbox"][data-checkboxes="mygroup"]:checked');
+		    const checkedCount = checkedCheckboxes.length;
+
+		    if (checkedCount === 0) {
+		      alert('회원을 선택해주세요.');
+		      return;
+		    }
+
+		    $('#btn-resignation-user').fireModal({
+		      body: $('#resignationModal'),
+		      title: '회원 탈퇴',
+		      footerClass: 'text-right',
+		      buttons: [
+		        {
+		          text: '회원 탈퇴',
+		          class: 'btn btn-danger',
+		          submit: true,
+		          handler: function(modal) {
+		            modal.find('#resignationForm').submit();
+		          }
+		        }
+		      ],
+		      created: function(modal) {
+		        const userIds = [];
+		        checkedCheckboxes.each(function() {
+		          const selectedRow = $(this).closest('tr');
+		          const userId = selectedRow.find('td:nth-child(2)').text().trim();
+		          userIds.push(userId);
+		        });
+
+		        modal.find('#user-ids').val(userIds.join(','));
+		      }
+		    });
+		  });
+		});
+	
+	</script>
 
 
 </body>

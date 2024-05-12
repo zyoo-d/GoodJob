@@ -4,10 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import com.good.board.model.CommentDTO;
@@ -880,18 +879,23 @@ public ArrayList<String> getTaglist(String cp_seq){
 	    }
 	}
 	
-	public HashMap<String, Integer> getTop5CompaniesByReviewCount() {
-		HashMap<String, Integer> map = new HashMap<>();
+	public LinkedHashMap<String, Integer> getTop5CompaniesByReviewCount() {
+		LinkedHashMap<String, Integer> map = new LinkedHashMap<>();
 		
 		try {
 			
-			String sql = "SELECT cp_name, cnt"
-					+ "FROM (SELECT cp_name, COUNT(*) AS cnt, ROWNUM AS rnum"
-					+ "      FROM tblCompanyReview cr"
-					+ "               INNER JOIN tblCompany c ON cr.cp_seq = c.cp_seq"
-					+ "      GROUP BY c.cp_seq, c.cp_name"
-					+ "      ORDER BY cnt DESC)"
-					+ "WHERE ROWNUM <= 5";
+			String sql = "SELECT cp_name, cnt "
+					+ "FROM ("
+					+ "    SELECT cp_name, cnt, ROWNUM AS rnum "
+					+ "    FROM ("
+					+ "        SELECT c.cp_name, COUNT(*) AS cnt "
+					+ "        FROM tblCompanyReview cr "
+					+ "        INNER JOIN tblCompany c ON cr.cp_seq = c.cp_seq "
+					+ "        GROUP BY c.cp_seq, c.cp_name "
+					+ "        ORDER BY cnt DESC "
+					+ "    )"
+					+ ")"
+					+ " WHERE rnum <= 5";
 			
 			stat = conn.createStatement();
 			rs = stat.executeQuery(sql);
@@ -913,18 +917,18 @@ public ArrayList<String> getTaglist(String cp_seq){
 		
 	}
 	
-	public HashMap<String, Double> getTop5CompaniesByReviewScore() {
-		HashMap<String, Double> map = new HashMap<>();
+	public LinkedHashMap<String, Double> getTop5CompaniesByReviewScore() {
+		LinkedHashMap<String, Double> map = new LinkedHashMap<>();
 		
 		try {
 			
-			String sql ="SELECT rnum, cp_name, avg"
+			String sql ="SELECT rnum, cp_name, avg "
 					+ "FROM ("
-					+ "    SELECT ROWNUM AS rnum, cp_name, avg"
+					+ "    SELECT ROWNUM AS rnum, cp_name, avg "
 					+ "    FROM ("
-					+ "        SELECT cp_name, avg"
-					+ "        FROM vwCompanyReviewAvg"
-					+ "        ORDER BY avg DESC"
+					+ "        SELECT cp_name, avg "
+					+ "        FROM vwCompanyReviewAvg "
+					+ "        ORDER BY avg DESC "
 					+ "    )"
 					+ ")"
 					+ "WHERE rnum <= 5";
@@ -945,6 +949,26 @@ public ArrayList<String> getTaglist(String cp_seq){
 		
 		return map;
 
+	}
+	
+	public LinkedHashMap<String, Integer> getYearlyReviewStats() {
+	    LinkedHashMap<String, Integer> map = new LinkedHashMap<>();
+	    
+	    try {
+	        String sql = "select * from vwYearlyReviewStats";
+	        stat = conn.createStatement();
+	        rs = stat.executeQuery(sql);
+	        
+	        while(rs.next()) {
+	            map.put(rs.getString("date"), rs.getInt("cnt"));
+	        }
+	        
+	    } catch (Exception e) {
+	        System.out.println("1년 리뷰통계 로드 실패");
+	        e.printStackTrace();
+	    }
+	    
+	    return map;
 	}
 	
 

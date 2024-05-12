@@ -66,7 +66,7 @@
   <li class="dropdown" id="menu-review">
     <a href="#" class="nav-link has-dropdown"><i class="fas fa-clipboard"></i> <span>리뷰 관리</span></a>
     <ul class="dropdown-menu">
-      <li id="submenu-reviewmain"><a class="nav-link" href="/good/gijun/review/reviewmain.jsp">리뷰 통계</a></li>
+      <li id="submenu-reviewmain"><a class="nav-link" href="/good/admin/review/reviewstatistics.do">리뷰 통계</a></li>
       <li id="submenu-review"><a class="nav-link" href="/good/admin/review/review.do">승인 대기 리뷰</a></li>
     </ul>
   </li>

@@ -34,6 +34,8 @@ public class ListBlockUser extends HttpServlet{
 
 		req.setAttribute("blockUserList", blockUserList);
 		req.setAttribute("pageUtil", pageUtil);
+		
+		blockUserDAO.close();
 
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/admin/user/listblockuser.jsp");
 		dispatcher.forward(req, resp);
