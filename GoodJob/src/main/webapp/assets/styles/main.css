@@ -3172,6 +3172,9 @@ input#nav-toggle:checked ~ #nav-menu {
 .pl-7 {
   padding-left: 1.75rem;
 }
+.pl-12 {
+  padding-left: 3rem;
+}
 .pr-9 {
   padding-right: 2.25rem;
 }

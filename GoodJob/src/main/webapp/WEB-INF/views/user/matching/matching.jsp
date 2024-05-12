@@ -22,7 +22,8 @@
 				</div>
 				<div id="matchinfo" class="mt-4">
 					<h3>'${name}'님의 성향 :</h3>
-					<h5 style="color: #404040;">"${keywords.best}${keywords.worst} 사람!"</h5>
+					<h5 style="color: #404040;">"${keywords.best}${keywords.worst}
+						사람!"</h5>
 				</div>
 				<div>
 					<div class="border-b border-border py-8 mt-6 mb-8">
@@ -37,31 +38,31 @@
 										<div class="my-8 md:col-6 lg:col-4 integration-tab-item px-6"
 											data-groups='["social"]'>
 											<div class="pb-8">
-											<div class="min-h-480">
-												<div
-													class="pb-5 integration-card-head flex items-center space-x-4 min-h-[105px]">
-													<img src="${companyDTO.dto.image}" alt="" />
-													<div>
-														<h5 class="h5">${companyDTO.dto.cp_name}</h5>
-														<span class="font-medium">${companyDTO.dto.idst_name}</span>
+												<div class="min-h-480">
+													<div
+														class="pb-5 integration-card-head flex items-center space-x-4 min-h-[105px]">
+														<img src="${companyDTO.dto.image}" alt="" />
+														<div>
+															<h5 class="h5">${companyDTO.dto.cp_name}</h5>
+															<span class="font-medium">${companyDTO.dto.idst_name}</span>
+														</div>
 													</div>
-												</div>
-												<div class="my-5 py-5 smallradarChart">
-													<canvas id="cp${status.index + 1}SugradarChart"></canvas>
-												</div>
-												<div class="mt-5 py-5 flex space-evenly pl-4">
-													<div>
-														<span
-															class="bg-gradient inline-flex h-16 w-16 items-center justify-center rounded-full">
-															${companyDTO.matchScore}% </span>
+													<div class="my-5 py-5 smallradarChart">
+														<canvas id="cp${status.index + 1}SugradarChart"></canvas>
 													</div>
-													<span class="m-auto">"${companyDTO.matchText}" </span>
-												</div>
-												<div class="job_meta">
-													<c:forEach var="tag" items="${companyDTO.dto.tag_list}">
-														<span class="job-keyword">${tag}</span>
-													</c:forEach>
-												</div>
+													<div class="mt-5 py-5 flex space-evenly pl-4">
+														<div>
+															<span
+																class="bg-gradient inline-flex h-16 w-16 items-center justify-center rounded-full">
+																${companyDTO.matchScore}% </span>
+														</div>
+														<span class="m-auto">"${companyDTO.matchText}" </span>
+													</div>
+													<div class="job_meta">
+														<c:forEach var="tag" items="${companyDTO.dto.tag_list}">
+															<span class="job-keyword">${tag}</span>
+														</c:forEach>
+													</div>
 												</div>
 												<div class="my-6 py-6 border-border border-y">
 													<div class="flex" id="matchtotal">
@@ -116,6 +117,10 @@
 												</div>
 
 												<div id="cp_fnc" class="mb-6">
+													<div id="salary_info">
+														<h4>평균연봉</h4>
+														<div>${companyDTO.dto.hire_avr_salary} <span>만원</span></div>
+													</div>
 													<div>
 														<h6>매출액</h6>
 														<canvas id="salesChart_${status.index}" width="384"

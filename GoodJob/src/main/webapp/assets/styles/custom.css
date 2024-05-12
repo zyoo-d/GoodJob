@@ -21,12 +21,22 @@
 	align-content: center;
 }
 
-#top3card>div:nth-child(2) {
+#top3card>div:nth-child(2), #fnc_chart>div:nth-child(2) {
 	border-left-width: 1px;
 	border-right-width: 1px;
 	border-color: rgb(235, 235, 235);
 }
-
+#salary_info {
+	font-size: 1.4rem;
+	color: #444;
+	display: flex;
+    justify-content: space-around;
+    margin-bottom: 30px;
+}
+#salary_info span {
+	font-size: 1.1rem;
+	color: #4e4e4e;
+}
 .contents_item_row {
 	display: flex;
 	justify-content: flex-start;
@@ -1527,7 +1537,6 @@ textarea:focus {
 	height: 400px;
 	margin: auto;
 	margin-top: 40px;
-	margin-bottom: 50px;
 }
 
 .cpCMember h3 {
@@ -1548,6 +1557,9 @@ textarea:focus {
 
 .min-h-480 {
 	min-height: 480px;
+}
+.min-h-450 {
+	min-height: 450px;
 }
 
 .cpsChart {
