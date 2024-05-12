@@ -120,12 +120,6 @@
 					</div>
 				</div>
 			</div>
-			<div class="moving-btn studyAdd">
-				<c:if test="${lv == 2}">
-					<a href="/good/board/noticewrite.do" class="btn btnList">글쓰기</a>
-				</c:if>
-			</div>
-
 		</div>
 
 		<nav class="PageBox z-custom" aria-label="Page navigation example">

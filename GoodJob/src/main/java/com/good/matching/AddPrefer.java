@@ -110,7 +110,8 @@ public class AddPrefer extends HttpServlet {
 			PrintWriter writer = resp.getWriter();
 			writer.println("<html><head><meta charset=\"UTF-8\"><title>Access Denied</title></head><body>");
 			writer.println("<script type='text/javascript'>");
-			writer.println("alert('"+sum+"정확도가 너무 낮아 정보 활용이 어렵습니다. 다시 진행해주세요 :)');");
+			writer.println("alert('[정확도: "+sum+"%]정확도가 너무 낮아 정보 활용이 어렵습니다. "
+					+ "다시 진행해주세요 :)');");
 			writer.println("history.back();");
 			writer.println("</script>");
 			writer.println("</body></html>");
