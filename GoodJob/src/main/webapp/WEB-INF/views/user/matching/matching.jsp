@@ -36,7 +36,8 @@
 									<c:forEach var="companyDTO" items="${top3}" varStatus="status">
 										<div class="my-8 md:col-6 lg:col-4 integration-tab-item px-6"
 											data-groups='["social"]'>
-											<div class="pb-8 min-h-400">
+											<div class="pb-8">
+											<div class="min-h-480">
 												<div
 													class="pb-5 integration-card-head flex items-center space-x-4 min-h-[105px]">
 													<img src="${companyDTO.dto.image}" alt="" />
@@ -60,6 +61,7 @@
 													<c:forEach var="tag" items="${companyDTO.dto.tag_list}">
 														<span class="job-keyword">${tag}</span>
 													</c:forEach>
+												</div>
 												</div>
 												<div class="my-6 py-6 border-border border-y">
 													<div class="flex" id="matchtotal">
@@ -134,7 +136,7 @@
 
 												<div class="text-center">
 													<a
-														href="/good/user/company/companyview.do?cp_seq=${companyDTO.dto.cp_seq}"
+														href="/good/user/company/companyview.do?cp_seq=${companyDTO.cp_seq}"
 														class="btn btn-sm btn-primary">상세보기</a>
 												</div>
 											</div>
@@ -173,7 +175,7 @@
 									<div class="text-right text-lg">
 										<i class="fa-solid fa-star gold"></i> ${list.dto.review_avg}
 									</div>
-									<input type="hidden" name="cp_seq" value="${list.dto.cp_seq}">
+									<input type="hidden" name="cp_seq" value="${list.cp_seq}">
 								</div>
 							</div>
 						</c:forEach>

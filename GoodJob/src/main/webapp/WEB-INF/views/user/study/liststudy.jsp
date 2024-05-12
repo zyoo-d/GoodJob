@@ -98,7 +98,7 @@
 													<p class="">${dto.std_title}</p>
 													<p class="text-right views-comments views mt-2">
 														<i class="fa-regular fa-eye"></i>${dto.std_views} <i
-															class="fa-regular fa-comment"></i>20
+															class="fa-regular fa-comment"></i>${dto.cm_count}
 													</p>
 													<input type="hidden" name="std_seq" value="${dto.std_seq}">
 												</div>

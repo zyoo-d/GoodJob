@@ -8,7 +8,10 @@
     justify-content: center;
     align-items: center;
 }
-
+.btnMatch {
+	vertical-align: middle;
+	font-size: 1rem;
+}
 .space-evenly {
 	justify-content: space-evenly;
 }
@@ -1543,8 +1546,8 @@ textarea:focus {
 	margin-bottom: 50px;
 }
 
-.min-h-400 {
-	min-height: 400px;
+.min-h-480 {
+	min-height: 480px;
 }
 
 .cpsChart {

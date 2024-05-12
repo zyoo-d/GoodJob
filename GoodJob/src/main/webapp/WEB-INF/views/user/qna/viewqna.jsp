@@ -55,7 +55,7 @@
 
 
 						<div class="row mb-8">
-							<div class="form-group mt-8 md:col-6 lg:col-4">
+							<div class="form-group mt-8">
 								<div class="qna-view-form qnaview">
 									<p class="company">${dto.cp_name}</p>
 									<div class="title" id="qna-title">
