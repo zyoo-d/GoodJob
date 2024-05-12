@@ -8,44 +8,116 @@
     <%@include file="/WEB-INF/views/inc/asset.jsp" %>
 <style>
 textarea {
-    width: 100%;
-    height: 100px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 10px;
-    margin-top: 10px;
-    resize: none;
+	width: 100%;
+	height: 100px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	padding: 10px;
+	margin-top: 10px;
+	resize: none;
 }
 
 .tag_meta {
-    display: flex;
-    flex-wrap: wrap; 
-    margin: 15px 3px;
-    align-items: center;
-    gap: 10px 5px; 
+	display: flex;
+	flex-wrap: wrap;
+	margin: 15px 3px;
+	align-items: center;
+	gap: 10px 5px;
 }
 
 .job_meta, .tag_meta {
-    margin-top: 15px;
-    padding: 5px 0;
+	margin-top: 15px;
+	padding: 5px 0;
 }
 
 .job_meta .job-keyword, .tag_meta .tag-keyword {
-    cursor: pointer; 
-    display: inline-block;
-    margin-bottom: 5px;
+	display: inline-block;
+	margin-bottom: 5px;
+	cursor: pointer;
 }
 
 .comment-section {
-    flex-basis: 100%; 
-    margin-top: 20px;
+	flex-basis: 100%;
+	margin-top: 20px;
 }
+
+
+.textAreaWrapper {
+	position: relative;
+	display: flex;
+	align-items: flex-end;
+	justify-content: space-between;
+}
+
+.textLengthWrap {
+	display: flex;
+	align-items: center;
+	gap: 5px; 
+}
+
+.stars {
+	flex: 1 1 auto;
+	justify-content: center;
+	display: flex;
+	font-size: 2.5rem;
+	margin: 0 2px;
+	cursor: pointer;
+	transition: color 0.2s ease-in-out;
+}
+
+.star:hover {
+	color: #ffd700;
+}
+
+.stars::before {
+	letter-spacing: 5px;
+	background: linear-gradient(90deg, #ffc107 0%, #e4e5e9 0%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	display: block;
+	text-align: center;
+}
+
+.star {
+	color: #CCC;
+	cursor: pointer;
+	font-size: 24px;
+}
+
+.star.rated {
+	color: gold;
+}
+
+.half-rated:before {
+	content: "\f5c0";
+}
+
 .fas {
-    color: gold;
+	color: gold;
 }
+
 .far {
-    color: #eee; 
+	color: #eee;
 }
+/*태그*/
+.tagify {
+	width: 100%;
+	max-width: 700px;
+	position: relative;
+	max-width: 400px;
+	margin: 10px auto;
+	display: flex;
+	font-size: 16px;
+	align-items: center;
+	border-radius: 10px;
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+	background: #fff;
+}
+
+.add-tag .tagify__tag>div {
+	border-radius: 25px;
+}
+
     </style>
 </head>
 <%@include file="/WEB-INF/views/inc/header.jsp" %>
@@ -165,29 +237,28 @@ textarea {
         
         
          <!-- com-tag section -->
-        <div class="com-tag">
-    <div class="click-tag">
-        <h4>추천 태그</h4>
-        <p class="tag-info mt-6">클릭하면 태그로 바로 등록!</p>
-        <div class="tag_meta">
-        <c:forEach items="${showTagList}" var="tlist">
-            <span class="tag-keyword">${tlist}</span>
-           </c:forEach>
-        </div>
-    </div>
-    <!-- <div class="add-tag-text">
-        <h3>태그 추가</h3>
-        <p class="tag-info mt-6">추천 태그가 마음에 들지 않다면?</p>
-        <div class="add-tag">
-            <input type="text" name="tag_keyword" id="tag" placeholder="추가하실 태그를 입력하세요">
-            <input type="button">추가</input>
-        </div>
-        <div class="tag-list tag_meta">
-    Dynamically added tags will go here
-</div>
-        </div> -->
+         <div class="com-tag">
+            <div class="click-tag">
+                <h3>추천 태그</h3>
+                <p class="tag-info mt-6">최근 가장 많이 등록된 태그!</p>
+                <div class="tag_meta">
+                    <c:forEach items="${showTagList}" var="tlist">
+                        <span class="tag-keyword">${tlist}</span>
+                    </c:forEach>
+                </div>
+            </div>
+            <div class="add-tag-text">
+                <h3>태그 추가</h3>
+                <p class="tag-info mt-6">추천 태그가 마음에 들지 않다면?</p>
+                <div class="add-tag">
+                    <input name='tag_keyword' placeholder='추가하실 태그를 입력하세요(최대 3개)'
+                        id="tag" value=''>
+                </div>
 
-    </div>
+            </div>
+
+
+
 
 
 
@@ -241,7 +312,11 @@ textarea {
     </section>
    
 <%@include file="/WEB-INF/views/inc/footer.jsp" %>
-<script src="/good/assets/js/tagify.min.js"></script>
+<script src="https://unpkg.com/@yaireo/tagify"></script>
+	<script
+		src="https://unpkg.com/@yaireo/tagify/dist/tagify.polyfills.min.js"></script>
+	<link href="https://unpkg.com/@yaireo/tagify/dist/tagify.css"
+		rel="stylesheet" type="text/css" />
 <script>
 $('#lineBox').keyup(function (e) {
 	let linecontent = $(this).val();
@@ -304,19 +379,19 @@ document.querySelectorAll('.category .stars').forEach(starsContainer => {
             const starIndex = parseInt(e.target.getAttribute('data-value'), 10);
             let currentValue = e.target.dataset.currentValue ? parseFloat(e.target.dataset.currentValue) : 0;
 
-            // Toggle star rating logic
+            
             if (currentValue < starIndex - 0.5) {
                 currentValue = starIndex - 0.5;
             } else if (currentValue < starIndex) {
                 currentValue = starIndex;
             } else {
-                currentValue = starIndex - 1; // Toggle down
+                currentValue = starIndex - 1; 
             }
 
             e.target.dataset.currentValue = currentValue;
             updateStars(starsContainer, currentValue);
 
-            // Update the highest value for the category
+            
             updateHighestValue(starsContainer);
         }
     });
@@ -347,27 +422,18 @@ function updateHighestValue(container) {
         }
     });
 
-    // Correctly reference the corresponding hidden input
+    
     const category = container.getAttribute('data-category');
     document.getElementById(category + '-highest').value = highestValue;
 }
 
 
 //태그
-new Tagify(document.getElementById('tag'));
+var input = document.querySelector('input[name=tag_keyword]')
+var tagify = new Tagify(input, {maxTags: 3});
 
-/* function addTag() {
-    var input = document.getElementById('new-tag');
-    var newTag = input.value.trim();
-    if(newTag) {
-        var tagList = document.querySelector('.tag-list');
-        var tag = document.createElement('span');
-        tag.className = 'tag-keyword';
-        tag.textContent = newTag;
-        tagList.appendChild(tag);
-        input.value = ''; // Clear input after adding
-    }
-} */
+
+
 
 
 

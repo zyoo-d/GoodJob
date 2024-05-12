@@ -40,12 +40,85 @@ textarea {
 	flex-basis: 100%;
 	margin-top: 20px;
 }
+
+
+.textAreaWrapper {
+	position: relative;
+	display: flex;
+	align-items: flex-end;
+	justify-content: space-between;
+}
+
+.textLengthWrap {
+	display: flex;
+	align-items: center;
+	gap: 5px; 
+}
+
+.stars {
+	flex: 1 1 auto;
+	justify-content: center;
+	display: flex;
+	font-size: 2.5rem;
+	margin: 0 2px;
+	cursor: pointer;
+	transition: color 0.2s ease-in-out;
+}
+
+.star:hover {
+	color: #ffd700;
+}
+
+.stars::before {
+	letter-spacing: 5px;
+	background: linear-gradient(90deg, #ffc107 0%, #e4e5e9 0%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	display: block;
+	text-align: center;
+}
+
+.star {
+	color: #CCC;
+	cursor: pointer;
+	font-size: 24px;
+}
+
+.star.rated {
+	color: gold;
+}
+
+.half-rated:before {
+	content: "\f5c0";
+}
+
 .fas {
 	color: gold;
 }
+
 .far {
 	color: #eee;
 }
+/*태그*/
+.tagify {
+	width: 100%;
+	max-width: 700px;
+	position: relative;
+	max-width: 400px;
+	margin: 10px auto;
+	display: flex;
+	font-size: 16px;
+	align-items: center;
+	border-radius: 10px;
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+	background: #fff;
+}
+
+.add-tag .tagify__tag>div {
+	border-radius: 25px;
+}
+
+
 </style>
 </head>
 <%@include file="/WEB-INF/views/inc/header.jsp"%>
@@ -188,32 +261,21 @@ textarea {
 
 
 							<!-- com-tag section -->
-							<div class="com-tag">
-								<div class="click-tag">
-									<h4>추천 태그</h4>
-									<p class="tag-info mt-6">클릭하면 태그로 바로 등록!</p>
-									<div class="tag_meta">
-										<c:forEach items="${showTagList}" var="tlist">
-											<span class="tag-keyword">${tlist}</span>
-										</c:forEach>
-									</div>
+							<!-- tag 수정 -->							
+							<div class="add-tag-text">
+								<h3>태그 수정</h3>
+								<p class="tag-info mt-6">태그를 수정할 수 있습니다.</p>
+								<div class="add-tag">
+									<input name='tag_keyword' placeholder='변경하실 태그를 입력하세요(최대 3개)'
+										id="tag">
 								</div>
-								<!-- <div class="add-tag-text">
-        <h3>태그 추가</h3>
-        <p class="tag-info mt-6">추천 태그가 마음에 들지 않다면?</p>
-        <div class="add-tag">
-            <input type="text" name="tag_keyword" id="tag" placeholder="추가하실 태그를 입력하세요">
-            <input type="button">추가</input>
-        </div>
-        <div class="tag-list tag_meta">
-    Dynamically added tags will go here
-</div>
-        </div> -->
-
 							</div>
+					</div>
+
+
 
 						</div>
-					</div>
+					
 					<!-- Comment section -->
 					<div class="review-text comment-section">
 						<div class="textAreaWrapper">
@@ -276,33 +338,19 @@ textarea {
 						</c:choose>
 					</div>
 				</div>
-			</div>
-
+			
+	</div>
 		</form>
 	</section>
 
 	<%@include file="/WEB-INF/views/inc/footer.jsp"%>
-	<script src="/good/assets/js/tagify.min.js"></script>
+	<script src="https://unpkg.com/@yaireo/tagify"></script>
+	<script
+		src="https://unpkg.com/@yaireo/tagify/dist/tagify.polyfills.min.js"></script>
+	<link href="https://unpkg.com/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
+
 	<script>
-	
-//관리자 승인,반려
-function approveReview(cp_rv_seq) {
-        if (confirm("리뷰를 승인하시겠습니까?")) {
-            location.href = "/good/user/company/review/editreview.do?cp_rv_seq=" + cp_rv_seq + "&action=approve";
-        }
-    }
 
-    function rejectReview(cp_rv_seq) {
-        if (confirm("리뷰를 반려하시겠습니까?")) {
-            location.href = "/good/user/company/review/editreview.do?cp_rv_seq=" + cp_rv_seq + "&action=reject";
-        }
-    }
-
-    function rejectReview(cp_rv_seq) {
-        document.getElementById("rejectModal").style.display = "block";
-    }
-
-	
 $('#lineBox').keyup(function (e) {
 	let linecontent = $(this).val();
     
@@ -417,22 +465,27 @@ function updateHighestValue(container) {
 }
 
 
-//태그
-new Tagify(document.getElementById('tag'));
 
-/* function addTag() {
-    var input = document.getElementById('new-tag');
-    var newTag = input.value.trim();
-    if(newTag) {
-        var tagList = document.querySelector('.tag-list');
-        var tag = document.createElement('span');
-        tag.className = 'tag-keyword';
-        tag.textContent = newTag;
-        tagList.appendChild(tag);
-        input.value = ''; // Clear input after adding
-    }
-} */
-
+//태그 수정
+		let taglist = '';
+		<c:forEach items="${rdto.tag_list}" var="tag">
+		taglist += '${tag},';
+		</c:forEach>
+		
+		$('#tag').val(taglist);
+		
+		const tagify = new Tagify(document.getElementById('tag'));
+		
+		// 태그 삭제
+		tagify.on('remove', (e)=>{
+			
+			//alert(e.detail.data.value);
+			$('#editForm').append(`<input type="hidden" name="removeTag" value="\${e.detail.data.value}">`);
+			
+		}).on('add', (e)=>{
+			//alert(e.detail.data.value);
+			$(`#editForm input[value=\${e.detail.data.value}]`).remove();
+		});
 
 
 

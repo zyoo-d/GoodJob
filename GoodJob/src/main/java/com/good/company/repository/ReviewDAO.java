@@ -212,6 +212,7 @@ public class ReviewDAO {
 				dto.setBad(rs.getString("bad"));
 				dto.setCp_rv_regdate(rs.getString("cp_rv_regdate"));
 				dto.setCp_rv_confirm(rs.getInt("cp_rv_confirm"));
+				
 				return dto;
 			}
 		} catch (Exception e) {
@@ -252,10 +253,23 @@ public class ReviewDAO {
 	 */
 	public void deleteReview(String cp_rv_seq) {
 		try {
-			String sql = "delete from tblCompanyReview where cp_rv_seq = ?";
+			
+			String sql ="";
+			sql = "delete from tblReviewTag where cp_rv_seq = ?";
 			pstat = conn.prepareStatement(sql);
 			pstat.setString(1, cp_rv_seq);
 			pstat.executeUpdate();
+			
+			sql = "delete from tblCompanyReview where cp_rv_seq = ?";
+			pstat = conn.prepareStatement(sql);
+			pstat.setString(1, cp_rv_seq);
+			pstat.executeUpdate();
+			
+			
+			
+			
+
+			
 		} catch (Exception e) {
 			System.out.println("ReviewDAO.deleteReview");
 			e.printStackTrace();
@@ -443,5 +457,23 @@ public class ReviewDAO {
 		            return null;
 		        }
 		}
+		
+		//태그 등록
+		public String getLastInsertedCpRvSeq() {
+		    try {
+		        String sql = "SELECT cp_rv_seq FROM tblCompanyReview WHERE ROWNUM = 1 ORDER BY cp_rv_seq DESC";
+		        stat = conn.createStatement();
+		        rs = stat.executeQuery(sql);
+
+		        if (rs.next()) {
+		            return rs.getString("cp_rv_seq");
+		        }
+		    } catch (Exception e) {
+		        System.out.println("ReviewDAO.getLastInsertedCpRvSeq");
+		        e.printStackTrace();
+		    }
+		    return null;
+		}
+		
 
 }

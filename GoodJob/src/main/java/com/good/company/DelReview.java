@@ -25,6 +25,7 @@ public class DelReview extends HttpServlet {
         
         resp.sendRedirect("/good/user/mypage/myreview.do");
     }
+	
 }
 
 		

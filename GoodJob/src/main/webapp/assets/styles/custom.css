@@ -1797,50 +1797,7 @@ textarea:focus {
 	padding-left: 20px;
 }
 
-/*태그 추가*/
-.add-tag {
-	position: relative;
-	max-width: 400px;
-	margin: 20px auto;
-	display: flex;
-	align-items: center;
-	border-radius: 20px;
-	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-	background: #fff;
-}
 
-.add-tag input[type="text"] {
-	flex-grow: 1;
-	border: none;
-	padding: 10px 20px;
-	border-radius: 20px 0 0 20px;
-	font-size: 16px;
-}
-
-.add-tag input:focus {
-	outline: none;
-	border: none;
-	box-shadow: none;
-}
-
-.add-tag button {
-	border: none;
-	background-color: #5569D2;
-	color: #FFF;
-	padding: 10px;
-	cursor: pointer;
-	outline: none;
-	position: absolute;
-	right: 0;
-	border-radius: 0 20px 20px 0;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
-
-.add-tag button:hover {
-	background-color: #3656CB;
-}
 
 .tag-list {
 	padding-left: 20px;
