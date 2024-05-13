@@ -105,7 +105,7 @@ public class BoardCommonDAO {
 		
 		try {
 			
-			String sql = "select sum(report_count) as cnt from vwallreportlist";
+			String sql = "select nvl(sum(report_count),0) as cnt from vwallreportlist WHERE TRUNC(REPORT_REGDATE) = TRUNC(SYSDATE)";
 			
 			stat = conn.createStatement();
 			rs = stat.executeQuery(sql);

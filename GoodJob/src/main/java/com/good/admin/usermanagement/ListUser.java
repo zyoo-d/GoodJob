@@ -34,6 +34,8 @@ public class ListUser extends HttpServlet{
 		req.setAttribute("userList", userList);
 		req.setAttribute("pageUtil", pageUtil);
 		
+		userManagementDAO.close();
+		
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/admin/user/listuser.jsp");
 		dispatcher.forward(req, resp);
 		
