@@ -37,7 +37,7 @@ public class DashBoard extends HttpServlet{
 
 		CompanyDAO companyDAO = new CompanyDAO();
 		RecruitDAO recruitDAO = new RecruitDAO();
-		ReviewDAO reviewDAO = new ReviewDAO();
+		ReviewDAO reviewDAO = new ReviewDAO();			
 		BoardCommonDAO boardCommonDAO = new BoardCommonDAO();
 		ReportCommonDAO reportCommonDAO = new ReportCommonDAO();
 		UserDAO userDAO = new UserDAO();
