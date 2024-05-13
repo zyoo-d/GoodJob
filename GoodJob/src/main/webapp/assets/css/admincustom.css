@@ -40,11 +40,11 @@ h4{
 
 /* index */
 #index-data-info{
-  padding-top: 20px; padding-bottom: 20px;
+  padding-top: 10px; padding-bottom: 10px;
 }
 
 #index-data-info + div{
-  padding-bottom: 20px; padding-top: 20px;
+  padding-bottom: 0; padding-top: 15px;
 }
 
 .report_title {
@@ -161,9 +161,6 @@ h4{
   margin-left: 20px;
 }
 
-#btn-block-user{
-  margin-left: 20px;
-}
 
 #btn-resignation-user{
 	 margin-left: 20px;
