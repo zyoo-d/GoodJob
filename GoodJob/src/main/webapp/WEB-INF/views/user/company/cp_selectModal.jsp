@@ -59,7 +59,7 @@ button {
 }
 
 #searchForm {
-	width: 80%;
+	width: 90%;
 }
 
 #company {
@@ -130,11 +130,17 @@ display: flex;
     font-size: .8rem !important;
 }
 
+#popup_page {
+	margin-top: 10px;
+}
+
+#select_com {
+	padding: 10px;
+}
 </style>
 </head>
-<%@include file="/WEB-INF/views/inc/header.jsp"%>
 <body>
-
+	<div id="select_com">
 	<h4>기업 선택하기</h4>
 
 	<form id="searchForm">
@@ -191,7 +197,7 @@ display: flex;
 				</div>
 			</div>
 
-			<nav class="PageBox z-custom" aria-label="Page navigation example">
+			<nav class="PageBox z-custom" aria-label="Page navigation example" id="popup_page">
 				<ul class="pagination z-custom">${pagebar}</ul>
 			</nav>
 
@@ -202,10 +208,9 @@ display: flex;
 			</div>
 		</div>
 	</form>
+</div>
 
 
-
-	<%@include file="/WEB-INF/views/inc/footer.jsp"%>
 	<script type="text/javascript">
 	function closePopupAndRedirect() {
 	    var selectedItems = [];
@@ -274,17 +279,17 @@ display: flex;
 							+ ' <i class="fa-solid fa-xmark"></i></label></div>');
 		} else {
 			var tagId = target.val();
-			$('#' + tagId).next().addBack().remove();
+			$('#' + tagId).closest('div').remove();
 		}
     });
 
     // 지역 태그 눌러서 삭제하기
-$('#cptag').on('change', 'input[type="checkbox"]', function() {
-    var checkboxId = $(this).attr('id').replace('tag_', '');
-
-    $('#check input[type="checkbox"][value="' + checkboxId + '"]').prop('checked', false);
-    $(this).closest('div').remove();
-});
+	$('#cptag').on('change', 'input[type="checkbox"]', function() {
+	    var checkboxId = $(this).attr('id').replace('tag_', '');
+	
+	    $('#check input[type="checkbox"][value="' + checkboxId + '"]').prop('checked', false);
+	    $(this).closest('div').remove();
+	});
 
     $(document).ready(function() {
         // 페이지 이동 시 선택된 항목을 URL에 추가하여 서버로 전송
@@ -323,22 +328,7 @@ $('#cptag').on('change', 'input[type="checkbox"]', function() {
     });
 
 
-//     $(document).on('click', '.dynamic-checkbox', function(event) {
-//         var target = $(event.target);
-//         var checkbox = target.closest('.dynamic-checkbox').find('input[type="checkbox"]');
-//         var tagId = checkbox.val();
 
-//         $('#check input[type="checkbox"][value="' + tagId + '"]').prop('checked', false);
-//         $('#tag_' + tagId).remove();
-//     });
-
-//     // x 아이콘 클릭 시 삭제
-//     $(document).on('click', '.fa-xmark', function(event) {
-//         event.stopPropagation();
-//         var tagId = $(this).closest('.dynamic-checkbox').find('input[type="checkbox"]').val();
-//         $('#check input[type="checkbox"][value="' + tagId + '"]').prop('checked', false);
-//         $('#tag_' + tagId).remove();
-//     });
 	</script>
 
 </body>

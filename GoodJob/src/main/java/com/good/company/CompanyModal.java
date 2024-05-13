@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.good.company.model.CompanyDTO;
 import com.good.company.repository.CompanyDAO;
+import com.good.company.repository.CompareDAO;
 
 @WebServlet("/user/company/cp_selectModal.do")
 public class CompanyModal extends HttpServlet {
@@ -98,7 +99,7 @@ public class CompanyModal extends HttpServlet {
         map.put("cp_address", selectedLocations);
 
         // 목록 출력
-        CompanyDAO dao = new CompanyDAO();
+        CompareDAO dao = new CompareDAO();
 		ArrayList<CompanyDTO> comListInfo = dao.comListInfo(map);
 		
 		
@@ -118,9 +119,11 @@ public class CompanyModal extends HttpServlet {
             dto.setCp_address(address);
 
         }
-
+        
+        CompanyDAO cdao = new CompanyDAO();
+        
         // 총게시물수
-        totalCount = dao.countCompanys();
+        totalCount = cdao.getCompanyCount(map);
 		totalPage = (int) Math.ceil((double) totalCount / pageSize);
 
         // 페이지 바 작업
