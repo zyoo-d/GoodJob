@@ -1,4 +1,4 @@
-package com.good.board.study;
+package com.goodjob.test.heeyeon;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
