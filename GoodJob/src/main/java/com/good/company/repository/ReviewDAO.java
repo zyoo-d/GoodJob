@@ -239,9 +239,8 @@ public class ReviewDAO {
 		} catch (Exception e) {
 			System.out.println("ReviewDAO.updateReviewConfirm()");
 			e.printStackTrace();
-		} finally {
-			close();
-		}
+		} 
+		
 		return false;
 	}
 	public boolean allApprove(String[] cp_rv_seqs) {
@@ -269,9 +268,8 @@ public class ReviewDAO {
 	    } catch (Exception e) {
 	        System.out.println("ReviewDAO.allApprove()");
 	        e.printStackTrace();
-	    } finally {
-	        close();
-	    }
+	    } 
+	    
 	    return false;
 	}
 	/**
@@ -434,18 +432,25 @@ public class ReviewDAO {
 
 	/**
 	 * 모든 리뷰 목록을 출력하는 메서드
+	 * @param endIndex 
+	 * @param startIndex 
 	 * @return
 	 */
-	public ArrayList<ReviewDTO> getAllReviews() {
-
+	public ArrayList<ReviewDTO> getAllReviews(int startIndex, int endIndex) {
+		
+		ArrayList<ReviewDTO> list = new ArrayList<>();
+		
 		try {
 
-			String sql = "select * from vwAllReview";
+			String sql = "SELECT * FROM (SELECT ROWNUM AS rnum, t.* FROM (SELECT * FROM vwAllReview where CP_RV_CONFIRM = 0 ORDER BY CP_RV_REGDATE) t) WHERE rnum BETWEEN ? AND ?";
 
-			stat = conn.createStatement();
-			rs = stat.executeQuery(sql);
+			pstat = conn.prepareStatement(sql);
+			int parameterIndex = 1;
+			
+			pstat.setInt(parameterIndex++, startIndex + 1);
+			pstat.setInt(parameterIndex, endIndex);
 
-			ArrayList<ReviewDTO> list = new ArrayList<>();
+			rs = pstat.executeQuery();
 
 			while (rs.next()) {
 				ReviewDTO dto = new ReviewDTO();
@@ -465,14 +470,58 @@ public class ReviewDAO {
 
 				list.add(dto);
 			}
-			return list;	
+			
 
 		}catch (Exception e) {
 			System.out.println("ReviewDAO.getAllReviews");
 			e.printStackTrace();
 		}
 
-		return null;
+		return list;
+		
+	}
+	
+	
+	public ArrayList<ReviewDTO> getAllReviews() {
+		
+		ArrayList<ReviewDTO> list = new ArrayList<>();
+		
+		try {
+			
+			String sql = "select * from vwAllReview where CP_RV_CONFIRM = 0";
+			
+			pstat = conn.prepareStatement(sql);
+			
+			
+			rs = pstat.executeQuery();
+			
+			while (rs.next()) {
+				ReviewDTO dto = new ReviewDTO();
+				dto.setCp_rv_seq(rs.getString("cp_rv_seq"));
+				dto.setId(rs.getString("id"));
+				dto.setSalary_score(rs.getDouble("salary_score"));
+				dto.setWelfare_score(rs.getDouble("welfare_score"));
+				dto.setStability_score(rs.getDouble("stability_score"));
+				dto.setCulture_score(rs.getDouble("culture_score"));
+				dto.setGrowth_score(rs.getDouble("growth_score"));
+				dto.setLinereview(rs.getString("linereview"));
+				dto.setGood(rs.getString("good"));
+				dto.setBad(rs.getString("bad"));
+				dto.setCp_rv_regdate(rs.getString("cp_rv_regdate"));
+				dto.setCp_rv_confirm(rs.getInt("cp_rv_confirm"));
+				dto.setCp_name(rs.getString("cp_name"));
+				
+				list.add(dto);
+			}
+			
+			
+		}catch (Exception e) {
+			System.out.println("ReviewDAO.getAllReviews");
+			e.printStackTrace();
+		}
+		
+		return list;
+		
 	}
 	public boolean insertRejectReview(String cp_rv_seq, String rejectReason) {
 		try {
@@ -485,9 +534,8 @@ public class ReviewDAO {
 		} catch (Exception e) {
 			System.out.println("ReviewDAO.insertRejectReview()");
 			e.printStackTrace();
-		} finally {
-			close();
-		}
+		} 
+		
 		return false;
 	}
 	public ArrayList<String> showComTagList() {
