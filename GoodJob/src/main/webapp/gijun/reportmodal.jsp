@@ -106,5 +106,39 @@
             </form>
         </div>
     </div>
+    
+     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function hideModal() {
+            var modal = document.getElementById("modal");
+            modal.classList.remove("show");
+        }
+
+        $(document).ready(function() {
+            $("#report-btn, .report-btn").click(function() {
+                var boardtype = $(this).data("boardtype");
+                var seq = $(this).data("seq");
+                $("#boardtype").val(boardtype);
+                $("#seq-input").val(seq);
+
+                // 모달창 열릴 때마다 초기화
+                $('input[name="reason"]').prop('checked', false);
+                $("#report-description").val("");
+
+                $("#modal").addClass("show");
+            });
+
+            $("#cancel-btn").click(function() {
+                $("#modal").removeClass("show");
+            });
+
+            $(window).click(function(event) {
+                if (event.target == $("#modal")[0]) {
+                    $("#modal").removeClass("show");
+                }
+            });
+        });
+
+    </script>
 </body>
 </html>

@@ -7,8 +7,6 @@
 <head>
 <meta charset="UTF-8">
 <%@include file="/WEB-INF/views/inc/asset.jsp"%>
-<link rel="stylesheet"
-	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <style>
 </style>
 </head>
@@ -28,7 +26,7 @@
 							</div>
 
 							<div class="row mb-8">
-								<div class="form-group mt-8 md:col-6 lg:col-4">
+								<div class="form-group mt-8">
 									<div class="qna-view-form qnaview">
 										<p class="company">공지사항</p>
 										<div class="title">

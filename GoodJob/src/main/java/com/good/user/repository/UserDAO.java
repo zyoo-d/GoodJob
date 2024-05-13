@@ -87,7 +87,6 @@ public class UserDAO {
 			pstat.setString(6, dto.getEmail() + "@" + dto.getDomain());
 			pstat.setString(7, dto.getNickname());
 
-			System.out.println(sql); // Optional: for debugging purposes
 			return pstat.executeUpdate();
 
 		} catch (Exception e) {
@@ -312,6 +311,8 @@ public class UserDAO {
 		
 		
 	}
+	
+	
 
 
 

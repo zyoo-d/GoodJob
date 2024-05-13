@@ -1,4 +1,4 @@
-package com.good.admin.report;
+package com.good.admin.usermanagement;
 
 import lombok.Data;
 
@@ -23,10 +23,10 @@ public class PageUtil {
         totalPages = (int) Math.ceil((double) totalCount / pageSize);
 
         // 시작 페이지 번호 계산
-        startPage = ((currentPage - 1) / 10) * 10 + 1;
+        startPage = ((currentPage - 1) / 5) * 5 + 1;
 
         // 끝 페이지 번호 계산
-        endPage = startPage + 9;
+        endPage = startPage + 4;
         if (endPage > totalPages) {
             endPage = totalPages;
         }

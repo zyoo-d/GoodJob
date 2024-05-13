@@ -166,7 +166,10 @@
 		<div class="main-sidebar sidebar-style-2" id="mypageSidebar">
 			<aside id="sidebar-wrapper">
 				<div class="sidebar-brand">
-					<a href="/good/main.do">IT's Good Job</a>
+					<a href="/good/main.do">
+					<img src="/good/assets/logo.png"
+				height="30" width="147" alt="logo" />
+					</a>
 				</div>
 				<div class="sidebar-brand sidebar-brand-sm">
 					<a href="/good/main.do">GJ</a>

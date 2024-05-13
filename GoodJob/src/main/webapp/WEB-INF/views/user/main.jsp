@@ -7,13 +7,6 @@
 <meta charset="UTF-8">
 <%@include file="/WEB-INF/views/inc/asset.jsp"%>
 <style>
-.image-container {
-	width: 120px; /* 필요에 따라 조정 */
-	height: 100px; /* 필요에 따라 조정 */
-	background-size: contain;
-	background-position: center;
-	background-repeat: no-repeat;
-}
 </style>
 <%@include file="/WEB-INF/views/inc/header.jsp"%>
 </head>
@@ -29,15 +22,14 @@
 						함께하는 과정에서 당신이 빛을 발할 수 있도록 도와드릴게요.</p>
 					<c:if test="${prefer==null||prefer=='0'}">
 						<a href="/good/user/matching/viewsurvey.do"
-							class="btn btn-white mt-8">굿잡forU 이동하기</a>
+							class="btn btn-white mt-8 gradiTitle btnMatch"><span>굿잡forU 이동하기</span></a>
 					</c:if>
 					<c:if test="${wish=='0'&&prefer=='1'}">
 						<a href="/good/user/matching/viewwish.do"
-							class="btn btn-white mt-8">굿잡forU 이동하기</a>
+							class="btn btn-white mt-8 gradiTitle btnMatch"><span>굿잡forU 이동하기</span></a>
 					</c:if>
 					<c:if test="${wish=='1'&&prefer=='1'}">
-						<a href="/good/user/matching.do" class="btn btn-white mt-8">굿잡forU
-							이동하기</a>
+						<a href="/good/user/matching.do" class="btn btn-white mt-8 gradiTitle btnMatch"><span>굿잡forU 이동하기</span></a>
 					</c:if>
 				</div>
 				<div class="lg:col-6">
@@ -80,7 +72,7 @@
 				<c:forEach items="${clist}" var="cdto" begin="0" end="15">
 
 					<div
-						class="flex flex-col justify-between rounded-lg bg-white p-5 shadow-lg">
+						class="flex flex-col justify-between rounded-lg bg-white p-5 shadow-lg mcard">
 						<div class="logo">
 							<c:if test="${cdto.com_rcrt_cnt > 0}">
 								<a class="hiring tag" href="#">채용중</a>
@@ -90,14 +82,14 @@
 						</div>
 						<div class="infoCard">
 							<h3 class="h4 text-xl lg:text-2xl pt-2">
-								<a
-									href="/good/user/company/companyview.do?cp_seq=${cdto.cp_seq}">${cdto.cp_name}</a>
+								${cdto.cp_name}
 							</h3>
 							<div class="flex justify-between">
 								<p class="desciption">${cdto.idst_name}</p>
 								<span><i class="fa-solid fa-star gold"></i>
 									${cdto.review_avg}</span>
 							</div>
+							<input type="hidden" name="cp_seq" value="${cdto.cp_seq}">
 						</div>
 
 					</div>
@@ -110,6 +102,10 @@
 
 	<%@include file="/WEB-INF/views/inc/footer.jsp"%>
 	<script>
+	$('.mcard').click(function() {
+		var cp_seq = $(this).find('input[name=cp_seq]').val();
+		location.href = '/good/user/company/companyview.do?cp_seq=' + cp_seq;
+	});
 	</script>
 </body>
 </html>

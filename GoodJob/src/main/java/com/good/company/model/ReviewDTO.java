@@ -13,9 +13,6 @@ public class ReviewDTO {
 	 private String id;
 	 private String cp_rv_seq;
 	 private String cp_name;
-	
-	 //private String tag_seq;
-	 //private String tag_keyword;
 
 	 private double salary_score;
 	 private double welfare_score;

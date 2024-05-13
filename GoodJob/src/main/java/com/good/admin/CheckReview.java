@@ -35,6 +35,8 @@ public class CheckReview extends HttpServlet {
         } else {
             resp.sendRedirect("/main.do");
         }
+        
+        rdao.close();
     }
 
     @Override
@@ -59,6 +61,8 @@ public class CheckReview extends HttpServlet {
                  success = rdao.insertRejectReview(cp_rv_seq, rejectReason) && rdao.updateReviewConfirm(cp_rv_seq, 2);
              }
          }
+        
+        rdao.close();
 
          resp.setContentType("application/json");
          resp.setCharacterEncoding("UTF-8");

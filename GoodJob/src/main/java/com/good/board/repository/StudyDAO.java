@@ -1,13 +1,11 @@
 package com.good.board.repository;
 
-import java.io.Closeable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import com.good.board.model.CommentDTO;
 import com.good.board.model.StudyDTO;
@@ -115,6 +113,7 @@ public class StudyDAO {
 				dto.setCp_name(rs.getString("cp_name"));
 				dto.setId(rs.getString("id"));
 				dto.setNickname(rs.getString("nickname"));
+				dto.setCm_count(rs.getString("cm_count"));
 
 				list.add(dto);
 			}

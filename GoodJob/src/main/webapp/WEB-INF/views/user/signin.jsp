@@ -20,7 +20,7 @@
 				<div
 					class="mt-16 integration-single-container rounded-xl bg-white py-16 px-5 shadow-lg md:px-10 tab w-70">
 					<div class="mx-auto w-full max-w-[480px]">
-						<h2 class="mb-0">로그인</h2>
+						<h2 class="mb-0 mt-4">로그인</h2>
 						<p id="login_letter">로그인 후 굿잡을 이용해보세요.</p>
 
 						<div style="display: flex; justify-content: space-between; border: 1px solid cornflowerblue">

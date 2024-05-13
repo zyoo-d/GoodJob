@@ -6,19 +6,15 @@
 <head>
 <meta charset="UTF-8">
 <%@include file="/WEB-INF/views/inc/asset.jsp"%>
-<link rel="stylesheet"
-	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <style>
 </style>
 </head>
-
 <%@include file="/WEB-INF/views/inc/header.jsp"%>
-
 <body>
 	<!-- ./end floating assets -->
 	<section class="page-hero pt-16 pb-6">
 		<div class="container">
-			<div class="z-custom card" id="itvWriteQnA">
+			<div class="card" id="itvWriteQnA">
 				<div class="card-content-wrapper">
 					<div class="card-content">
 						<div class="px-4 text-center">
@@ -178,10 +174,7 @@
 										${map.sort == 'oldest' ? 'selected' : ''}>마감순</option>
 								</select>
 							</div>
-
-
 						</div>
-
 
 						<div class="list_body">
 							<div id="rec-48103333" class="list_item">
@@ -212,7 +205,6 @@
 													<c:forEach items="${dto.job_name }" var="item">
 														<span class="job-keyword">${item}</span>
 													</c:forEach>
-
 
 												</div>
 											</div>

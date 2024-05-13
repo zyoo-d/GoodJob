@@ -31,7 +31,34 @@ public class ReviewDAO {
 		}
 	}
 
-	
+	/**
+	 * 지유)등록된 리뷰수 불러오는 메서드
+	 * 
+	 * @return 리뷰수
+	 */
+	public int countRiview(String input) {
+		try {
+			String sql = "select count(*) as cnt from tblCompanyReview where cp_seq = ?";
+
+			pstat = conn.prepareStatement(sql);
+			String cp_seq = input;
+
+			pstat.setString(1, cp_seq);
+			rs = pstat.executeQuery();
+
+			while (rs.next()) {
+				int cnt = rs.getInt("cnt");
+				return cnt;
+			}
+
+		} catch (Exception e) {
+			System.out.println("ReviewDAO.countRiview");
+			e.printStackTrace();
+		}
+
+		return 0;
+	}
+
 
 	/**
 	 * 지유)기업리뷰 목록 조회하는 메서드
@@ -162,7 +189,7 @@ public class ReviewDAO {
 		return 0;
 	}
 
-	
+
 	public ReviewDTO getReviewByCpRvSeq(String cp_rv_seq) {
 		try {
 			String sql = "SELECT * FROM tblCompanyReview WHERE cp_rv_seq = ?";
@@ -185,6 +212,7 @@ public class ReviewDAO {
 				dto.setBad(rs.getString("bad"));
 				dto.setCp_rv_regdate(rs.getString("cp_rv_regdate"));
 				dto.setCp_rv_confirm(rs.getInt("cp_rv_confirm"));
+
 				return dto;
 			}
 		} catch (Exception e) {
@@ -201,22 +229,49 @@ public class ReviewDAO {
 	 * @param confirm
 	 */
 	public boolean updateReviewConfirm(String cp_rv_seq, int confirm) {
+		try {
+			String sql = "UPDATE tblCompanyReview SET cp_rv_confirm = ? WHERE cp_rv_seq = ?";
+			pstat = conn.prepareStatement(sql);
+			pstat.setInt(1, confirm);
+			pstat.setString(2, cp_rv_seq);
+			int result = pstat.executeUpdate();
+			return result > 0;
+		} catch (Exception e) {
+			System.out.println("ReviewDAO.updateReviewConfirm()");
+			e.printStackTrace();
+		} 
+		
+		return false;
+	}
+	public boolean allApprove(String[] cp_rv_seqs) {
 	    try {
-	        String sql = "UPDATE tblCompanyReview SET cp_rv_confirm = ? WHERE cp_rv_seq = ?";
+	        String sql = "UPDATE tblCompanyReview SET cp_rv_confirm = 1 WHERE cp_rv_seq IN (";
+	        
+	        
+	        for (int i = 0; i < cp_rv_seqs.length; i++) {
+	            sql += "?";
+	            if (i < cp_rv_seqs.length - 1) {
+	                sql += ",";
+	            }
+	        }
+	        sql += ")";
+	        
 	        pstat = conn.prepareStatement(sql);
-	        pstat.setInt(1, confirm);
-	        pstat.setString(2, cp_rv_seq);
+	        
+	        
+	        for (int i = 0; i < cp_rv_seqs.length; i++) {
+	            pstat.setString(i + 1, cp_rv_seqs[i]);
+	        }
+	        
 	        int result = pstat.executeUpdate();
 	        return result > 0;
 	    } catch (Exception e) {
-	        System.out.println("ReviewDAO.updateReviewConfirm()");
+	        System.out.println("ReviewDAO.allApprove()");
 	        e.printStackTrace();
-	    } finally {
-	        close();
-	    }
+	    } 
+	    
 	    return false;
 	}
-
 	/**
 	 * 리뷰 삭제
 	 * 
@@ -225,10 +280,23 @@ public class ReviewDAO {
 	 */
 	public void deleteReview(String cp_rv_seq) {
 		try {
-			String sql = "delete from tblCompanyReview where cp_rv_seq = ?";
+
+			String sql ="";
+			sql = "delete from tblReviewTag where cp_rv_seq = ?";
 			pstat = conn.prepareStatement(sql);
 			pstat.setString(1, cp_rv_seq);
 			pstat.executeUpdate();
+
+			sql = "delete from tblCompanyReview where cp_rv_seq = ?";
+			pstat = conn.prepareStatement(sql);
+			pstat.setString(1, cp_rv_seq);
+			pstat.executeUpdate();
+
+
+
+
+
+
 		} catch (Exception e) {
 			System.out.println("ReviewDAO.deleteReview");
 			e.printStackTrace();
@@ -316,6 +384,30 @@ public class ReviewDAO {
 		return 0;
 	}
 
+
+	public int getPendingInterviewCount() {
+
+		try {
+
+			String sql = "select count(*) as cnt from tblInterview where itv_confirm = 0";
+
+			stat = conn.createStatement();
+			rs= stat.executeQuery(sql);
+
+			if(rs.next()) {
+				return rs.getInt("cnt");
+			}
+
+		} catch (Exception e) {
+			System.out.println("(관리자) 면접후기 승인 대기 수 로드 실패");
+			e.printStackTrace();
+		}
+
+		return 0;
+
+
+	}
+
 	public int getPendingReviewsCount() {
 
 		try {
@@ -339,82 +431,150 @@ public class ReviewDAO {
 	}
 
 	/**
-		 * 모든 리뷰 목록을 출력하는 메서드
-		 * @return
-		 */
-		public ArrayList<ReviewDTO> getAllReviews() {
+	 * 모든 리뷰 목록을 출력하는 메서드
+	 * @param endIndex 
+	 * @param startIndex 
+	 * @return
+	 */
+	public ArrayList<ReviewDTO> getAllReviews(int startIndex, int endIndex) {
+		
+		ArrayList<ReviewDTO> list = new ArrayList<>();
+		
+		try {
 
-			try {
+			String sql = "SELECT * FROM (SELECT ROWNUM AS rnum, t.* FROM (SELECT * FROM vwAllReview where CP_RV_CONFIRM = 0 ORDER BY CP_RV_REGDATE) t) WHERE rnum BETWEEN ? AND ?";
+
+			pstat = conn.prepareStatement(sql);
+			int parameterIndex = 1;
+			
+			pstat.setInt(parameterIndex++, startIndex + 1);
+			pstat.setInt(parameterIndex, endIndex);
+
+			rs = pstat.executeQuery();
+
+			while (rs.next()) {
+				ReviewDTO dto = new ReviewDTO();
+				dto.setCp_rv_seq(rs.getString("cp_rv_seq"));
+				dto.setId(rs.getString("id"));
+				dto.setSalary_score(rs.getDouble("salary_score"));
+				dto.setWelfare_score(rs.getDouble("welfare_score"));
+				dto.setStability_score(rs.getDouble("stability_score"));
+				dto.setCulture_score(rs.getDouble("culture_score"));
+				dto.setGrowth_score(rs.getDouble("growth_score"));
+				dto.setLinereview(rs.getString("linereview"));
+				dto.setGood(rs.getString("good"));
+				dto.setBad(rs.getString("bad"));
+				dto.setCp_rv_regdate(rs.getString("cp_rv_regdate"));
+				dto.setCp_rv_confirm(rs.getInt("cp_rv_confirm"));
+				dto.setCp_name(rs.getString("cp_name"));
+
+				list.add(dto);
+			}
+			
+
+		}catch (Exception e) {
+			System.out.println("ReviewDAO.getAllReviews");
+			e.printStackTrace();
+		}
+
+		return list;
+		
+	}
+	
+	
+	public ArrayList<ReviewDTO> getAllReviews() {
+		
+		ArrayList<ReviewDTO> list = new ArrayList<>();
+		
+		try {
+			
+			String sql = "select * from vwAllReview where CP_RV_CONFIRM = 0";
+			
+			pstat = conn.prepareStatement(sql);
+			
+			
+			rs = pstat.executeQuery();
+			
+			while (rs.next()) {
+				ReviewDTO dto = new ReviewDTO();
+				dto.setCp_rv_seq(rs.getString("cp_rv_seq"));
+				dto.setId(rs.getString("id"));
+				dto.setSalary_score(rs.getDouble("salary_score"));
+				dto.setWelfare_score(rs.getDouble("welfare_score"));
+				dto.setStability_score(rs.getDouble("stability_score"));
+				dto.setCulture_score(rs.getDouble("culture_score"));
+				dto.setGrowth_score(rs.getDouble("growth_score"));
+				dto.setLinereview(rs.getString("linereview"));
+				dto.setGood(rs.getString("good"));
+				dto.setBad(rs.getString("bad"));
+				dto.setCp_rv_regdate(rs.getString("cp_rv_regdate"));
+				dto.setCp_rv_confirm(rs.getInt("cp_rv_confirm"));
+				dto.setCp_name(rs.getString("cp_name"));
 				
-				String sql = "select * from vwAllReview";
-				
-				stat = conn.createStatement();
-				rs = stat.executeQuery(sql);
-				
-				ArrayList<ReviewDTO> list = new ArrayList<>();
-				
-				while (rs.next()) {
-					ReviewDTO dto = new ReviewDTO();
-					  dto.setCp_rv_seq(rs.getString("cp_rv_seq"));
-		                dto.setId(rs.getString("id"));
-		                dto.setSalary_score(rs.getDouble("salary_score"));
-		                dto.setWelfare_score(rs.getDouble("welfare_score"));
-		                dto.setStability_score(rs.getDouble("stability_score"));
-		                dto.setCulture_score(rs.getDouble("culture_score"));
-		                dto.setGrowth_score(rs.getDouble("growth_score"));
-		                dto.setLinereview(rs.getString("linereview"));
-		                dto.setGood(rs.getString("good"));
-		                dto.setBad(rs.getString("bad"));
-		                dto.setCp_rv_regdate(rs.getString("cp_rv_regdate"));
-		                dto.setCp_rv_confirm(rs.getInt("cp_rv_confirm"));
-		                dto.setCp_name(rs.getString("cp_name"));
-		               
-		                list.add(dto);
-				}
-				return list;	
-					
-				}catch (Exception e) {
-					System.out.println("ReviewDAO.getAllReviews");
-					e.printStackTrace();
+				list.add(dto);
+			}
+			
+			
+		}catch (Exception e) {
+			System.out.println("ReviewDAO.getAllReviews");
+			e.printStackTrace();
+		}
+		
+		return list;
+		
+	}
+	public boolean insertRejectReview(String cp_rv_seq, String rejectReason) {
+		try {
+			String sql = "INSERT INTO tblRejectReview (cp_rv_seq, rj_reason) VALUES (?, ?)";
+			pstat = conn.prepareStatement(sql);
+			pstat.setString(1, cp_rv_seq);
+			pstat.setString(2, rejectReason);
+			int result = pstat.executeUpdate();
+			return result > 0;
+		} catch (Exception e) {
+			System.out.println("ReviewDAO.insertRejectReview()");
+			e.printStackTrace();
+		} 
+		
+		return false;
+	}
+	public ArrayList<String> showComTagList() {
+		try {
+			ArrayList<String> showTagList = new ArrayList<>();
+			String sql = "SELECT tag_keyword FROM tblTag";
+
+			stat = conn.createStatement();
+			rs = stat.executeQuery(sql);
+
+			while (rs.next()) {
+				showTagList.add(rs.getString("tag_keyword"));
 			}
 
-	return null;
-}
-		public boolean insertRejectReview(String cp_rv_seq, String rejectReason) {
-		    try {
-		        String sql = "INSERT INTO tblRejectReview (cp_rv_seq, rj_reason) VALUES (?, ?)";
-		        pstat = conn.prepareStatement(sql);
-		        pstat.setString(1, cp_rv_seq);
-		        pstat.setString(2, rejectReason);
-		        int result = pstat.executeUpdate();
-		        return result > 0;
-		    } catch (Exception e) {
-		        System.out.println("ReviewDAO.insertRejectReview()");
-		        e.printStackTrace();
-		    } finally {
-		        close();
-		    }
-		    return false;
+			return showTagList;
+
+		} catch (Exception e) {
+			System.out.println("ReviewDAO.showTagList");
+			e.printStackTrace();
+			return null;
 		}
-		public ArrayList<String> showComTagList() {
-			 try {
-		            ArrayList<String> showTagList = new ArrayList<>();
-		            String sql = "SELECT tag_keyword FROM tblTag";
+	}
 
-		            stat = conn.createStatement();
-		            rs = stat.executeQuery(sql);
+	//태그 등록
+	public String getLastInsertedCpRvSeq() {
+		try {
+			String sql = "SELECT cp_rv_seq FROM tblCompanyReview WHERE ROWNUM = 1 ORDER BY cp_rv_seq DESC";
+			stat = conn.createStatement();
+			rs = stat.executeQuery(sql);
 
-		            while (rs.next()) {
-		                showTagList.add(rs.getString("tag_keyword"));
-		            }
-
-		            return showTagList;
-
-		        } catch (Exception e) {
-		            System.out.println("ReviewDAO.showTagList");
-		            e.printStackTrace();
-		            return null;
-		        }
+			if (rs.next()) {
+				return rs.getString("cp_rv_seq");
+			}
+		} catch (Exception e) {
+			System.out.println("ReviewDAO.getLastInsertedCpRvSeq");
+			e.printStackTrace();
 		}
+		return null;
+	}
+
 
 }

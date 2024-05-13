@@ -16,19 +16,20 @@
 			<div class="container">
 				<div class="card" id="itvWriteQnA">
 					<div class="card-content-wrapper">
-						<div class="px-4 text-center sizing">
+						<div class="card-content">
+						<div class="px-4 text-center">
 							<h1 class="mt-3 gradiTitle">
 								<span>공지사항</span>
 							</h1>
 						</div>
-						<div class="card-content">
 							<div class="row mb-8">
 								<form action="/good/board/noticewrite.do" method="POST">
-									<div class="form-group mt-8 md:col-6 lg:col-4">
+									<div class="form-group mt-8">
 										<div class="view-form">
-											<div>
-												<input type="text" name="title" class="title"
-													placeholder="🔍제목을 입력하세요.">
+											<div class="addqna-form">
+												<span id="write-title">제목</span> <input type="text"
+													class="title write-title" placeholder="✏️제목을 입력하세요."
+													name="title" maxlength="50">
 											</div>
 										</div>
 									</div>

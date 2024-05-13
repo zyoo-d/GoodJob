@@ -15,20 +15,16 @@
         <ul class="navbar-nav navbar-right">
           <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
             <img alt="image" src="/good/assets/img/avatar/avatar-1.png" class="rounded-circle mr-1">
-            <div class="d-sm-none d-lg-inline-block">Hi, Ujang Maman</div></a>
+            <div class="d-sm-none d-lg-inline-block">관리자</div></a>
             <div class="dropdown-menu dropdown-menu-right">
-              <div class="dropdown-title">Logged in 5 min ago</div>
-              <a href="features-profile.html" class="dropdown-item has-icon">
-                <i class="far fa-user"></i> Profile
+              <a href="good/main.do" class="dropdown-item has-icon">
+                <i class="far fa-user"></i> Client Main
               </a>
-              <a href="features-activities.html" class="dropdown-item has-icon">
-                <i class="fas fa-bolt"></i> Activities
-              </a>
-              <a href="features-settings.html" class="dropdown-item has-icon">
+              <a href="#!" class="dropdown-item has-icon">
                 <i class="fas fa-cog"></i> Settings
               </a>
               <div class="dropdown-divider"></div>
-              <a href="#" class="dropdown-item has-icon text-danger">
+              <a href="/good/user/logout.do" class="dropdown-item has-icon text-danger">
                 <i class="fas fa-sign-out-alt"></i> Logout
               </a>
             </div>
@@ -38,17 +34,17 @@
       <div class="main-sidebar sidebar-style-2">
         <aside id="sidebar-wrapper">
           <div class="sidebar-brand">
-            <a href="/good/gijun/index.jsp" id="main-logo"><img src="/good/assets/logo.png"
+            <a href="/good/admin/main.do" id="main-logo"><img src="/good/assets/logo.png"
 				height="30" width="147" alt="logo" /></a>
           </div>
           <div class="sidebar-brand sidebar-brand-sm">
-            <a href="/good/gijun/index.jsp">St</a>
+            <a href="/good/admin/main.do">GJ</a>
           </div>
           <ul class="sidebar-menu">
   <li class="dropdown" id="menu-user">
     <a href="#" class="nav-link has-dropdown"><i class="fas fa-user"></i><span>회원 관리</span></a>
     <ul class="dropdown-menu">
-      <li id="submenu-usermanagement"><a class="nav-link" href="/good/gijun/user/usermanagement.jsp">회원 목록</a></li>
+      <li id="submenu-usermanagement"><a class="nav-link" href="/good/admin/listuser.do">회원 목록</a></li>
       <li id="submenu-userblock"><a class="nav-link" href="/good/admin/listblockuser.do">차단 관리</a></li>
       <li id="submenu-userreport"><a class="nav-link" href="/good/admin/listreportuser.do">신고 접수 관리</a></li>
     </ul>
@@ -67,21 +63,20 @@
     <a href="#" class="nav-link has-dropdown"><i class="fas fa-building"></i> <span>기업 관리</span></a>
     <ul class="dropdown-menu">
       <li id="submenu-addcompany"><a class="nav-link" href="/good/gijun/company/addcompany.jsp">기업 등록</a></li>
-      <li id="submenu-company"><a class="nav-link" href="/good/gijun/company/company.jsp">기업 목록</a></li>
+      <li id="submenu-company"><a class="nav-link" href="/good/admin/company/company.do">기업 목록</a></li>
     </ul>
   </li>
   <li class="dropdown" id="menu-review">
     <a href="#" class="nav-link has-dropdown"><i class="fas fa-clipboard"></i> <span>리뷰 관리</span></a>
     <ul class="dropdown-menu">
-      <li id="submenu-reviewmain"><a class="nav-link" href="/good/gijun/review/reviewmain.jsp">리뷰 통계</a></li>
-      <li id="submenu-review"><a class="nav-link" href="/good/gijun/review/review.jsp">승인 대기 리뷰</a></li>
+      <li id="submenu-reviewmain"><a class="nav-link" href="/good/admin/review/reviewstatistics.do">리뷰 통계</a></li>
+      <li id="submenu-review"><a class="nav-link" href="/good/admin/review/review.do">승인 대기 리뷰</a></li>
     </ul>
   </li>
   <li class="dropdown" id="menu-survey">
     <a href="#" class="nav-link has-dropdown"><i class="far fa-file-alt"></i> <span>설문조사 관리</span></a>
     <ul class="dropdown-menu">
-      <li id="submenu-addsurvey"><a class="nav-link" href="/good/gijun/survey/addsurvey.jsp">설문조사 등록</a></li>
-      <li id="submenu-survey"><a class="nav-link" href="/good/gijun/survey/survey.jsp">설문조사 목록</a></li>
+      <li id="submenu-survey"><a class="nav-link" href="/good/admin/survey/survey.do">설문조사 목록/수정</a></li>
     </ul>
   </li>
 </ul>

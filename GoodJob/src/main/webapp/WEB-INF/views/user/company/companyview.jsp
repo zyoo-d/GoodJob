@@ -2,115 +2,25 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
 <!DOCTYPE html>
-
 <html>
 <head>
 <meta charset="UTF-8">
 <%@include file="/WEB-INF/views/inc/asset.jsp"%>
-
 <style>
 .main {
 	width: 1100px;
 	margin: 0 auto;
-	background-color: #FAFAFA;
 	display: flex;
-	padding-top: 20px;
-}
-
-.company-info {
-	width: 95%;
-	/*  	background-color: rgb(255, 255, 255); */
-	padding: 10px;
-	flex: 1;
-	margin: 0 auto;
-}
-
-.right-container {
-	padding: 10px;
-	/*  	float: right;  */
-	display: inline-block;
-	margin-left: 10px;
-	width: 40%;
-	padding-top: 55px;
 }
 
 .card {
-	width: 100%;
-	/* 	heigth: 300px; */
-	/* 	max-height: 300px; */
 	display: inline-flex;
 	margin-bottom: 10px;
-	padding: 10px;
 }
-
-.card-title {
-	font-size: 1.2rem;
-}
-
-#news {
-	width: 100%;
-}
-
-.card-tags {
-	right: 0.1rem;
-	top: 0.1rem;
-	z-index: 1;
-	margin-bottom: 1.5rem;
-	padding: 5px;
-}
-
-.card-img {
-	width: 110px;
-	height: auto; /* 이미지의 높이를 자동으로 조정하여 비율 유지 */
-	margin-right: 20px;
-	flex-shrink: 0; /* 이미지가 컨테이너 크기를 줄이지 않도록 수정 */
-	padding-top: 10px;
-}
-
-.card-content {
-	padding-top: 5px;
-}
-
-span {
-	font-family: Pretendard-Regular;
-}
-
-#salary {
-	width: 100%;
-	/* 	background-color: gold; */
-	padding: 10px;
-	border: none;
-	background-color: transparent;
-}
-
-#summary {
-	margin-top: 30px;
-	width: 100%;
-	padding: 20px;
-}
-
-#income-info {
-	width: 100%;
-	background-color: yellow;
-	padding: 10px;
-}
-
-.h4 {
-	font-size: 1.2rem;
-	font-family: 'Pretendard-Regular';
-	margin-bottom: 3px;
-}
-
 .card-footer {
 	margin-top: 5px;
 	padding-top: 5px;
-}
-
-#article {
-	font-size: .6rem;
-	font-family: 'Pretendard-Regular';
 }
 
 #news-title {
@@ -137,130 +47,32 @@ span {
 	box-sizing: border-box;
 }
 
-#company_img {
-	width: 150px;
-	height: 150px;
-	background-image: url('images/naver.jpg');
-	background-size: cover; /* 배경 이미지를 요소에 맞게 조정 */
-	margin-right: 20px;
-}
-
-#summary {
-	display: inline-flex;
-}
-
-h3 {
-	font-size: 2.5rem;
-	font-family: 'Pretendard-Regular';
-	color: #444;
-}
-
-#summary_content {
-	display: inline-grid;
-}
-
-#summary_content>span {
-	font-size: .83rem;
-	font-weight: bold;
-	font-family: 'Pretendard-Regular';
-	margin-bottom: none;
-	margin-top: none;
-}
-
-#summary_content>h3 {
-	font-size: 2rem;
-	font-family: 'Pretendard-Regular';
-}
-
-#summary_content>i {
-	font-size: .8rem;
-}
-
-#cop_address {
-	font-size: .8rem;
-}
-
 #comment {
 	height: 600px;
 	width: 100%;
 	padding: 10px;
 }
 
-.menu {
-	font-size: 1.5rem;
-	font-family: 'Pretendard-Regular';
-	color: #444;
-}
-
-.menu>button>i {
-	font-size: .9rem;
-	margin-left: 5px;
-}
-
 #recruit {
 	display: flex;
 	flex-wrap: wrap; /* 내용이 넘칠 경우 줄 바꿈 */
-	justify-content: space-between; /* 요소들 사이의 간격을 균등하게 설정 */
-	padding: 10px;
+	justify-content: flex-start;
+	padding: 12px;
 	position: relative;
-	padding-top: 20px;
-	padding-bottom: 20px;
+	padding: 11px;
+	gap: 10px;
 }
 
 #recruit>div {
 	position: static;
-	margin-top: 15px;
-	width: 230px;
-	border: 1px solid rgb(83, 90, 237);
+	margin-top: 10px;
+	width: 32%;
+	border: 1px solid #5566cc;
 }
 
 .form-control {
 	width: 80%;
-	margin: 5px;
-	margin-right: 0;
-}
-
-#chat-form>button {
-	width: 40px;
-	border-radius: 4px;
-	padding: 0;
-	text-align: center;
-	margin-right: 0;
-	margin-left: 0;
-}
-
-#chat-form>button>i {
-	font-size: .8rem;
-}
-
-#mychatbox {
-	height: 83%;
-	margin: 10px;
-	width: 95%;
-	position: relative;
-	display: inline-block;
-	overflow-y: scroll;
-	margin-bottom: 0;
-}
-
-.scrollbar {
-	width: 250px;
-	height: 250px;
-	overflow-y: scroll; /*  */
-}
-
-/* 스크롤바의 폭 너비 */
-.chat-box::-webkit-scrollbar {
-	width: 10px;
-}
-
-.chat-box::-webkit-scrollbar-thumb {
-	background: #4444; /* 스크롤바 색상 */
-	border-radius: 10px; /* 스크롤바 둥근 테두리 */
-}
-
-.chat-box::-webkit-scrollbar-track {
-	background: rgba(220, 200, 220, .1); /*스크롤바 뒷 배경 색상*/
+	height: 50px;
 }
 
 .bg-gray-200 {
@@ -270,79 +82,9 @@ h3 {
 	font-size: .7rem;
 }
 
-#writer {
-	float: right;
-}
-
 .bg-gray-200>span {
 	float: right;
 	color: #FAFAFA;
-}
-
-#comment_content {
-	font-size: .7rem;
-	float: right;
-	color: #525252;
-}
-
-.tag {
-	font-size: .7rem;
-	height: 20px;
-	width: 80px;
-	padding: 0;
-	text-align: center;
-	padding-top: 5px;
-}
-
-.mt-6 {
-	margin-top: 5px;
-}
-
-#salary {
-	display: flex;
-	justify-content: center;
-}
-
-#salary>div {
-	padding: 20px;
-	margin: 5px;
-}
-
-#left_line {
-	width: 100px;
-	height: 100%;
-	background-color: rgb(83, 90, 237);
-}
-
-#left_line>i {
-	color: white;
-	font-size: 2rem;
-}
-
-.count {
-	font-size: 1.4rem;
-}
-
-#money {
-	padding: 30px;
-	padding-left: 20px;
-	font-size: 1.5rem;
-	font-family: 'Pretendard-Regular';
-	color: #444;
-}
-
-#keyword {
-	padding: 12px;
-}
-
-#keyword>div {
-	border: 1px solid #4444;
-	border-radius: 10px;
-	text-align: center;
-	display: inline-block;
-	padding: 5px;
-	font-size: .8rem;
-	margin-bottom: 5px;
 }
 
 #review {
@@ -357,188 +99,12 @@ h3 {
 	padding-bottom: 40px;
 }
 
-#oneline {
-	font-size: 1.5rem;
-	color: black;
-	font-weight: bolder;
-}
-
-#good {
-	padding: 10px;
-	border: 1px solid #4454;
-	border-radius: 10px;
-	margin-bottom: 10px;
-	border-bottom-left-radius: 12px;
-	border-bottom-right-radius: 12px;
-	border-bottom-width: 0px;
-	border-style: solid;
-	border-left-width: 0px;
-	border-right-width: 0px;
-	border-top-left-radius: 12px;
-	border-top-right-radius: 12px;
-	box-shadow: rgba(0, 0, 0, 0.1) 0px 15px 34px 0px;
-	box-sizing: border-box;
-}
-
-#bad {
-	padding: 10px;
-	border: 1px solid #4454;
-	border-radius: 10px;
-	margin-bottom: 10px;
-	border-bottom-left-radius: 12px;
-	border-bottom-right-radius: 12px;
-	border-bottom-width: 0px;
-	border-style: solid;
-	border-left-width: 0px;
-	border-right-width: 0px;
-	border-top-left-radius: 12px;
-	border-top-right-radius: 12px;
-	box-shadow: rgba(0, 0, 0, 0.1) 0px 15px 34px 0px;
-	box-sizing: border-box;
-}
-
-#bad_title {
-	font-size: 1.1rem;
-	font-weight: bold;
-	color: #595959;
-}
-
-#good_title {
-	margin-top: 10px;
-	font-size: 1.1rem;
-	font-weight: bold;
-	color: #595959;
-}
-
-.goodbad>div {
-	font-size: 1rem;
-	color: #22222;
-}
-
-#add_review {
-	background-image: linear-gradient(184.78deg, rgb(83, 90, 237) 7.64%,
-		rgb(62, 178, 248) 120.07%);
-	color: white;
-	padding: 5px 20px;
-	border-radius: 10px;
-	font-size: .7rem;
-	margin-left: 3px;
-	float: right;
-	font-weight: bold;
-}
-
 .fa-star {
 	color: gold;
 }
 
-#chatchat {
-	font-size: .8rem;
-}
-
-.score_rating {
-	font-size: 1rem;
-	color: #525252;
-	font-weight: bold;
-}
-
-#score_detail {
-	display: grid;
-	grid-template-columns: repeat(2, 2fr);
-	grid-gap: 0;
-}
-
-#score_detail>div {
-	width: 100%;
-	padding: 5px;
-}
-
-h3>#scrap {
-	font-size: .8rem;
-	border: 2px solid;
-	padding: 3px 12px;
-	border-radius: 10px;
-}
-
-.go {
-	font-size: .8rem;
-	padding: 5px 15px;
-	border-radius: 10px;
-	background-image: linear-gradient(184.78deg, rgb(83, 90, 237) 7.64%,
-		rgb(62, 178, 248) 120.07%);
-	color: white;
-}
-
-#go_container {
-	display: grid;
-	grid-template-columns: repeat(2, 2fr);
-	grid-gap: 10px;
-}
-
-#pmt-2 {
-	margin-bottom: 20px;
-}
-
-.highcharts-figure, .highcharts-data-table table {
-	min-width: 360px;
-	max-width: 800px;
-	margin: 1em auto;
-}
-
-.highcharts-data-table table {
-	border-collapse: collapse;
-	border: 1px solid #ebebeb;
-	margin: 10px auto;
-	text-align: center;
-	width: 100%;
-	max-width: 500px;
-}
-
-.highcharts-data-table caption {
-	padding: 1em 0;
-	font-size: 1.2em;
-	color: #555;
-}
-
-.highcharts-data-table th {
-	font-weight: 600;
-	padding: 0.5em;
-}
-
-.highcharts-data-table td, .highcharts-data-table th,
-	.highcharts-data-table caption {
-	padding: 0.5em;
-}
-
-.highcharts-data-table thead tr, .highcharts-data-table tr:nth-child(even)
-	{
-	background: #f8f8f8;
-}
-
-.highcharts-data-table tr:hover {
-	background: #f1f7ff;
-}
-
-#CplivecommentBtn {
-	display: inline;
-	float: right;
-}
-#welfare {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.weltype {
-    width: 33.33%;
-    padding: 10px;
-    box-sizing: border-box;
-}
-
-.weltype h4 {
-    margin-bottom: 10px;
-}
-
-.weltype p {
-    margin: 5px 0;
+#review > div:last-child {
+	border-bottom: 0;
 }
 </style>
 </head>
@@ -547,113 +113,137 @@ h3>#scrap {
 	<div class="main">
 		<section class="page-hero pt-16 pb-6">
 			<div class="container">
-				<div class="z-custom card" id="itvWriteQnA">
+				<div class="card" id="itvWriteQnA">
 					<div class="company-info">
 						<div class="card-content-wrapper">
-							<div class="px-4 text-center border-b border-border">
-								<h1 class="mt-3 gradiTitle">
+							<div class="p-4 text-center border-b border-border">
+								<h2 class="mt-3 gradiTitle">
 									<span>기업 상세정보</span>
-								</h1>
-								<p class="mt-2" id="pmt-2">기업의 상세한 정보를 확인하고 기업리뷰를 확인해 보세요.</p>
-							</div>
-						</div>
-
-						<div id="summary">
-							<div id="company_img">
-								<img src="${dto.image}"
-									onerror="this.src='/good/asset/images/default.jpg'"
-									alt="Company Logo">
-							</div>
-							<div id="summary_content">
-								<h3>${dto.cp_name}
-									<button id="scrap">
-										<i class="fa-regular fa-bookmark"></i> ${dto.com_scrap_cnt}+
-									</button>
-								</h3>
-								<span>${dto.idst_name} </span> <span>사원 수
-									${dto.hire_member} 명</span> <span> <%-- <c:if
-										test="${not empty comJobList}">
-										<c:forEach items="${comJobList}" var="jdto" begin="0" end="7">${jdto} </c:forEach>
-									</c:if> --%>
-								</span> <i class="fa-solid fa-location-dot"><span id="cop_address">
-										${dto.cp_address}</span></i>
-							</div>
-						</div>
-
-						<span class="menu">예상 평균 연봉 / 평균 근속 연수</span>
-						<div id="salary">
-
-							<div
-								class="row mx-0 rounded-[20px] bg-white px-10 shadow-lg lg:py-10">
-								<h2>
-									<span class="count"> <c:if
-											test="${dto.hire_avr_salary == 0}">정보 없음</c:if> <c:if
-											test="${dto.hire_avr_salary != 0}">
-											<fmt:formatNumber type="number" maxFractionDigits="0"
-												value="${dto.hire_avr_salary}" /> 만원</c:if></span> <span
-										class="text-[#A3A1FB]">+</span>
 								</h2>
-								<p>예상 연봉</p>
+								<p class="my-2">기업의 상세한 정보를 확인하고 기업리뷰를 확인해 보세요.</p>
 							</div>
-							<div
-								class="row mx-0 rounded-[20px] bg-white px-10 shadow-lg lg:py-10">
-								<h2>
-									<span class="count"> <c:if
-											test="${dto.idst_avg_salary == 0}">정보 없음</c:if> <c:if
-											test="${dto.idst_avg_salary != 0}">
-											<fmt:formatNumber type="number" maxFractionDigits="0"
-												value="${dto.idst_avg_salary}" /> 만원
+						</div>
+
+
+						<div
+							class="box_item row mx-0 rounded-[20px] bg-white px-10 shadow-lg"
+							id="summary">
+
+							<div class="com-list com-image"
+								style="background-image: url('${dto.image}');"
+								alt="Company Logo" name="image">
+								<!-- 예시 이미지 경로 -->
+							</div>
+
+							<div class="detail-title">
+								<div class="col notification_info">
+
+									<div class="job_tit mb-4"
+										style="display: flex; align-items: flex-start;">
+										<h3>${dto.cp_name}</h3>
+										<button id="scrap" style="margin-left: 8px; color: #5566cc;">
+											<i class="fa-regular fa-bookmark" style="font-size: 1.2rem;"></i>
+											${dto.com_scrap_cnt}+
+										</button>
+									</div>
+									<div class="job_meta" style="font-size: 0.8rem;">
+
+										<c:if test="${not empty topTags}">
+											<div class="job_meta">
+												<c:forEach items="${topTags}" var="tag" begin="0" end="2">
+													<span class="job-keyword">${tag}</span>
+												</c:forEach>
+											</div>
+										</c:if>
+
+									</div>
+								</div>
+							</div>
+							<div class="detail-list com-info">
+								<div class="col recruit_info">
+									<ul>
+										<li><p class="career">
+												<b>주요업무 </b>${dto.idst_name}</p></li>
+										<li><p>
+												<b>위치 </b>${dto.cp_address}</p></li>
+										<li><p>
+												<b>사원 수 </b>${dto.hire_member} 명
+											</p></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<!-- 채용공고end -->
+
+
+						<div class="border-border border-y py-6 my-4">
+							<h5>예상 평균 연봉 / 평균 근속 연수</h5>
+							<div id="salary">
+								<div
+									class="row rounded-[20px] bg-white shadow-lg">
+									<h2>
+										<span class="count"> <c:if
+												test="${dto.hire_avr_salary == 0}">정보 없음</c:if> <c:if
+												test="${dto.hire_avr_salary != 0}">
+												<fmt:formatNumber type="number" maxFractionDigits="0"
+													value="${dto.hire_avr_salary}" /> 만원</c:if></span> <span
+											class="text-[#A3A1FB]">+</span>
+									</h2>
+									<p>예상 연봉</p>
+								</div>
+								<div
+									class="row rounded-[20px] bg-white shadow-lg">
+									<h2>
+										<span class="count"> <c:if
+												test="${dto.idst_avg_salary == 0}">정보 없음</c:if> <c:if
+												test="${dto.idst_avg_salary != 0}">
+												<fmt:formatNumber type="number" maxFractionDigits="0"
+													value="${dto.idst_avg_salary}" /> 만원
 
 									</c:if></span> <span class="text-[#A3A1FB]">+</span>
-								</h2>
-								<p>업계 평균 연봉</p>
-							</div>
-							<div
-								class="row mx-0 rounded-[20px] bg-white px-10 shadow-lg lg:py-10">
-								<h2>
-									<span class="count"> <c:if
-											test="${dto.hire_avr_year == 0}">정보 없음</c:if> <c:if
-											test="${dto.hire_avr_year != 0}">
+									</h2>
+									<p>업계 평균 연봉</p>
+								</div>
+								<div
+									class="row rounded-[20px] bg-white shadow-lg">
+									<h2>
+										<span class="count"> <c:if
+												test="${dto.hire_avr_year == 0}">정보 없음</c:if> <c:if
+												test="${dto.hire_avr_year != 0}">
 						${dto.hire_avr_year} 년</c:if></span> <span class="text-[#5EE2A0]">+</span>
-								</h2>
-								<p>평균 근속 연수</p>
+									</h2>
+									<p>평균 근속 연수</p>
+								</div>
+
 							</div>
+							<div id="income-info">
 
+								<figure class="highcharts-figure">
+									<div id="container"></div>
+									<p class="highcharts-description"></p>
+								</figure>
+							</div>
 						</div>
 
-
-
-						<div id="income-info">
-
-							<figure class="highcharts-figure">
-								<div id="container"></div>
-								<p class="highcharts-description"></p>
-							</figure>
-						</div>
-
-						<span class="menu">해당 기업 공고</span>
+						<h5>해당 기업 공고</h5>
 						<!-- 채용정보 -->
-						<div id="recruit">
-
-
+						<div id="recruit" class="mt-4">
 							<c:forEach items="${comRecruitList}" var="rcdto" begin="0"
 								end="5">
 								<div
-									class="rounded-xl border border-primary bg-white px-8 py-6 shadow-lg lg:-mt-16"
-									width="300px">
+									class="rounded-xl border border-primary bg-white p-6 shadow-lg">
 									<div class="flex items-center justify-between"
 										id="recruit_card">
 										<div>
-											<h4 class="h6">${rdto.cp_name}</h4>
-											<p class="mt-3 text-dark">${rcdto.rcrt_name}</p>
+											<h6>${rcdto.rcrt_name}</h6>
 										</div>
 
 									</div>
 									<c:if test="${not empty rcdto.enddate}">
-										<p class="mt-6">마감일 ${rcdto.enddate}</p>
+										<p class="mt-2">마감일 ${rcdto.enddate}</p>
 									</c:if>
 									<div class="my-6 border-y border-border py-6">
-										<h4 class="h6">이런 사람을 원해요!</h4>
+										<h6>이런 사람을 원해요!</h6>
 										<ul class="mt-6">
 											<li class="mb-3 flex items-center text-sm"><svg
 													class="mr-2.5 text-primary" width="16" height="13"
@@ -705,13 +295,12 @@ h3>#scrap {
 							<%--  </c:forEach> --%>
 
 							<c:if test="${dto.com_rcrt_cnt ==0}">
-								<span>
-									<b>${dto.cp_name}</b>에서 모집중인 채용공고가 없습니다.
+								<span> <b>${dto.cp_name}</b>에서 모집중인 채용공고가 없습니다.
 								</span>
 							</c:if>
 						</div>
 						<!-- div:recruit -->
-						<span class="menu">기업 키워드</span>
+						<%-- <span class="menu">기업 키워드</span>
 
 						<div id="keyword" class="job_meta" style="text-align: center;">
 							<c:if test="${not empty topTags}">
@@ -719,52 +308,49 @@ h3>#scrap {
 									<span class="job-keyword">${tag}</span>
 								</c:forEach>
 							</c:if>
-						<c:if test="${empty topTags}">
-							<span>등록된 키워드가
-								없습니다. 리뷰를 작성하여 키워드를 등록해 보세요.</span>
-						</c:if>
-						</div>
+							<c:if test="${empty topTags}">
+								<span>등록된 키워드가 없습니다. 리뷰를 작성하여 키워드를 등록해 보세요.</span>
+							</c:if>
+						</div> --%>
 
 						<!-- 기업복지 -->
+						<div class="border-border border-y py-6 my-4">
+							<h5>기업 복지</h5>
 
-						<span class="menu">기업 복지</span>
-						
-						<div id="welfare">
-						
-							<c:choose>
-								<c:when test="${not empty wlist}">
-									<c:set var="prevWeltype" value="" />
-									<c:forEach items="${wlist}" var="wdto">
-										<c:if test="${wdto.weltype_name != prevWeltype}">
-											<c:if test="${not empty prevWeltype}">
-						</div>
-						</c:if>
-						<div class="weltype">
-							<span class="menu">${wdto.weltype_name}</span>
-							<c:set var="prevWeltype" value="${wdto.weltype_name}" />
+							<div id="welfare" class="mt-4">
+								<c:choose>
+									<c:when test="${not empty wlist}">
+										<c:set var="prevWeltype" value="" />
+										<c:forEach items="${wlist}" var="wdto">
+											<c:if test="${wdto.weltype_name != prevWeltype}">
+												<c:if test="${not empty prevWeltype}">
+							</div>
 							</c:if>
-							<p>${wdto.wel_name}</p>
-							</c:forEach>
+							<div class="weltype pt-5 py-3 px-5">
+								<h6 style="text-align: center; margin-bottom: 5px;">[ ${wdto.weltype_name} ]</h6>
+								<c:set var="prevWeltype" value="${wdto.weltype_name}" />
+								</c:if>
+								<p>- ${wdto.wel_name}</p>
+								</c:forEach>
+							</div>
+							</c:when>
+							<c:otherwise>
+								<span>등록된 복지가 없습니다.</span>
+							</c:otherwise>
+							</c:choose>
 						</div>
-						</c:when>
-						<c:otherwise>
-							<span>등록된 복지가 없습니다.</span>
-						</c:otherwise>
-						</c:choose>
 					</div>
-
 					<!--  -->
-					<span class="menu">기업 리뷰 보기</span>
+					<div class="flex justify-between">
+					<h5>기업 리뷰 보기</h5>
 					<button id="add_review"
 						onclick="checkLogin(${dto.cp_seq}, '${word}', '${map.search}', '${map.hiring}', ${nowPage})">리뷰
 						쓰러가기</button>
-
+</div>
 
 					<div>
 
-
-
-						<div id="review">
+						<div id="review" class="mt-4">
 							<c:if test="${not empty listReview}">
 								<c:forEach items="${listReview}" var="rdto">
 									<c:if
@@ -815,7 +401,7 @@ h3>#scrap {
 												</div>
 											</div>
 											<div class="goodbad_title" id="good_title">
-												<i class="fa-regular fa-thumbs-up"></i> 이런 부분은 좋았아요.
+												<i class="fa-regular fa-thumbs-up"></i> 이런 부분은 좋았어요.
 												<div id="good">${rdto.good}</div>
 											</div>
 
@@ -847,15 +433,15 @@ h3>#scrap {
 
 
 
-	<div class="right-container">
-		<div id="news">
-			<span class="menu">관련 기사 보기</span>
+	<div class="right-container pt-16">
+		<div id="news" class="w-full">
+			<h5 class="mb-4">관련 기사 보기</h5>
 			<c:forEach items="${nlist}" var="ndto" end="1">
 				<div class="card" id="card_news">
 					<div id="card_news_content">
-						<h1 class="h4 card-title" id="news-title">
+						<h6 id="news-title">
 							<a href="${ndto.link}">${ndto.title}</a>
-						</h1>
+						</h6>
 						<p id="article">${ndto.description}</p>
 						<div class="card-footer mt-6 flex space-x-4">
 							<span class="inline-flex items-center text-xs text-[#666]">
@@ -873,11 +459,12 @@ h3>#scrap {
 
 
 		</div>
-		<span class="menu">실시간 댓글
+		<h5 class="my-4">
+			실시간 댓글
 			<button>
 				<i class="fa-solid fa-rotate-right"></i>
 			</button>
-		</span>
+		</h5>
 
 
 
@@ -893,7 +480,10 @@ h3>#scrap {
 							<div id="comment_content">
 								${livecommentdto.nickname} <span id="chat_regdate">${livecommentdto.regdate}</span><br>
 								<div id="CplivecommentBtn">
-									<button id="singo">[ 신고 ]</button>
+									<c:if test="${not empty id}">
+									<button type="button" id="report-btn" data-boardtype="live" data-seq="${livecommentdto.cm_seq}"
+									> [ 신고 ]</button>
+								</c:if>
 									<c:if
 										test="${not empty id && (livecommentdto.id == id || lv == 2)}">
 
@@ -915,7 +505,7 @@ h3>#scrap {
 
 
 			<div class="card-footer chat-form">
-				<div id="chat-form">
+				<div id="chat-form" class="flex justify-around mt-2">
 					<input type="text" class="form-control"
 						placeholder="Type a message" name="liveCommentContent">
 					<button class="btn btn-primary" id="liveCommentBtn">

@@ -20,6 +20,15 @@ public class VisitorDAO {
 	public VisitorDAO() {
 		this.conn = DBUtil.open();
 	}
+	
+	public void close() {
+		try {
+			this.conn.close();
+		} catch (Exception e) {
+			System.out.println("VisitorDAO.close 오류");
+			e.printStackTrace();
+		}
+	}
 
 	/**
 	 * 현재 날짜 기준으로 이전 방문자수 전부 불러오는 메서드
