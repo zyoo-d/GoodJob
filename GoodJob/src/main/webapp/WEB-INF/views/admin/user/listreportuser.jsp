@@ -16,7 +16,7 @@
 			<div class="main-content">
 				<section class="section">
 					<div class="section-header">
-						<h1>신고 접수 관리</h1>
+						<h1>신고 회원 관리</h1>
 					</div>
 
 					<div class="section-body">

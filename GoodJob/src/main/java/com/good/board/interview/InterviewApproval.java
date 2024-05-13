@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.good.admin.report.PageUtil;
+import com.good.admin.usermanagement.PageUtil;
 import com.good.board.model.InterviewApprovalDTO;
 import com.good.board.report.model.ReportCommonDTO;
 import com.good.board.report.repository.ReportCommonDAO;
