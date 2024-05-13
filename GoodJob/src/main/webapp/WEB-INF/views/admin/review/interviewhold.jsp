@@ -16,7 +16,7 @@
 			<div class="main-content">
 				<section class="section">
 					<div class="section-header">
-						<h1>면접 후기 대기 관리</h1>
+						<h1>승인 대기 면접 후기</h1>
 					</div>
 
 					<div class="section-body">
