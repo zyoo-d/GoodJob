@@ -120,7 +120,9 @@ public class Matching extends HttpServlet {
 
 			ScoreMatcher.calculateMatchingRate(list, dto);
 			Collections.sort(list, Comparator.reverseOrder());
-
+			
+			System.out.println(list.size());
+			
 			ArrayList<MatchingDTO> top3 = new ArrayList<>(list.subList(0, 3));
 
 			HashMap<String, String> map = new HashMap<>();
@@ -143,7 +145,7 @@ public class Matching extends HttpServlet {
 	            long formattedFncIncome = Math.round((double) fncIncome / 10000000);
 	            mdto.getDto().setFnc_income(formattedFncIncome);
 	            
-	            map.put("tag"+num, mdto.getCp_seq());
+	            map.put("tag"+num, mdto.getDto().getCp_name());
 				num++;
 	            
 				double matchScore = mdto.getMatchScore(); 
@@ -198,7 +200,6 @@ public class Matching extends HttpServlet {
 			CompareDAO compareDAO = new CompareDAO();
 			//재무 정보
 			ArrayList<Long>[] flist = compareDAO.getCompanyFinance(map);
-			
 
 			req.setAttribute("flist", flist);
 			req.setAttribute("map", map);
