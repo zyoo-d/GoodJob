@@ -25,7 +25,7 @@ public class UserDAO {
         try {
             this.conn.close();
         } catch (Exception e) {
-            System.out.println("QnaBoardDAO.close 오류");
+            System.out.println("UserDAO.close 오류");
             e.printStackTrace();
         }
     }
