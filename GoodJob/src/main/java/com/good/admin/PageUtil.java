@@ -1,4 +1,4 @@
-package com.good.admin.usermanagement;
+package com.good.admin;
 
 import lombok.Data;
 

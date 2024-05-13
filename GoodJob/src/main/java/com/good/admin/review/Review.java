@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.good.admin.usermanagement.PageUtil;
+import com.good.admin.PageUtil;
 import com.good.company.model.ReviewDTO;
 import com.good.company.repository.ReviewDAO;
 

@@ -102,12 +102,7 @@
 																			class="custom-control-input"
 																			id="checkbox-${status.index}"> <label
 																			for="checkbox-${status.index}"
-																			class="custom-control-label">&nbsp;</label> <input
-																			type="hidden" id="report_seq" name="report_seq"
-																			value="${report.report_seq}"> <input
-																			type="hidden" id="report_type" name="report_type"
-																			value="${report.type}">
-
+																			class="custom-control-label">&nbsp;</label>
 																	</div>
 																</td>
 																<td class="p-0 text-center">${report.writer_id}</td>
@@ -526,21 +521,6 @@
   
   
   </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

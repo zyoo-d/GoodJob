@@ -42,8 +42,10 @@
 														<i class="far fa-edit"></i> 차단 관리
 													</button>
 													<button id="btn-resignation-user"
-														class="btn btn-icon icon-left btn-danger">
-														<i class="far fa-edit"></i> 회원 탈퇴
+														class="btn btn-icon icon-left btn-danger"
+														data-confirm="경고|회원 탈퇴를 진행하겠습니까?"
+														data-confirm-yes="alert('Deleted :)');">
+														<i class="far fa-edit"></i>회원 탈퇴
 													</button>
 												</div>
 											</form>
@@ -72,25 +74,26 @@
 												</tr>
 
 
-												<c:forEach items="${userList}" var="userList">
+												<c:forEach items="${userList}" var="userList"
+													varStatus="status">
 													<tr>
 														<td class="p-0 text-center">
 															<div class="custom-checkbox custom-control">
 																<input type="checkbox" data-checkboxes="mygroup"
 																	class="custom-control-input"
-																	id="checkbox-${status.index}"> <label
-																	for="checkbox-${status.index}"
+																	id="checkbox-${status.index}" value="${userList.id}">
+																<label for="checkbox-${status.index}"
 																	class="custom-control-label">&nbsp;</label>
 															</div>
 														</td>
 														<td class="p-0 text-center">${userList.id}</td>
-														<td class="p-0 text-center">${userList.name }</td>
+														<td class="p-0 text-center">${userList.name}</td>
 														<td class="p-0 text-center">${userList.board}</td>
-														<td class="p-0 text-center">${userList.comment }</td>
-														<td class="p-0 text-center">${userList.review }</td>
-														<td class="p-0 text-center">${userList.regdate }</td>
-														<td class="p-0 text-center">${userList.report }</td>
-														<td class="p-0 text-center">${userList.status }</td>
+														<td class="p-0 text-center">${userList.comment}</td>
+														<td class="p-0 text-center">${userList.review}</td>
+														<td class="p-0 text-center">${userList.regdate}</td>
+														<td class="p-0 text-center">${userList.report}</td>
+														<td class="p-0 text-center">${userList.status}</td>
 													</tr>
 												</c:forEach>
 											</table>
@@ -142,43 +145,9 @@
 				</section>
 			</div>
 
-			<div class="modal fade" id="resignationModal" tabindex="-1"
-				role="dialog" aria-labelledby="resignationModalLabel"
-				aria-hidden="true">
-				<div class="modal-dialog" role="document">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title" id="resignationModalLabel">회원 탈퇴</h5>
-							<button type="button" class="close" data-dismiss="modal"
-								aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-							</button>
-						</div>
-						<div class="modal-body">
-							<form id="resignationForm" method="POST"
-								action="/good/admin/userWithdrawal.do">
-								<div class="form-group">
-									<label for="user-ids">선택된 회원 아이디</label> <input type="text"
-										class="form-control" id="user-ids" name="user-ids" readonly>
-								</div>
-								<div class="form-group">
-									<label for="status">상태</label> <select class="form-control"
-										id="status" name="status">
-										<option value="0">정상</option>
-										<option value="1">회원탈퇴</option>
-									</select>
-								</div>
-							</form>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary"
-								data-dismiss="modal">취소</button>
-							<button type="submit" form="resignationForm"
-								class="btn btn-danger">회원 탈퇴</button>
-						</div>
-					</div>
-				</div>
-			</div>
+
+
+
 
 
 
@@ -188,44 +157,59 @@
 	</div>
 
 	<script>
-	$(document).ready(function() {
-		  $('#btn-resignation-user').on('click', function() {
-		    const checkedCheckboxes = $('input[type="checkbox"][data-checkboxes="mygroup"]:checked');
-		    const checkedCount = checkedCheckboxes.length;
+	$('[data-confirm]').each(function() {
+		  var me = $(this),
+		      me_data = me.data('confirm');
 
-		    if (checkedCount === 0) {
-		      alert('회원을 선택해주세요.');
-		      return;
-		    }
+		  me_data = me_data.split("|");
+		  me.fireModal({
+		    title: me_data[0],
+		    body: me_data[1],
+		    buttons: [
+		      {
+		        text: me.data('confirm-text-yes') || '확인',
+		        class: 'btn btn-danger btn-shadow',
+		        handler: function() {
+		          var selectedUserIds = [];
+		          $('input[data-checkboxes="mygroup"]:checked').each(function() {
+		            selectedUserIds.push($(this).val());
+		          });
 
-		    $('#btn-resignation-user').fireModal({
-		      body: $('#resignationModal'),
-		      title: '회원 탈퇴',
-		      footerClass: 'text-right',
-		      buttons: [
-		        {
-		          text: '회원 탈퇴',
-		          class: 'btn btn-danger',
-		          submit: true,
-		          handler: function(modal) {
-		            modal.find('#resignationForm').submit();
-		          }
+		          // 선택된 회원 아이디를 서블릿으로 전송
+		          $.ajax({
+		            url: '/good/admin/listuser.do',
+		            type: 'POST',
+		            data: { userIds: selectedUserIds },
+		            traditional: true,
+		            success: function(response) {
+		              // 서블릿에서의 처리 결과에 따른 동작 수행
+		              alert('선택한 회원이 삭제되었습니다.');
+		              location.reload(); // 페이지 새로고침
+		            },
+		            error: function() {
+		              alert('회원 삭제 중 오류가 발생했습니다.');
+		            }
+		          });
 		        }
-		      ],
-		      created: function(modal) {
-		        const userIds = [];
-		        checkedCheckboxes.each(function() {
-		          const selectedRow = $(this).closest('tr');
-		          const userId = selectedRow.find('td:nth-child(2)').text().trim();
-		          userIds.push(userId);
-		        });
-
-		        modal.find('#user-ids').val(userIds.join(','));
+		      },
+		      {
+		        text: me.data('confirm-text-cancel') || '취소',
+		        class: 'btn btn-secondary',
+		        handler: function(modal) {
+		          $.destroyModal(modal);
+		          eval(me.data('confirm-no'));
+		        }
 		      }
-		    });
+		    ]
 		  });
 		});
-	
+
+		$(document).ready(function() {
+		  $('#checkbox-all').on('click', function() {
+		    const isChecked = $(this).is(':checked');
+		    $('input[data-checkboxes="mygroup"]').prop('checked', isChecked);
+		  });
+		});
 	</script>
 
 
