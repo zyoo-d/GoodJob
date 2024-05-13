@@ -16,34 +16,34 @@ import com.good.board.repository.InterviewDAO;
 
 
 
-	@WebServlet("/board/interview/InterviewHold.do")
-	public class InterviewHold extends HttpServlet {
+@WebServlet("/admin/interview/interviewhold.do")
+public class InterviewHold extends HttpServlet {
 
-	    @Override
-	    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-	            InterviewDAO dao = new InterviewDAO();
-	            
-	            int totalCount = dao.getTotalHoldInterviewCount();
-	    		int pageSize = 10;
-	    		int currentPage = PageUtil.parseCurrentPage(req.getParameter("page"));
-	    		
-	            
-	            PageUtil pageUtil = new PageUtil(totalCount, pageSize, currentPage);
-	    		int startIndex = pageUtil.calculateStartIndex();
-	    		int endIndex = pageUtil.calculateEndIndex();
-	    		
-	    		ArrayList<InterviewDTO> list = dao.getInterviewHold(startIndex, endIndex);
-	            
-	            req.setAttribute("list", list);
-	            req.setAttribute("pageUtil", pageUtil);
+		InterviewDAO dao = new InterviewDAO();
 
-	            RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/admin/review/interviewhold.jsp");
-	            dispatcher.forward(req, resp);
-	  
-	    }
-	    
+		int totalCount = dao.getTotalHoldInterviewCount();
+		int pageSize = 10;
+		int currentPage = PageUtil.parseCurrentPage(req.getParameter("page"));
+
+
+		PageUtil pageUtil = new PageUtil(totalCount, pageSize, currentPage);
+		int startIndex = pageUtil.calculateStartIndex();
+		int endIndex = pageUtil.calculateEndIndex();
+
+		ArrayList<InterviewDTO> list = dao.getInterviewHold(startIndex, endIndex);
+
+		req.setAttribute("list", list);
+		req.setAttribute("pageUtil", pageUtil);
+
+		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/admin/review/interviewhold.jsp");
+		dispatcher.forward(req, resp);
+
 	}
+
+}
 
 
 
