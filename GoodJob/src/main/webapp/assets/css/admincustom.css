@@ -40,11 +40,11 @@ h4{
 
 /* index */
 #index-data-info{
-  padding-top: 10px; padding-bottom: 10px;
+  padding-top: 20px; padding-bottom: 20px;
 }
 
 #index-data-info + div{
-  padding-bottom: 0; padding-top: 15px;
+  padding-bottom: 20px; padding-top: 20px;
 }
 
 .report_title {
@@ -161,10 +161,8 @@ h4{
   margin-left: 20px;
 }
 
-
-#btn-resignation-user{
-	 margin-left: 20px;
-	
+#btn-block-user{
+  margin-left: 20px;
 }
 
 /* dashBoard */
@@ -412,43 +410,5 @@ a.dropdown-item.dropsmall {
 }
 .text-lg {
 	font-size: 1rem;
-}
-
-#reportType {
-  background-color: #FAFAFA !important;
-  border: none !important;
-  outline: none !important;
-  appearance: none !important;
-  -webkit-appearance: none !important;
-  -moz-appearance: none !important;
-  padding: 5px 30px 5px 0px !important; /* 오른쪽 여백을 30px로 늘림 */
-  border-radius: 0 !important;
-  font-size: inherit !important;
-  color: inherit !important;
-  width: auto !important;
-  text-align-last: center !important;
-  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="%23333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>') !important; /* 화살표 이미지 설정 */
-  background-repeat: no-repeat !important;
-  background-position: right 8px center !important; /* 화살표 위치 조정 */
-  font-weight: 600;
-  height: 40px;
-  margin-left: 30px;
-}
-
-#reportType:focus{
-	border-radius: 5px; /* 원하는 값으로 조정 */
-    outline: none; /* 포커스 시 기본 아웃라인 제거 (선택사항) */
-
-}
-
-#reportType option {
-  line-height: normal; /* 줄 높이 초기화 */
-  height: 30px; /* 원하는 높이 값 설정 */
-  padding: 8px; /* 상하 패딩 5px, 좌우 패딩 8px */
-  text-align: center !important;
-}
-
-.report-type{
-	padding-right: 10px;
 }
 
