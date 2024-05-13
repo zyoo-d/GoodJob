@@ -26,8 +26,8 @@ public class AdminAuthFilter implements Filter {
 	     HttpSession session = httpRequest.getSession(false);
 
 	        if (session != null) {
-	            Integer lv = (Integer) session.getAttribute("lv");
-	            if (lv != null && lv == 2) {
+	            String lv = (String) session.getAttribute("lv");
+	            if (lv != null && lv.equals("2")) {
 	                chain.doFilter(request, response);
 	                return;
 	            }

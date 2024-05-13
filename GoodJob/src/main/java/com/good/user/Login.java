@@ -53,6 +53,7 @@ public class Login extends HttpServlet {
 			session.setAttribute("id", id); // 인증 티켓
 			session.setAttribute("name", result.getName());
 			session.setAttribute("lv", result.getLv());
+			System.out.println(result.getLv());
 			session.setAttribute("wish", result.getWish());
 			session.setAttribute("prefer", result.getPrefer());
 

@@ -94,10 +94,7 @@ public class DashBoard extends HttpServlet{
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/admin/index.jsp");
 		dispatcher.forward(req, resp);
 		
-		
-		
-		
-		
 	}
+	
 	
 }
