@@ -17,8 +17,6 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-import com.good.alert.Alert;
-import com.good.board.repository.BoardDAO;
 import com.good.company.model.CompanyDTO;
 import com.good.company.model.ReviewDTO;
 import com.good.company.repository.CompanyDAO;

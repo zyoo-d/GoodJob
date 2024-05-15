@@ -10,17 +10,24 @@ import java.util.HashMap;
 import com.good.board.model.CommentDTO;
 import com.good.board.model.StudyDTO;
 import com.test.util.DBUtil;
-
+/**
+ * StudyDAO 클래스는 공부 관련 데이터 액세스 오브젝트로, 데이터베이스의 공부 관련 테이블에 접근하여
+ * 데이터를 조회, 추가, 수정, 삭제하는 기능을 제공합니다.
+ */
 public class StudyDAO {
 	private Connection conn;
 	private Statement stat;
 	private PreparedStatement pstat;
 	private ResultSet rs;
-
+	/**
+     * 데이터베이스 연결을 초기화합니다.
+     */
 	public StudyDAO() {
 		this.conn = DBUtil.open();
 	}
-
+	/**
+     * 데이터베이스 연결을 종료합니다.
+     */
 	public void close() {
 		try {
 			this.conn.close();
@@ -29,7 +36,12 @@ public class StudyDAO {
 			e.printStackTrace();
 		}
 	}
-
+	/**
+     * 새로운 공부 세션을 데이터베이스에 추가합니다.
+     *
+     * @param dto 추가할 공부 세션의 데이터를 담고 있는 StudyDTO 객체
+     * @return 데이터 추가 성공 여부를 나타내는 정수 (1: 성공, 0: 실패)
+     */
 	public int addStudy(StudyDTO dto) {
 		try {
 			String sql = "INSERT INTO tblstudy (STD_SEQ, STD_TITLE, STD_CONTENT, STD_ING, STD_REGDATE, CP_SEQ, ID, STD_DUEDATE) VALUES (seqStudy.NEXTVAL, ?, ?, 'N', sysdate, ?, ?, TO_DATE(?, 'YYYY-MM-DD'))";
@@ -51,7 +63,12 @@ public class StudyDAO {
 		}
 		return 0;
 	}
-
+	/**
+     * 특정 공부 세션의 상세 정보를 조회합니다.
+     *
+     * @param seq 공부 세션의 식별자
+     * @return 조회된 공부 세션 정보가 담긴 StudyDTO 객체
+     */
 	public StudyDTO getStudy(String seq) {
 		try {
 			String sql = "select * from vwstudy where std_seq = ?";
@@ -85,7 +102,13 @@ public class StudyDAO {
 		}
 		return null;
 	}
-
+	/**
+     * 데이터베이스에서 모든 공부 세션 목록을 조회합니다.
+     * 페이징 처리를 위한 시작 인덱스와 종료 인덱스를 매개변수로 받아 해당 범위의 공부 세션 정보를 리스트로 반환합니다.
+     *
+     * @param map 페이지 처리와 검색정보가 담긴 HashMap
+     * @return 조회된 공부 세션 정보 목록을 담고 있는 ArrayList<StudyDTO>
+     */
 	public ArrayList<StudyDTO> listStudy(HashMap<String, String> map) {
 		try {
 			String where = "";
@@ -126,7 +149,12 @@ public class StudyDAO {
 		}
 		return null;
 	}
-
+	/**
+     * 데이터베이스에서 모든 공부 세션의 갯수를 조회합니다.
+     *
+     * @param map 검색정보가 담긴 HashMap
+     * @return 조회된 공부 세션 정보 갯수
+     */
 	public int getTotalCount(HashMap<String, String> map) {
 		try {
 			String where = "";
@@ -148,6 +176,11 @@ public class StudyDAO {
 		return 0;
 	}
 
+	/**
+     * 특정 공부 세션의 조회수를 증가시킵니다.
+     *
+     * @param seq 공부 세션의 식별자
+     */
 	public void updateReadcount(String seq) {
 		try {
 			String sql = "update tblStudy set std_views = std_views +1 where std_seq = ?";
@@ -162,7 +195,12 @@ public class StudyDAO {
 			e.printStackTrace();
 		}
 	}
-
+	/**
+     * 특정 공부 세션의 상세 정보를 수정합니다.
+     *
+     * @param dto 수정할 공부 세션의 데이터를 담고 있는 StudyDTO 객체
+     * @return 데이터 수정 성공 여부를 나타내는 정수 (1: 성공, 0: 실패)
+     */
 	public int editStudy(StudyDTO dto) {
 		try {
 			String sql = "update tblStudy set std_title = ?, std_content = ?, std_ing = ?, cp_seq = ?, std_duedate = ? where std_seq = ?";
@@ -182,7 +220,12 @@ public class StudyDAO {
 		}
 		return 0;
 	}
-
+	/**
+     * 특정 공부 세션의 정보를 삭제합니다.
+     *
+     * @param seq 공부 세션의 식별자
+     * @return 데이터 삭제 성공 여부를 나타내는 정수 (1: 성공, 0: 실패)
+     */
 	public int delStudy(String seq) {
 		try {
 			/*
@@ -206,6 +249,12 @@ public class StudyDAO {
 		return 0;
 	}
 
+	/**
+     * 특정 사용자가 업로드한 공부 세션 횟수를 조회합니다.
+     *
+     * @param id 사용자 id
+     * @return 사용자가 업로드한 게시글 총 횟수
+     */
 	public int getCount(String id) {
 		try {
 			String sql = "select count(*) as cnt from tblstudy where id = ?";
@@ -225,7 +274,13 @@ public class StudyDAO {
 		}
 		return 0;
 	}
-
+	/**
+     * 데이터베이스에서 특정 사용자의 모든 공부 세션 목록을 조회합니다.
+     * 페이징 처리를 위한 시작 인덱스와 종료 인덱스를 매개변수로 받아 해당 범위의 공부 세션 정보를 리스트로 반환합니다.
+     *
+     * @param map 페이지 처리와 id가 담긴 HashMap
+     * @return 조회된 공부 세션 정보 목록을 담고 있는 ArrayList<StudyDTO>
+     */
 	public ArrayList<StudyDTO> myStudy(HashMap<String, String> map) {
 		try {
 			String sql = String.format(
@@ -261,7 +316,12 @@ public class StudyDAO {
 		}
 		return null;
 	}
-	
+	/**
+     * 새로운 댓글을 데이터베이스에 추가합니다.
+     *
+     * @param dto 추가할 댓글의 데이터를 담고 있는 CommentDTO 객체
+     * @return 데이터 추가 성공 여부를 나타내는 정수 (1: 성공, 0: 실패)
+     */
 	public int addComment(CommentDTO dto) {
 	    try {
 	        // SQL 문장 작성
@@ -283,7 +343,12 @@ public class StudyDAO {
 	    } 
 	    return 0;
 	}
-
+	/**
+     * 공부 세션과 관련된 댓글 목록을 조회합니다.
+     *
+     * @param stdSeq 공부 세션의 식별자
+     * @return 해당 공부 세션의 댓글 목록이 담긴 ArrayList<CommentDTO>
+     */
 	public ArrayList<CommentDTO> listComment(String std_seq) {
 	    try {
 	        
@@ -311,6 +376,12 @@ public class StudyDAO {
 	    }
 	    return null;
 	}
+	/**
+     * 특정 댓글을 데이터베이스에서 조회합니다.
+     *
+     * @param seq 댓글 번호
+     * @return 조회된 댓글 정보를 담은 CommentDTO
+     */
 	public CommentDTO getComment(String sTD_SEQ) {
 
 		try {
@@ -344,7 +415,13 @@ public class StudyDAO {
 		return null;
 	}
 
-
+	/**
+     * 공부 세션과 관련된 댓글 목록을 더 조회합니다.
+     *
+     * @param bSeq 공부 세션의 식별자
+     * @param commentBegin 추가로 불러올 댓글의 시작 번호
+     * @return 해당 공부 세션의 댓글 목록이 담긴 ArrayList<CommentDTO>
+     */
 	public ArrayList<CommentDTO> listMoreComment(String bseq, int commentBegin) {
 		//queryParamListReturn
 		try {
@@ -386,7 +463,12 @@ public class StudyDAO {
 		return null;
 	
 	}
-
+	/**
+     * 댓글을 수정합니다.
+     *
+     * @param dto 수정할 댓글의 데이터를 담고 있는 CommentDTO 객체
+     * @return 데이터 수정 성공 여부를 나타내는 정수 (1: 성공, 0: 실패)
+     */
 	public int editComment(CommentDTO dto) {
 		//queryParamNoReturn
 		try {
@@ -406,7 +488,12 @@ public class StudyDAO {
 	
 		return 0;
 	}
-
+	/**
+     * 댓글을 삭제합니다.
+     *
+     * @param sep 삭제할 댓글의 시퀀스
+     * @return 데이터 삭제 성공 여부를 나타내는 정수 (1: 성공, 0: 실패)
+     */
 	public int delComment(String seq) {
 		
 		//queryParamNoReturn
