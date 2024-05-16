@@ -191,7 +191,7 @@ public class CompanyDAO {
 	}
 
 	/**
-	 * 지유)기업 목록, 상세 최신 정보 불러오는 메서드
+	 * 기업 목록, 상세 최신 정보 불러오는 메서드
 	 * 
 	 * @return 기업정보(일반/재무/고용)
 	 */
@@ -357,108 +357,7 @@ public class CompanyDAO {
 
 		return 0;
 	}
-	/**
-	 * 채용 공고가 있는 기업 목록 조회 메서드
-	 * @return
-	 */
-	/*public ArrayList<CompanyDTO> getCompaniesWithRecruitment() {
-	    try {
-	        LocalDate currentDate = LocalDate.now();
-	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-	        String formatCurrentDate = currentDate.format(formatter);
 
-	        String sql = "SELECT c.cp_seq, c.cp_name, c.cp_address, c.image " +
-	                     "FROM tblCompany c " +
-	                     "INNER JOIN tblRecruit r ON c.cp_seq = r.cp_seq " +
-	                     "WHERE r.enddate >= ? " +
-	                     "GROUP BY c.cp_seq, c.cp_name, c.cp_address, c.image " +
-	                     "HAVING COUNT(r.rcrt_seq) > 0";
-
-	        pstat = conn.prepareStatement(sql);
-	        pstat.setString(1, formatCurrentDate);
-
-	        rs = pstat.executeQuery();
-
-	        ArrayList<CompanyDTO> companiesWithRecruitment = new ArrayList<>();
-
-	        while (rs.next()) {
-	            CompanyDTO dto = new CompanyDTO();
-
-	            dto.setCp_seq(rs.getString("cp_seq"));
-	            dto.setCp_name(rs.getString("cp_name"));
-	            dto.setCp_address(rs.getString("cp_address"));
-	            dto.setImage(rs.getString("image"));
-
-	            companiesWithRecruitment.add(dto);
-	        }
-
-	        return companiesWithRecruitment;
-
-	    } catch (Exception e) {
-	        System.out.println("RecruitDAO.getCompaniesWithRecruitment");
-	        e.printStackTrace();
-	    }
-
-	    return null;
-	}*/
-
-
-	/**
-	 * 검색결과에 따른 기업수를 부러오는 메서드
-	 * 
-	 * @param map
-	 * @return
-	 */
-	/*public int searchCompanyCount(HashMap<String, String> map) {
-
-		try {
-
-			String where = "";
-			String sql = "";
-
-//			if (map.get("search").equals("y")) {
-//				
-//				where = String.format("where cp_name like '%%%s%%'",map.get("word"));
-//				sql = String.format("select count(*) as search_cnt from vwComListInfo %s" , where);
-//				
-//			}
-
-			if (map.get("search").equals("y") && map.get("hiring").equals("y")) {
-
-				where = String.format("where cp_name like '%%%s%%' and com_rcrt_cnt > 0", map.get("word"));
-				sql = String.format("select count(*) as search_cnt from vwNewComListInfo %s", where);
-
-			} else if (map.get("search").equals("y") && map.get("hiring").equals("n")) {
-
-				where = String.format("where cp_name like '%%%s%%'", map.get("word"));
-				sql = String.format("select count(*) as search_cnt from vwNewComListInfo %s", where);
-
-			} else if (map.get("search").equals("n") && map.get("hiring").equals("y")) {
-
-				where = String.format("where com_rcrt_cnt > 0");
-				sql = String.format("select count(*) as search_cnt from vwNewComListInfo %s", where);
-
-			} else {
-
-				sql = String.format("select count(*) as search_cnt from vwNewComListInfo");
-			}
-
-			pstat = conn.prepareStatement(sql);
-			rs = pstat.executeQuery();
-
-			if (rs.next()) {
-
-				return rs.getInt("search_cnt");
-
-			}
-
-		} catch (Exception e) {
-			System.out.println("CompanyDAO.searchCompanyCount");
-			e.getStackTrace();
-		}
-
-		return 0;
-	}*/
 
 	/**
 	    * 주어진 기업 고유 번호에 해당하는 기업 정보를 반환합니다.
@@ -933,7 +832,7 @@ public class CompanyDAO {
 
 
 	/**
-	 * 지유)등록된 리뷰수 불러오는 메서드
+	 * 등록된 리뷰수 불러오는 메서드
 	 * 
 	 * @return 리뷰수
 	 */
