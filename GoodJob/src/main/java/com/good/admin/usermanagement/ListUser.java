@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.catalina.tribes.util.Arrays;
 
 import com.good.admin.block.model.UserManagementDTO;
-import com.good.admin.repository.UserManagementDAO;
+import com.good.admin.usermanagement.repository.UserManagementDAO;
 import com.good.user.repository.UserDAO;
 import com.good.util.PageUtil;
 
