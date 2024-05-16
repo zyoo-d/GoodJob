@@ -13,22 +13,10 @@ import javax.servlet.http.HttpSession;
 import com.good.board.model.CommentDTO;
 import com.good.board.model.StudyDTO;
 import com.good.board.repository.StudyDAO;
-/**
- * ViewStudy 서블릿 클래스는 사용자가 특정 공부 세션의 상세 정보를 조회할 때 사용됩니다.
- * 이 서블릿은 사용자가 공부 세션의 상세 페이지를 요청하면, 해당 세션의 정보와 관련 댓글들을 데이터베이스에서 불러와 제공합니다.
- * "/user/study/viewstudy.do" URL 패턴으로 매핑되어 사용자 요청을 처리합니다.
- */
+
 @WebServlet("/user/study/viewstudy.do")
 public class ViewStudy extends HttpServlet {
-	/**
-     * GET 요청을 통해 공부 세션의 상세 정보 페이지를 반환합니다.
-     * 요청된 공부 세션의 ID를 기반으로 상세 정보와 댓글 목록을 조회하여 사용자에게 제공합니다.
-     *
-     * @param req 클라이언트로부터 받은 HttpServletRequest 객체, 요청 데이터 접근에 사용됩니다.
-     * @param resp 클라이언트에게 보낼 HttpServletResponse 객체, 응답 데이터 설정에 사용됩니다.
-     * @throws ServletException 서블릿 처리 중 예외가 발생할 경우 던져집니다.
-     * @throws IOException 입출력 예외 발생시 던져집니다.
-     */
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 

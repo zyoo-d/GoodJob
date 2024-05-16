@@ -103,7 +103,7 @@
 														<c:if test="${dto.ITV_CONFIRM=='2'}">
 															<a href="#" class="text-danger">삭제</a>
 														</c:if>
-													</div> <input type="hidden" name="itv_seq" value="${dto.ITV_SEQ}">
+													</div> <input type="hidden" name="std_seq" value="${dto.ITV_SEQ}">
 												</td>
 											</tr>
 										</c:forEach>

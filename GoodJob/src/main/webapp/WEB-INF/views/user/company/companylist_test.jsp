@@ -452,7 +452,31 @@
 		});
 		/* 선호근무지역 End */
 		
-
+		
+		
+		//기업비교모달창
+		
+		$(document).ready(function() {
+		    var reportModal = $('#reportModal');
+		    var btnModal = $('#compare-btn');
+		    var cancelBtn = $('.cancel-btn');
+		
+		    btnModal.on('click', function() {
+		        reportModal.css('display', 'flex');
+		    });
+		
+		    // 버튼 클릭시 모달 닫기
+		    cancelBtn.on('click', function() {
+		        reportModal.css('display', 'none');
+		    });
+		
+		    // 모달 외부 클릭 시 모달 닫기
+		    $(window).on('click', function(event) {
+		        if (event.target == reportModal[0]) {
+		            reportModal.css('display', 'none');
+		        }
+		    });
+		});
 
 	</script>
 </body>

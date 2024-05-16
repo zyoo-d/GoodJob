@@ -8,24 +8,17 @@ import java.util.ArrayList;
 
 import com.good.matching.model.WishDTO;
 import com.test.util.DBUtil;
-/**
- * WishDAO 클래스는 사용자의 위시리스트 관련 데이터를 데이터베이스에 저장하고 관리하는 기능을 수행합니다.
- * 위시리스트 데이터의 추가, 수정, 조회 등을 관리합니다.
- */
+
 public class WishDAO {
 	private Connection conn;
 	private Statement stat;
 	private PreparedStatement pstat;
 	private ResultSet rs;
-	/**
-     * 데이터베이스 연결을 초기화합니다.
-     */
+
 	public WishDAO() {
 		this.conn = DBUtil.open();
 	}
-	/**
-     * 데이터베이스 연결을 종료합니다.
-     */
+	
 	public void close()  {
         try {
             this.conn.close();
@@ -34,12 +27,7 @@ public class WishDAO {
             e.printStackTrace();
         }
     }
-	/**
-     * 사용자의 위시리스트를 데이터베이스에 추가합니다.
-     *
-     * @param dto 위시리스트 정보를 담고 있는 WishDTO 객체
-     * @return 작업 성공 여부를 나타내는 정수 (성공: 1, 실패: 0)
-     */
+	
 	public int addWishs(WishDTO dto) {
 		try {
 			String sql = "insert into tblUserDetail values (?,?,?,?)";
@@ -82,12 +70,7 @@ public class WishDAO {
 		}
 		return 0;
 	}
-	/**
-     * 사용자의 위시리스트를 조회합니다.
-     *
-     * @param id 사용자 id
-     * @return 사용자의 위시리스트 정보 WishDTO
-     */
+
 	public WishDTO getWish(String id) {
 		try {
 			String sql = "select * from tbluserdetail where id = ?";
@@ -137,12 +120,7 @@ public class WishDAO {
 		}
 		return null;
 	}
-	/**
-     * 사용자의 위시리스트를 수정합니다.
-     *
-     * @param dto 위시리스트 정보를 담고 있는 WishDTO 객체
-     * @return 작업 성공 여부를 나타내는 정수 (성공: 1, 실패: 0)
-     */
+
 	public int editWish(WishDTO dto) {
 		try {
 			String sql = "update tblUserDetail set edu_seq = ?, salary_seq = ?, career = ? where id = ?";

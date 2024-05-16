@@ -4,9 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 
 import com.good.board.model.CommentDTO;
@@ -15,9 +16,6 @@ import com.good.company.model.ScrapDTO;
 import com.good.matching.model.MatchingDTO;
 import com.test.util.DBUtil;
 
-/**
- * CompanyDAO 클래스는 기업 관련 데이터베이스 작업을 수행합니다.
- */
 public class CompanyDAO {
 	private Connection conn;
 	private Statement stat;
@@ -38,11 +36,6 @@ public class CompanyDAO {
 		}
 	}
 
-	/**
-	 * 기업 정보를 조회합니다.
-	 * 
-	 * @return 기업 정보 목록
-	 */
 	public ArrayList<CompanyDTO> rcrtCompany() {
 
 		try {
@@ -73,26 +66,20 @@ public class CompanyDAO {
 		return null;
 	}
 
-	/**
-	 * 메인 페이지에 표시할 기업 목록을 조회합니다.
-	 * 
-	 * @param map 검색 조건
-	 * @return 평점 3.5점 이상의 기업 정보 목록
-	 */
 	public ArrayList<CompanyDTO> mainComList(HashMap<String, String> map) {
 
 		try {
-
-			String sql = "select * from vwMainComList where score > 3.5";
+			
+			String sql ="select * from vwMainComList where score > 3.5";
 			String where = " and com_rcrt_cnt > 0";
-
-			// 검색
-			if (map.get("hiring").equals("y")) {
-
+			
+			//검색
+			if(map.get("hiring").equals("y")) {
+				
 				sql += where;
-
+			
 			}
-
+			
 			stat = conn.createStatement();
 			rs = stat.executeQuery(sql);
 
@@ -121,12 +108,6 @@ public class CompanyDAO {
 		return null;
 	}
 
-	/**
-	 * 기업 검색 기능을 수행합니다.
-	 * 
-	 * @param input 검색어
-	 * @return 검색 결과 목록
-	 */
 	public List<CompanyDTO> searchCompany(String input) {
 		try {
 			String sql = "SELECT * FROM (SELECT * FROM tblcompany WHERE cp_name LIKE ? order by cp_name) WHERE ROWNUM <= 5";
@@ -156,9 +137,9 @@ public class CompanyDAO {
 	}
 
 	/**
-	 * 등록된 기업 수를 조회합니다.
+	 * 등록된 기업수 불러오는 메서드
 	 * 
-	 * @return 등록된 기업 수
+	 * @return 기업수
 	 */
 	public int countCompanys() {
 
@@ -183,10 +164,9 @@ public class CompanyDAO {
 	}
 
 	/**
-	 * 기업 목록과 상세 정보를 필터링하여 조회합니다.
+	 * 지유)기업 목록, 상세 최신 정보 불러오는 메서드
 	 * 
-	 * @param map 검색 조건
-	 * @return 기업 정보 목록
+	 * @return 기업정보(일반/재무/고용)
 	 */
 	public ArrayList<CompanyDTO> comListInfo(HashMap<String, String> map) {
 
@@ -195,57 +175,58 @@ public class CompanyDAO {
 			String sql = "";
 			String where = "";
 
-			// 검색어 조건 추가
-			if (map.get("search").equals("y")) {
-				where += "cp_name LIKE '%" + map.get("word") + "%' AND ";
-			}
+	        // 검색어 조건 추가 >>> conflict 나서 일단 주석 처리 해놔요 -희연
+	        if (map.get("search").equals("y")) {
+	            where += "cp_name LIKE '%" + map.get("word") + "%' AND ";
+	        }
 
-			// 채용 중인 기업 조건 추가
-			if (map.get("hiring").equals("y")) {
-				where += "com_rcrt_cnt > 0 AND ";
-			}
+	        // 채용 중인 기업 조건 추가
+	        if (map.get("hiring").equals("y")) {
+	            where += "com_rcrt_cnt > 0 AND ";
+	        }
 
-			// 연봉 조건 추가
-			if (map.get("salary_seq") != null && !map.get("salary_seq").isEmpty()) {
-				where += "hire_avr_salary >= " + map.get("salary_seq") + " AND ";
-			}
+	        // 연봉 조건 추가
+	        if (map.get("salary_seq") != null && !map.get("salary_seq").isEmpty()) {
+	            where += "hire_avr_salary >= " + map.get("salary_seq") + " AND ";
+	        }
 
-			// 지역 조건 추가
-			if (map.get("cp_address") != null && !map.get("cp_address").isEmpty()) {
-				String[] locations = map.get("cp_address").split(",");
-				where += "(";
-				for (int i = 0; i < locations.length; i++) {
-					where += "cp_address LIKE '%" + locations[i] + "%'";
-					if (i < locations.length - 1) {
-						where += " OR ";
-					}
-				}
-				where += ") AND ";
-			}
+	        // 지역 조건 추가
+	        if (map.get("cp_address") != null && !map.get("cp_address").isEmpty()) {
+	            String[] locations = map.get("cp_address").split(",");
+	            where += "(";
+	            for (int i = 0; i < locations.length; i++) {
+	                where += "cp_address LIKE '%" + locations[i] + "%'";
+	                if (i < locations.length - 1) {
+	                    where += " OR ";
+	                }
+	            }
+	            where += ") AND ";
+	        }
 
-			// 조건절 마지막의 AND 제거
-			if (where.endsWith("AND ")) {
-				where = where.substring(0, where.length() - 4);
-			}
+	        // 조건절 마지막의 AND 제거
+	        if (where.endsWith("AND ")) {
+	            where = where.substring(0, where.length() - 4);
+	        }
 
-			// 정렬 기준 추가
-			String orderBy = "";
-			if (map.get("sort").equals("review")) {
-				orderBy = "com_rv_cnt DESC";
-			} else if (map.get("sort").equals("salary")) {
-				orderBy = "hire_avr_salary DESC";
-			}
+	        // 정렬 기준 추가
+	        String orderBy = "";
+	        if (map.get("sort").equals("review")) {
+	            orderBy = "com_rv_cnt DESC";
+	        } else if (map.get("sort").equals("salary")) {
+	            orderBy = "hire_avr_salary DESC";
+	        }
 
-			sql = "SELECT * FROM (SELECT a.*, ROWNUM AS rnum FROM (SELECT * FROM vwListCompany "
-					+ (where.isEmpty() ? "" : "WHERE " + where) + " ORDER BY " + orderBy + ") a) WHERE rnum BETWEEN "
-					+ map.get("begin") + " AND " + map.get("end");
+	        sql = "SELECT * FROM (SELECT a.*, ROWNUM AS rnum FROM (SELECT * FROM vwListCompany " +
+	                (where.isEmpty() ? "" : "WHERE " + where) +
+	                " ORDER BY " + orderBy + ") a) WHERE rnum BETWEEN " + map.get("begin") + " AND " + map.get("end");
 
-			stat = conn.createStatement();
-			rs = stat.executeQuery(sql);
+	        stat = conn.createStatement();
+	        rs = stat.executeQuery(sql);
 
-			ArrayList<CompanyDTO> listCompanyInfo = new ArrayList<CompanyDTO>();
+	        ArrayList<CompanyDTO> listCompanyInfo = new ArrayList<CompanyDTO>();
 
-			while (rs.next()) {
+	        while (rs.next()) {
+	
 
 				CompanyDTO dto = new CompanyDTO();
 
@@ -264,20 +245,22 @@ public class CompanyDAO {
 				dto.setHire_retired(rs.getInt("hire_retired"));
 				dto.setHire_avr_year(rs.getInt("hire_avr_year"));
 				dto.setHire_avr_salary(rs.getInt("hire_avr_salary"));
+				// dto.setHire_regdate(rs.getString("hire_regdate"));
 
 				dto.setFnc_sales(rs.getLong("fnc_sales"));
 				dto.setFnc_ebit(rs.getLong("fnc_ebit"));
 				dto.setFnc_income(rs.getLong("fnc_income"));
 				dto.setFnc_period(rs.getString("fnc_period"));
+				// dto.setFnc_regdate(rs.getString("fnc_regdate"));
 
 				dto.setCom_rcrt_cnt(rs.getInt("com_rcrt_cnt"));
 				dto.setCom_scrap_cnt(rs.getInt("com_scrap_cnt"));
 				dto.setCom_rv_cnt(rs.getInt("com_rv_cnt"));
-
+				
 				listCompanyInfo.add(dto);
 
 			}
-
+	        //System.out.println(listCompanyInfo);
 			return listCompanyInfo;
 
 		} catch (Exception e) {
@@ -287,73 +270,164 @@ public class CompanyDAO {
 		return null;
 
 	}
-
-	/**
-	 * 조건에 맞는 기업 수를 조회합니다.
-	 * 
-	 * @param map 검색 조건
-	 * @return 조건에 맞는 기업 수
-	 */
 	public int getCompanyCount(HashMap<String, String> map) {
+	    try {
+	        String sql = "";
+	        String where = "";
+
+	        // 검색어 조건 추가
+	        if (map.get("search").equals("y")) {
+	            where += "cp_name LIKE '%" + map.get("word") + "%' AND ";
+	        }
+
+	        // 채용 중인 기업 조건 추가
+	        if (map.get("hiring").equals("y")) {
+	            where += "com_rcrt_cnt > 0 AND ";
+	        }
+
+	        // 연봉 조건 추가
+	        if (map.get("salary_seq") != null && !map.get("salary_seq").isEmpty()) {
+	            where += "hire_avr_salary >= " + map.get("salary_seq") + " AND ";
+	        }
+
+	        // 지역 조건 추가
+	        if (map.get("cp_address") != null && !map.get("cp_address").isEmpty()) {
+	            String[] locations = map.get("cp_address").split(",");
+	            where += "(";
+	            for (int i = 0; i < locations.length; i++) {
+	                where += "cp_address LIKE '%" + locations[i] + "%'";
+	                if (i < locations.length - 1) {
+	                    where += " OR ";
+	                }
+	            }
+	            where += ") AND ";
+	        }
+
+	        // 조건절 마지막의 AND 제거
+	        if (where.endsWith("AND ")) {
+	            where = where.substring(0, where.length() - 4);
+	        }
+
+	        sql = "SELECT COUNT(*) AS cnt FROM vwListCompany " +
+	                (where.isEmpty() ? "" : "WHERE " + where);
+
+	        stat = conn.createStatement();
+	        rs = stat.executeQuery(sql);
+
+	        if (rs.next()) {
+	            return rs.getInt("cnt");
+	        }
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+
+	    return 0;
+	}
+	/**
+	 * 채용 공고가 있는 기업 목록 조회 메서드
+	 * @return
+	 */
+	/*public ArrayList<CompanyDTO> getCompaniesWithRecruitment() {
+	    try {
+	        LocalDate currentDate = LocalDate.now();
+	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+	        String formatCurrentDate = currentDate.format(formatter);
+
+	        String sql = "SELECT c.cp_seq, c.cp_name, c.cp_address, c.image " +
+	                     "FROM tblCompany c " +
+	                     "INNER JOIN tblRecruit r ON c.cp_seq = r.cp_seq " +
+	                     "WHERE r.enddate >= ? " +
+	                     "GROUP BY c.cp_seq, c.cp_name, c.cp_address, c.image " +
+	                     "HAVING COUNT(r.rcrt_seq) > 0";
+
+	        pstat = conn.prepareStatement(sql);
+	        pstat.setString(1, formatCurrentDate);
+
+	        rs = pstat.executeQuery();
+
+	        ArrayList<CompanyDTO> companiesWithRecruitment = new ArrayList<>();
+
+	        while (rs.next()) {
+	            CompanyDTO dto = new CompanyDTO();
+
+	            dto.setCp_seq(rs.getString("cp_seq"));
+	            dto.setCp_name(rs.getString("cp_name"));
+	            dto.setCp_address(rs.getString("cp_address"));
+	            dto.setImage(rs.getString("image"));
+
+	            companiesWithRecruitment.add(dto);
+	        }
+
+	        return companiesWithRecruitment;
+
+	    } catch (Exception e) {
+	        System.out.println("RecruitDAO.getCompaniesWithRecruitment");
+	        e.printStackTrace();
+	    }
+
+	    return null;
+	}*/
+	
+	
+	/**
+	 * 검색결과에 따른 기업수를 부러오는 메서드
+	 * 
+	 * @param map
+	 * @return
+	 */
+	/*public int searchCompanyCount(HashMap<String, String> map) {
+
 		try {
-			String sql = "";
+
 			String where = "";
+			String sql = "";
 
-			// 검색어 조건 추가
-			if (map.get("search").equals("y")) {
-				where += "cp_name LIKE '%" + map.get("word") + "%' AND ";
+//			if (map.get("search").equals("y")) {
+//				
+//				where = String.format("where cp_name like '%%%s%%'",map.get("word"));
+//				sql = String.format("select count(*) as search_cnt from vwComListInfo %s" , where);
+//				
+//			}
+
+			if (map.get("search").equals("y") && map.get("hiring").equals("y")) {
+
+				where = String.format("where cp_name like '%%%s%%' and com_rcrt_cnt > 0", map.get("word"));
+				sql = String.format("select count(*) as search_cnt from vwNewComListInfo %s", where);
+
+			} else if (map.get("search").equals("y") && map.get("hiring").equals("n")) {
+
+				where = String.format("where cp_name like '%%%s%%'", map.get("word"));
+				sql = String.format("select count(*) as search_cnt from vwNewComListInfo %s", where);
+
+			} else if (map.get("search").equals("n") && map.get("hiring").equals("y")) {
+
+				where = String.format("where com_rcrt_cnt > 0");
+				sql = String.format("select count(*) as search_cnt from vwNewComListInfo %s", where);
+
+			} else {
+
+				sql = String.format("select count(*) as search_cnt from vwNewComListInfo");
 			}
 
-			// 채용 중인 기업 조건 추가
-			if (map.get("hiring").equals("y")) {
-				where += "com_rcrt_cnt > 0 AND ";
-			}
-
-			// 연봉 조건 추가
-			if (map.get("salary_seq") != null && !map.get("salary_seq").isEmpty()) {
-				where += "hire_avr_salary >= " + map.get("salary_seq") + " AND ";
-			}
-
-			// 지역 조건 추가
-			if (map.get("cp_address") != null && !map.get("cp_address").isEmpty()) {
-				String[] locations = map.get("cp_address").split(",");
-				where += "(";
-				for (int i = 0; i < locations.length; i++) {
-					where += "cp_address LIKE '%" + locations[i] + "%'";
-					if (i < locations.length - 1) {
-						where += " OR ";
-					}
-				}
-				where += ") AND ";
-			}
-
-			// 조건절 마지막의 AND 제거
-			if (where.endsWith("AND ")) {
-				where = where.substring(0, where.length() - 4);
-			}
-
-			sql = "SELECT COUNT(*) AS cnt FROM vwListCompany " + (where.isEmpty() ? "" : "WHERE " + where);
-
-			stat = conn.createStatement();
-			rs = stat.executeQuery(sql);
+			pstat = conn.prepareStatement(sql);
+			rs = pstat.executeQuery();
 
 			if (rs.next()) {
-				return rs.getInt("cnt");
+
+				return rs.getInt("search_cnt");
+
 			}
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.println("CompanyDAO.searchCompanyCount");
+			e.getStackTrace();
 		}
 
 		return 0;
-	}
+	}*/
 
-	/**
-	 * 특정 기업의 상세 정보를 조회합니다.
-	 * 
-	 * @param cp_seq 기업 시퀀스
-	 * @return 기업 상세 정보
-	 */
+//TODO 수정해야함
 	public CompanyDTO get(String cp_seq) {
 
 		try {
@@ -395,6 +469,7 @@ public class CompanyDAO {
 				dto.setCom_rcrt_cnt(rs.getInt("com_rcrt_cnt"));
 				dto.setCom_scrap_cnt(rs.getInt("com_scrap_cnt"));
 
+
 				return dto;
 			}
 
@@ -405,12 +480,6 @@ public class CompanyDAO {
 		return null;
 	}
 
-	/**
-	 * 특정 기업의 재무 정보를 조회합니다.
-	 * 
-	 * @param cp_seq 기업 시퀀스
-	 * @return 재무 정보 목록
-	 */
 	public ArrayList<Long>[] getCompanyFinance(String cp_seq) {
 		ArrayList<Long> salesList = new ArrayList<>();
 		ArrayList<Long> ebitList = new ArrayList<>();
@@ -440,10 +509,10 @@ public class CompanyDAO {
 	}
 
 	/**
-	 * 업계 평균 연봉을 조회하는 메서드
+	 * 업계평균연봉 조회 메서드
 	 * 
-	 * @param idst_code 업계 코드
-	 * @return 업계 평균 연봉
+	 * @param idst_code
+	 * @return
 	 */
 	public int getIdstSalary(String idst_code) {
 		try {
@@ -468,12 +537,6 @@ public class CompanyDAO {
 		return 0;
 	}
 
-	/**
-	 * 실시간 댓글을 추가하는 메서드
-	 * 
-	 * @param cmdto 댓글 정보를 담은 CommentDTO 객체
-	 * @return 추가된 행의 수
-	 */
 	public int AddLiveComment(CommentDTO cmdto) {
 		// 실시간 댓글 insert
 		try {
@@ -494,12 +557,6 @@ public class CompanyDAO {
 		return 0;
 	}
 
-	/**
-	 * 특정 기업의 최신 댓글을 조회하는 메서드
-	 * 
-	 * @param cp_seq 기업 시퀀스
-	 * @return 최신 댓글 정보를 담은 CommentDTO 객체
-	 */
 	public CommentDTO getComment(String cp_seq) {
 		try {
 
@@ -531,12 +588,6 @@ public class CompanyDAO {
 		return null;
 	}
 
-	/**
-	 * 특정 기업의 댓글 목록을 조회하는 메서드
-	 * 
-	 * @param cp_seq 기업 시퀀스
-	 * @return 댓글 목록
-	 */
 	public ArrayList<CommentDTO> listComment(String cp_seq) {
 		try {
 
@@ -565,12 +616,6 @@ public class CompanyDAO {
 		return null;
 	}
 
-	/**
-	 * 댓글을 삭제하는 메서드
-	 * 
-	 * @param seq 삭제할 댓글의 시퀀스
-	 * @return 삭제된 행의 수
-	 */
 	public int delComment(String seq) {
 		try {
 			String sql = "delete from tblliveComment where live_seq = ?";
@@ -580,8 +625,10 @@ public class CompanyDAO {
 			pstat.setString(1, seq);
 			System.out.println("b");
 			System.out.println(sql);
-
+			
+			
 			return pstat.executeUpdate();
+			
 
 		} catch (Exception e) {
 			System.out.println("CompanyDAO.delComment");
@@ -592,153 +639,133 @@ public class CompanyDAO {
 
 	}
 
-	/**
-	 * 기업 매칭 정보를 조회하는 메서드
-	 * 
-	 * @param mdto 매칭 정보를 담은 MatchingDTO 객체
-	 * @return 기업 정보를 담은 CompanyDTO 객체
-	 */
+	//TODO job dao 만들기
+	
+	
 	public CompanyDTO getMatchingInfo(MatchingDTO mdto) {
-
+		
 		try {
-
-			String sql = "select * from vwCompanyInfo where cp_seq = ?";
-
-			pstat = conn.prepareStatement(sql);
-			pstat.setString(1, mdto.getCp_seq());
-
-			rs = pstat.executeQuery();
-
-			CompanyDTO dto = new CompanyDTO();
-
-			if (rs.next()) {
-
-				dto.setCp_name(rs.getString("cp_name"));
-				dto.setReview_avg(rs.getString("score"));
-				dto.setIdst_name(rs.getString("idst_name"));
-				dto.setImage(rs.getString("image"));
-				dto.setWel_avg(rs.getString("wel_avg"));
-				dto.setStab_avg(rs.getString("stab_avg"));
-				dto.setSal_avg(rs.getString("sal_avg"));
-				dto.setCul_avg(rs.getString("cul_avg"));
-				dto.setPot_avg(rs.getString("pot_avg"));
-				dto.setHire_avr_salary(rs.getInt("hire_avr_salary"));
-				dto.setFnc_ebit(rs.getLong("fnc_ebit"));
-				dto.setFnc_sales(rs.getLong("fnc_sales"));
-				dto.setFnc_income(rs.getLong("fnc_income"));
-
-				return dto;
-
+				
+				String sql = "select * from vwCompanyInfo where cp_seq = ?";
+				
+				pstat = conn.prepareStatement(sql);
+				pstat.setString(1, mdto.getCp_seq());
+				
+				rs = pstat.executeQuery();
+				
+				CompanyDTO dto = new CompanyDTO();
+				
+				if(rs.next()) {
+					
+					dto.setCp_name(rs.getString("cp_name"));
+					dto.setReview_avg(rs.getString("score"));
+					dto.setIdst_name(rs.getString("idst_name"));
+					dto.setImage(rs.getString("image"));
+					dto.setWel_avg(rs.getString("wel_avg"));
+					dto.setStab_avg(rs.getString("stab_avg"));
+					dto.setSal_avg(rs.getString("sal_avg"));
+					dto.setCul_avg(rs.getString("cul_avg"));
+					dto.setPot_avg(rs.getString("pot_avg"));
+					dto.setHire_avr_salary(rs.getInt("hire_avr_salary"));
+					dto.setFnc_ebit(rs.getLong("fnc_ebit"));
+		            dto.setFnc_sales(rs.getLong("fnc_sales"));
+		            dto.setFnc_income(rs.getLong("fnc_income"));
+					
+					return dto;
+					
+				}
+				
+			} catch (Exception e) {
+				System.out.println("기업 매칭 정보 로드 실패");
+				e.printStackTrace();
 			}
-
-		} catch (Exception e) {
-			System.out.println("기업 매칭 정보 로드 실패");
-			e.printStackTrace();
-		}
-
+		
 		return null;
-
+		
 	}
+	
+	
 
-	/**
-	 * 스크랩을 추가하는 메서드
-	 * 
-	 * @param id    사용자 아이디
-	 * @param cpSeq 기업 시퀀스
-	 * @return 추가된 행의 수
-	 */
 	public int addScrap(String id, String cpSeq) {
+		// 실시간 댓글 insert
+				try {
 
-		try {
+					String sql = "INSERT INTO tblscrap (id, cp_seq) VALUES (?, ?)";
+					pstat = conn.prepareStatement(sql);
+					pstat.setString(1, id);
+					pstat.setString(2, cpSeq);
+					
+					return pstat.executeUpdate();
 
-			String sql = "INSERT INTO tblscrap (id, cp_seq) VALUES (?, ?)";
-			pstat = conn.prepareStatement(sql);
-			pstat.setString(1, id);
-			pstat.setString(2, cpSeq);
+				} catch (Exception e) {
+					e.printStackTrace();
+					System.out.println("스크랩 insert 실패");
+				}
 
-			return pstat.executeUpdate();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("스크랩 insert 실패");
-		}
-
-		return 0;
+				return 0;
 	}
 
-	/**
-	 * 스크랩 목록을 조회하는 메서드
-	 * 
-	 * @param id 사용자 아이디
-	 * @return 스크랩 목록
-	 */
 	public ArrayList<ScrapDTO> writeScrap(String id) {
-		try {
-			String sql = "SELECT s.id, c.cp_name, c.image AS image, c.cp_seq, i.idst_name FROM tblScrap s JOIN tblCompany c ON s.cp_seq = c.cp_seq JOIN tblIndustry i ON c.idst_code = i.idst_code LEFT JOIN tblRecruit r ON c.cp_seq = r.cp_seq where s.id=?";
-			pstat = conn.prepareStatement(sql);
-			pstat.setString(1, id);
-			rs = pstat.executeQuery();
+	    try {
+	    	String sql = "SELECT s.id, c.cp_name, c.image AS image, c.cp_seq, i.idst_name FROM tblScrap s JOIN tblCompany c ON s.cp_seq = c.cp_seq JOIN tblIndustry i ON c.idst_code = i.idst_code LEFT JOIN tblRecruit r ON c.cp_seq = r.cp_seq where s.id=?";
+	        pstat = conn.prepareStatement(sql);
+	        pstat.setString(1, id);
+	        rs = pstat.executeQuery(); 
 
-			ArrayList<ScrapDTO> ScrapList = new ArrayList<ScrapDTO>();
-			while (rs.next()) {
-				ScrapDTO dto = new ScrapDTO();
-				dto.setCp_name(rs.getString("cp_name"));
-				dto.setID(rs.getString("id"));
-				dto.setImage(rs.getString("image"));
-				dto.setIdst_name(rs.getString("idst_name"));
-				dto.setCp_seq(rs.getString("cp_seq"));
-				ScrapList.add(dto);
-			}
-			return ScrapList;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
+	        ArrayList<ScrapDTO> ScrapList = new ArrayList<ScrapDTO>();
+	        while (rs.next()) {
+	            ScrapDTO dto = new ScrapDTO();
+	            dto.setCp_name(rs.getString("cp_name"));
+	            dto.setID(rs.getString("id"));
+	            dto.setImage(rs.getString("image"));
+	            dto.setIdst_name(rs.getString("idst_name"));
+	            dto.setCp_seq(rs.getString("cp_seq"));
+	            ScrapList.add(dto);
+	        }
+	        return ScrapList;
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return null;
 	}
+	
 
-	/**
-	 * 데이터 업데이트 날짜를 조회하는 메서드
-	 * 
-	 * @return 데이터 업데이트 날짜 정보를 담은 HashMap
-	 */
-	public HashMap<String, String> getUpdateDate() {
-
-		HashMap<String, String> map = new HashMap<>();
-
-		try {
-
-			String sql = "select * from vwUpdateDate";
-
-			stat = conn.createStatement();
-			rs = stat.executeQuery(sql);
-
-			while (rs.next()) {
-				map.put(rs.getString("data_type"), rs.getString("regdate"));
+	
+	
+	public HashMap<String, String> getUpdateDate(){
+		
+		HashMap<String,String> map = new HashMap<>();
+		
+		try {	
+				
+				String sql = "select * from vwUpdateDate";
+				
+				stat = conn.createStatement();
+				rs = stat.executeQuery(sql);
+				
+				
+				while(rs.next()) {
+					map.put(rs.getString("data_type"), rs.getString("regdate"));
+				}
+				
+			} catch (Exception e) {
+				System.out.println("CompanyDAO.getUpdateDate");
+				e.printStackTrace();
 			}
-
-		} catch (Exception e) {
-			System.out.println("CompanyDAO.getUpdateDate");
-			e.printStackTrace();
-		}
-
+			
 		return map;
 	}
-
-	/**
-	 * 스크랩을 삭제하는 메서드
-	 * 
-	 * @param cp_seq 기업 시퀀스
-	 * @return 삭제된 행의 수
-	 */
+	
 	public int delScrap(String cp_seq) {
 		try {
 			String sql = "delete from tblscrap where cp_seq = ?";
 
 			pstat = conn.prepareStatement(sql);
-
+		
 			pstat.setString(1, cp_seq);
-
+				
 			return pstat.executeUpdate();
+			
 
 		} catch (Exception e) {
 			System.out.println("delScrap");
@@ -746,85 +773,72 @@ public class CompanyDAO {
 		}
 
 		return 0;
-
+		
 	}
-
-	/**
-	 * 기업의 태그 목록을 조회하는 메서드
-	 * 
-	 * @param cp_seq 기업 시퀀스
-	 * @return 태그 목록
-	 */
-	public ArrayList<String> getTaglist(String cp_seq) {
-
-		try {
-
-			String sql = "select * from vwCompanyTag where cp_seq = ?";
-
-			pstat = conn.prepareStatement(sql);
-			pstat.setString(1, cp_seq);
-
-			rs = pstat.executeQuery();
-
-			ArrayList<String> list = new ArrayList<>();
-
-			while (rs.next() && list.size() != 2) {
-
-				list.add(rs.getString("tag_keyword"));
-
+public ArrayList<String> getTaglist(String cp_seq){
+		
+		try {	
+				
+				String sql = "select * from vwCompanyTag where cp_seq = ?";
+				
+				pstat = conn.prepareStatement(sql);
+				pstat.setString(1, cp_seq);
+				
+				rs = pstat.executeQuery();
+				
+				ArrayList<String> list = new ArrayList<>();
+				
+				while(rs.next() && list.size() != 2) {
+					
+					list.add(rs.getString("tag_keyword"));
+					
+				}
+				
+				return list;
+				
+			} catch (Exception e) {
+				System.out.println("CompanyDAO.getTaglist");
+				e.printStackTrace();
 			}
-
-			return list;
-
-		} catch (Exception e) {
-			System.out.println("CompanyDAO.getTaglist");
-			e.printStackTrace();
-		}
-
+		
 		return null;
-
+		
 	}
-
-	/**
-	 * 기업 시퀀스로 기업 정보를 조회하는 메서드
-	 * 
-	 * @param cp_seq 기업 시퀀스
-	 * @return 기업 정보를 담은 CompanyDTO 객체
-	 */
 	public CompanyDTO getCompanyBySeq(String cp_seq) {
 		try {
-
+			
 			String sql = "select * from tblCompany where cp_seq = ?";
 			pstat = conn.prepareStatement(sql);
-			pstat.setString(1, cp_seq);
+			pstat.setString(1,cp_seq);
 			rs = pstat.executeQuery();
-
-			if (rs.next()) {
+			
+			if(rs.next()){
 				CompanyDTO dto = new CompanyDTO();
 				dto.setCp_name(rs.getString("cp_name"));
 				dto.setCp_address(rs.getString("cp_address"));
 				dto.setImage(rs.getString("image"));
-
+			
 				return dto;
 			}
-		} catch (Exception e) {
-			System.out.println("CompanyDAO.getCompanyByCpSeq");
-			e.printStackTrace();
-		}
-		return null;
-	}
+		}catch (Exception e) {
+	            System.out.println("CompanyDAO.getCompanyByCpSeq");
+	            e.printStackTrace();
+	        }
+	        return null;
+	    }
+
 
 	/**
-	 * 등록된 리뷰수 불러오는 메서드
+	 * 지유)등록된 리뷰수 불러오는 메서드
 	 * 
-	 * @param cp_seq 기업 시퀀스
 	 * @return 리뷰수
 	 */
 	public int countRiview(String cp_seq) {
 		try {
 			String sql = "select count(*) as cnt from tblCompanyReview where cp_seq = ?";
-
+		
 			pstat = conn.prepareStatement(sql);
+			
 
 			pstat.setString(1, cp_seq);
 			rs = pstat.executeQuery();
@@ -843,123 +857,31 @@ public class CompanyDAO {
 		return 0;
 	}
 
-	/**
-	 * 기업 시퀀스로 등록 개수가 상위인 태그를 조회하는 메서드
-	 * 
-	 * @param cp_seq 기업 시퀀스
-	 * @return 상위 태그 목록
-	 */
+	
 	public ArrayList<String> getTopTagsByCpSeq(String cp_seq) {
-		try {
-			ArrayList<String> topTags = new ArrayList<>();
-			String sql = "select t.tag_keyword from tblReviewTag rt join tblTag t on rt.tag_seq = t.tag_seq join tblcompanyreview cr on rt.cp_rv_seq = cr.cp_rv_seq where cr.cp_seq =? group by t.tag_keyword order by count(*) desc ";
+	    try {
+	        ArrayList<String> topTags = new ArrayList<>();
+	        String sql = "select t.tag_keyword from tblReviewTag rt join tblTag t on rt.tag_seq = t.tag_seq join tblcompanyreview cr on rt.cp_rv_seq = cr.cp_rv_seq where cr.cp_seq =? group by t.tag_keyword order by count(*) desc ";
 
-			pstat = conn.prepareStatement(sql);
-			pstat.setString(1, cp_seq);
-			rs = pstat.executeQuery();
+	        pstat = conn.prepareStatement(sql);
+	        pstat.setString(1, cp_seq);
+	        rs = pstat.executeQuery();
 
-			while (rs.next()) {
-				topTags.add(rs.getString("tag_keyword"));
-			}
-			
-			return topTags;
+	        while (rs.next()) {
+	            topTags.add(rs.getString("tag_keyword"));
+	        }
+	        //System.out.println("getTopTagsByCpSeq"+topTags);
+	        return topTags;
 
-		} catch (Exception e) {
-			System.out.println("CompanyDAO.getTopTagsByCpSeq");
-			e.printStackTrace();
-			return null;
-		}
+	    } catch (Exception e) {
+	        System.out.println("CompanyDAO.getTopTagsByCpSeq");
+	        e.printStackTrace();
+	        return null;
+	    }
 	}
 
-	/**
-	 * 리뷰 수 기준 상위 5개 기업을 조회하는 메서드
-	 * 
-	 * @return 리뷰 수 기준 상위 5개 기업 정보를 담은 LinkedHashMap
-	 */
-	public LinkedHashMap<String, Integer> getTop5CompaniesByReviewCount() {
-		LinkedHashMap<String, Integer> map = new LinkedHashMap<>();
 
-		try {
-
-			String sql = "SELECT cp_name, cnt " + "FROM (" + "    SELECT cp_name, cnt, ROWNUM AS rnum " + "    FROM ("
-					+ "        SELECT c.cp_name, COUNT(*) AS cnt " + "        FROM tblCompanyReview cr "
-					+ "        INNER JOIN tblCompany c ON cr.cp_seq = c.cp_seq "
-					+ "        GROUP BY c.cp_seq, c.cp_name " + "        ORDER BY cnt DESC " + "    )" + ")"
-					+ " WHERE rnum <= 5";
-
-			stat = conn.createStatement();
-			rs = stat.executeQuery(sql);
-
-			while (rs.next()) {
-
-				map.put(rs.getString("cp_name"), rs.getInt("cnt"));
-
-			}
-
-		} catch (Exception e) {
-			System.out.println("기업 top 5 리뷰 수 로드 실패");
-			e.printStackTrace();
-		}
-
-		return map;
-
-	}
-
-	/**
-	 * 리뷰 점수 기준 상위 5개 기업을 조회하는 메서드
-	 * 
-	 * @return 리뷰 점수 기준 상위 5개 기업 정보를 담은 LinkedHashMap
-	 */
-	public LinkedHashMap<String, Double> getTop5CompaniesByReviewScore() {
-		LinkedHashMap<String, Double> map = new LinkedHashMap<>();
-
-		try {
-
-			String sql = "SELECT rnum, cp_name, avg " + "FROM (" + "    SELECT ROWNUM AS rnum, cp_name, avg "
-					+ "    FROM (" + "        SELECT cp_name, avg " + "        FROM vwCompanyReviewAvg "
-					+ "        ORDER BY avg DESC " + "    )" + ")" + "WHERE rnum <= 5";
-
-			stat = conn.createStatement();
-			rs = stat.executeQuery(sql);
-
-			while (rs.next()) {
-
-				map.put(rs.getString("cp_name"), rs.getDouble("avg"));
-
-			}
-
-		} catch (Exception e) {
-			System.out.println("기업 top 5 리뷰 점수 로드 실패");
-			e.printStackTrace();
-		}
-
-		return map;
-
-	}
-
-	/**
-	 * 연도별 리뷰 통계를 조회하는 메서드
-	 * 
-	 * @return 연도별 리뷰 통계 정보를 담은 LinkedHashMap
-	 */
-	public LinkedHashMap<String, Integer> getYearlyReviewStats() {
-		LinkedHashMap<String, Integer> map = new LinkedHashMap<>();
-
-		try {
-			String sql = "select * from vwYearlyReviewStats";
-			stat = conn.createStatement();
-			rs = stat.executeQuery(sql);
-
-			while (rs.next()) {
-				map.put(rs.getString("date"), rs.getInt("cnt"));
-			}
-
-		} catch (Exception e) {
-			System.out.println("1년 리뷰통계 로드 실패");
-			e.printStackTrace();
-		}
-
-		return map;
-	}
+	
+	
 
 }

@@ -14,21 +14,10 @@ import javax.servlet.http.HttpSession;
 
 import com.good.board.model.StudyDTO;
 import com.good.board.repository.StudyDAO;
-/**
- * ListStudy 서블릿 클래스는 공부 세션 목록을 제공하며 검색 및 페이징 기능을 지원합니다.
- * 이 서블릿은 "/user/study/liststudy.do" URL 패턴으로 매핑되어 있습니다.
- */
+
 @WebServlet("/user/study/liststudy.do")
 public class ListStudy extends HttpServlet {
-	/**
-     * GET 요청을 통해 공부 세션 목록과 페이징 정보를 제공합니다.
-     * 사용자는 검색 조건과 정렬 방식을 선택할 수 있습니다.
-     *
-     * @param req 클라이언트로부터 받은 HttpServletRequest 객체, 요청 데이터 접근에 사용됩니다.
-     * @param resp 클라이언트에게 보낼 HttpServletResponse 객체, 응답 데이터 설정에 사용됩니다.
-     * @throws ServletException 서블릿 처리 중 예외가 발생할 경우 던져집니다.
-     * @throws IOException 입출력 예외 발생시 던져집니다.
-     */
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 

@@ -11,9 +11,6 @@ import com.good.board.model.StudyDTO;
 import com.good.company.model.ReviewDTO;
 import com.test.util.DBUtil;
 
-/**
- * ReviewDAO 클래스는 기업 리뷰 관련 데이터베이스 작업을 수행합니다.
- */
 public class ReviewDAO {
 
 	private Connection conn;
@@ -35,9 +32,8 @@ public class ReviewDAO {
 	}
 
 	/**
-	 * 등록된 리뷰수 불러오는 메서드
+	 * 지유)등록된 리뷰수 불러오는 메서드
 	 * 
-	 * @param input 기업 시퀀스
 	 * @return 리뷰수
 	 */
 	public int countRiview(String input) {
@@ -65,10 +61,10 @@ public class ReviewDAO {
 
 
 	/**
-	 * 기업리뷰 목록 조회하는 메서드
+	 * 지유)기업리뷰 목록 조회하는 메서드
 	 * 
-	 * @param cp_seq 기업 시퀀스
-	 * @return 리뷰 목록
+	 * @param cp_seq
+	 * @return
 	 */
 	public ArrayList<ReviewDTO> listReview(String cp_seq) {
 		try {
@@ -110,12 +106,11 @@ public class ReviewDAO {
 		return null;
 	}
 
-
 	/**
-	 * 기업별 태그리스트를 호출하는 메서드
+	 * 지유)기업별 태그리스트를 호출하는 메서드
 	 * 
-	 * @param cp_seq 기업 시퀀스
-	 * @return 태그 리스트
+	 * @param cp_seq
+	 * @return
 	 */
 	public ArrayList<ReviewDTO> tagList(String cp_seq) {
 		ArrayList<ReviewDTO> tagList = new ArrayList<>();
@@ -145,7 +140,7 @@ public class ReviewDAO {
 	/**
 	 * 등록수 기준 상위 태그 조회 메서드
 	 * 
-	 * @return 상위 태그 리스트
+	 * @return
 	 */
 	public ArrayList<String> showTagList() {
 		try {
@@ -168,12 +163,6 @@ public class ReviewDAO {
 		}
 	}
 
-	/**
-	 * 리뷰 추가 메서드
-	 * 
-	 * @param bdto 리뷰 정보를 담은 DTO 객체
-	 * @return 추가된 행의 수
-	 */
 	public int addReview(ReviewDTO bdto) {
 		try {
 			String sql = "insert into tblCompanyReview "
@@ -200,12 +189,7 @@ public class ReviewDAO {
 		return 0;
 	}
 
-	/**
-	 * 리뷰 시퀀스로 리뷰 정보를 조회하는 메서드
-	 * 
-	 * @param cp_rv_seq 리뷰 시퀀스
-	 * @return 리뷰 정보를 담은 DTO 객체
-	 */
+
 	public ReviewDTO getReviewByCpRvSeq(String cp_rv_seq) {
 		try {
 			String sql = "SELECT * FROM tblCompanyReview WHERE cp_rv_seq = ?";
@@ -241,9 +225,8 @@ public class ReviewDAO {
 	/**
 	 * 관리자 리뷰 승인여부 변경 메서드
 	 * 
-	 * @param cp_rv_seq 리뷰 시퀀스
-	 * @param confirm   승인 여부 (0: 대기, 1: 승인, 2: 반려)
-	 * @return 업데이트 성공 여부
+	 * @param cp_seq
+	 * @param confirm
 	 */
 	public boolean updateReviewConfirm(String cp_rv_seq, int confirm) {
 		try {
@@ -256,17 +239,11 @@ public class ReviewDAO {
 		} catch (Exception e) {
 			System.out.println("ReviewDAO.updateReviewConfirm()");
 			e.printStackTrace();
-		} 
-		
+		} finally {
+			close();
+		}
 		return false;
 	}
-	
-	/**
-	 * 여러 개의 리뷰를 한꺼번에 승인하는 메서드
-	 * 
-	 * @param cp_rv_seqs 승인할 리뷰 시퀀스 배열
-	 * @return 업데이트 성공 여부
-	 */
 	public boolean allApprove(String[] cp_rv_seqs) {
 	    try {
 	        String sql = "UPDATE tblCompanyReview SET cp_rv_confirm = 1 WHERE cp_rv_seq IN (";
@@ -292,15 +269,16 @@ public class ReviewDAO {
 	    } catch (Exception e) {
 	        System.out.println("ReviewDAO.allApprove()");
 	        e.printStackTrace();
-	    } 
-	    
+	    } finally {
+	        close();
+	    }
 	    return false;
 	}
-	
 	/**
-	 * 리뷰 삭제 메서드
+	 * 리뷰 삭제
 	 * 
-	 * @param cp_rv_seq 삭제할 리뷰 시퀀스
+	 * @param cp_seq
+	 * @param id
 	 */
 	public void deleteReview(String cp_rv_seq) {
 		try {
@@ -316,6 +294,11 @@ public class ReviewDAO {
 			pstat.setString(1, cp_rv_seq);
 			pstat.executeUpdate();
 
+
+
+
+
+
 		} catch (Exception e) {
 			System.out.println("ReviewDAO.deleteReview");
 			e.printStackTrace();
@@ -323,9 +306,9 @@ public class ReviewDAO {
 	}
 
 	/**
-	 * 리뷰 수정 메서드
+	 * 리뷰 수정
 	 * 
-	 * @param rdto 수정할 리뷰 정보를 담은 DTO 객체
+	 * @param rdto
 	 */
 	public void updateReviewByCpRvSeq(ReviewDTO rdto) {
 		try {
@@ -350,13 +333,7 @@ public class ReviewDAO {
 			e.printStackTrace();
 		}
 	}
-	
-	/**
-	 * 내가 작성한 리뷰 조회 메서드
-	 * 
-	 * @param map 조회 조건을 담은 HashMap (id, begin, end)
-	 * @return 리뷰 목록
-	 */
+
 	public ArrayList<ReviewDTO> myReview(HashMap<String, String> map) {
 		try {
 			String sql = String.format(
@@ -388,13 +365,7 @@ public class ReviewDAO {
 		}
 		return null;
 	}
-	
-	/**
-	 * 사용자가 작성한 리뷰 개수를 조회하는 메서드
-	 * 
-	 * @param id 사용자 아이디
-	 * @return 리뷰 개수
-	 */
+
 	public int getCount(String id) {
 		try {
 			String sql = "select count(*) as cnt from vwmyreview where id = ?";
@@ -416,11 +387,6 @@ public class ReviewDAO {
 	}
 
 
-	/**
-	 * 승인 대기 중인 면접후기 개수를 조회하는 메서드
-	 * 
-	 * @return 면접후기 개수
-	 */
 	public int getPendingInterviewCount() {
 
 		try {
@@ -444,11 +410,6 @@ public class ReviewDAO {
 
 	}
 
-	/**
-	 * 승인 대기 중인 리뷰 개수를 조회하는 메서드
-	 * 
-	 * @return 리뷰 개수
-	 */
 	public int getPendingReviewsCount() {
 
 		try {
@@ -473,74 +434,19 @@ public class ReviewDAO {
 
 	/**
 	 * 모든 리뷰 목록을 출력하는 메서드
-	 * 
-	 * @param startIndex 시작 인덱스
-	 * @param endIndex 끝 인덱스
-	 * @return 리뷰 목록
-	 */
-	public ArrayList<ReviewDTO> getAllReviews(int startIndex, int endIndex) {
-		
-		ArrayList<ReviewDTO> list = new ArrayList<>();
-		
-		try {
-
-			String sql = "SELECT * FROM (SELECT ROWNUM AS rnum, t.* FROM (SELECT * FROM vwAllReview where CP_RV_CONFIRM = 0 ORDER BY CP_RV_REGDATE) t) WHERE rnum BETWEEN ? AND ?";
-
-			pstat = conn.prepareStatement(sql);
-			int parameterIndex = 1;
-			
-			pstat.setInt(parameterIndex++, startIndex + 1);
-			pstat.setInt(parameterIndex, endIndex);
-
-			rs = pstat.executeQuery();
-
-			while (rs.next()) {
-				ReviewDTO dto = new ReviewDTO();
-				dto.setCp_rv_seq(rs.getString("cp_rv_seq"));
-				dto.setId(rs.getString("id"));
-				dto.setSalary_score(rs.getDouble("salary_score"));
-				dto.setWelfare_score(rs.getDouble("welfare_score"));
-				dto.setStability_score(rs.getDouble("stability_score"));
-				dto.setCulture_score(rs.getDouble("culture_score"));
-				dto.setGrowth_score(rs.getDouble("growth_score"));
-				dto.setLinereview(rs.getString("linereview"));
-				dto.setGood(rs.getString("good"));
-				dto.setBad(rs.getString("bad"));
-				dto.setCp_rv_regdate(rs.getString("cp_rv_regdate"));
-				dto.setCp_rv_confirm(rs.getInt("cp_rv_confirm"));
-				dto.setCp_name(rs.getString("cp_name"));
-
-				list.add(dto);
-			}
-			
-
-		}catch (Exception e) {
-			System.out.println("ReviewDAO.getAllReviews");
-			e.printStackTrace();
-		}
-
-		return list;
-		
-	}
-	
-	/**
-	 * 모든 리뷰 목록을 출력하는 메서드
-	 * 
-	 * @return 리뷰 목록
+	 * @return
 	 */
 	public ArrayList<ReviewDTO> getAllReviews() {
-		
-		ArrayList<ReviewDTO> list = new ArrayList<>();
-		
+
 		try {
-			
-			String sql = "select * from vwAllReview where CP_RV_CONFIRM = 0";
-			
-			pstat = conn.prepareStatement(sql);
-			
-			
-			rs = pstat.executeQuery();
-			
+
+			String sql = "select * from vwAllReview";
+
+			stat = conn.createStatement();
+			rs = stat.executeQuery(sql);
+
+			ArrayList<ReviewDTO> list = new ArrayList<>();
+
 			while (rs.next()) {
 				ReviewDTO dto = new ReviewDTO();
 				dto.setCp_rv_seq(rs.getString("cp_rv_seq"));
@@ -556,27 +462,18 @@ public class ReviewDAO {
 				dto.setCp_rv_regdate(rs.getString("cp_rv_regdate"));
 				dto.setCp_rv_confirm(rs.getInt("cp_rv_confirm"));
 				dto.setCp_name(rs.getString("cp_name"));
-				
+
 				list.add(dto);
 			}
-			
-			
+			return list;	
+
 		}catch (Exception e) {
 			System.out.println("ReviewDAO.getAllReviews");
 			e.printStackTrace();
 		}
-		
-		return list;
-		
+
+		return null;
 	}
-	
-	/**
-	 * 반려된 리뷰를 추가하는 메서드
-	 * 
-	 * @param cp_rv_seq 리뷰 시퀀스
-	 * @param rejectReason 반려 사유
-	 * @return 추가 성공 여부
-	 */
 	public boolean insertRejectReview(String cp_rv_seq, String rejectReason) {
 		try {
 			String sql = "INSERT INTO tblRejectReview (cp_rv_seq, rj_reason) VALUES (?, ?)";
@@ -588,16 +485,11 @@ public class ReviewDAO {
 		} catch (Exception e) {
 			System.out.println("ReviewDAO.insertRejectReview()");
 			e.printStackTrace();
-		} 
-		
+		} finally {
+			close();
+		}
 		return false;
 	}
-	
-	/**
-	 * 회사 태그 목록을 조회하는 메서드
-	 * 
-	 * @return 태그 목록
-	 */
 	public ArrayList<String> showComTagList() {
 		try {
 			ArrayList<String> showTagList = new ArrayList<>();
@@ -619,11 +511,7 @@ public class ReviewDAO {
 		}
 	}
 
-	/**
-	 * 마지막으로 추가된 리뷰의 시퀀스를 조회하는 메서드
-	 * 
-	 * @return 리뷰 시퀀스
-	 */
+	//태그 등록
 	public String getLastInsertedCpRvSeq() {
 		try {
 			String sql = "SELECT cp_rv_seq FROM tblCompanyReview WHERE ROWNUM = 1 ORDER BY cp_rv_seq DESC";

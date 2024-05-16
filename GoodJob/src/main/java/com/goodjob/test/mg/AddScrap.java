@@ -17,6 +17,9 @@ public class AddScrap extends HttpServlet {
         String id = req.getParameter("id");
         String cpSeq = req.getParameter("cp_seq");
 
+        System.out.println(id);
+        System.out.println(cpSeq);
+        
         CompanyDAO dao = new CompanyDAO();
         
      

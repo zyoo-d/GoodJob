@@ -9,21 +9,16 @@ import java.util.ArrayList;
 import com.good.company.model.WelFareDTO;
 import com.test.util.DBUtil;
 
-/**
- * WelFareDAO 클래스는 데이터베이스에서 복지 관련 데이터를 조회하고 관리하는 기능을 제공합니다.
- */
 public class WelFareDAO {
 	private Connection conn;
 	private Statement stat;
 	private PreparedStatement pstat;
 	private ResultSet rs;
-	
-	
+
 	public WelFareDAO() {
 		this.conn = DBUtil.open();
 	}
-	
-	
+
 	public void close() {
 
 		try {
@@ -33,13 +28,6 @@ public class WelFareDAO {
 			e.printStackTrace();
 		}
 	}
-	
-	/**
-     * 특정 회사의 복지 정보를 조회합니다.
-     *
-     * @param cp_name 회사 이름
-     * @return 복지 정보 리스트
-     */
 	public ArrayList<WelFareDTO> companyWelfare(String cp_name) {
 	    try {
 	        String sql = "select * from vwCompanyWelfare where cp_seq = ?";

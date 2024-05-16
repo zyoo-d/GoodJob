@@ -14,24 +14,10 @@ import javax.servlet.http.HttpSession;
 import com.good.alert.Alert;
 import com.good.matching.model.PreferDTO;
 import com.good.matching.repository.PreferDAO;
-/**
- * AddPrefer 서블릿 클래스는 사용자가 선호도 정보를 제출할 때 그 정보를 처리하여 데이터베이스에 저장합니다.
- * 사용자는 각 선호도 카테고리(연봉, 복지, 조직 안정성, 조직 문화, 성장 가능성)에 대해 점수를 부여하며,
- * 이 점수들은 사용자의 선호도 프로필을 생성하는 데 사용됩니다.
- */
+
 @WebServlet("/user/matching/addprefer.do")
 public class AddPrefer extends HttpServlet {
-	/**
-     * POST 요청을 통해 사용자의 선호도 정보를 받아 처리합니다.
-     * 이 메소드는 사용자로부터 선호도 관련 데이터를 받아 PreferDTO 객체에 저장하고, 데이터베이스에 추가합니다.
-     * 데이터가 성공적으로 추가되면 사용자를 선호도 완료 페이지로 리다이렉트합니다.
-     * 선호도 점수의 합계가 일정 기준 이하일 경우, 사용자에게 다시 시도하도록 요청하는 메시지를 반환합니다.
-     *
-     * @param req 클라이언트로부터 받은 HttpServletRequest 객체, 요청 데이터 접근에 사용됩니다.
-     * @param resp 클라이언트에게 보낼 HttpServletResponse 객체, 응답 데이터 설정에 사용됩니다.
-     * @throws ServletException 서블릿 처리 중 예외가 발생할 경우 던져집니다.
-     * @throws IOException 입출력 예외 발생시 던져집니다.
-     */
+
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 

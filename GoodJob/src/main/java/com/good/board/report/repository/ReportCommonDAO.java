@@ -128,16 +128,14 @@ public class ReportCommonDAO {
 		ArrayList<ReportCommonDTO> list = new ArrayList<>();
 		try {
 			StringBuilder sql = new StringBuilder("SELECT * FROM (SELECT ROWNUM AS rnum, t.* FROM (SELECT * "
-			        + " FROM vwAllReportList "
-			        + " WHERE (TYPE, sub_type, report_seq) NOT IN ("
-			        + "     SELECT TYPE, sub_type, report_seq "
-			        + "     FROM tblReportCheck "
-			        + " )");
-
+					+ "FROM vwAllReportList "
+					+ "WHERE (TYPE, sub_type, report_seq) NOT IN ("
+					+ "    SELECT TYPE, sub_type, report_seq"
+					+ "    FROM tblReportCheck"
+					+ ")");
 			if (rp_seq != null) {
-			    sql.append(" AND rp_seq = ?");
+				sql.append(" WHERE rp_seq = ?");
 			}
-
 			sql.append(" ORDER BY report_regdate DESC) t) WHERE rnum BETWEEN ? AND ?");
 
 			pstat = conn.prepareStatement(sql.toString());

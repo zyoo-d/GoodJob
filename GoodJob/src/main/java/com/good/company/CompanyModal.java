@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.good.company.model.CompanyDTO;
 import com.good.company.repository.CompanyDAO;
-import com.good.company.repository.CompareDAO;
 
 @WebServlet("/user/company/cp_selectModal.do")
 public class CompanyModal extends HttpServlet {
@@ -74,6 +73,31 @@ public class CompanyModal extends HttpServlet {
             selectedLocations = String.join(",", cp_address);
         }
 
+        // cp 배열을 쿼리스트링으로 변환
+//
+//        String[] compareCp = req.getParameterValues("compareCp");
+//        
+//        if (compareCp != null) {
+//        	for (String cp : compareCp) {
+//        		System.out.println("기업 " + cp);
+//        	}
+//        } else {
+//        	System.out.println("정보없음");
+//        }
+        
+//        String[] cp = req.getParameterValues("compareCp");
+//        HttpSession session = req.getSession();
+//
+//        if (cp != null && cp.length > 0) {
+//            session.setAttribute("selectedCp", cp); // 선택한 기업 정보를 세션에 저장
+//        } else {
+//            cp = (String[]) session.getAttribute("selectedCp"); // 세션에서 선택한 기업 정보 가져오기
+//            if (cp == null) {
+//                cp = new String[0]; // cp 배열이 null인 경우 빈 배열로 초기화
+//            }
+//        }
+
+//        req.setAttribute("selectedCp", cp); // 선택한 기업 정보를 request 객체에 저장
         
         String[] cp = req.getParameterValues("compareCp");
         String tag1 = (cp != null && cp.length > 0 && cp[0] != null) ? cp[0] : "";
@@ -99,12 +123,16 @@ public class CompanyModal extends HttpServlet {
         map.put("cp_address", selectedLocations);
 
         // 목록 출력
-        CompareDAO dao = new CompareDAO();
-		ArrayList<CompanyDTO> comListInfo = dao.comListInfo(map);
-		
-		
+        CompanyDAO dao = new CompanyDAO();
+        ArrayList<CompanyDTO> comListInfo;
 
-		String unit = "";
+        if (hiring.equals("y")) {
+            comListInfo = dao.getCompaniesWithRecruitment();
+        } else {
+            comListInfo = dao.comListInfo(map);
+        }
+
+        String unit = "";
         int com_rcrt_cnt = 0;
         for (CompanyDTO dto : comListInfo) {
 
@@ -119,12 +147,11 @@ public class CompanyModal extends HttpServlet {
             dto.setCp_address(address);
 
         }
-        
-        CompanyDAO cdao = new CompanyDAO();
-        
+
         // 총게시물수
-        totalCount = cdao.getCompanyCount(map);
-		totalPage = (int) Math.ceil((double) totalCount / pageSize);
+        totalCount = dao.countCompanys();
+        int searchTotalCount = dao.searchCompanyCount(map);
+        totalPage = (int) Math.ceil((double) searchTotalCount / pageSize);
 
         // 페이지 바 작업
         StringBuilder sb = new StringBuilder();
@@ -189,6 +216,7 @@ public class CompanyModal extends HttpServlet {
         // 페이징
         req.setAttribute("nowPage", nowPage); // 페이지 번호
         req.setAttribute("totalCount", totalCount);
+        req.setAttribute("searchTotalCount", searchTotalCount);
         req.setAttribute("totalPage", totalPage); // 페이지 번호
         req.setAttribute("pagebar", sb.toString()); // 페이지 바 작업
         req.setAttribute("tag1", tag1); // 페이지 바 작업

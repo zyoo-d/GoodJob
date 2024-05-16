@@ -15,34 +15,16 @@ import org.json.simple.JSONObject;
 
 import com.good.board.model.CommentDTO;
 import com.good.board.repository.StudyDAO;
-/**
- * StdAddComment 서블릿 클래스는 공부 관련 게시물에 댓글을 추가하는 요청을 처리합니다.
- * 이 서블릿은 "/board/study/stdaddcomment.do" URL 패턴으로 매핑되어 있습니다.
- */
+
 @WebServlet("/board/study/stdaddcomment.do")
 public class StdAddComment extends HttpServlet {
-	/**
-     * GET 요청을 통해 댓글 추가 폼을 제공합니다.
-     * 
-     * @param req 클라이언트로부터 받은 HttpServletRequest 객체, 요청 데이터 접근에 사용됩니다.
-     * @param resp 클라이언트에게 보낼 HttpServletResponse 객체, 응답 데이터 설정에 사용됩니다.
-     * @throws ServletException 서블릿 처리 중 예외가 발생할 경우 던져집니다.
-     * @throws IOException 입출력 예외 발생시 던져집니다.
-     */
+
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		HttpSession session = req.getSession();
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/user/study/study.jsp");
 		dispatcher.forward(req, resp);
 	}
-	/**
-     * POST 요청을 처리하여 데이터베이스에 댓글을 추가합니다.
-     * 성공적으로 댓글을 추가하면 해당 댓글 정보를 JSON 형태로 반환합니다.
-     * 
-     * @param request 클라이언트로부터 받은 HttpServletRequest 객체, 요청 데이터 접근에 사용됩니다.
-     * @param response 클라이언트에게 보낼 HttpServletResponse 객체, 응답 데이터 설정에 사용됩니다.
-     * @throws ServletException 서블릿 처리 중 예외가 발생할 경우 던져집니다.
-     * @throws IOException 입출력 예외 발생시 던져집니다.
-     */
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// POST 요청을 처리하여 댓글을 추가하는 코드를 작성합니다.

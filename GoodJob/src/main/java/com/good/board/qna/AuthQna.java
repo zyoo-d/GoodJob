@@ -26,7 +26,7 @@ public class AuthQna {
 		// id!=dto.id && lv !=2
 		if (session.getAttribute("id") == null || (!session.getAttribute("id").toString().equals(dto.getId())
 				&& !session.getAttribute("lv").toString().equals("2"))) {
-			Alert.noPermission(resp,"/good/user/qna/listqna.do");
+			Alert.noPermission(resp);
 
 			return true;
 		}

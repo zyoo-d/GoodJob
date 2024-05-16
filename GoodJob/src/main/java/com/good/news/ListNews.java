@@ -1,6 +1,7 @@
 package com.good.news;
 
-import java.io.BufferedReader;
+
+/*import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -17,13 +18,14 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-public class NewsDAO {
-public ArrayList<NewsDTO> search(String word) {
+public class ListNews {
+
+	public ArrayList<NewsDTO> search(String word) {
 		
 		ArrayList<NewsDTO> nlist = new ArrayList<NewsDTO>();
 		
-		String clientId = "pLlr5465lv_1r5aUEl6Z";
-        String clientSecret = "sQHqJT2l9k";
+		String clientId = "E9LUrOHhVXINcCCQK9Kw";
+        String clientSecret = "HdLStXp34R";
         
         try {
         	word = URLEncoder.encode(word, "UTF-8");
@@ -31,15 +33,15 @@ public ArrayList<NewsDTO> search(String word) {
             throw new RuntimeException("검색어 인코딩 실패",e);
         }
 
-        String apiURL = "https://openapi.naver.com/v1/search/news.json?display=2&query=" + word;
-        //System.out.println(apiURL);
+        String apiURL = "https://openapi.naver.com/v1/search/news.json?dispaly=3&query=" + word;
+        
 
         Map<String, String> requestHeaders = new HashMap<>();
         requestHeaders.put("X-Naver-Client-Id", clientId);
         requestHeaders.put("X-Naver-Client-Secret", clientSecret);
         String responseBody = get(apiURL,requestHeaders);
 
-        //System.out.println(responseBody);
+    
         
         //파싱
         JSONParser parser = new JSONParser();
@@ -49,13 +51,14 @@ public ArrayList<NewsDTO> search(String word) {
         	JSONObject root 
         		= (JSONObject)parser.parse(responseBody);
         	
-        	
+     
         	
         	JSONArray list = (JSONArray)root.get("items");
         	
         	for (int i=0; i<list.size(); i++) {
         		
         		
+        	
         		
         		NewsDTO dto = new NewsDTO();
         		dto.setTitle(((JSONObject)list.get(i)).get("title").toString());
@@ -75,7 +78,7 @@ public ArrayList<NewsDTO> search(String word) {
         	return nlist;
         	
 		} catch (Exception e) {
-			System.out.println("NewsDAO.search");
+			System.out.println("BookDAO.search");
 			e.printStackTrace();
 		}
 		
@@ -133,4 +136,29 @@ public ArrayList<NewsDTO> search(String word) {
             throw new RuntimeException("API 응답을 읽는 데 실패했습니다.", e);
         }
     }
-}
+
+}*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

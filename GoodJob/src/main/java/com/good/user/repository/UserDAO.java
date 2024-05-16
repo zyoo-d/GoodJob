@@ -260,31 +260,6 @@ public class UserDAO {
 		return 0;
 	}
 	
-	public int unregister(String[] ids) {
-	    try {
-	        StringBuilder sql = new StringBuilder("update tblUser set lv = 4 where id in (");
-	        for (int i = 0; i < ids.length; i++) {
-	            sql.append("?");
-	            if (i < ids.length - 1) {
-	                sql.append(",");
-	            }
-	        }
-	        sql.append(")");
-
-	        pstat = conn.prepareStatement(sql.toString());
-	        for (int i = 0; i < ids.length; i++) {
-	            pstat.setString(i + 1, ids[i]);
-	        }
-
-	        return pstat.executeUpdate();
-	    } catch (Exception e) {
-	        System.out.println("UserDAO.unregister");
-	        e.printStackTrace();
-	    }
-	    return 0;
-	}
-	
-	
 	public String getName(String id) {
 		
 		try {

@@ -103,9 +103,13 @@ public class Compare extends HttpServlet {
 
 		// 목록 출력
 		CompanyDAO dao = new CompanyDAO();
-		ArrayList<CompanyDTO> comListInfo = dao.comListInfo(map);
+		ArrayList<CompanyDTO> comListInfo;
 		
-
+		if (hiring.equals("y")) {
+		    comListInfo = dao.getCompaniesWithRecruitment();
+		} else {
+		    comListInfo = dao.comListInfo(map);
+		}
 
 		String unit = "";
 		int com_rcrt_cnt =0;
@@ -165,8 +169,9 @@ public class Compare extends HttpServlet {
 		}
 		
 		// 총게시물수
-		totalCount = dao.getCompanyCount(map);
-		totalPage = (int) Math.ceil((double) totalCount / pageSize);
+		totalCount = dao.countCompanys();
+		int searchTotalCount = dao.searchCompanyCount(map);
+		totalPage = (int) Math.ceil((double) searchTotalCount / pageSize);
 
 		// 태그리스트출력
 		ReviewDAO rdao = new ReviewDAO();
@@ -243,6 +248,7 @@ public class Compare extends HttpServlet {
 		// 페이징
 		req.setAttribute("nowPage", nowPage); // 페이지 번호
 		req.setAttribute("totalCount", totalCount);
+		req.setAttribute("searchTotalCount", searchTotalCount);
 		req.setAttribute("totalPage", totalPage); // 페이지 번호
 		req.setAttribute("pagebar", sb.toString()); // 페이지 바 작업
 		

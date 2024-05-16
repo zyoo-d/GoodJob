@@ -35,7 +35,7 @@ public class CompareDAO {
 	
 	public ArrayList<CompanyDTO> getCompareInfo(HashMap<String, String> map) {
 	    try {
-	        String sql = "SELECT * from vwComInfoScore where cp_name in (?, ?, ?)  order by cp_seq desc";
+	        String sql = "SELECT * from vwComInfoScore where cp_seq in (?, ?, ?)  order by cp_seq desc";
 
        pstat = conn.prepareStatement(sql);
        pstat.setString(1, map.get("tag1"));
@@ -48,7 +48,6 @@ public class CompareDAO {
 	        while (rs.next()) {
 	            CompanyDTO dto = new CompanyDTO();
 	            dto.setCp_name(rs.getString("cp_name"));
-	            dto.setCp_seq(rs.getString("cp_seq"));
 	            dto.setCp_address(rs.getString("cp_address"));
 	            dto.setCeo(rs.getString("ceo"));
 	            dto.setFounded(rs.getString("founded"));
@@ -88,11 +87,7 @@ public class CompareDAO {
 		ArrayList<Long> salesList = new ArrayList<>();
         ArrayList<Long> ebitList = new ArrayList<>();
         ArrayList<Long> incomeList = new ArrayList<>();
-    String sql = "SELECT f.*\r\n"
-    		+ "FROM tblFinance f\r\n"
-    		+ "INNER JOIN tblCompany c ON f.cp_seq = c.cp_seq\r\n"
-    		+ "WHERE c.cp_name IN (?, ?, ?)\r\n"
-    		+ "ORDER BY f.cp_seq DESC, f.fnc_period ASC";
+    String sql = "select * from tblFinance where cp_seq in (?, ?, ?)  order by cp_seq desc, fnc_period asc";
    
  
     try (PreparedStatement pstat = conn.prepareStatement(sql)) {
@@ -130,7 +125,7 @@ public class CompareDAO {
 					+ "    NVL(ROUND(avg(r.salary_score + r.welfare_score + r.stability_score + r.culture_score + r.growth_score) / 5, 1), 0) AS total_average_score\r\n"
 					+ "FROM tblCompanyReview r\r\n"
 					+ "RIGHT OUTER JOIN tblCompany c ON r.cp_seq = c.cp_seq\r\n"
-					+ "WHERE c.cp_name IN (?, ?, ?)\r\n"
+					+ "WHERE c.cp_seq IN (?, ?, ?)\r\n"
 					+ "GROUP BY c.cp_seq, c.cp_name\r\n"
 					+ "ORDER BY c.cp_seq DESC";
 
@@ -163,83 +158,7 @@ public class CompareDAO {
 		return null;
 	}
 
-	public ArrayList<CompanyDTO> comListInfo(HashMap<String, String> map) {
-
-		try {
-
-			String sql = "";
-			String where = "";
-
-	        // 검색어 조건 추가 >>> conflict 나서 일단 주석 처리 해놔요 -희연
-	        if (map.get("search").equals("y")) {
-	            where += "cp_name LIKE '%" + map.get("word") + "%' AND ";
-	        }
-
-	        // 채용 중인 기업 조건 추가
-	        if (map.get("hiring").equals("y")) {
-	            where += "com_rcrt_cnt > 0 AND ";
-	        }
-
-	        // 연봉 조건 추가
-	        if (map.get("salary_seq") != null && !map.get("salary_seq").isEmpty()) {
-	            where += "hire_avr_salary >= " + map.get("salary_seq") + " AND ";
-	        }
-
-	        // 지역 조건 추가
-	        if (map.get("cp_address") != null && !map.get("cp_address").isEmpty()) {
-	            String[] locations = map.get("cp_address").split(",");
-	            where += "(";
-	            for (int i = 0; i < locations.length; i++) {
-	                where += "cp_address LIKE '%" + locations[i] + "%'";
-	                if (i < locations.length - 1) {
-	                    where += " OR ";
-	                }
-	            }
-	            where += ") AND ";
-	        }
-
-	        // 조건절 마지막의 AND 제거
-	        if (where.endsWith("AND ")) {
-	            where = where.substring(0, where.length() - 4);
-	        }
-
-
-	        
-	        sql = "SELECT * FROM (SELECT a.*, ROWNUM AS rnum FROM (SELECT * FROM vwListCompany " +
-	                (where.isEmpty() ? "" : "WHERE " + where) +
-	                " ORDER BY " + "hire_member desc" + ") a) WHERE rnum BETWEEN " + map.get("begin") + " AND " + map.get("end");
-
-
-
-	        stat = conn.createStatement();
-	        rs = stat.executeQuery(sql);
-
-	        ArrayList<CompanyDTO> listCompanyInfo = new ArrayList<CompanyDTO>();
-
-	        while (rs.next()) {
 	
-
-				CompanyDTO dto = new CompanyDTO();
-
-				dto.setCp_seq(rs.getString("cp_seq"));
-				dto.setCp_name(rs.getString("cp_name"));
-				dto.setCp_address(rs.getString("cp_address"));
-				dto.setImage(rs.getString("image"));
-
-				
-				listCompanyInfo.add(dto);
-
-			}
-	        //System.out.println(listCompanyInfo);
-			return listCompanyInfo;
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return null;
-
-	}
 	
 	
 

@@ -14,21 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 import com.good.company.model.CompanyDTO;
 import com.good.company.repository.CompanyDAO;
 
-/**
- * ListCompany 서블릿 클래스는 회사 목록 페이지의 요청을 처리합니다. 이 서블릿은 "/admin/company/company.do"
- * URL 패턴으로 매핑되어 있습니다.
- */
 @WebServlet("/admin/company/company.do")
 public class ListCompany extends HttpServlet {
-	/**
-	 * GET 요청을 처리하여 회사 목록과 관련 페이징 정보를 가져와 사용자에게 보여줍니다. 회사 목록 검색, 필터링 및 페이징 처리를
-	 * 포함합니다.
-	 *
-	 * @param req  클라이언트로부터 받은 HttpServletRequest 객체, 요청 데이터 접근에 사용됩니다.
-	 * @param resp 클라이언트에게 보낼 HttpServletResponse 객체, 응답 데이터 설정에 사용됩니다.
-	 * @throws ServletException 서블릿 처리 중 예외가 발생할 경우 던져집니다.
-	 * @throws IOException      입출력 예외 발생시 던져집니다.
-	 */
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 

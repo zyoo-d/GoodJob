@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.good.admin.PageUtil;
 import com.good.admin.block.model.BlockUserDTO;
 import com.good.admin.block.repository.BlockUserDAO;
 
@@ -35,8 +34,6 @@ public class ListBlockUser extends HttpServlet{
 
 		req.setAttribute("blockUserList", blockUserList);
 		req.setAttribute("pageUtil", pageUtil);
-		
-		blockUserDAO.close();
 
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/admin/user/listblockuser.jsp");
 		dispatcher.forward(req, resp);
