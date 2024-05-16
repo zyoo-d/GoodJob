@@ -1,4 +1,4 @@
-package com.good.admin;
+package com.good.admin.review;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -15,9 +15,20 @@ import com.good.company.model.ReviewDTO;
 import com.good.company.repository.CompanyDAO;
 import com.good.company.repository.ReviewDAO;
 
+/**
+* CheckReview 서블릿은 관리자가 회사 리뷰를 조회하고 승인 또는 거부할 수 있는 기능을 제공합니다.
+*/
 @WebServlet("/admin/review/checkreview.do")
 public class CheckReview extends HttpServlet {
 
+	 /**
+	    * doGet 메서드는 전체 리뷰 목록을 조회하여 JSP 페이지로 전달합니다.
+	    *
+	    * @param req  HttpServletRequest 객체
+	    * @param resp HttpServletResponse 객체
+	    * @throws ServletException
+	    * @throws IOException
+	    */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
@@ -39,6 +50,14 @@ public class CheckReview extends HttpServlet {
         rdao.close();
     }
 
+    /**
+     * doPost 메서드는 리뷰 승인 또는 거부 요청을 처리합니다.
+     *
+     * @param req  HttpServletRequest 객체
+     * @param resp HttpServletResponse 객체
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();

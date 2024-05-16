@@ -12,14 +12,25 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.catalina.tribes.util.Arrays;
 
-import com.good.admin.PageUtil;
 import com.good.admin.block.model.UserManagementDTO;
 import com.good.admin.repository.UserManagementDAO;
 import com.good.user.repository.UserDAO;
+import com.good.util.PageUtil;
 
+/**
+ * ListUser 서블릿은 관리자 페이지에서 사용자 목록을 조회하고 관리하는 역할을 합니다.
+ */
 @WebServlet("/admin/listuser.do")
 public class ListUser extends HttpServlet{
 
+	/**
+	 * doGet 메서드는 사용자 목록을 조회하고 JSP 페이지로 전달합니다.
+	 *
+	 * @param req  HttpServletRequest 객체
+	 * @param resp HttpServletResponse 객체
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -45,6 +56,14 @@ public class ListUser extends HttpServlet{
 
 	}
 
+	/**
+	 * doPost 메서드는 선택된 사용자 계정을 탈퇴 처리합니다.
+	 *
+	 * @param req  HttpServletRequest 객체
+	 * @param resp HttpServletResponse 객체
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -52,12 +71,12 @@ public class ListUser extends HttpServlet{
 		System.out.println(Arrays.toString(userIds));
 
 		UserDAO userDAO = new UserDAO();
-		
+
 		userDAO.unregister(userIds);
-		
+
 		userDAO.close();
-		
-		
+
+
 
 	}
 

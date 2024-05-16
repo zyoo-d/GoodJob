@@ -13,15 +13,26 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.good.admin.PageUtil;
-import com.good.admin.visitor.DateUtil;
 import com.good.board.report.model.ReportCommonDTO;
 import com.good.board.report.repository.ReportCommonDAO;
 import com.good.board.repository.BoardCommonDAO;
+import com.good.util.DateUtil;
+import com.good.util.PageUtil;
 
 @WebServlet("/admin/boardreport.do")
+/**
+* BoardReport 서블릿은 HTTP GET 요청을 처리합니다.
+*/
 public class BoardReport extends HttpServlet {
 	
+	 /**
+	    * doGet 메서드는 게시판 신고 내역 관련 데이터를 조회하고 JSP 페이지로 전달합니다.
+	    *
+	    * @param req  HttpServletRequest 객체
+	    * @param resp HttpServletResponse 객체
+	    * @throws ServletException
+	    * @throws IOException
+	    */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 	

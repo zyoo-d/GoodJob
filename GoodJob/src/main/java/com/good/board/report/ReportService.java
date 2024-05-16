@@ -12,8 +12,21 @@ import com.good.board.report.repository.ReportDAO;
 import com.good.board.report.repository.StdCmReportDAO;
 import com.good.board.report.repository.StdReportDAO;
 
+/**
+ * 신고 생성을 처리하는 서비스 클래스입니다.
+ */
 public class ReportService {
 
+	/**
+     * 새로운 신고를 생성합니다.
+     *
+     * @param id          신고자 ID
+     * @param seq         신고 대상 게시물/댓글 번호
+     * @param rp_seq      신고 사유 번호
+     * @param description 신고 상세 설명
+     * @param boardType   게시판 타입
+     * @return 신고 생성 결과 (성공: 1, 실패: 0)
+     */
 	public int createReport(String id, String seq, String rp_seq, String description, String boardType) {
 
 		ReportDAO<?> dao = null ;

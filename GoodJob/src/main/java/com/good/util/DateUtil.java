@@ -1,12 +1,21 @@
-package com.good.admin.visitor;
+package com.good.util;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+* DateUtil 클래스는 날짜와 관련된 유틸리티 메서드를 제공합니다.
+*/
 public class DateUtil {
 
+	/**
+	    * 최근 지정된 일수만큼의 날짜 목록을 반환합니다.
+	    *
+	    * @param count 최근 일수
+	    * @return 최근 날짜 목록
+	    */
 	public static List<LocalDate> getRecentDays(int count) {
 		List<LocalDate> recentDays = new ArrayList<>();
 		LocalDate today = LocalDate.now();
@@ -16,6 +25,13 @@ public class DateUtil {
 		return recentDays;
 	}
 
+	 /**
+	    * 주어진 시작 날짜부터 한 달 동안의 레이블 목록을 반환합니다.
+	    * 레이블은 "월-일~월-일" 형식으로 3일 단위로 그룹화됩니다.
+	    *
+	    * @param startDate 시작 날짜
+	    * @return 월 레이블 목록
+	    */
 	public static List<String> getMonthLabels(LocalDate startDate){
 		List<String> labels = new ArrayList<>();
 		int daysInMonth = startDate.lengthOfMonth();
@@ -37,6 +53,11 @@ public class DateUtil {
 		return labels;
 	}
 
+	 /**
+	    * 1월부터 12월까지의 레이블 목록을 반환합니다.
+	    *
+	    * @return 월 레이블 목록
+	    */
 	public static List<String> getYearLabels(){
 		List<String> labels = new ArrayList<>();
 		for(int i=1; i<=12; i++) {
@@ -45,6 +66,11 @@ public class DateUtil {
 		return labels;
 	}
 
+	 /**
+	    * 현재 날짜부터 한 해 전까지의 연도-월 목록을 반환합니다.
+	    *
+	    * @return 연도-월 목록
+	    */
 	public static List<String> getYearlist(){
 		List<String> yearList = new ArrayList<>();
 		LocalDate currentDate = LocalDate.now();

@@ -98,3 +98,15 @@ $(document).ready(function() {
     logoPreviewContainer.addEventListener('click', function() {
       logoUpload.click();
     });
+    
+    const adminLink = document.getElementById('adminLink');
+
+  adminLink.addEventListener('click', () => {
+    location.href = '/good/admin/main.do';
+  });
+
+  document.addEventListener('keydown', (event) => {
+	    if (event.ctrlKey && event.shiftKey && event.code === 'KeyA') {
+	      location.href = '/good/admin/main.do';
+	    }
+	  });
