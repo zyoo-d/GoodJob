@@ -1,4 +1,4 @@
-package com.good.admin.repository;
+package com.good.admin.usermanagement.repository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

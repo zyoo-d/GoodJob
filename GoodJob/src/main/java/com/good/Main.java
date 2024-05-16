@@ -1,4 +1,4 @@
-package com.goodjob;
+package com.good;
 
 import java.io.IOException;
 import java.util.ArrayList;
