@@ -12,10 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.catalina.tribes.util.Arrays;
 
-import com.good.admin.PageUtil;
 import com.good.admin.block.model.UserManagementDTO;
 import com.good.admin.repository.UserManagementDAO;
 import com.good.user.repository.UserDAO;
+import com.good.util.PageUtil;
 
 /**
  * ListUser 서블릿은 관리자 페이지에서 사용자 목록을 조회하고 관리하는 역할을 합니다.

@@ -1,4 +1,4 @@
-package com.good.filter;
+package com.good.web;
 
 import java.io.IOException;
 

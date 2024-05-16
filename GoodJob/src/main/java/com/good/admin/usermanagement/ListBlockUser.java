@@ -10,9 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.good.admin.PageUtil;
 import com.good.admin.block.model.BlockUserDTO;
 import com.good.admin.block.repository.BlockUserDAO;
+import com.good.util.PageUtil;
 
 /**
  * ListBlockUser 서블릿은 관리자 페이지에서 차단된 사용자 목록을 조회하고 JSP 페이지로 전달하는 역할을 합니다.

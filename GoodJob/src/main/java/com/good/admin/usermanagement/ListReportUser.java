@@ -14,9 +14,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.good.admin.PageUtil;
 import com.good.board.report.model.ReportCommonDTO;
 import com.good.board.report.repository.ReportCommonDAO;
+import com.good.util.PageUtil;
 
 /**
  * ListReportUser 서블릿은 관리자 페이지에서 신고된 사용자 목록을 조회하고 관리하는 역할을 합니다.

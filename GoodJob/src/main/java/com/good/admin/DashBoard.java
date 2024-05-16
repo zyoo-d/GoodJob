@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.good.admin.visitor.DateUtil;
 import com.good.admin.visitor.VisitorStatisticsUtil;
 import com.good.admin.visitor.VisitorTracker;
 import com.good.board.model.BoardCommonDTO;
@@ -25,6 +24,7 @@ import com.good.company.repository.CompanyDAO;
 import com.good.company.repository.RecruitDAO;
 import com.good.company.repository.ReviewDAO;
 import com.good.user.repository.UserDAO;
+import com.good.util.DateUtil;
 
 /**
  * DashBoard 서블릿은 관리자 대시보드 페이지를 제공하며, 다양한 통계 데이터를 조회하고 JSP 페이지로 전달합니다.

@@ -13,11 +13,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.good.admin.PageUtil;
-import com.good.admin.visitor.DateUtil;
 import com.good.board.report.model.ReportCommonDTO;
 import com.good.board.report.repository.ReportCommonDAO;
 import com.good.board.repository.BoardCommonDAO;
+import com.good.util.DateUtil;
+import com.good.util.PageUtil;
 
 @WebServlet("/admin/boardreport.do")
 /**
