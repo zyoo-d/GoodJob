@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.good.admin.PageUtil;
 import com.good.board.report.model.ReportCommonDTO;
 import com.good.board.report.repository.ReportCommonDAO;
 
@@ -38,6 +39,8 @@ public class ListReportUser extends HttpServlet {
 
 		req.setAttribute("reportList", reportList);
 		req.setAttribute("pageUtil", pageUtil);
+		
+		reportCommonDAO.close();
 
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/admin/user/listreportuser.jsp");
 		dispatcher.forward(req, resp);
@@ -50,7 +53,7 @@ public class ListReportUser extends HttpServlet {
 		ReportCommonDAO reportCommonDAO = new ReportCommonDAO();
 		
 		HttpSession session = req.getSession();
-//		String id = (String)session.getAttribute("id");
+		String id = (String)session.getAttribute("id");
 
 		String userId = req.getParameter("user-id");
 		String status = req.getParameter("status");
@@ -61,12 +64,6 @@ public class ListReportUser extends HttpServlet {
 		String report_type = req.getParameter("report_type");
 		String report_sub_type = req.getParameter("report_sub_type");
 
-		System.out.println(userId);
-		System.out.println(status);
-		System.out.println(blockDate);
-		System.out.println(releaseDate);
-		System.out.println(blockReason);
-		System.out.println(report_seq);
 
 		List<String> userIds = Arrays.asList(userId.split(","));
 		HashMap<String,String> blockStatus = reportCommonDAO.checkBlock(userIds);
@@ -77,7 +74,9 @@ public class ListReportUser extends HttpServlet {
 		List<String> report_types = Arrays.asList(report_type.split(","));
 		List<String> report_sub_types = Arrays.asList(report_sub_type.split(","));
 		
- 		reportCommonDAO.confirmReport(report_seqs, report_types, report_sub_types , "admin");
+ 		reportCommonDAO.confirmReport(report_seqs, report_types, report_sub_types , id);
+ 		
+ 		reportCommonDAO.close();
 		
 		resp.sendRedirect("/good/admin/listreportuser.do");
 

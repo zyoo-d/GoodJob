@@ -14,9 +14,28 @@ import javax.servlet.http.HttpServletResponse;
 import com.good.company.model.CompanyDTO;
 import com.good.company.repository.CompanyDAO;
 
+/**
+ * 기업 목록 조회 서블릿
+ * 
+ * 이 서블릿은 기업 목록을 조회하고 페이징 처리를 수행합니다.
+ * 검색, 정렬, 필터링 등의 기능을 포함하고 있습니다.
+ * 조회된 기업 목록과 페이징 정보를 JSP 페이지로 전달합니다.
+ */
 @WebServlet("/user/company/companylist.do")
 public class ListCompany extends HttpServlet {
 
+    /**
+     * GET 요청 처리 메소드
+     * 
+     * 기업 목록을 조회하고 페이징 처리를 수행합니다.
+     * 검색, 정렬, 필터링 등의 기능을 포함하고 있습니다.
+     * 조회된 기업 목록과 페이징 정보를 JSP 페이지로 전달합니다.
+     * 
+     * @param req  HttpServletRequest 객체
+     * @param resp HttpServletResponse 객체
+     * @throws ServletException 서블릿 예외 발생 시
+     * @throws IOException      입출력 예외 발생 시
+     */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -69,9 +88,7 @@ public class ListCompany extends HttpServlet {
 		if (cp_address != null && cp_address.length > 0) {
 			selectedLocations = String.join(",", cp_address);
 		}
-
-
-
+		
 		HashMap<String, String> map = new HashMap<>();
 		map.put("search", search);
 		map.put("column", column);
@@ -83,14 +100,10 @@ public class ListCompany extends HttpServlet {
 		map.put("salary_seq", salary_seq);
 		map.put("cp_address", selectedLocations);
 
-
-
 		// 목록 출력
 		CompanyDAO dao = new CompanyDAO();
 		ArrayList<CompanyDTO> comListInfo = dao.comListInfo(map);
-		
-		
-
+			
 		String unit = "";
 		
 		for (CompanyDTO dto : comListInfo) {
@@ -105,11 +118,8 @@ public class ListCompany extends HttpServlet {
 			address = address.substring(0, secondSpaceIndex);
 			dto.setCp_address(address);
 
-			
-
 			// 평균연봉
 			int avg_salary = dto.getHire_avr_salary();
-
 			
 			// 태그리스트출력
 			ArrayList<String> topTags = dao.getTopTagsByCpSeq(dto.getCp_seq());

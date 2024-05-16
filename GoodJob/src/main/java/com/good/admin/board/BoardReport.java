@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.good.admin.usermanagement.PageUtil;
+import com.good.admin.PageUtil;
 import com.good.admin.visitor.DateUtil;
 import com.good.board.report.model.ReportCommonDTO;
 import com.good.board.report.repository.ReportCommonDAO;
@@ -53,6 +53,9 @@ public class BoardReport extends HttpServlet {
 		req.setAttribute("pageUtil", pageUtil);
 		req.setAttribute("allReportList", allReportList);
 		req.setAttribute("recentReportCount", recentReportCount);
+		
+		boardCommonDAO.close();
+		reportCommonDAO.close();
 		
 		
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/admin/board/boardreport.jsp");

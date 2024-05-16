@@ -22,10 +22,21 @@ import com.good.company.repository.CompareDAO;
 import com.good.matching.model.MatchingDTO;
 import com.good.matching.repository.MatchingDAO;
 import com.good.user.repository.UserDAO;
-
+/**
+ * Matching 서블릿 클래스는 사용자의 선호도 및 요구 사항을 바탕으로 회사와의 매칭을 수행합니다.
+ * 이 서블릿은 사용자의 프로필과 입력된 기업 데이터를 비교하여 가장 적합한 회사를 추천합니다.
+ */
 @WebServlet("/user/matching.do")
 public class Matching extends HttpServlet {
-
+	/**
+     * GET 요청을 통해 매칭 프로세스를 실행하고 결과를 사용자에게 표시합니다.
+     * 세션에서 사용자 정보를 확인하고, 설문조사 및 위시리스트 데이터를 기반으로 매칭을 수행합니다.
+     *
+     * @param req 클라이언트로부터 받은 HttpServletRequest 객체, 요청 데이터 접근에 사용됩니다.
+     * @param resp 클라이언트에게 보낼 HttpServletResponse 객체, 응답 데이터 설정에 사용됩니다.
+     * @throws ServletException 서블릿 처리 중 예외가 발생할 경우 던져집니다.
+     * @throws IOException 입출력 예외 발생시 던져집니다.
+     */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -120,7 +131,9 @@ public class Matching extends HttpServlet {
 
 			ScoreMatcher.calculateMatchingRate(list, dto);
 			Collections.sort(list, Comparator.reverseOrder());
-
+			
+			System.out.println(list.size());
+			
 			ArrayList<MatchingDTO> top3 = new ArrayList<>(list.subList(0, 3));
 
 			HashMap<String, String> map = new HashMap<>();
@@ -143,7 +156,7 @@ public class Matching extends HttpServlet {
 	            long formattedFncIncome = Math.round((double) fncIncome / 10000000);
 	            mdto.getDto().setFnc_income(formattedFncIncome);
 	            
-	            map.put("tag"+num, mdto.getCp_seq());
+	            map.put("tag"+num, mdto.getDto().getCp_name());
 				num++;
 	            
 				double matchScore = mdto.getMatchScore(); 
@@ -198,7 +211,6 @@ public class Matching extends HttpServlet {
 			CompareDAO compareDAO = new CompareDAO();
 			//재무 정보
 			ArrayList<Long>[] flist = compareDAO.getCompanyFinance(map);
-			
 
 			req.setAttribute("flist", flist);
 			req.setAttribute("map", map);

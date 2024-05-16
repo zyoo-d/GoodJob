@@ -23,6 +23,7 @@ public class VisitorTracker {
 		        dao.insertToday(currentDate);
 		    }
 		}
+		dao.close();
 		
 	}
 
