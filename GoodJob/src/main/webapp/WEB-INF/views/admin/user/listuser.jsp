@@ -37,10 +37,16 @@
 															<i class="fas fa-search"></i>
 														</button>
 													</div>
-													<a href="#" class="btn btn-icon icon-left btn-primary"><i
-														class="far fa-edit"></i> 차단 관리</a> <a href="#"
-														class="btn btn-icon icon-left btn-danger"><i
-														class="fas fa-times"></i> 회원 탈퇴</a>
+													<button id="btn-block-user"
+														class="btn btn-icon icon-left btn-primary">
+														<i class="far fa-edit"></i> 차단 관리
+													</button>
+													<button id="btn-resignation-user"
+														class="btn btn-icon icon-left btn-danger"
+														data-confirm="경고|회원 탈퇴를 진행하겠습니까?"
+														data-confirm-yes="alert('Deleted :)');">
+														<i class="far fa-edit"></i>회원 탈퇴
+													</button>
 												</div>
 											</form>
 										</div>
@@ -68,25 +74,26 @@
 												</tr>
 
 
-												<c:forEach items="${userList}" var="userList">
+												<c:forEach items="${userList}" var="userList"
+													varStatus="status">
 													<tr>
 														<td class="p-0 text-center">
 															<div class="custom-checkbox custom-control">
 																<input type="checkbox" data-checkboxes="mygroup"
 																	class="custom-control-input"
-																	id="checkbox-${status.index}"> <label
-																	for="checkbox-${status.index}"
+																	id="checkbox-${status.index}" value="${userList.id}">
+																<label for="checkbox-${status.index}"
 																	class="custom-control-label">&nbsp;</label>
 															</div>
 														</td>
 														<td class="p-0 text-center">${userList.id}</td>
-														<td class="p-0 text-center">${userList.name }</td>
+														<td class="p-0 text-center">${userList.name}</td>
 														<td class="p-0 text-center">${userList.board}</td>
-														<td class="p-0 text-center">${userList.comment }</td>
-														<td class="p-0 text-center">${userList.review }</td>
-														<td class="p-0 text-center">${userList.regdate }</td>
-														<td class="p-0 text-center">${userList.report }</td>
-														<td class="p-0 text-center">${userList.status }</td>
+														<td class="p-0 text-center">${userList.comment}</td>
+														<td class="p-0 text-center">${userList.review}</td>
+														<td class="p-0 text-center">${userList.regdate}</td>
+														<td class="p-0 text-center">${userList.report}</td>
+														<td class="p-0 text-center">${userList.status}</td>
 													</tr>
 												</c:forEach>
 											</table>
@@ -113,15 +120,14 @@
 													<li
 														class="page-item ${page == pageUtil.currentPage ? 'active' : ''}">
 														<a class="page-link"
-														href="/good/admin/listuser.do?page=${page}">
-															${page} </a>
+														href="/good/admin/listuser.do?page=${page}"> ${page} </a>
 													</li>
 												</c:forEach>
 
 												<c:if test="${pageUtil.hasNextPage()}">
 													<li class="page-item"><a class="page-link"
-														href="/good/admin/listuser.do?page=${endPage + 1}">
-															<i class="fas fa-chevron-right"></i>
+														href="/good/admin/listuser.do?page=${endPage + 1}"> <i
+															class="fas fa-chevron-right"></i>
 													</a></li>
 												</c:if>
 											</ul>
@@ -138,9 +144,73 @@
 					</div>
 				</section>
 			</div>
+
+
+
+
+
+
+
+
 			<%@include file="/WEB-INF/views/inc/adminfooter.jsp"%>
 		</div>
 	</div>
+
+	<script>
+	$('[data-confirm]').each(function() {
+		  var me = $(this),
+		      me_data = me.data('confirm');
+
+		  me_data = me_data.split("|");
+		  me.fireModal({
+		    title: me_data[0],
+		    body: me_data[1],
+		    buttons: [
+		      {
+		        text: me.data('confirm-text-yes') || '확인',
+		        class: 'btn btn-danger btn-shadow',
+		        handler: function() {
+		          var selectedUserIds = [];
+		          $('input[data-checkboxes="mygroup"]:checked').each(function() {
+		            selectedUserIds.push($(this).val());
+		          });
+
+		          // 선택된 회원 아이디를 서블릿으로 전송
+		          $.ajax({
+		            url: '/good/admin/listuser.do',
+		            type: 'POST',
+		            data: { userIds: selectedUserIds },
+		            traditional: true,
+		            success: function(response) {
+		              // 서블릿에서의 처리 결과에 따른 동작 수행
+		              alert('선택한 회원이 삭제되었습니다.');
+		              location.reload(); // 페이지 새로고침
+		            },
+		            error: function() {
+		              alert('회원 삭제 중 오류가 발생했습니다.');
+		            }
+		          });
+		        }
+		      },
+		      {
+		        text: me.data('confirm-text-cancel') || '취소',
+		        class: 'btn btn-secondary',
+		        handler: function(modal) {
+		          $.destroyModal(modal);
+		          eval(me.data('confirm-no'));
+		        }
+		      }
+		    ]
+		  });
+		});
+
+		$(document).ready(function() {
+		  $('#checkbox-all').on('click', function() {
+		    const isChecked = $(this).is(':checked');
+		    $('input[data-checkboxes="mygroup"]').prop('checked', isChecked);
+		  });
+		});
+	</script>
 
 
 </body>

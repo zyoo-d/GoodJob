@@ -10,18 +10,26 @@ import java.util.ArrayList;
 
 import com.good.board.report.model.QnaReportDTO;
 import com.test.util.DBUtil;
-
+/**
+ * QnA 게시판 신고 정보를 다루는 DAO 클래스입니다.
+ * ReportDAO 인터페이스를 구현하여 CRUD 기능을 제공합니다.
+ */
 public class QnaReportDAO implements ReportDAO<QnaReportDTO> {
 	
 	private Connection conn;
 	private Statement stat;
 	private PreparedStatement pstat;
 	private ResultSet rs;
-	
+	/**
+     * QnaReportDAO 생성자입니다.
+     * 데이터베이스 연결을 설정합니다.
+     */
 	public QnaReportDAO() {
 		this.conn = DBUtil.open();
 	}
-	
+	/**
+     * 데이터베이스 연결을 닫습니다.
+     */
 	public void close() {
 		try {
 			this.conn.close();
@@ -30,7 +38,12 @@ public class QnaReportDAO implements ReportDAO<QnaReportDTO> {
 			e.printStackTrace();
 		}
 	}
-
+	 /**
+     * 새로운 QnA 신고를 생성합니다.
+     *
+     * @param dto 생성할 QnA 신고 정보
+     * @return 생성된 QnA 신고의 수
+     */
 	@Override
 	public int create(QnaReportDTO dto) {
 		
@@ -56,49 +69,13 @@ public class QnaReportDAO implements ReportDAO<QnaReportDTO> {
 		
 	}
 
-	@Override
-	public ArrayList<QnaReportDTO> list() {
-		
-		
-		return null;
-	}
 
-	@Override
-	public void delete(String seq) {
-	}
 
-	@Override
-	public void view(String seq) {
-		
-		try {
-			
-			String sql = "select * from tblQnAReport q inner join tblReportType r on q.rp_seq = r.rp_seq where qna_rp_seq = ? ";
-			
-			pstat = conn.prepareStatement(sql);
-			pstat.setString(1, seq);
-			rs = pstat.executeQuery();
-			
-			if(rs.next()) {
-				QnaReportDTO dto = new QnaReportDTO.Builder()
-						.withQna_Rp_Seq(rs.getString("qna_rp_seq"))
-						.withQna_Rp_Regdate(rs.getString("qna_rp_regdate"))
-						.withQna_Seq(rs.getString("qna_seq"))
-						.withRp_Seq(rs.getString("rp_seq"))
-						.build(); //여기부터 계속
-				
-				
-				
-			}
-			
-			
-		} catch (Exception e) {
-			System.out.println("QnaReportDAO.view");
-			e.printStackTrace();
-		}
-		
-		
-	}
-
+	/**
+     * 전체 QnA 신고 수를 가져옵니다.
+     *
+     * @return 전체 QnA 신고 수
+     */
 	@Override
 	public int totalCount() {
 		
@@ -123,7 +100,13 @@ public class QnaReportDAO implements ReportDAO<QnaReportDTO> {
 		
 		return 0;
 	}
-
+	/**
+     * 특정 사용자가 특정 QnA 게시글을 신고했는지 확인합니다.
+     *
+     * @param id  사용자 ID
+     * @param seq QnA 게시글 번호
+     * @return 사용자가 해당 QnA 게시글을 신고했다면 true, 그렇지 않으면 false
+     */
 	@Override
 	public boolean isReported(String id, String seq) {
 		
@@ -151,7 +134,12 @@ public class QnaReportDAO implements ReportDAO<QnaReportDTO> {
 		return false;
 		
 	}
-
+	/**
+     * 특정 날짜의 QnA 신고 수를 가져옵니다.
+     *
+     * @param date 조회할 날짜
+     * @return 해당 날짜의 QnA 신고 수
+     */
 	@Override
 	public int getReportCountByDate(LocalDate date) {
 		

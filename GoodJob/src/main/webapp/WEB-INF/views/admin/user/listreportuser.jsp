@@ -16,7 +16,7 @@
 			<div class="main-content">
 				<section class="section">
 					<div class="section-header">
-						<h1>신고 접수 관리</h1>
+						<h1>신고 회원 관리</h1>
 					</div>
 
 					<div class="section-body">
@@ -65,10 +65,9 @@
 													<th class="p-0 text-center">제목</th>
 													<th class="p-0 text-center">신고자</th>
 
-													<th class="p-0 text-center"><select id="reportType"
-														name="reportType" onchange="sortReportType()"
-														style="padding: 4px 8px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px; color: #333; background-color: #fff; width: 120px;">
-															<option value="" ${empty param.rp_seq ? 'selected' : ''}>전체</option>
+													<th class="p-0 text-center report-type"><select id="reportType" class="p-0 text-center"
+														name="reportType" onchange="sortReportType()">
+															<option value="" ${empty param.rp_seq ? 'selected' : ''}>신고유형(전체)</option>
 															<option value="1"
 																${param.rp_seq == '1' ? 'selected' : ''}>비방/욕설</option>
 															<option value="2"
@@ -103,12 +102,7 @@
 																			class="custom-control-input"
 																			id="checkbox-${status.index}"> <label
 																			for="checkbox-${status.index}"
-																			class="custom-control-label">&nbsp;</label> <input
-																			type="hidden" id="report_seq" name="report_seq"
-																			value="${report.report_seq}"> <input
-																			type="hidden" id="report_type" name="report_type"
-																			value="${report.type}">
-
+																			class="custom-control-label">&nbsp;</label>
 																	</div>
 																</td>
 																<td class="p-0 text-center">${report.writer_id}</td>
@@ -276,128 +270,210 @@
 	
 	let modalInputs;
 	let selectedUser = {};
+	let bulkModalInputs;
+	
+	function formatDate(date) {
+		  const isoString = date.toISOString();
+		  const formattedDate = isoString.substring(0, 10);
+		  console.log('Formatted date:', formattedDate);
+		  return formattedDate;
+		}
+	
+	function setBlockAndReleaseDates(status, blockDateInput, releaseDateInput) {
+		  if (status === '0') {
+		    blockDateInput.val('');
+		    releaseDateInput.val('');
+		  } else {
+		    const blockDate = new Date();
+		    blockDateInput.val(formatDate(blockDate));
 
-	$('#btn-block-user').fireModal({
-	  body: $('#modal-part'),
-	  title: '차단 회원 관리',
-	  footerClass: 'text-right',
-	  buttons: [
-	    {
-	      text: '저장',
-	      class: 'btn btn-primary',
-	      submit: true,
-	      handler: function(modal) {
-	        const userId = modalInputs.userId.val();
-	        const status = modalInputs.status.val();
-	        const changeReason = $('#change-reason').val();
+		    const releaseDate = new Date(blockDate);
+		    if (status === '3') {
+		      releaseDate.setDate(releaseDate.getDate() + 3);
+		    } else if (status === '5') {
+		      releaseDate.setDate(releaseDate.getDate() + 5);
+		    } else if (status === '7') {
+		      releaseDate.setDate(releaseDate.getDate() + 7);
+		    } else if (status === '10') {
+		      releaseDate.setFullYear(releaseDate.getFullYear() + 1000);
+		    }
+		    releaseDateInput.val(formatDate(releaseDate));
+		  }
+		}
+	
+	
+	
 
+	$('#btn-block-user').on('click', function() {
+		  const checkedCheckboxes = $('input[type="checkbox"][data-checkboxes="mygroup"]:checked');
+		  const checkedCount = checkedCheckboxes.length;
 
-	        // 모달 닫기
-	        modal.modal('hide');
-	      }
-	    }
-	  ],
-	  created: function(modal) {
-	    modalInputs = {
-	      userId: modal.find('#user-id'),
-	      seq: modal.find('#report_seq'),
-	      type: modal.find('#report_type'),
-	      subType: modal.find('#report_sub_type'),
-	      status: modal.find('#status'),
-	      blockDate: modal.find('#block-date'),
-	      releaseDate: modal.find('#release-date'),
-	      blockReason: modal.find('#block-reason')
-	    };
-	  }
-	});
+		  if (checkedCount === 0) {
+		    alert('회원을 선택해주세요.');
+		    return;
+		  } else if (checkedCount > 1) {
+		    alert('회원 한 명만 선택해주세요.');
+		    return;
+		  }
+
+		  $('#btn-block-user').fireModal({
+		    body: $('#modal-part'),
+		    title: '차단 회원 관리',
+		    footerClass: 'text-right',
+		    buttons: [
+		      {
+		        text: '저장',
+		        class: 'btn btn-primary',
+		        submit: true,
+		        handler: function(modal) {
+		          const userId = modalInputs.userId.val();
+		          const status = modalInputs.status.val();
+		          const changeReason = $('#change-reason').val();
+
+		          // 모달 닫기
+		          modal.modal('hide');
+		        }
+		      }
+		    ],
+		    created: function(modal) {
+		    	 const checkedCheckboxes = $('input[type="checkbox"][data-checkboxes="mygroup"]:checked');
+		    	    const checkedCount = checkedCheckboxes.length;
+
+		    	    if (checkedCount === 0) {
+		    	      alert('회원을 선택해주세요.');
+		    	      return;
+		    	    }
+		    	
+		    	
+		    	    bulkModalInputs = {
+		        userId: modal.find('#user-id'),
+		        seq: modal.find('#report_seq'),
+		        type: modal.find('#report_type'),
+		        subType: modal.find('#report_sub_type'),
+		        status: modal.find('#status'),
+		        blockDate: modal.find('#block-date'),
+		        releaseDate: modal.find('#release-date'),
+		        blockReason: modal.find('#block-reason')
+		      };
+
+		      // 선택된 회원 정보 설정
+		      const selectedRow = checkedCheckboxes.closest('tr');
+		      const userId = selectedRow.find('td:nth-child(2)').text().trim();
+		      const seq = selectedRow.find('input[name="report_seq"]').val();
+		      const type = selectedRow.find('input[name="report_type"]').val();
+		      const subType = selectedRow.find('td:nth-child(3)').text().trim();
+
+		      bulkModalInputs.userId.val(userId);
+		      bulkModalInputs.seq.val(seq);
+		      bulkModalInputs.type.val(type);
+		      bulkModalInputs.subType.val(subType);
+		    }
+		  });
+		});
 
 	$(document).on('change', 'input[type="checkbox"][data-checkboxes="mygroup"]', function() {
-	  if ($(this).is(':checked')) {
-	    const row = $(this).closest('tr');
-	    selectedUser = {
-	      id: row.find('td:nth-child(2)').text().trim(),
-	      seq: row.find('input[name="report_seq"]').val(),
-	      type: row.find('input[name="report_type"]').val(),
-	      subType: row.find('td:nth-child(3)').text().trim(),
-	    };
-
-	    modalInputs.userId.val(selectedUser.id);
-	    modalInputs.seq.val(selectedUser.seq);
-	    modalInputs.type.val(selectedUser.type);
-	    modalInputs.subType.val(selectedUser.subType);
-	  } else {
-		  selectedUser = {};
-		  modalInputs.userId.val('');
-		  modalInputs.seq.val('');
-		  modalInputs.type.val('');
-		  modalInputs.subType.val('');
-	  }
-	});
-
-	let bulkModalInputs;
-
-	$('#btn-block-alluser').fireModal({
-		  body: $('#modal-bulk-part'),
-		  title: '일괄 처리',
-		  footerClass: 'text-right',
-		  buttons: [
-		    {
-		      text: '일괄 처리',
-		      class: 'btn btn-primary',
-		      submit: true,
-		      handler: function(modal) {
-		        const selectedUserIds = $('#bulk-user-ids').val().split(',');
-		        const status = bulkModalInputs.status.val();
-		        const changeReason = bulkModalInputs.changeReason.val();
-
-		        // 서버로 데이터 전송 또는 다른 작업 수행
-
-		        // 모달 닫기
-		        modal.modal('hide');
-		      }
-		    }
-		  ],
-		  created: function(modal) {
-		    bulkModalInputs = {
-		      userCount: modal.find('#bulk-user-count'),
-		      status: modal.find('#bulk-status'),
-		      seq: modal.find('#bulk-user-seqs'),
-		      type: modal.find('#bulk-report_types'),
-		      subType: modal.find('#bulk-report_sub_types'),
-		      blockDate: modal.find('#bulk-block-date'),
-		      releaseDate: modal.find('#bulk-release-date'),
-		      changeReason: modal.find('#bulk-block-reason')
+		  if ($(this).is(':checked')) {
+		    const row = $(this).closest('tr');
+		    selectedUser = {
+		      id: row.find('td:nth-child(2)').text().trim(),
+		      seq: row.find('input[name="report_seq"]').val(),
+		      type: row.find('input[name="report_type"]').val(),
+		      subType: row.find('td:nth-child(3)').text().trim(),
 		    };
 
-		    // 체크박스 선택된 유저 수 계산
-		    const checkedUsers = $('input[type="checkbox"][data-checkboxes="mygroup"]:checked');
-		    const userCount = checkedUsers.length;
-		    bulkModalInputs.userCount.val(userCount + '명');
+		    // modalInputs 객체가 초기화되었는지 확인 후 접근
+		    if (bulkModalInputs && bulkModalInputs.userId) {
+		    	bulkModalInputs.userId.val(selectedUser.id);
+		    	bulkModalInputs.seq.val(selectedUser.seq);
+		    	bulkModalInputs.type.val(selectedUser.type);
+		    	bulkModalInputs.subType.val(selectedUser.subType);
+		    }
+		  } else {
+		    selectedUser = {};
 
-		    // 체크박스 선택된 유저 아이디 가져오기
-		    const userIds = [];
-		    const userSeqs = [];
-		    const reportTypes = [];
-		    const reportSubTypes = [];
-		    checkedUsers.each(function() {
-		      const selectedRow = $(this).closest('tr');
-		      const userId = selectedRow.find('td:nth-child(2)').text().trim();
-		      const userSeq = selectedRow.find('input[name="report_seq"]').val();
-		      const reportType = selectedRow.find('input[name="report_type"]').val();
-		      const reportSubType = selectedRow.find('td:nth-child(3)').text().trim();
-		      userIds.push(userId);
-		      userSeqs.push(userSeq);
-		      reportTypes.push(reportType);
-		      reportSubTypes.push(reportSubType);
-		    });
-
-		    // 선택된 유저 아이디를 hidden 태그에 설정
-		    modal.find('#bulk-user-ids').val(userIds.join(','));
-		    modal.find('#bulk-user-seqs').val(userSeqs.join(','));
-		    modal.find('#bulk-report_types').val(reportTypes.join(','));
-		    modal.find('#bulk-report_sub_types').val(reportSubTypes.join(','));
+		    // modalInputs 객체가 초기화되었는지 확인 후 접근
+		    if (bulkModalInputs && modalInputs.userId) {
+		    	bulkModalInputs.userId.val('');
+		    	bulkModalInputs.seq.val('');
+		    	bulkModalInputs.type.val('');
+		    	bulkModalInputs.subType.val('');
+		    }
 		  }
 		});
+
+
+	$('#btn-block-alluser').on('click', function() {
+		  const checkedCheckboxes = $('input[type="checkbox"][data-checkboxes="mygroup"]:checked');
+		  const checkedCount = checkedCheckboxes.length;
+
+		  if (checkedCount === 0) {
+		    alert('회원을 선택해주세요.');
+		    return;
+		  }
+
+		  $('#btn-block-alluser').fireModal({
+		    body: $('#modal-bulk-part'),
+		    title: '일괄 처리',
+		    footerClass: 'text-right',
+		    buttons: [
+		      {
+		        text: '일괄 처리',
+		        class: 'btn btn-primary',
+		        submit: true,
+		        handler: function(modal) {
+		          const selectedUserIds = $('#bulk-user-ids').val().split(',');
+		          const status = bulkModalInputs.status.val();
+		          const changeReason = bulkModalInputs.changeReason.val();
+
+		          // 서버로 데이터 전송 또는 다른 작업 수행
+
+		          // 모달 닫기
+		          modal.modal('hide');
+		        }
+		      }
+		    ],
+		    created: function(modal) {
+		      bulkModalInputs = {
+		        userCount: modal.find('#bulk-user-count'),
+		        status: modal.find('#bulk-status'),
+		        seq: modal.find('#bulk-user-seqs'),
+		        type: modal.find('#bulk-report_types'),
+		        subType: modal.find('#bulk-report_sub_types'),
+		        blockDate: modal.find('#bulk-block-date'),
+		        releaseDate: modal.find('#bulk-release-date'),
+		        changeReason: modal.find('#bulk-block-reason')
+		      };
+
+		      // 체크박스 선택된 유저 수 계산
+		      bulkModalInputs.userCount.val(checkedCount + '명');
+
+		      // 체크박스 선택된 유저 아이디 가져오기
+		      const userIds = [];
+		      const userSeqs = [];
+		      const reportTypes = [];
+		      const reportSubTypes = [];
+		      checkedCheckboxes.each(function() {
+		        const selectedRow = $(this).closest('tr');
+		        const userId = selectedRow.find('td:nth-child(2)').text().trim();
+		        const userSeq = selectedRow.find('input[name="report_seq"]').val();
+		        const reportType = selectedRow.find('input[name="report_type"]').val();
+		        const reportSubType = selectedRow.find('td:nth-child(3)').text().trim();
+		        userIds.push(userId);
+		        userSeqs.push(userSeq);
+		        reportTypes.push(reportType);
+		        reportSubTypes.push(reportSubType);
+		      });
+
+		      // 선택된 유저 아이디를 hidden 태그에 설정
+		      modal.find('#bulk-user-ids').val(userIds.join(','));
+		      modal.find('#bulk-user-seqs').val(userSeqs.join(','));
+		      modal.find('#bulk-report_types').val(reportTypes.join(','));
+		      modal.find('#bulk-report_sub_types').val(reportSubTypes.join(','));
+		    }
+		  });
+		});
+	
+	
 
 		$(document).on('change', '#bulk-status', function() {
 		  const selectedStatus = $(this).val();
@@ -423,34 +499,6 @@
 		  }
 		});
 
-		$(document).on('change', 'input[type="checkbox"][data-checkboxes="mygroup"]', function() {
-			  const checkedUsers = $('input[type="checkbox"][data-checkboxes="mygroup"]:checked');
-			  const userCount = checkedUsers.length;
-			  bulkModalInputs.userCount.val(userCount + '명');
-
-			  // 체크박스 선택된 유저 아이디 가져오기
-			  const userIds = [];
-			  const userSeqs = [];
-			  const reportTypes = [];
-			  const reportSubTypes = [];
-			  checkedUsers.each(function() {
-			    const selectedRow = $(this).closest('tr');
-			    const userId = selectedRow.find('td:nth-child(2)').text().trim();
-			    const userSeq = selectedRow.find('input[name="report_seq"]').val();
-			    const reportType = selectedRow.find('input[name="report_type"]').val();
-			    const reportSubType = selectedRow.find('td:nth-child(3)').text().trim();
-			    userIds.push(userId);
-			    userSeqs.push(userSeq);
-			    reportTypes.push(reportType);
-			    reportSubTypes.push(reportSubType);
-			  });
-
-			  // 선택된 유저 아이디를 hidden 태그에 설정
-			  $('#bulk-user-ids').val(userIds.join(','));
-			  $('#bulk-user-seqs').val(userSeqs.join(','));
-			  $('#bulk-report_types').val(reportTypes.join(','));
-			  $('#bulk-report_sub_types').val(reportSubTypes.join(','));
-			});
 
 	$(document).ready(function() {
 	    // 모달 창이 열릴 때 초기 상태 설정
@@ -460,61 +508,19 @@
 	      $('#release-date').val('');
 	    });
 
+	    
+	    
 	    $('#status').on('change', function() {
 	        const selectedStatus = $(this).val();
-	        const blockDateInput = $('#block-date');
-	        const releaseDateInput = $('#release-date');
-
-	        if (selectedStatus === '0') {
-	          blockDateInput.val('');
-	          releaseDateInput.val('');
-	        } else {
-	          const blockDate = new Date();
-	          console.log('Block date:', blockDate);
-	          blockDateInput.val(formatDate(blockDate));
-
-	          const releaseDate = new Date(blockDate);
-	          if (selectedStatus === '3') {
-	            releaseDate.setDate(releaseDate.getDate() + 3);
-	          } else if (selectedStatus === '5') {
-	            releaseDate.setDate(releaseDate.getDate() + 5);
-	          } else if (selectedStatus === '7') {
-	            releaseDate.setDate(releaseDate.getDate() + 7);
-	          } else if (selectedStatus === '10') {
-	            releaseDate.setFullYear(releaseDate.getFullYear() + 1000);
-	          }
-	          console.log('Release date:', releaseDate);
-	          releaseDateInput.val(formatDate(releaseDate));
-	        }
+	        setBlockAndReleaseDates(selectedStatus, $('#block-date'), $('#release-date'));
 	      });
 	    });
+
 	
-	
-	function formatDate(date) {
-	    const isoString = date.toISOString();
-	    const formattedDate = isoString.substring(0, 10);
-	    console.log('Formatted date:', formattedDate);
-	    return formattedDate;
-	  }
 	
   
   
   </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
