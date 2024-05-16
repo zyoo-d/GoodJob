@@ -15,9 +15,23 @@ import com.good.board.model.CommentDTO;
 import com.good.board.model.QnaBoardDTO;
 import com.good.board.repository.QnaBoardDAO;
 
+/**
+ * QnA 게시글 상세 보기를 처리하는 서블릿 클래스입니다.
+ * "/user/qna/viewqna.do" URL 패턴에 매핑됩니다.
+ */
 @WebServlet("/user/qna/viewqna.do")
 public class ViewQna extends HttpServlet{
 
+	 /**
+     * GET 요청을 처리합니다.
+     * QnA 게시글의 상세 정보와 해당 게시글에 달린 댓글 목록을 조회하여 상세 보기 페이지로 전달합니다.
+     * 조회수 처리를 위해 세션을 사용하여 중복 조회수 증가를 방지합니다.
+     *
+     * @param req  HttpServletRequest 객체
+     * @param resp HttpServletResponse 객체
+     * @throws ServletException 서블릿 예외
+     * @throws IOException      입출력 예외
+     */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 

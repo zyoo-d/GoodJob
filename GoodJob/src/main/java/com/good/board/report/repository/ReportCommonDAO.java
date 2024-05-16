@@ -17,6 +17,9 @@ import java.util.Map;
 import com.good.board.report.model.ReportCommonDTO;
 import com.test.util.DBUtil;
 
+/**
+ * 신고 공통 정보를 다루는 DAO 클래스입니다.
+ */
 public class ReportCommonDAO {
 
 	private Connection conn;
@@ -24,10 +27,17 @@ public class ReportCommonDAO {
 	private PreparedStatement pstat;
 	private ResultSet rs;
 
+	/**
+     * ReportCommonDAO 생성자입니다.
+     * 데이터베이스 연결을 설정합니다.
+     */
 	public ReportCommonDAO() {
 		this.conn = DBUtil.open();
 	}
 
+	 /**
+     * 데이터베이스 연결을 닫습니다.
+     */
 	public void close() {
 		try {
 			this.conn.close();
@@ -37,6 +47,12 @@ public class ReportCommonDAO {
 		}
 	}
 
+	/**
+     * 총 신고 게시글 개수를 가져옵니다.
+     *
+     * @param rp_seq 신고 사유 번호 (nullable)
+     * @return 총 신고 게시글 개수
+     */
 	public int getTotalReportCount(Integer rp_seq) {
 
 		try {
@@ -70,6 +86,12 @@ public class ReportCommonDAO {
 
 	}
 
+	/**
+     * 특정 사용자의 총 신고 횟수를 가져옵니다.
+     *
+     * @param id 사용자 ID
+     * @return 사용자의 총 신고 횟수
+     */
 	public int getUserTotalReportCount(String id) {
 
 		try {
@@ -95,6 +117,11 @@ public class ReportCommonDAO {
 
 	}
 
+	 /**
+     * 게시판별 신고 횟수를 가져옵니다.
+     *
+     * @return 게시판별 신고 횟수가 담긴 HashMap (게시판 타입 -> 신고 횟수)
+     */
 	public HashMap<String, Integer> getReportCountByBoard(){
 
 		HashMap<String, Integer> map = new HashMap<>();
@@ -123,6 +150,14 @@ public class ReportCommonDAO {
 
 	}
 
+	 /**
+     * 전체 신고 목록을 가져옵니다.
+     *
+     * @param rp_seq     신고 사유 번호 (nullable)
+     * @param startIndex 시작 인덱스
+     * @param endIndex   끝 인덱스
+     * @return 신고 목록
+     */
 	public ArrayList<ReportCommonDTO> getAllReportList(Integer rp_seq, int startIndex, int endIndex){
 
 		ArrayList<ReportCommonDTO> list = new ArrayList<>();
@@ -195,14 +230,15 @@ public class ReportCommonDAO {
 
 	}
 
-	//	1	비방/욕설
-	//	2	허위사실
-	//	3	개인정보노출
-	//	4	음란성
-	//	5	게시글 도배
-	//	6	부적절한 홍보
-	//	7	기타
 
+	/**
+	 * 부모 게시글 번호를 찾습니다.
+	 *
+	 * @param seq       댓글 번호
+	 * @param type      게시글 타입
+	 * @param sub_type  게시글 하위 타입
+	 * @return 부모 게시글 번호
+	 */
 	private String findParentSeq(String seq, String type, String sub_type) {
 		String parentSeq = null;
 		PreparedStatement pstat = null;
@@ -256,6 +292,12 @@ public class ReportCommonDAO {
 		return parentSeq;
 	}
 
+	/**
+	 * 신고 유형을 파싱합니다.
+	 *
+	 * @param re_seq 신고 유형 번호
+	 * @return 파싱된 신고 유형
+	 */
 	private String parseReportType(String re_seq) {
 
 		String result = "";
@@ -289,6 +331,12 @@ public class ReportCommonDAO {
 	}
 
 
+	/**
+	 * 제목을 파싱합니다.
+	 *
+	 * @param title 파싱할 제목
+	 * @return 파싱된 제목
+	 */
 	private String parseTitle(String title) {
 
 
@@ -301,6 +349,12 @@ public class ReportCommonDAO {
 
 	}
 
+	/**
+	 * 최근 신고된 게시글 제목 목록을 가져옵니다.
+	 *
+	 * @param count 가져올 게시글 수
+	 * @return 최근 신고된 게시글 제목 목록
+	 */
 	public ArrayList<ReportCommonDTO> getRecentReportTitleList(int count) {
 		ArrayList<ReportCommonDTO> list = new ArrayList<>();
 
@@ -325,6 +379,16 @@ public class ReportCommonDAO {
 		return list;
 	}
 
+
+/**
+ * 사용자를 차단합니다.
+ *
+ * @param blockStatus  차단 상태 정보가 담긴 HashMap (사용자 ID -> 기존 차단 해제일)
+ * @param status       차단 상태
+ * @param blockDate    차단 시작일
+ * @param releaseDate  차단 해제일
+ * @param blockReason  차단 사유
+ */
 	public void blockuser(HashMap<String, String> blockStatus, String status, String blockDate, String releaseDate, String blockReason) {
 		try {
 			String sql = "INSERT INTO tblBanLog (ban_seq, ban_reason, ban_startdate, ban_enddate, id) VALUES (seqBanLog.nextVal, ?, ?, ?, ?)";
@@ -369,7 +433,11 @@ public class ReportCommonDAO {
 
 
 
-
+	/**
+	 * 사용자의 레벨을 변경합니다.
+	 *
+	 * @param insertIds 레벨을 변경할 사용자 ID 목록
+	 */
 	private void changeLvUser(List<String> insertIds) {
 
 		try {
@@ -389,6 +457,15 @@ public class ReportCommonDAO {
 		} 
 	}
 
+	/**
+	 * 차단 기간을 업데이트합니다.
+	 *
+	 * @param updateIds    업데이트할 사용자 ID와 기존 차단 해제일이 담긴 HashMap
+	 * @param status       차단 상태
+	 * @param blockDate    차단 시작일
+	 * @param releaseDate  차단 해제일
+	 * @param blockReason  차단 사유
+	 */
 	private void updateBlockPeriod(HashMap<String,String> updateIds, String status, String blockDate, String releaseDate, String blockReason) {
 		try {
 
@@ -420,6 +497,14 @@ public class ReportCommonDAO {
 		}
 	}
 
+	/**
+	 * 새로운 차단 해제일을 계산합니다.
+	 *
+	 * @param oldReleaseDate 기존 차단 해제일
+	 * @param blockDate      차단 시작일
+	 * @param releaseDate    차단 해제일
+	 * @return 새로운 차단 해제일
+	 */
 	private Date calculateNewReleaseDate(String oldReleaseDate, String blockDate, String releaseDate) {
 		try {
 			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -439,6 +524,12 @@ public class ReportCommonDAO {
 		}
 	}
 
+	/**
+	 * 사용자들의 차단 여부를 확인합니다.
+	 *
+	 * @param userIds 확인할 사용자 ID 목록
+	 * @return 사용자별 차단 상태 정보가 담긴 HashMap (사용자 ID -> 차단 해제일)
+	 */
 	public HashMap<String, String> checkBlock(List<String> userIds) {
 		HashMap<String, String> blockStatus = new HashMap<>();
 
@@ -483,6 +574,14 @@ public class ReportCommonDAO {
 
 	}
 
+	/**
+	 * 신고 접수를 확인합니다.
+	 *
+	 * @param report_seqs       신고 번호 목록
+	 * @param report_types      신고 타입 목록
+	 * @param report_sub_types  신고 하위 타입 목록
+	 * @param id                확인자 ID
+	 */
 	public void confirmReport(List<String> report_seqs, List<String> report_types, List<String> report_sub_types, String id) {
 		try {
 			String sql = "INSERT INTO tblReportCheck (rc_seq, type, sub_type, report_seq, id, checked_date) VALUES (seqReportCheck.nextVal, ?, ?, ?, ?, SYSDATE)";
@@ -509,61 +608,13 @@ public class ReportCommonDAO {
 		}
 	}
 	
-//	public ArrayList<ReportCommonDTO> getAllReportList(int startIndex, int endIndex){
-//
-//		ArrayList<ReportCommonDTO> list = new ArrayList<>();
-//		
-//		try {
-//			
-//			String sql = "SELECT writer_id as id, sub_type, type, title, regdate, report_count as cnt FROM (SELECT ROWNUM AS rnum, t.* FROM (SELECT * FROM vwAllReportList ORDER BY report_regdate DESC) t) WHERE rnum BETWEEN ? AND ?";
-//
-//			pstat = conn.prepareStatement(sql);
-//			
-//			int parameterIndex = 1;
-//			
-//			pstat.setInt(parameterIndex++, startIndex + 1);
-//			pstat.setInt(parameterIndex, endIndex);
-//
-//			rs = pstat.executeQuery();
-//
-//
-//			while(rs.next()) {
-//
-//				ReportCommonDTO dto = new ReportCommonDTO();
-//				String type = rs.getString("type");
-//				String sub_type = rs.getString("sub_type");
-//				String seq = rs.getString("seq");
-//
-//
-//				dto.setType(type);
-//				dto.setSub_type(sub_type);
-//				dto.setSeq(seq);
-//				dto.setRegdate(rs.getString("regdate"));
-//				dto.setWriter_id(rs.getString("id"));
-//				dto.setReport_count(rs.getString("cnt"));
-//
-//				System.out.println(type);
-//
-//				if(type.equals("comment")) {
-//					String parentSeq = findParentSeq(seq, type, sub_type);
-//					dto.setParent_seq(parentSeq != null ? parentSeq : seq);
-//				} else {
-//					dto.setParent_seq(seq);
-//				}
-//
-//				list.add(dto);
-//
-//			}
-//
-//		} catch (Exception e) {
-//			System.out.println("신고 접수 목록 로드 실패");
-//			e.printStackTrace();
-//		}
-//
-//		return list;
-//
-//	}
-	
+	/**
+	 * 전체 신고 게시글 목록을 가져옵니다.
+	 *
+	 * @param startIndex 시작 인덱스
+	 * @param endIndex   끝 인덱스
+	 * @return 신고 게시글 목록
+	 */
 	public ArrayList<ReportCommonDTO> getAllReportBoardList(int startIndex, int endIndex){
 		
 		ArrayList<ReportCommonDTO> list = new ArrayList<>();
@@ -620,6 +671,11 @@ public class ReportCommonDAO {
 		
 	}
 
+	/**
+	 * 총 신고 게시글 수를 가져옵니다.
+	 *
+	 * @return 총 신고 게시글 수
+	 */
 	public int getTotalReportBoardCount() {
 		
 		try {
@@ -641,14 +697,6 @@ public class ReportCommonDAO {
 		}
 		return 0;
 	}
-
-
-
-
-
-
-
-
 
 
 

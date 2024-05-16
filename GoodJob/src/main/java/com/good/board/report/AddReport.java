@@ -11,10 +11,24 @@ import javax.servlet.http.HttpSession;
 
 import com.good.alert.Alert;
 
-
+/**
+ * 신고 등록을 처리하는 서블릿 클래스입니다.
+ * "/user/report/addreport.do" URL 패턴에 매핑됩니다.
+ */
 @WebServlet("/user/report/addreport.do")
 public class AddReport extends HttpServlet{
 
+	/**
+     * POST 요청을 처리합니다.
+     * 사용자가 입력한 신고 정보를 받아와서 신고를 등록하는 작업을 수행합니다.
+     * 신고 등록 전에 필수 입력 필드 검사와 중복 신고 여부를 확인합니다.
+     * 신고 등록 성공 시 이전 페이지로 리다이렉트합니다.
+     *
+     * @param req  HttpServletRequest 객체
+     * @param resp HttpServletResponse 객체
+     * @throws ServletException 서블릿 예외
+     * @throws IOException      입출력 예외
+     */
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		

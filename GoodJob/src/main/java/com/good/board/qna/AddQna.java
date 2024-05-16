@@ -15,9 +15,24 @@ import com.good.alert.Alert;
 import com.good.board.model.QnaBoardDTO;
 import com.good.board.repository.QnaBoardDAO;
 
+
+/**
+ * QnA 게시글 작성을 처리하는 서블릿 클래스입니다.
+ * "/user/qna/addqna.do" URL 패턴에 매핑됩니다.
+ */
 @WebServlet("/user/qna/addqna.do")
 public class AddQna extends HttpServlet {
 	
+	/**
+     * GET 요청을 처리합니다.
+     * 사용자가 로그인되어 있으면 QnA 게시글 작성 페이지로 이동하고,
+     * 로그인되어 있지 않으면 로그인이 필요하다는 알림 메시지를 표시합니다.
+     *
+     * @param req  HttpServletRequest 객체
+     * @param resp HttpServletResponse 객체
+     * @throws ServletException 서블릿 예외
+     * @throws IOException      입출력 예외
+     */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
@@ -37,6 +52,16 @@ public class AddQna extends HttpServlet {
 		
 	}
 
+	/**
+     * POST 요청을 처리합니다.
+     * 사용자가 작성한 QnA 게시글을 데이터베이스에 저장하고,
+     * 저장 결과에 따라 작성된 게시글로 이동하거나 실패 메시지를 표시합니다.
+     *
+     * @param req  HttpServletRequest 객체
+     * @param resp HttpServletResponse 객체
+     * @throws ServletException 서블릿 예외
+     * @throws IOException      입출력 예외
+     */
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 

@@ -13,6 +13,9 @@ import com.good.board.model.QnaBoardDTO;
 import com.good.board.model.StudyDTO;
 import com.test.util.DBUtil;
 
+/**
+ * QnA 게시판의 데이터베이스 접근 및 조작을 담당하는 DAO 클래스입니다.
+ */
 public class QnaBoardDAO {
 
 	private Connection conn;
@@ -20,10 +23,16 @@ public class QnaBoardDAO {
 	private PreparedStatement pstat;
 	private ResultSet rs;
 
+	/**
+     * QnaBoardDAO 생성자입니다.
+     * 데이터베이스 연결을 설정합니다.
+     */
 	public QnaBoardDAO() {
 		this.conn = DBUtil.open();
 	}
-
+	 /**
+     * 데이터베이스 연결을 닫습니다.
+     */
 	public void close() {
 
 		try {
@@ -33,7 +42,11 @@ public class QnaBoardDAO {
 			e.printStackTrace();
 		}
 	}
-
+	/**
+     * QnA 게시글의 총 개수를 조회합니다.
+     *
+     * @return QnA 게시글의 총 개수
+     */
 	public int listCount() {
 
 		try {
@@ -59,7 +72,12 @@ public class QnaBoardDAO {
 		return 0;
 
 	}
-
+	/**
+     * 검색 조건에 맞는 QnA 게시글의 총 개수를 조회합니다.
+     *
+     * @param map 검색 조건이 담긴 HashMap
+     * @return 검색 조건에 맞는 QnA 게시글의 총 개수
+     */
 	public int getTotalCount(HashMap<String, String> map) {
 		try {
 
@@ -86,7 +104,12 @@ public class QnaBoardDAO {
 		}
 		return 0;
 	}
-
+	/**
+     * 새로운 QnA 게시글을 생성합니다.
+     *
+     * @param dto 생성할 QnA 게시글 정보가 담긴 QnaBoardDTO 객체
+     * @return 생성된 QnA 게시글의 번호
+     */
 	public int create(QnaBoardDTO dto) {
 
 		int qna_seq = 0;
@@ -122,7 +145,12 @@ public class QnaBoardDAO {
 		return qna_seq;
 
 	}
-
+	  /**
+     * QnA 게시글 목록을 조회합니다.
+     *
+     * @param map 검색 조건 및 페이징 정보가 담긴 HashMap
+     * @return QnA 게시글 목록
+     */
 	public ArrayList<QnaBoardDTO> listQna(HashMap<String, String> map) {
 
 		try {
@@ -166,7 +194,12 @@ public class QnaBoardDAO {
 		return null;
 
 	}
-
+	 /**
+     * 특정 QnA 게시글의 상세 정보를 조회합니다.
+     *
+     * @param qna_seq QnA 게시글 번호
+     * @return QnA 게시글의 상세 정보가 담긴 QnaBoardDTO 객체
+     */
 	public QnaBoardDTO viewQna(int qna_seq) {
 
 		try {
@@ -201,7 +234,12 @@ public class QnaBoardDAO {
 
 		return null;
 	}
-
+	/**
+     * 특정 QnA 게시글의 정보를 조회합니다.
+     *
+     * @param qna_seq QnA 게시글 번호
+     * @return QnA 게시글의 정보가 담긴 QnaBoardDTO 객체
+     */
 	public QnaBoardDTO getQna(String qna_seq) {
 		
 		try {
@@ -232,7 +270,12 @@ public class QnaBoardDAO {
 
 		return null;
 	}
-
+	 /**
+     * QnA 게시글을 수정합니다.
+     *
+     * @param dto 수정할 QnA 게시글 정보가 담긴 QnaBoardDTO 객체
+     * @return 수정된 QnA 게시글의 개수
+     */
 	public int edit(QnaBoardDTO dto) {
 
 		try {
@@ -256,7 +299,11 @@ public class QnaBoardDAO {
 		return 0;
 
 	}
-
+	/**
+     * QnA 게시글의 조회수를 증가시킵니다.
+     *
+     * @param qna_seq QnA 게시글 번호
+     */
 	public void updateReadcount(int qna_seq) {
 
 		try {
@@ -273,7 +320,12 @@ public class QnaBoardDAO {
 		}
 
 	}
-
+	 /**
+     * 특정 사용자의 QnA 게시글 목록을 조회합니다.
+     *
+     * @param map 사용자 정보 및 페이징 정보가 담긴 HashMap
+     * @return 특정 사용자의 QnA 게시글 목록
+     */
 	public ArrayList<QnaBoardDTO> myQna(HashMap<String, String> map) {
 		try {
 			String sql = String.format(
@@ -306,7 +358,12 @@ public class QnaBoardDAO {
 		}
 		return null;
 	}
-
+	 /**
+     * 특정 사용자의 QnA 게시글 개수를 조회합니다.
+     *
+     * @param id 사용자 ID
+     * @return 특정 사용자의 QnA 게시글 개수
+     */
 	public int getMyCount(String id) {
 		try {
 			String sql = "select count(*) as cnt from tblQna where id = ?";
@@ -326,7 +383,12 @@ public class QnaBoardDAO {
 		}
 		return 0;
 	}
-
+	 /**
+     * QnA 게시글을 삭제합니다.
+     *
+     * @param qna_seq QnA 게시글 번호
+     * @return 삭제된 QnA 게시글의 개수
+     */
 	public int delQna(String qna_seq) {
 		
 		try {
@@ -348,7 +410,12 @@ public class QnaBoardDAO {
 	}
 
 	
-	
+	 /**
+     * QnA 게시글에 댓글을 추가합니다.
+     *
+     * @param dto 추가할 댓글 정보가 담긴 CommentDTO 객체
+     * @return 추가된 댓글의 개수
+     */
 	public int addComment(CommentDTO dto) {
 	    try {
 	        // SQL 문장 작성
@@ -370,7 +437,12 @@ public class QnaBoardDAO {
 	    } 
 	    return 0;
 	}
-
+	 /**
+     * 특정 QnA 게시글의 최신 댓글을 조회합니다.
+     *
+     * @param QNA_SEQ QnA 게시글 번호
+     * @return 최신 댓글 정보가 담긴 CommentDTO 객체
+     */
 	public CommentDTO getComment(String QNA_SEQ) {
 
 		try {
@@ -403,7 +475,12 @@ public class QnaBoardDAO {
 		
 		return null;
 	}
-	
+	 /**
+     * 특정 QnA 게시글의 댓글 목록을 조회합니다.
+     *
+     * @param QNA_seq QnA 게시글 번호
+     * @return 댓글 목록
+     */
 	public ArrayList<CommentDTO> listComment(int QNA_seq) {
 	    try {
 	        
@@ -431,7 +508,13 @@ public class QnaBoardDAO {
 	    }
 	    return null;
 	}
-
+	 /**
+     * 특정 QnA 게시글의 댓글을 추가 조회합니다.
+     *
+     * @param bseq         QnA 게시글 번호
+     * @param commentBegin 댓글 조회 시작 인덱스
+     * @return 추가 조회된 댓글 목록
+     */
 	public ArrayList<CommentDTO> listMoreComment(String bseq, int commentBegin) {
 		//queryParamListReturn
 		try {
@@ -473,7 +556,12 @@ public class QnaBoardDAO {
 		return null;
 	
 	}
-
+	 /**
+     * 댓글을 삭제합니다.
+     *
+     * @param seq 삭제할 댓글 번호
+     * @return 삭제된 댓글의 개수
+     */
 	public int delComment(String seq) {
 		//queryParamNoReturn
 		try {
@@ -493,7 +581,12 @@ public class QnaBoardDAO {
 		return 0;
 	
 	}
-
+	  /**
+     * 댓글을 수정합니다.
+     *
+     * @param dto 수정할 댓글 정보가 담긴 CommentDTO 객체
+     * @return 수정된 댓글의 개수
+     */
 	public int editComment(CommentDTO dto) {
 		//queryParamNoReturn
 		try {

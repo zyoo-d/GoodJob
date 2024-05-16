@@ -20,8 +20,19 @@ import com.good.board.report.repository.ReportCommonDAO;
 import com.good.board.repository.BoardCommonDAO;
 
 @WebServlet("/admin/boardreport.do")
+/**
+* BoardReport 서블릿은 HTTP GET 요청을 처리합니다.
+*/
 public class BoardReport extends HttpServlet {
 	
+	 /**
+	    * doGet 메서드는 게시판 신고 내역 관련 데이터를 조회하고 JSP 페이지로 전달합니다.
+	    *
+	    * @param req  HttpServletRequest 객체
+	    * @param resp HttpServletResponse 객체
+	    * @throws ServletException
+	    * @throws IOException
+	    */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 	
