@@ -17,7 +17,15 @@ public class InterviewDAO {
 	private Statement stat;
 	private PreparedStatement pstat;
 	private ResultSet rs;
-
+	
+	/**
+     * InterviewDAO 생성자
+     * 
+     * DBUtil 클래스를 사용하여 데이터베이스 연결을 초기화합니다.
+     * 
+     */
+	
+	
 	public InterviewDAO() {
 		this.conn = DBUtil.open();
 	}
@@ -31,7 +39,12 @@ public class InterviewDAO {
 			e.printStackTrace();
 		}
 	}
-
+	  /**
+     * 면접 정보 목록을 조회합니다.
+     *
+     * @param map 검색 조건 및 페이징 정보를 포함하는 HashMap
+     * @return 면접 정보 목록을 담은 ArrayList
+     */
 	public ArrayList<InterviewDTO> list(HashMap<String, String> map) {
 		try {
 
@@ -77,7 +90,12 @@ public class InterviewDAO {
 
 		return null;
 	}
-
+	  /**
+     * 새로운 면접 정보를 작성합니다.
+     *
+     * @param dto 작성할 면접 정보를 담은 InterviewDTO 객체
+     * @return 작성 결과 (성공 시 1, 실패 시 0)
+     */
 	public int Write(InterviewDTO dto) {
 		try {
 			String sql = "INSERT INTO tblInterview (ITV_SEQ, ITV_CPNAME, ITV_MEETDATE, ITV_EVALUATION, ITV_REGDATE, CP_SEQ, ID, ITV_DIFFICULTY, ITV_CATEGORY, ITV_CAREER, ITV_PERSONNEL, ITV_QUESTION, ITV_TIP, ITV_WHETHER, ITV_CONFIRM) "
@@ -108,7 +126,12 @@ public class InterviewDAO {
 
 		return 0;
 	}
-
+	 /**
+     * 지정된 면접 정보를 조회합니다.
+     *
+     * @param itv_seq 조회할 면접 정보의 ID
+     * @return 조회된 면접 정보를 담은 InterviewDTO 객체
+     */
 	public InterviewDTO getItv(String itv_seq) {
 
 		try {
@@ -150,7 +173,12 @@ public class InterviewDAO {
 
 		return null;
 	}
-
+	 /**
+     * 면접 정보를 수정합니다.
+     *
+     * @param dto 수정할 면접 정보를 담은 InterviewDTO 객체
+     * @return 수정 결과 (성공 시 1, 실패 시 0)
+     */
 	public int edit(InterviewDTO dto) {
 		try {
 			String sql = "UPDATE tblInterview " + "SET ITV_CPNAME = ?, "
@@ -186,7 +214,12 @@ public class InterviewDAO {
 		return 0;
 
 	}
-
+	 /**
+     * 지정된 면접 정보를 삭제합니다.
+     *
+     * @param itv_seq 삭제할 면접 정보의 ID
+     * @return 삭제 결과 (성공 시 1, 실패 시 0)
+     */
 	public int delQna(String itv_seq) {
 		try {
 
@@ -204,7 +237,12 @@ public class InterviewDAO {
 
 		return 0;
 	}
-
+    /**
+     * 면접 목록의 총 개수를 조회합니다.
+     *
+     * @param map 검색 조건을 포함하는 HashMap
+     * @return 면접 목록의 총 개수
+     */
 	public int getTotalCount(HashMap<String, String> map) {
 		try {
 
@@ -232,7 +270,12 @@ public class InterviewDAO {
 		return 0;
 
 	}
-
+	/**
+     * 사용자가 작성한 면접 정보의 개수를 조회합니다.
+     *
+     * @param id 사용자 ID
+     * @return 사용자가 작성한 면접 정보의 개수
+     */
 	public int getCount(String id) {
 		try {
 			String sql = "select count(*) as cnt from vwinterview where id = ?";
@@ -252,7 +295,12 @@ public class InterviewDAO {
 		}
 		return 0;
 	}
-
+	  /**
+     * 사용자가 작성한 면접 정보 목록을 조회합니다.
+     *
+     * @param map 사용자 ID 및 페이징 정보를 포함하는 HashMap
+     * @return 사용자가 작성한 면접 정보 목록을 담은 ArrayList
+     */
 	public ArrayList<InterviewDTO> myInterview(HashMap<String, String> map) {
 		try {
 			String sql = String.format(
@@ -283,7 +331,11 @@ public class InterviewDAO {
 		}
 		return null;
 	}
-
+	 /**
+     * 승인 대기 중인 면접 정보 목록을 조회합니다.
+     *
+     * @return 승인 대기 중인 면접 정보 목록을 담은 ArrayList
+     */
 	public ArrayList<InterviewApprovalDTO> getInterviewApproval() {
 		try {
 			String sql = "select * from vwInterviewApproval";
@@ -310,7 +362,11 @@ public class InterviewDAO {
 		}
 		return null;
 	}
-
+	  /**
+     * 보류 중인 면접 정보 목록을 조회합니다.
+     *
+     * @return 보류 중인 면접 정보 목록을 담은 ArrayList
+     */
 	public ArrayList<InterviewDTO> getInterviewHold() {
 		try {
 			String sql = "select * from tblinterview where itv_confirm =0";
@@ -335,7 +391,12 @@ public class InterviewDAO {
 		}
 		return null;
 	}
-
+	  /**
+     * 면접 정보를 승인합니다.
+     *
+     * @param itvSeq 승인할 면접 정보의 ID
+     * @return 승인 결과 (성공 시 1, 실패 시 0)
+     */
 	public int AddapproveInterview(String itvSeq) {
 		try {
 			String sql = "update tblinterview set itv_confirm =1 where itv_seq = ?";
@@ -353,7 +414,12 @@ public class InterviewDAO {
 		}
 		return 0;
 	}
-
+    /**
+     * 면접 승인 내역을 추가합니다.
+     *
+     * @param itvSeq 승인된 면접 정보의 ID
+     * @return 추가 결과 (성공 시 1, 실패 시 0)
+     */
 	public int insertApproval(String itvSeq) {
 		
 		try {
@@ -372,7 +438,11 @@ public class InterviewDAO {
 		}
 		return 0;
 	}
-
+    /**
+     * 면접 동행 정보 목록을 조회합니다.
+     *
+     * @return 면접 동행 정보 목록을 담은 ArrayList
+     */
 	public ArrayList<InterviewCompanionDTO> getInterviewCompanion() {
 		try {
 			String sql = "select * from vwInterviewCompanion";
@@ -399,7 +469,13 @@ public class InterviewDAO {
 		}
 		return null;
 	}
-	
+    /**
+     * 면접 동행 정보를 추가합니다.
+     *
+     * @param itvSeq 동행 추가할 면접 정보의 ID
+     * @param reason 동행 사유
+     * @return 추가 결과 (성공 시 1, 실패 시 0)
+     */
 public int insertCompanion(String itvSeq, String reason) {
 		
 		try {
@@ -419,7 +495,12 @@ public int insertCompanion(String itvSeq, String reason) {
 		}
 		return 0;
 	}
-
+/**
+ * 면접 정보를 동행 보류 상태로 변경합니다.
+ *
+ * @param itvSeq 동행 보류 상태로 변경할 면접 정보의 ID
+ * @return 변경 결과 (성공 시 1, 실패 시 0)
+ */
 public int AddInterviewCompanion(String itvSeq) {
 	try {
 		String sql = "update tblinterview set itv_confirm =2 where itv_seq = ?";

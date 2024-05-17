@@ -16,6 +16,16 @@ import com.good.board.repository.InterviewDAO;
 @WebServlet("/board/interview/itvWrite.do")
 public class InterviewWrite extends HttpServlet {
 
+
+	   /**
+	    * HTTP GET 요청을 처리하여 면접 작성 폼을 표시합니다.
+	    *
+	    * @param req  HttpServletRequest 객체
+	    * @param resp HttpServletResponse 객체
+	    * @throws ServletException Servlet 관련 에러 발생 시
+	    * @throws IOException      I/O 에러 발생 시
+	    */
+	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -24,6 +34,19 @@ public class InterviewWrite extends HttpServlet {
 	        RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/user/interview/itvwrite.jsp");
 	        dispatcher.forward(req, resp);
 	    }
+	
+	
+	
+	
+	
+	/**
+	    * HTTP POST 요청을 처리하여 새로운 면접 정보를 작성합니다.
+	    *
+	    * @param request  HttpServletRequest 객체
+	    * @param response HttpServletResponse 객체
+	    * @throws ServletException Servlet 관련 에러 발생 시
+	    * @throws IOException      I/O 에러 발생 시
+	    */
 	
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

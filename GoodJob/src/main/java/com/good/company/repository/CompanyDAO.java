@@ -535,7 +535,7 @@ public class CompanyDAO {
 		}
 		return 0;
 	}
-
+	
 	public int AddLiveComment(CommentDTO cmdto) {
 		// 실시간 댓글 insert
 		try {

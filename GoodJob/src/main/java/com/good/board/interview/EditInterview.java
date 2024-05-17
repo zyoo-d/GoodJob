@@ -17,7 +17,14 @@ import com.good.board.repository.InterviewDAO;
 
 @WebServlet("/board/interview/itvEdit.do")
 public class EditInterview extends HttpServlet{
-	
+	/**
+     * 
+     *
+     * @param req  HttpServletRequest 객체
+     * @param resp HttpServletResponse 객체
+     * @throws ServletException Servlet 관련 에러 발생 시
+     * @throws IOException      I/O 에러 발생 시
+     */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		HttpSession session = req.getSession();
@@ -41,16 +48,25 @@ public class EditInterview extends HttpServlet{
 	
 	
 	}
+	/**
+     * 
+     *
+     * @param req  HttpServletRequest 객체
+     * @param resp HttpServletResponse 객체
+     * @throws ServletException Servlet 관련 에러 발생 시
+     * @throws IOException      I/O 에러 발생 시
+     */
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
+		// 사용자 세션 정보 가져오기 
+		// 수정할 면접 정보 ID 가져오기
 		HttpSession session = req.getSession();
 		String id = (String)session.getAttribute("id");
 		String ITV_SEQ = req.getParameter("ITV_SEQ");
 		System.out.println("수정후 ITV_SEQ");
 		System.out.println(ITV_SEQ);
 		req.setCharacterEncoding("UTF-8");
-	    
+	    // 폼 데이터 가져오기
 		String ITV_CPNAME = req.getParameter("itvCpName");
 	    String cpSeq = req.getParameter("cp_seq");
 	    String itvCareer = req.getParameter("ITV_CAREER");
@@ -63,7 +79,7 @@ public class EditInterview extends HttpServlet{
 	    String itvTip = req.getParameter("ITV_TIP");
 	    String itvWhether = req.getParameter("ITV_WHETHER");
 	
-
+	 // InterviewDTO 객체 생성 및 값 설정
 	    InterviewDTO dto = new InterviewDTO();
 	    dto.setITV_CPNAME(ITV_CPNAME);
 	    dto.setCP_SEQ(cpSeq);
@@ -82,8 +98,10 @@ public class EditInterview extends HttpServlet{
 	    System.out.println("수정한 글 불러오기");
 	    System.out.println(dto);
 	    InterviewDAO dao = new InterviewDAO();
+	    // InterviewDAO를 사용하여 면접 정보 수정
 	    int result = dao.edit(dto);
 	    System.out.println(result);
+	    // 수정 결과에 따른 리다이렉트
 	    if (result > 0) {
 	    	System.out.println("interviewWrite 수정 성공");
 	      resp.sendRedirect("/good/board/interview/interview.do");
