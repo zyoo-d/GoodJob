@@ -16,9 +16,22 @@ import com.good.board.model.QnaBoardDTO;
 import com.good.board.model.StudyDTO;
 import com.good.board.repository.QnaBoardDAO;
 
+/**
+ * QnA 게시글 목록을 조회하고 페이징 처리를 수행하는 서블릿 클래스입니다.
+ * "/user/qna/listqna.do" URL 패턴에 매핑됩니다.
+ */
 @WebServlet("/user/qna/listqna.do")
 public class ListQna extends HttpServlet {
 
+	/**
+     * GET 요청을 처리합니다.
+     * QnA 게시글 목록을 조회하고 페이징 처리를 수행한 후, 목록 페이지로 전달합니다.
+     *
+     * @param req  HttpServletRequest 객체
+     * @param resp HttpServletResponse 객체
+     * @throws ServletException 서블릿 예외
+     * @throws IOException      입출력 예외
+     */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 

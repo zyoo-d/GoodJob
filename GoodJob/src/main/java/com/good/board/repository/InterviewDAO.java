@@ -31,6 +31,31 @@ public class InterviewDAO {
 			e.printStackTrace();
 		}
 	}
+	
+	
+	public int getTotalHoldInterviewCount() {
+		
+		try {
+			
+			String sql = "select count(*) as cnt from vwHoldInterviewList";
+			
+			stat = conn.createStatement();
+			rs = stat.executeQuery(sql);
+			
+			if(rs.next()) {
+				
+				return rs.getInt("cnt");
+				
+			}
+			
+		} catch (Exception e) {
+			System.out.println("승인 대기 리뷰 수 로드 실패");
+			e.printStackTrace();
+		}
+		
+		return 0;
+		
+	}
 
 	public ArrayList<InterviewDTO> list(HashMap<String, String> map) {
 		try {
@@ -311,13 +336,21 @@ public class InterviewDAO {
 		return null;
 	}
 
-	public ArrayList<InterviewDTO> getInterviewHold() {
+	public ArrayList<InterviewDTO> getInterviewHold(int startIndex, int endIndex) {
+			
+		ArrayList<InterviewDTO> list = new ArrayList<>();
+		
 		try {
-			String sql = "select * from tblinterview where itv_confirm =0";
+			StringBuilder sql = new StringBuilder("SELECT * FROM (SELECT ROWNUM AS rnum, t.* FROM (SELECT * "
+                    + "FROM vwHoldInterviewList "
+                    + "ORDER BY regdate asc) t) WHERE rnum BETWEEN ? AND ?");
 
-			stat = conn.createStatement();
-			rs = stat.executeQuery(sql);
-			ArrayList<InterviewDTO> list = new ArrayList<>();
+			pstat = conn.prepareStatement(sql.toString());
+			int parameterIndex = 1;
+			
+			pstat.setInt(parameterIndex++, startIndex + 1);
+			pstat.setInt(parameterIndex, endIndex);
+			
 
 			while (rs.next()) {
 				InterviewDTO dto = new InterviewDTO();
@@ -327,13 +360,14 @@ public class InterviewDAO {
 				dto.setITV_REGDATE(rs.getString("ITV_REGDATE"));
 				list.add(dto);
 			}
-			return list;
 
 		} catch (Exception e) {
 			System.out.println("InterviewDAO.getInterviewHold");
 			e.printStackTrace();
 		}
-		return null;
+		
+		return list;
+		
 	}
 
 	public int AddapproveInterview(String itvSeq) {

@@ -15,6 +15,9 @@ import com.good.board.model.BoardCommonDTO;
 import com.good.board.report.model.ReportCommonDTO;
 import com.test.util.DBUtil;
 
+/**
+ * 게시판 공통 정보를 다루는 DAO 클래스입니다.
+ */
 public class BoardCommonDAO {
 	
 	private Connection conn;
@@ -22,10 +25,16 @@ public class BoardCommonDAO {
 	private PreparedStatement pstat;
 	private ResultSet rs;
 	
+	/**
+     * BoardCommonDAO 생성자입니다.
+     * 데이터베이스 연결을 설정합니다.
+     */
 	public BoardCommonDAO() {
 		this.conn = DBUtil.open();
 	}
-	
+	/**
+     * 데이터베이스 연결을 닫습니다.
+     */
 	public void close() {
 		try {
 			this.conn.close();
@@ -34,7 +43,11 @@ public class BoardCommonDAO {
 			e.printStackTrace();
 		}
 	}
-	
+	/**
+     * 주간 인기 게시글 목록을 가져옵니다.
+     *
+     * @return 주간 인기 게시글 목록
+     */
 	public ArrayList<BoardCommonDTO> getWeekTopPosts() {
 		
 		ArrayList<BoardCommonDTO> list = new ArrayList<>();
@@ -68,7 +81,11 @@ public class BoardCommonDAO {
 		
 	}
 	
-	
+	/**
+     * 게시판별 게시글 비율을 가져옵니다.
+     *
+     * @return 게시판별 게시글 비율이 담긴 HashMap (게시판 타입 -> 비율)
+     */
 	public HashMap<String, Double> getPostRatioByBoard() {
 	    HashMap<String, Double> map = new HashMap<>();
 
@@ -100,7 +117,11 @@ public class BoardCommonDAO {
 
 	    return map;
 	}
-
+	/**
+     * 당일 신고된 게시글 수를 가져옵니다.
+     *
+     * @return 당일 신고된 게시글 수
+     */
 	public String getTodayReportCount() {
 		
 		try {
@@ -125,6 +146,11 @@ public class BoardCommonDAO {
 		return null;
 	}
 	
+	/**
+     * 처리 완료된 신고 수를 가져옵니다.
+     *
+     * @return 처리 완료된 신고 수
+     */
 	public int getTotalCompleteReport() {
 		
 		try {
@@ -149,6 +175,12 @@ public class BoardCommonDAO {
 
 	}
 	
+	/**
+     * 최근 신고 수를 날짜별로 가져옵니다.
+     *
+     * @param recentDays 최근 날짜 목록
+     * @return 최근 신고 수가 담긴 HashMap (날짜 -> (게시판 타입 -> 신고 수))
+     */
 	public HashMap<String,HashMap<String,Integer>> getRecentReportCount(List<LocalDate> recentDays){
 		
 		HashMap<String,HashMap<String,Integer>> map = new HashMap<>();

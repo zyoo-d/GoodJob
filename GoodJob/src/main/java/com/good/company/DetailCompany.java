@@ -23,9 +23,25 @@ import com.good.company.repository.WelFareDAO;
 import com.good.news.NewsDAO;
 import com.good.news.NewsDTO;
 
+/**
+ * 기업 상세 정보를 처리하는 서블릿 클래스
+ * 
+ * 이 클래스는 기업 상세 정보 페이지에 필요한 데이터를 조회하고,
+ * 조회된 데이터를 JSP 페이지로 전달하는 역할을 합니다.
+ * GET 요청을 처리하여 기업 상세 정보, 리뷰, 채용 공고, 뉴스 등의 데이터를 조회하고,
+ * 조회된 데이터를 request 객체에 저장하여 JSP 페이지로 포워딩합니다.
+ */
 @WebServlet("/user/company/companyview.do")
 public class DetailCompany extends HttpServlet {
 
+    /**
+     * GET 요청을 처리하는 메서드
+     * 
+     * @param req HttpServletRequest 객체
+     * @param resp HttpServletResponse 객체
+     * @throws ServletException 서블릿 예외 발생 시
+     * @throws IOException 입출력 예외 발생 시
+     */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		HttpSession session = req.getSession();
@@ -59,18 +75,11 @@ public class DetailCompany extends HttpServlet {
 
 		// 기업재무정보
 		ArrayList<Long>[] flist = dao.getCompanyFinance(cp_seq);
-		// System.out.println(flist[0]);
 
 		// 리뷰조회
 		ReviewDAO rdao = new ReviewDAO();
 		ArrayList<ReviewDTO> listReview = rdao.listReview(cp_seq);
-		// System.out.println("Number of reviews fetched: " + listReview.size());
-		// System.out.println(listReview);
 
-		// 태그출력
-		ReviewDAO tdao = new ReviewDAO();
-
-		// ArrayList<ReviewDTO> ComTaglist = tdao.tagList(cp_seq);
 		// 상위 태그 목록 조회
 		CompanyDAO cdao = new CompanyDAO();
 		ArrayList<String> topTags = cdao.getTopTagsByCpSeq(cp_seq);
@@ -102,7 +111,6 @@ public class DetailCompany extends HttpServlet {
 		String cp_name = dto.getCp_name();
 		NewsDAO ndao = new NewsDAO();
 		ArrayList<NewsDTO> nlist = ndao.search(cp_name);
-		// System.out.println(nlist);
 
 		// 기업 복지
 		WelFareDAO wdao = new WelFareDAO();
@@ -127,10 +135,7 @@ public class DetailCompany extends HttpServlet {
 		req.setAttribute("search", search);
 		req.setAttribute("hiring", hiring);
 		req.setAttribute("topTags", topTags);
-		// req.setAttribute("flist",flist);
-
 		req.setAttribute("livecommentlist", livecommentlist);
-		// req.setAttribute("ComTaglist", ComTaglist);
 		req.setAttribute("comJobList", comJobList);
 		req.setAttribute("salesList", flist[0]);
 		req.setAttribute("ebitList", flist[1]);
@@ -141,6 +146,14 @@ public class DetailCompany extends HttpServlet {
 
 	}
 
+    /**
+     * POST 요청을 처리하는 메서드
+     * 
+     * @param req HttpServletRequest 객체
+     * @param resp HttpServletResponse 객체
+     * @throws ServletException 서블릿 예외 발생 시
+     * @throws IOException 입출력 예외 발생 시
+     */
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 

@@ -14,13 +14,24 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.good.admin.PageUtil;
 import com.good.board.report.model.ReportCommonDTO;
 import com.good.board.report.repository.ReportCommonDAO;
+import com.good.util.PageUtil;
 
+/**
+ * ListReportUser 서블릿은 관리자 페이지에서 신고된 사용자 목록을 조회하고 관리하는 역할을 합니다.
+ */
 @WebServlet("/admin/listreportuser.do")
 public class ListReportUser extends HttpServlet {
-	
+
+	/**
+	 * doGet 메서드는 신고된 사용자 목록을 조회하고 JSP 페이지로 전달합니다.
+	 *
+	 * @param req  HttpServletRequest 객체
+	 * @param resp HttpServletResponse 객체
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		ReportCommonDAO reportCommonDAO = new ReportCommonDAO();
@@ -39,19 +50,26 @@ public class ListReportUser extends HttpServlet {
 
 		req.setAttribute("reportList", reportList);
 		req.setAttribute("pageUtil", pageUtil);
-		
+
 		reportCommonDAO.close();
 
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/admin/user/listreportuser.jsp");
 		dispatcher.forward(req, resp);
 
 	}
-
+	/**
+	 * doPost 메서드는 신고된 사용자에 대한 조치(차단 등)를 처리합니다.
+	 *
+	 * @param req  HttpServletRequest 객체
+	 * @param resp HttpServletResponse 객체
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		ReportCommonDAO reportCommonDAO = new ReportCommonDAO();
-		
+
 		HttpSession session = req.getSession();
 		String id = (String)session.getAttribute("id");
 
@@ -67,17 +85,17 @@ public class ListReportUser extends HttpServlet {
 
 		List<String> userIds = Arrays.asList(userId.split(","));
 		HashMap<String,String> blockStatus = reportCommonDAO.checkBlock(userIds);
-		
+
 		reportCommonDAO.blockuser(blockStatus,status,blockDate,releaseDate,blockReason);
-		
+
 		List<String> report_seqs = Arrays.asList(report_seq.split(","));
 		List<String> report_types = Arrays.asList(report_type.split(","));
 		List<String> report_sub_types = Arrays.asList(report_sub_type.split(","));
-		
- 		reportCommonDAO.confirmReport(report_seqs, report_types, report_sub_types , id);
- 		
- 		reportCommonDAO.close();
-		
+
+		reportCommonDAO.confirmReport(report_seqs, report_types, report_sub_types , id);
+
+		reportCommonDAO.close();
+
 		resp.sendRedirect("/good/admin/listreportuser.do");
 
 	}

@@ -64,7 +64,7 @@
 						<li id="submenu-review"><a class="nav-link"
 							href="/good/admin/review/review.do">승인 대기 리뷰</a></li>
 						<li id="submenu-boardreport"><a class="nav-link"
-							href="/good/board/interview/InterviewHold.do">승인 대기 면접 후기</a></li>
+							href="/good/admin/interview/interviewhold.do">승인 대기 면접 후기</a></li>
 						<li id="submenu-boardreport"><a class="nav-link"
 							href="/good/admin/boardreport.do">신고 게시글 관리</a></li>
 						<li id="submenu-notice"><a class="nav-link"
@@ -86,6 +86,9 @@
 						<li id="submenu-survey"><a class="nav-link"
 							href="/good/admin/survey/survey.do">설문조사 목록/수정</a></li>
 					</ul></li>
+				<li  id="menu-mainpage"><a href="/good/main.do"
+					class="nav-link"><i class="far fa-file-alt"></i> <span>회원 페이지</span></a>
+					</li>
 			</ul>
 		</aside>
 	</div>
