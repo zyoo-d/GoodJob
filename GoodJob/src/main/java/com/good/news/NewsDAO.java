@@ -35,8 +35,8 @@ public class NewsDAO {
 
 		ArrayList<NewsDTO> nlist = new ArrayList<NewsDTO>();
 
-		String clientId = "pLlr5465lv_1r5aUEl6Z";
-		String clientSecret = "sQHqJT2l9k";
+		String clientId = "";
+		String clientSecret = "";
 
 		try {
 			word = URLEncoder.encode(word, "UTF-8");
