@@ -107,7 +107,7 @@ public class StudyDAO {
      * 페이징 처리를 위한 시작 인덱스와 종료 인덱스를 매개변수로 받아 해당 범위의 공부 세션 정보를 리스트로 반환합니다.
      *
      * @param map 페이지 처리와 검색정보가 담긴 HashMap
-     * @return 조회된 공부 세션 정보 목록을 담고 있는 ArrayList<StudyDTO>
+     * @return 조회된 공부 세션 정보 목록을 담고 있는  ArrayList&lt;StudyDTO&gt;
      */
 	public ArrayList<StudyDTO> listStudy(HashMap<String, String> map) {
 		try {
@@ -279,7 +279,7 @@ public class StudyDAO {
      * 페이징 처리를 위한 시작 인덱스와 종료 인덱스를 매개변수로 받아 해당 범위의 공부 세션 정보를 리스트로 반환합니다.
      *
      * @param map 페이지 처리와 id가 담긴 HashMap
-     * @return 조회된 공부 세션 정보 목록을 담고 있는 ArrayList<StudyDTO>
+     * @return 조회된 공부 세션 정보 목록을 담고 있는  ArrayList&lt;StudyDTO&gt;
      */
 	public ArrayList<StudyDTO> myStudy(HashMap<String, String> map) {
 		try {
@@ -346,8 +346,8 @@ public class StudyDAO {
 	/**
      * 공부 세션과 관련된 댓글 목록을 조회합니다.
      *
-     * @param stdSeq 공부 세션의 식별자
-     * @return 해당 공부 세션의 댓글 목록이 담긴 ArrayList<CommentDTO>
+     * @param std_seq 공부 세션의 식별자
+     * @return 해당 공부 세션의 댓글 목록이 담긴  ArrayList&lt;CommentDTO&gt;
      */
 	public ArrayList<CommentDTO> listComment(String std_seq) {
 	    try {
@@ -379,17 +379,17 @@ public class StudyDAO {
 	/**
      * 특정 댓글을 데이터베이스에서 조회합니다.
      *
-     * @param seq 댓글 번호
+     * @param std_seq 댓글 번호
      * @return 조회된 댓글 정보를 담은 CommentDTO
      */
-	public CommentDTO getComment(String sTD_SEQ) {
+	public CommentDTO getComment(String std_seq) {
 
 		try {
 			
 			String sql = "SELECT * FROM vwstdComment WHERE STD_SEQ = ? AND STD_CM_SEQ = (SELECT MAX(STD_CM_SEQ) FROM vwstdComment WHERE STD_SEQ = ?)";
 			pstat = conn.prepareStatement(sql);
-			pstat.setString(1, sTD_SEQ);
-			pstat.setString(2, sTD_SEQ);
+			pstat.setString(1, std_seq);
+			pstat.setString(2, std_seq);
 					
 			rs = pstat.executeQuery();
 			
@@ -418,9 +418,9 @@ public class StudyDAO {
 	/**
      * 공부 세션과 관련된 댓글 목록을 더 조회합니다.
      *
-     * @param bSeq 공부 세션의 식별자
+     * @param bseq 공부 세션의 식별자
      * @param commentBegin 추가로 불러올 댓글의 시작 번호
-     * @return 해당 공부 세션의 댓글 목록이 담긴 ArrayList<CommentDTO>
+     * @return 해당 공부 세션의 댓글 목록이 담긴 ArrayList&lt;CommentDTO&gt;
      */
 	public ArrayList<CommentDTO> listMoreComment(String bseq, int commentBegin) {
 		//queryParamListReturn
@@ -491,7 +491,7 @@ public class StudyDAO {
 	/**
      * 댓글을 삭제합니다.
      *
-     * @param sep 삭제할 댓글의 시퀀스
+     * @param seq 삭제할 댓글의 시퀀스
      * @return 데이터 삭제 성공 여부를 나타내는 정수 (1: 성공, 0: 실패)
      */
 	public int delComment(String seq) {

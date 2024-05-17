@@ -1,7 +1,9 @@
 package com.good.company.model;
 
 import lombok.Data;
-
+/**
+* 스크랩 정보를 담는 DTO 클래스
+*/
 @Data
 public class ScrapDTO {
 

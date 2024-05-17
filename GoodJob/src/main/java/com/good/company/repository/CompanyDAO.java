@@ -191,9 +191,13 @@ public class CompanyDAO {
 	}
 
 	/**
-	 * 기업 목록, 상세 최신 정보 불러오는 메서드
-	 * 
-	 * @return 기업정보(일반/재무/고용)
+	 * 기업 정보 목록을 조회하는 메서드입니다.
+	 * 검색어, 채용 중인 기업, 연봉, 지역 등의 조건을 포함하여 기업 정보를 조회합니다.
+	 * 페이징 처리를 위해 시작 인덱스와 종료 인덱스를 매개변수로 받습니다.
+	 *
+	 * @param map 검색 조건과 페이징 정보가 담긴 HashMap
+	 *            
+	 * @return 조회된 기업 정보 목록을 담고 있는 ArrayList&lt;CompanyDTO&gt;
 	 */
 	public ArrayList<CompanyDTO> comListInfo(HashMap<String, String> map) {
 
@@ -452,11 +456,11 @@ public class CompanyDAO {
 	}
 
 	/**
-	 * 업계평균연봉 조회 메서드
-	 * 
-	 * @param idst_code
-	 * @return
-	 */
+	* 특정 업종의 평균 연봉을 조회하는 메서드입니다.
+	*
+	* @param idst_code 업종 코드
+	* @return 해당 업종의 평균 연봉 (조회 결과가 없을 경우 0을 반환)
+	*/
 	public int getIdstSalary(String idst_code) {
 		try {
 			String sql = "select * from vwIdstAvgSalary where idst_code = ?";
@@ -832,9 +836,10 @@ public class CompanyDAO {
 
 
 	/**
-	 * 등록된 리뷰수 불러오는 메서드
-	 * 
-	 * @return 리뷰수
+	 * 특정 기업의 등록된 리뷰 수를 조회하는 메서드입니다.
+	 *
+	 * @param cp_seq 기업 시퀀스
+	 * @return 해당 기업의 리뷰 수
 	 */
 	public int countRiview(String cp_seq) {
 		try {

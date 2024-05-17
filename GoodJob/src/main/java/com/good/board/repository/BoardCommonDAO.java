@@ -84,7 +84,7 @@ public class BoardCommonDAO {
 	/**
      * 게시판별 게시글 비율을 가져옵니다.
      *
-     * @return 게시판별 게시글 비율이 담긴 HashMap (게시판 타입 -> 비율)
+     * @return 게시판별 게시글 비율이 담긴 HashMap (게시판 타입,비율)
      */
 	public HashMap<String, Double> getPostRatioByBoard() {
 	    HashMap<String, Double> map = new HashMap<>();
@@ -179,7 +179,7 @@ public class BoardCommonDAO {
      * 최근 신고 수를 날짜별로 가져옵니다.
      *
      * @param recentDays 최근 날짜 목록
-     * @return 최근 신고 수가 담긴 HashMap (날짜 -> (게시판 타입 -> 신고 수))
+     * @return 최근 신고 수가 담긴 HashMap (날짜 , (게시판 타입 , 신고 수))
      */
 	public HashMap<String,HashMap<String,Integer>> getRecentReportCount(List<LocalDate> recentDays){
 		

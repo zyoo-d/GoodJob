@@ -46,7 +46,7 @@ public class MatchingDAO {
 	 * 사용자 ID에 따라 사용자의 설문 결과를 조회하여 각 카테고리의 점수를 HashMap으로 반환합니다.
 	 * 
 	 * @param id 사용자 ID
-	 * @return HashMap<String, Integer> 각 카테고리와 해당 점수를 포함하는 HashMap
+	 * @return HashMap&lt;String, Integer&gt; 각 카테고리와 해당 점수를 포함하는 HashMap
 	 */
 	public HashMap<String, Integer> getColumn(String id) {
 
@@ -86,7 +86,7 @@ public class MatchingDAO {
 	 * 
 	 * @param columnNames 사용할 컬럼 이름 배열
 	 * @param id          사용자 ID
-	 * @return ArrayList<MatchingDTO> 매칭 결과 리스트
+	 * @return ArrayList&lt;MatchingDTO&gt; 매칭 결과 리스트
 	 */
 	public ArrayList<MatchingDTO> getMatching(String[] columnNames, String id) {
 		ArrayList<MatchingDTO> list = new ArrayList<>();

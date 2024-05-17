@@ -19,10 +19,16 @@ public class TagDAO {
 	private PreparedStatement pstat;
 	private ResultSet rs;
 
+	/**
+     * 기본 생성자입니다. 데이터베이스 연결을 수행합니다.
+     */
 	public TagDAO() {
 		this.conn = DBUtil.open();
 	}
 
+	/**
+     * 데이터베이스 연결을 닫습니다.
+     */
 	public void close() {
 		try {
 			this.conn.close();
