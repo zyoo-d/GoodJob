@@ -11,7 +11,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.good.board.repository.StudyDAO;
 import com.good.company.repository.CompanyDAO;
+/*
+  Servlet implementation class LiveDelComment
 
+  이 서블릿은 "/board/comment/livedelcomment.do" URL 요청을 처리합니다.
+  실시간 채용 페이지에 작성된 댓글을 삭제하는 기능을 제공합니다.
+
+ */
 @WebServlet("/board/comment/livedelcomment.do")
 public class LiveDelComment extends HttpServlet {
 

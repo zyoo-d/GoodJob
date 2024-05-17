@@ -17,7 +17,13 @@ import org.json.simple.JSONObject;
 
 import com.good.board.model.CommentDTO;
 import com.good.board.repository.CommentDAO;
+/*
+ Servlet implementation class ListComment
+ 
+ 이 서블릿은 "/user/comment/Listcomment.do" URL 요청을 처리합니다.
+ 게시글에 대한 댓글 목록을 조회하고 JSP 페이지로 전달하는 기능을 제공합니다.
 
+ */
 @WebServlet("/user/comment/Listcomment.do")
 public class ListComment extends HttpServlet {
 	/**

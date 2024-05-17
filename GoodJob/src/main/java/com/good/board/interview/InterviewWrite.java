@@ -12,7 +12,13 @@ import javax.servlet.http.HttpSession;
 
 import com.good.board.model.InterviewDTO;
 import com.good.board.repository.InterviewDAO;
+/*
 
+서블릿 구현 클래스 InterviewWrite
+이 서블릿은 "/board/interview/itvWrite.do" URL 요청을 처리하는 역할을 합니다.
+시스템에 새로운 인터뷰 항목을 생성하는 기능을 제공합니다.
+
+  */
 @WebServlet("/board/interview/itvWrite.do")
 public class InterviewWrite extends HttpServlet {
 

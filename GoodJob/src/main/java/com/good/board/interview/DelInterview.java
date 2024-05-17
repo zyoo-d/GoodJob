@@ -11,7 +11,13 @@ import javax.servlet.http.HttpServletResponse;
 import com.good.alert.Alert;
 import com.good.board.qna.AuthQna;
 import com.good.board.repository.InterviewDAO;
+/*
+ Servlet implementation class DelInterview
 
+ 이 서블릿은 "/board/interview/itvDel.do" URL 요청을 처리합니다.
+ 사용자가 선택한 면접 정보를 삭제하는 기능을 제공합니다.
+
+*/
 @WebServlet("/board/interview/itvDel.do")
 public class DelInterview extends HttpServlet {
 	@Override

@@ -13,7 +13,13 @@ import javax.servlet.http.HttpSession;
 
 import com.good.board.repository.QnaBoardDAO;
 
+/*
+  Servlet implementation class QnaDelComment
 
+  이 서블릿은 "/board/comment/qnadelcomment.do" URL 요청을 처리합니다.
+  질문답변 게시판의 댓글을 삭제하는 기능을 제공합니다.
+
+ */
 @WebServlet("/board/comment/qnadelcomment.do")
 public class QnaDelComment extends HttpServlet {
 	  /**
