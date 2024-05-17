@@ -14,18 +14,28 @@ import com.good.company.repository.CompanyDAO;
 
 @WebServlet("/board/comment/livedelcomment.do")
 public class LiveDelComment extends HttpServlet {
+
+    /**
+     * HTTP POST 요청을 처리하여 실시간 채용 페이지의 댓글을 삭제합니다.
+     *
+     * @param request  HttpServletRequest 객체
+     * @param response HttpServletResponse 객체
+     * @throws ServletException Servlet 관련 에러 발생 시
+     * @throws IOException      I/O 에러 발생 시
+     */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-	
+		// 삭제할 댓글 ID 가져오기
 		String seq = request.getParameter("seq");
 		System.out.println(seq);
 		
-	
+	    // CompanyDAO를 사용하여 댓글 삭제
 		CompanyDAO cmdao = new CompanyDAO();
 		
 		int result = cmdao.delComment(seq);
 		System.out.println(result);
+		// JSON 형식의 응답 데이터 생성
 		response.setContentType("application/json");
 		
 		PrintWriter writer = response.getWriter();
