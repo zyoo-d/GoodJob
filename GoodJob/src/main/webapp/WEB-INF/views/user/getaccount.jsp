@@ -72,7 +72,7 @@ input[type="text"] {
 								type="password" id="password" placeholder="비밀번호 확인" />
 							<div>
 								<input type="button" class="btn btn-primary mt-10 block w-full text-xl" id="btn_changePw"
-									value="비밀번호 재설정2" />
+									value="비밀번호 재설정" />
 							</div>
 						</div>
 

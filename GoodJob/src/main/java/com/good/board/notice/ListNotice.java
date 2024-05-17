@@ -15,7 +15,9 @@ import javax.servlet.http.HttpSession;
 import com.good.board.model.NoticeDTO;
 import com.good.board.model.StudyDTO;
 import com.good.board.repository.NoticeDAO;
-
+/**
+ * 공지사항 목록을 보여주는 서블릿입니다.
+ */
 @WebServlet("/board/notice.do")
 public class ListNotice extends HttpServlet {
 

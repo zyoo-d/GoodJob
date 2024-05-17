@@ -15,7 +15,9 @@ import javax.servlet.http.HttpServletResponse;
 import com.good.company.model.CompanyDTO;
 import com.good.company.repository.CompanyDAO;
 import com.good.company.repository.CompareDAO;
-
+/**
+ * 기업 선택을 위한 팝업 서블릿입니다.
+ */
 @WebServlet("/user/company/cp_selectModal.do")
 public class CompanyModal extends HttpServlet {
 

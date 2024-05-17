@@ -10,10 +10,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.good.board.repository.NoticeDAO;
-
+/**
+ * 공지사항을 삭제하는 서블릿입니다.
+ */
 @WebServlet("/board/notice/delnotice.do")
 public class DelNotice extends HttpServlet {
-
+    /**
+     * 공지사항을 삭제합니다.
+     * 삭제가 성공하면 공지사항 목록 페이지로 리다이렉트됩니다.
+     * 삭제에 실패하면 에러 메시지가 표시되고 이전 페이지로 리다이렉트됩니다.
+     */
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
