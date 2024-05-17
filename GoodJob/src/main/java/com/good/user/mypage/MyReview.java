@@ -17,9 +17,20 @@ import com.good.board.repository.StudyDAO;
 import com.good.company.model.ReviewDTO;
 import com.good.company.repository.ReviewDAO;
 
+/**
+ * 내 리뷰 페이지를 처리하는 서블릿 클래스
+ */
 @WebServlet("/user/mypage/myreview.do")
 public class MyReview extends HttpServlet {
 
+	/**
+	 * GET 요청을 처리하는 메서드
+	 *
+	 * @param req  HTTP 요청 객체
+	 * @param resp HTTP 응답 객체
+	 * @throws ServletException 서블릿 예외
+	 * @throws IOException      입출력 예외
+	 */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -91,9 +102,7 @@ public class MyReview extends HttpServlet {
 
 		while (!(loop > blockSize || n > totalPage)) {
 			if (n == nowPage) {
-				sb.append(String.format(
-						"<li class='page-item active'><a class='page-link' href='#'>%d</a></li>",
-						n));
+				sb.append(String.format("<li class='page-item active'><a class='page-link' href='#'>%d</a></li>", n));
 			} else {
 				sb.append(String.format(
 						"<li class='page-item'><a class='page-link' href='/good/user/mypage/myreview.do?page=%d'>%d</a></li>",
@@ -109,7 +118,8 @@ public class MyReview extends HttpServlet {
 					"<li class='page-item disabled'><a class='page-link' href='#' aria-label='Next'> <span aria-hidden='true'>&raquo;</span> <span class='sr-only'>다음페이지</span> </a></li>");
 		} else {
 			sb.append(String.format(
-					"<li class='page-item'><a class='page-link' href='/good/user/mypage/myreview.do?page=%d' aria-label='Next'> <span aria-hidden='true'>&raquo;</span> <span class='sr-only'>다음페이지</span> </a></li>", n));
+					"<li class='page-item'><a class='page-link' href='/good/user/mypage/myreview.do?page=%d' aria-label='Next'> <span aria-hidden='true'>&raquo;</span> <span class='sr-only'>다음페이지</span> </a></li>",
+					n));
 		}
 		req.setAttribute("list", list);
 		req.setAttribute("map", map);
@@ -118,7 +128,6 @@ public class MyReview extends HttpServlet {
 		req.setAttribute("totalPage", totalPage);
 		req.setAttribute("pagebar", sb.toString());
 		dao.close();
-
 
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/user/mypage/myreview.jsp");
 		dispatcher.forward(req, resp);
