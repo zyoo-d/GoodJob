@@ -100,83 +100,76 @@
 											</table>
 										</div>
 									</div>
-									<!-- 페이징 기능 등 생략 -->
+
+									<div class="card-footer text-center">
+										<nav class="d-inline-block">
+											<ul class="pagination mb-0">
+												<c:if test="${pageUtil.hasPreviousPage()}">
+													<li class="page-item"><a class="page-link"
+														href="/good/admin/interview/interviewhold.do.do?page=${pageUtil.startPage - 1}&rp_seq=${param.rp_seq}">
+															<i class="fas fa-chevron-left"></i>
+													</a></li>
+												</c:if>
+
+												<c:forEach begin="${pageUtil.startPage}"
+													end="${pageUtil.startPage + 4 < pageUtil.totalPages ? pageUtil.startPage + 4 : pageUtil.totalPages}"
+													var="page">
+													<li
+														class="page-item ${page == pageUtil.currentPage ? 'active' : ''}">
+														<a class="page-link"
+														href="/good/admin/interview/interviewhold.do.do?page=${page}&rp_seq=${param.rp_seq}">
+															${page} </a>
+													</li>
+												</c:forEach>
+
+												<c:if test="${pageUtil.hasNextPage()}">
+													<li class="page-item"><a class="page-link"
+														href="/good/admin/interview/interviewhold.do.do?page=${pageUtil.startPage + 5}&rp_seq=${param.rp_seq}">
+															<i class="fas fa-chevron-right"></i>
+													</a></li>
+												</c:if>
+											</ul>
+										</nav>
+									</div>
+
+
 								</div>
 							</div>
 						</div>
 					</div>
-
-
-
-					<div class="card-footer text-center">
-						<nav class="d-inline-block">
-							<ul class="pagination mb-0">
-								<c:if test="${pageUtil.hasPreviousPage()}">
-									<li class="page-item"><a class="page-link"
-										href="/good/admin/listreportuser.do?page=${pageUtil.startPage - 1}&rp_seq=${param.rp_seq}">
-											<i class="fas fa-chevron-left"></i>
-									</a></li>
-								</c:if>
-
-								<c:forEach begin="${pageUtil.startPage}"
-									end="${pageUtil.startPage + 4 < pageUtil.totalPages ? pageUtil.startPage + 4 : pageUtil.totalPages}"
-									var="page">
-									<li
-										class="page-item ${page == pageUtil.currentPage ? 'active' : ''}">
-										<a class="page-link"
-										href="/good/admin/listreportuser.do?page=${page}&rp_seq=${param.rp_seq}">
-											${page} </a>
-									</li>
-								</c:forEach>
-
-								<c:if test="${pageUtil.hasNextPage()}">
-									<li class="page-item"><a class="page-link"
-										href="/good/admin/listreportuser.do?page=${pageUtil.startPage + 5}&rp_seq=${param.rp_seq}">
-											<i class="fas fa-chevron-right"></i>
-									</a></li>
-								</c:if>
-							</ul>
-						</nav>
-					</div>
+				</section>
 			</div>
+			<%@include file="/WEB-INF/views/inc/adminfooter.jsp"%>
 		</div>
 	</div>
 
-	<footer class="main-footer">
-		<div class="footer-left">
-			Copyright &copy; 2018
-			<div class="bullet"></div>
-			Design By <a href="https://nauval.in/">Muhamad Nauval Azhar</a>
+
+	<div id="modal-part" class="modal-part">
+		<div class="form-group">
+			<label for="status">처리</label> <select class="form-control"
+				id="status">
+				<option value="0">승인</option>
+				<option value="3">보류</option>
+			</select>
 		</div>
-		<div class="footer-right"></div>
-	</footer>
-
-
-	<div id="modal-part" class="modal-part">		
-			<div class="form-group">
-				<label for="status">처리</label> <select class="form-control"
-					id="status">
-					<option value="0">승인</option>
-					<option value="3">보류</option>
-				</select>
-			</div>
-				<div class="form-group">
-				<label for="status">사유</label> <select class="form-control" disabled
-					id="chstatus">
-					<option value="10"> </option>
-					<option value="0">오타 및 욕설</option>
-					<option value="3">광고 글 의심</option>
-					<option value="5">관련 없는 내용 작성</option>
-				</select>
-			</div>	
+		<div class="form-group">
+			<label for="status">사유</label> <select class="form-control" disabled
+				id="chstatus">
+				<option value="10"></option>
+				<option value="0">오타 및 욕설</option>
+				<option value="3">광고 글 의심</option>
+				<option value="5">관련 없는 내용 작성</option>
+			</select>
+		</div>
 	</div>
 
 
-		<!-- Page Specific JS File -->
-		<script src="/good/assets/js/page/components-table.js"></script>
+	<!-- Page Specific JS File -->
+
+	<script src="/good/assets/js/page/components-table.js"></script>
 
 
-		<script>
+	<script>
 
 		let modalInputs;
 		let selectedUser = {};

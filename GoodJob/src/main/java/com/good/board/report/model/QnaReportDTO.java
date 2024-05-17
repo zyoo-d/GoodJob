@@ -2,6 +2,9 @@ package com.good.board.report.model;
 
 import lombok.Getter;
 
+/**
+ * QnA 게시판 신고 정보를 담는 DTO 클래스입니다.
+ */
 @Getter
 public class QnaReportDTO {
 	private final String qna_rp_seq;
@@ -11,6 +14,11 @@ public class QnaReportDTO {
 	private final String id;
 	private final String qna_rp_detail;
 
+	/**
+     * QnaReportDTO 객체의 생성자입니다.
+     *
+     * @param builder QnaReportDTO.Builder 객체
+     */
 	private QnaReportDTO(Builder builder) {
 		this.qna_rp_seq = builder.qna_rp_seq;
 		this.qna_rp_regdate = builder.qna_rp_regdate;
@@ -20,6 +28,9 @@ public class QnaReportDTO {
 		this.qna_rp_detail = builder.qna_rp_detail;
 	}
 
+	/**
+     * QnaReportDTO 객체를 생성하는 Builder 클래스입니다.
+     */
 	public static class Builder {
 		private String qna_rp_seq;
 		private String qna_rp_regdate;
@@ -58,6 +69,11 @@ public class QnaReportDTO {
 			return this;
 		}
 
+		/**
+         * QnaReportDTO 객체를 생성합니다.
+         *
+         * @return 생성된 QnaReportDTO 객체
+         */
 		public QnaReportDTO build() {
 			return new QnaReportDTO(this);
 		}

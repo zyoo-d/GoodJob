@@ -15,10 +15,14 @@ import javax.servlet.http.HttpServletResponse;
 import com.good.company.model.CompanyDTO;
 import com.good.company.model.ReviewDTO;
 import com.good.company.repository.CompareDAO;
-
+/**
+ * 사용자가 선택한 기업을 비교하여 정보를 표시하는 서블릿입니다.
+ */
 @WebServlet("/user/company/comparecompany.do")
 public class CompareCompany extends HttpServlet {
-
+    /**
+     * GET 요청을 처리하여 사용자가 선택한 기업을 비교합니다.
+     */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 

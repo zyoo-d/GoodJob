@@ -11,6 +11,10 @@ import java.util.ArrayList;
 import com.good.board.report.model.StdReportDTO;
 import com.test.util.DBUtil;
 
+/**
+ * 스터디 게시글 신고 정보를 다루는 DAO 클래스입니다.
+ * ReportDAO 인터페이스를 구현하여 CRUD 기능을 제공합니다.
+ */
 public class StdReportDAO implements ReportDAO<StdReportDTO> {
 
 	
@@ -19,10 +23,16 @@ public class StdReportDAO implements ReportDAO<StdReportDTO> {
 	private PreparedStatement pstat;
 	private ResultSet rs;
 	
+	 /**
+     * StdReportDAO 생성자입니다.
+     * 데이터베이스 연결을 설정합니다.
+     */
 	public StdReportDAO() {
 		this.conn = DBUtil.open();
 	}
-	
+	/**
+     * 데이터베이스 연결을 닫습니다.
+     */
 	public void close() {
 		try {
 			this.conn.close();
@@ -32,6 +42,12 @@ public class StdReportDAO implements ReportDAO<StdReportDTO> {
 		}
 	}
 	
+	 /**
+     * 새로운 스터디 게시글 신고를 생성합니다.
+     *
+     * @param dto 생성할 스터디 게시글 신고 정보
+     * @return 생성된 스터디 게시글 신고의 수
+     */
 	@Override
 	public int create(StdReportDTO dto) {
 		
@@ -55,21 +71,13 @@ public class StdReportDAO implements ReportDAO<StdReportDTO> {
 		
 	}
 
-	@Override
-	public ArrayList<StdReportDTO> list() {
-		
-		
-		return null;
-	}
 
-	@Override
-	public void delete(String seq) {
-	}
 
-	@Override
-	public void view(String seq) {
-	}
-
+	  /**
+     * 전체 스터디 게시글 신고 수를 가져옵니다.
+     *
+     * @return 전체 스터디 게시글 신고 수
+     */
 	@Override
 	public int totalCount() {
 		
@@ -95,6 +103,13 @@ public class StdReportDAO implements ReportDAO<StdReportDTO> {
 		return 0;
 	}
 
+	 /**
+     * 특정 사용자가 특정 스터디 게시글을 신고했는지 확인합니다.
+     *
+     * @param id  사용자 ID
+     * @param seq 스터디 게시글 번호
+     * @return 사용자가 해당 스터디 게시글을 신고했다면 true, 그렇지 않으면 false
+     */
 	@Override
 	public boolean isReported(String id, String seq) {
 		
@@ -123,6 +138,12 @@ public class StdReportDAO implements ReportDAO<StdReportDTO> {
 		return false;
 	}
 
+	 /**
+     * 특정 날짜의 스터디 게시글 신고 수를 가져옵니다.
+     *
+     * @param date 조회할 날짜
+     * @return 해당 날짜의 스터디 게시글 신고 수
+     */
 	@Override
 	public int getReportCountByDate(LocalDate date) {
 		

@@ -13,10 +13,15 @@ import javax.servlet.http.HttpSession;
 
 import com.good.board.model.BoardCommonDTO;
 import com.good.board.repository.NoticeDAO;
-
+/**
+ * 공지사항을 추가하는 서블릿입니다.
+ */
 @WebServlet("/board/noticewrite.do")
 public class AddNotice extends HttpServlet {
-
+	/**
+     * 공지사항 작성 페이지로 이동합니다.
+     * 접근 권한이 없는 경우 메인 페이지로 리다이렉트됩니다.
+     */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -34,7 +39,11 @@ public class AddNotice extends HttpServlet {
 		dispatcher.forward(req, resp);
 
 	}
-	
+	 /**
+     * 공지사항을 추가합니다.
+     * 추가가 성공하면 공지사항 목록 페이지로 리다이렉트됩니다.
+     * 추가에 실패하면 에러 메시지가 표시되고 공지사항 작성 페이지로 리다이렉트됩니다.
+     */
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 

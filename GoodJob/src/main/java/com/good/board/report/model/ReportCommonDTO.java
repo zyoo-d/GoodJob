@@ -2,6 +2,9 @@ package com.good.board.report.model;
 
 import lombok.Data;
 
+/**
+ * 신고 공통 정보를 담는 DTO 클래스입니다.
+ */
 @Data
 public class ReportCommonDTO {
 	
@@ -21,5 +24,4 @@ public class ReportCommonDTO {
 	private String parent_seq;
 
 	
-	//<button id="report-btn" data-boardtype="live" data-seq="${cdto.cm_seq}">[ 신고 ]</button>
 }

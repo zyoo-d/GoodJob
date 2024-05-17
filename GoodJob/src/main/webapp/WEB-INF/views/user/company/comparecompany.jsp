@@ -31,7 +31,7 @@
 					</h1>
 					<p class="mt-6">비교하고 싶은 기업을 지정해보세요.</p>
 					<div class="moving-btn">
-						<a href="#" class="btn btnList">기업 다시 비교하기</a>
+						<button type="button" class="btn btnList" onclick="window.open('/good/user/company/cp_selectModal.do', '_blank', 'resizable=yes, scrollbars=yes, width=590, height=1020, left=100, top=200')">기업 다시 비교하기</button>
 					</div>
 				</div>
 				<div class="my-6 border-t border-border pt-7">
@@ -50,7 +50,7 @@
 									</div>
 									<div class="my-5 border-y border-border py-5" id="cp_info">
 										<span>대표 : ${dto.ceo}</span><br /> <span>평균 근속년수 :
-											${dto.hire_avr_year}</span><br /> <span>사원 수 :
+											${dto.hire_avr_year}개월</span><br /> <span>사원 수 :
 											${dto.hire_member }</span><br /> <span>설립일 : ${dto.founded == null ? '정보 없음' : dto.founded}</span><br />
 										<span>주소 : ${dto.cp_address}</span><br />
 									</div>

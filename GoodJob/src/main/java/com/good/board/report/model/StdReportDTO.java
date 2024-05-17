@@ -2,6 +2,9 @@ package com.good.board.report.model;
 
 import lombok.Getter;
 
+/**
+ * 스터디 게시판 신고 정보를 담는 DTO 클래스입니다.
+ */
 @Getter
 public class StdReportDTO {
     private final String std_rp_seq;
@@ -11,6 +14,11 @@ public class StdReportDTO {
     private final String rp_seq;
     private final String std_rp_detail;
 
+    /**
+     * StdReportDTO 객체의 생성자입니다.
+     *
+     * @param builder StdReportDTO.Builder 객체
+     */
     private StdReportDTO(Builder builder) {
         this.std_rp_seq = builder.std_rp_seq;
         this.std_rp_regdate = builder.std_rp_regdate;
@@ -20,6 +28,9 @@ public class StdReportDTO {
         this.std_rp_detail = builder.std_rp_detail;
     }
 
+    /**
+     * StdReportDTO 객체를 생성하는 Builder 클래스입니다.
+     */
     public static class Builder {
         private String std_rp_seq;
         private String std_rp_regdate;
@@ -58,6 +69,11 @@ public class StdReportDTO {
             return this;
         }
 
+        /**
+         * StdReportDTO 객체를 생성합니다.
+         *
+         * @return 생성된 StdReportDTO 객체
+         */
         public StdReportDTO build() {
             return new StdReportDTO(this);
         }

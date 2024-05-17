@@ -20,10 +20,15 @@ public class CompareDAO {
 	private Statement stat;
 	private PreparedStatement pstat;
 	private ResultSet rs;
-
+	 /**
+     * 기본 생성자입니다. 데이터베이스 연결을 수행합니다.
+     */
 	public CompareDAO() {
 		this.conn = DBUtil.open();
 	}
+    /**
+     * 데이터베이스 연결을 닫습니다.
+     */
 	public void close()  {
         try {
             this.conn.close();
@@ -33,6 +38,11 @@ public class CompareDAO {
         }
     }
 	
+    /**
+     * 사용자가 선택한 기업 정보를 가져옵니다.
+     * @param map 사용자가 선택한 기업 정보가 담긴 맵 객체
+     * @return 선택한 기업 정보를 담고 있는 기업 DTO 객체들의 리스트
+     */
 	public ArrayList<CompanyDTO> getCompareInfo(HashMap<String, String> map) {
 	    try {
 	        String sql = "SELECT * from vwComInfoScore where cp_name in (?, ?, ?)  order by cp_seq desc";
@@ -84,6 +94,12 @@ public class CompareDAO {
 
 	    return null;
 	}
+	
+    /**
+     * 기업의 재무 정보를 가져옵니다.
+     * @param map 사용자가 선택한 기업 정보가 담긴 맵 객체
+     * @return 기업의 재무 정보를 담은 리스트 배열
+     */
 	public ArrayList<Long>[] getCompanyFinance(HashMap<String, String> map) {
 		ArrayList<Long> salesList = new ArrayList<>();
         ArrayList<Long> ebitList = new ArrayList<>();
@@ -118,6 +134,11 @@ public class CompareDAO {
     return new ArrayList[]{salesList, ebitList, incomeList};
     
 }
+    /**
+     * 기업의 리뷰 점수를 가져옵니다.
+     * @param map 사용자가 선택한 기업 정보가 담긴 맵 객체
+     * @return 기업의 리뷰 점수를 담은 리스트
+     */
 	public ArrayList<ReviewDTO> getReviewscore(HashMap<String, String> map) {
 		try {
 			String sql = "SELECT \r\n"
@@ -162,7 +183,19 @@ public class CompareDAO {
 		}
 		return null;
 	}
-
+	/**
+	 * 주어진 조건에 따라 기업 목록을 조회하는 메서드입니다.
+	 *
+	 * @param map 조건을 담은 HashMap 객체. 키와 값은 다음을 포함합니다:
+	 *            - search: 검색 여부를 나타내는 문자열 ("y" 또는 "n")
+	 *            - word: 검색어 문자열
+	 *            - hiring: 채용 중인 기업 여부를 나타내는 문자열 ("y" 또는 "n")
+	 *            - salary_seq: 연봉 조건을 나타내는 문자열
+	 *            - cp_address: 기업 위치 조건을 담은 문자열 배열
+	 *            - begin: 페이지 시작 번호
+	 *            - end: 페이지 끝 번호
+	 * @return 기업 목록을 담은 ArrayList 객체
+	 */
 	public ArrayList<CompanyDTO> comListInfo(HashMap<String, String> map) {
 
 		try {

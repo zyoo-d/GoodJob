@@ -5,6 +5,9 @@ import java.sql.Timestamp;
 
 import lombok.Data;
 
+/**
+* QnaBoardDTO 클래스는 QnA 게시판의 게시글 정보를 담고 있는 데이터 전송 객체입니다.
+*/
 @Data
 public class QnaBoardDTO{
 	
