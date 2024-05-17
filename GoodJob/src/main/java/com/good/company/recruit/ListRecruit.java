@@ -14,11 +14,21 @@ import javax.servlet.http.HttpServletResponse;
 import com.good.company.model.RecruitDTO;
 import com.good.company.repository.RecruitDAO;
 
+/**
+ * 채용 공고 목록을 처리하는 서블릿
+ */
 @WebServlet("/user/recruit/listrecruit.do")
 public class ListRecruit extends HttpServlet{
 	
 	
-
+	/**
+     * GET 요청을 처리하는 메소드
+     *
+     * @param req  HttpServletRequest 객체
+     * @param resp HttpServletResponse 객체
+     * @throws ServletException 서블릿 예외
+     * @throws IOException      입출력 예외
+     */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		

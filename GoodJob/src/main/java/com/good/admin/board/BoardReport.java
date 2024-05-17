@@ -19,10 +19,10 @@ import com.good.board.repository.BoardCommonDAO;
 import com.good.util.DateUtil;
 import com.good.util.PageUtil;
 
-@WebServlet("/admin/boardreport.do")
 /**
-* BoardReport 서블릿은 HTTP GET 요청을 처리합니다.
-*/
+ * BoardReport 서블릿은 HTTP GET 요청을 처리합니다.
+ */
+@WebServlet("/admin/boardreport.do")
 public class BoardReport extends HttpServlet {
 	
 	 /**

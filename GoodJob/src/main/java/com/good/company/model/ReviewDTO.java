@@ -5,7 +5,9 @@ import java.util.ArrayList;
 
 import lombok.Data;
 
-
+/**
+* 기업 리뷰 정보를 담는 DTO 클래스
+*/
 @Data
 public class ReviewDTO {
 	

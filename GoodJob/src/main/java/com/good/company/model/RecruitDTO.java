@@ -4,6 +4,9 @@ import java.util.ArrayList;
 
 import lombok.Data;
 
+/**
+* 채용 정보를 담는 DTO 클래스
+*/
 @Data
 public class RecruitDTO {
 	

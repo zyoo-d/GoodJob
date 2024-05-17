@@ -15,6 +15,9 @@ import com.good.company.model.ReviewDTO;
 import com.good.company.model.Tag;
 import com.test.util.DBUtil;
 
+/**
+* 기업 비교 관련 데이터베이스 작업을 처리하는 DAO 클래스
+*/
 public class CompareDAO {
 	private Connection conn;
 	private Statement stat;

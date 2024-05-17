@@ -120,7 +120,7 @@ public class ReportCommonDAO {
 	 /**
      * 게시판별 신고 횟수를 가져옵니다.
      *
-     * @return 게시판별 신고 횟수가 담긴 HashMap (게시판 타입 -> 신고 횟수)
+     * @return 게시판별 신고 횟수가 담긴 HashMap (게시판 타입 ,신고 횟수)
      */
 	public HashMap<String, Integer> getReportCountByBoard(){
 
@@ -383,7 +383,7 @@ public class ReportCommonDAO {
 /**
  * 사용자를 차단합니다.
  *
- * @param blockStatus  차단 상태 정보가 담긴 HashMap (사용자 ID -> 기존 차단 해제일)
+ * @param blockStatus  차단 상태 정보가 담긴 HashMap (사용자 ID,기존 차단 해제일)
  * @param status       차단 상태
  * @param blockDate    차단 시작일
  * @param releaseDate  차단 해제일
@@ -528,7 +528,7 @@ public class ReportCommonDAO {
 	 * 사용자들의 차단 여부를 확인합니다.
 	 *
 	 * @param userIds 확인할 사용자 ID 목록
-	 * @return 사용자별 차단 상태 정보가 담긴 HashMap (사용자 ID -> 차단 해제일)
+	 * @return 사용자별 차단 상태 정보가 담긴 HashMap (사용자 ID , 차단 해제일)
 	 */
 	public HashMap<String, String> checkBlock(List<String> userIds) {
 		HashMap<String, String> blockStatus = new HashMap<>();

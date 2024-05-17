@@ -12,7 +12,7 @@ import com.good.admin.visitor.repository.VisitorDAO;
 
 /**
 * ServerShutdownListener 클래스는 ServletContextListener 인터페이스를 구현합니다.
-* @WebListener 애노테이션으로 리스너를 등록합니다.
+* 애노테이션으로 리스너를 등록합니다.
 */
 @WebListener
 public class ServerShutdownListener implements ServletContextListener{

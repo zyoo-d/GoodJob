@@ -9,19 +9,26 @@ import java.util.HashMap;
 
 import com.good.board.model.BoardCommonDTO;
 import com.good.board.model.NoticeDTO;
-import com.good.board.model.QnaBoardDTO;
 import com.test.util.DBUtil;
 
+/**
+ * NoticeDAO는 공지사항(Notice)과 관련된 데이터베이스 작업을 수행하는 클래스입니다.
+ */
 public class NoticeDAO {
 	private Connection conn;
 	private Statement stat;
 	private PreparedStatement pstat;
 	private ResultSet rs;
 
+/**
+     * NoticeDAO 객체를 생성합니다. 데이터베이스 연결을 수행합니다.
+     */
 	public NoticeDAO() {
 		this.conn = DBUtil.open();
 	}
-	
+/**
+     * 데이터베이스 연결을 닫습니다.
+     */
 	public void close()  {
 		
 		try {
