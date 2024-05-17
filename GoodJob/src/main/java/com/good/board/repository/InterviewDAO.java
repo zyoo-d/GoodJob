@@ -11,7 +11,14 @@ import com.good.board.model.InterviewApprovalDTO;
 import com.good.board.model.InterviewCompanionDTO;
 import com.good.board.model.InterviewDTO;
 import com.test.util.DBUtil;
+/*
+  InterviewDAO 클래스
+ 
+  면접 관련 데이터를 데이터베이스에서 CRUD(Create, Read, Update, Delete) 작업을 수행하는 DAO(Data Access Object) 클래스입니다.
+  면접 목록 조회, 면접 작성, 면접 정보 수정, 면접 삭제 등의 기능을 제공합니다.
+  또한 면접 승인, 면접 동행 관련 기능도 포함하고 있습니다.
 
+ */
 public class InterviewDAO {
 	private Connection conn;
 	private Statement stat;

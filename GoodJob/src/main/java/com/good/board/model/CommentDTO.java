@@ -5,7 +5,13 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import lombok.Data;
+/*
+ CommentDTO 클래스
 
+ 게시판 댓글에 관련된 데이터를 저장하고 관리하는 DTO(Data Transfer Object) 클래스입니다.
+댓글 내용, 작성일, 게시글 번호, 대댓글 번호, 작성자 ID, 댓글 번호, 작성자 닉네임, 기업 번호 등의 정보를 포함합니다.
+
+*/
 @Data
 public class CommentDTO {
 

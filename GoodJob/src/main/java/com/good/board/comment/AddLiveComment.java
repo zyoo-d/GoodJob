@@ -15,7 +15,13 @@ import org.json.simple.JSONObject;
 import com.good.board.model.CommentDTO;
 import com.good.company.repository.CompanyDAO;
 import com.good.company.repository.RecruitDAO;
+/*
+  Servlet implementation class AddLiveComment
+ 
+  이 서블릿은 "/board/comment/AddLivecomment.do" URL 요청을 처리합니다.
+  실시간 채용 페이지에서 사용자가 작성한 댓글을 저장하고 반환하는 기능을 제공합니다.
 
+ */
 @WebServlet("/board/comment/AddLivecomment.do")
 public class AddLiveComment extends HttpServlet{
 	/**

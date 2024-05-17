@@ -13,7 +13,13 @@ import javax.servlet.http.HttpSession;
 
 import com.good.board.model.CommentDTO;
 import com.good.board.repository.StudyDAO;
+/*
+  Servlet implementation class StdEditComment
+ 
+  이 서블릿은 "/board/comment/stdeditcomment.do" URL 요청을 처리합니다.
+  스터디 게시판의 댓글을 수정하는 기능을 제공합니다.
 
+ */
 @WebServlet("/board/comment/stdeditcomment.do")
 public class StdEditComment extends HttpServlet {
 	

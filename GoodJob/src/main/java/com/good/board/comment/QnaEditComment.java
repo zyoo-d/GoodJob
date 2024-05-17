@@ -11,7 +11,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.good.board.model.CommentDTO;
 import com.good.board.repository.QnaBoardDAO;
+/*
+  Servlet implementation class QnaEditComment
 
+  이 서블릿은 "/board/comment/qnaeditcomment.do" URL 요청을 처리합니다.
+  질문답변 게시판의 댓글을 수정하는 기능을 제공합니다.
+
+ */
 @WebServlet("/board/comment/qnaeditcomment.do")
 public class QnaEditComment extends HttpServlet {
 

@@ -8,7 +8,13 @@ import java.util.ArrayList;
 
 import com.good.board.model.CommentDTO;
 import com.test.util.DBUtil;
+/*
+  CommentDAO 클래스
 
+  게시판 댓글 관련 데이터를 데이터베이스에서 CRUD(Create, Read, Update, Delete) 작업을 수행하는 DAO(Data Access Object) 클래스입니다.
+  댓글 작성, 댓글 목록 조회, 최신 댓글 조회 등의 기능을 제공합니다.
+
+ */
 public class CommentDAO {
 	private Connection conn;
 	private Statement stat;

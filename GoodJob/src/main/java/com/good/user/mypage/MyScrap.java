@@ -14,6 +14,14 @@ import javax.servlet.http.HttpSession;
 import com.good.company.model.ScrapDTO;
 import com.good.company.repository.CompanyDAO;
 
+/*
+  Servlet implementation class MyScrap
+
+  이 서블릿은 "/user/mypage/myscrap.do" URL 요청을 처리합니다.
+  사용자의 스크랩 목록을 조회하고 JSP 페이지로 전달하는 기능을 제공합니다.
+  또한 사용자가 스크랩을 삭제할 수 있는 기능도 제공합니다.
+
+ */
 @WebServlet("/user/mypage/myscrap.do")
 public class MyScrap extends HttpServlet{
 

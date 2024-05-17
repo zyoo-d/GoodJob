@@ -14,8 +14,15 @@ import com.good.board.model.InterviewDTO;
 import com.good.board.repository.InterviewDAO;
 
 
+/*
+  InterviewHold 서블릿 구현 클래스
 
+  이 서블릿은 "/board/interview/InterviewHold.do" URL 요청을 처리합니다.
+  보류 중인 면접 목록을 가져와 JSP 페이지로 전달합니다.
+
+ */
 	@WebServlet("/board/interview/InterviewHold.do")
+	
 	public class InterviewHold extends HttpServlet {
 		  /**
 	     * HTTP GET 요청을 처리하여 보류 중인 면접 목록을 표시합니다.

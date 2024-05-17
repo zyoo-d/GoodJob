@@ -18,6 +18,15 @@ import com.good.board.model.StudyDTO;
 import com.good.board.repository.InterviewDAO;
 import com.good.board.repository.QnaBoardDAO;
 
+/*
+
+서블릿 구현 클래스 ListInterview
+
+이 서블릿은 "/board/interview/interview.do" URL 요청을 처리하는 역할을 합니다.
+데이터베이스에서 인터뷰 목록을 검색하고, 페이지네이션 및 검색 기능을 적용하여
+데이터를 JSP 페이지로 전달해 렌더링합니다.
+
+*/
 @WebServlet("/board/interview/interview.do")
 public class ListInterview extends HttpServlet {
 

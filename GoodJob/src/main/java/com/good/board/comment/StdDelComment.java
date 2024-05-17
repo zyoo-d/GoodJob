@@ -12,7 +12,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.good.board.repository.StudyDAO;
+/*
+  Servlet implementation class StdDelComment
+ 
+  이 서블릿은 "/board/comment/stddelcomment.do" URL 요청을 처리합니다.
+  스터디 게시판의 댓글을 삭제하는 기능을 제공합니다.
 
+ */
 @WebServlet("/board/comment/stddelcomment.do")
 public class StdDelComment extends HttpServlet {
 	
