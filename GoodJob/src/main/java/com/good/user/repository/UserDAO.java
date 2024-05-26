@@ -9,17 +9,24 @@ import java.time.LocalDate;
 
 import com.good.user.model.UserDTO;
 import com.test.util.DBUtil;
-
+/**
+ * UserDAO 클래스는 사용자와 관련된 데이터베이스 작업을 처리합니다.
+ */
 public class UserDAO {
 	private Connection conn;
 	private Statement stat;
 	private PreparedStatement pstat;
 	private ResultSet rs;
-
+    /**
+     * 데이터베이스 연결을 초기화하는 생성자입니다.
+     */
 	public UserDAO() {
 		this.conn = DBUtil.open();
 	}
-	
+
+    /**
+     * 데이터베이스 연결을 닫습니다.
+     */
 	public void close()  {
 
         try {
@@ -30,6 +37,12 @@ public class UserDAO {
         }
     }
 
+    /**
+     * 주어진 사용자 ID가 데이터베이스에 이미 존재하는지 확인합니다.
+     * 
+     * @param id 확인할 사용자 ID입니다.
+     * @return 데이터베이스에서 찾은 사용자 ID의 수입니다.
+     */
 	public int checkId(String id) {
 		try {
 
@@ -51,6 +64,13 @@ public class UserDAO {
 		return -1;
 
 	}
+	
+	/**
+     * 주어진 별명이 데이터베이스에 이미 존재하는지 확인합니다.
+     * 
+     * @param nickname 확인할 별명입니다.
+     * @return 데이터베이스에서 찾은 별명의 수입니다.
+     */
 	public int checkNick(String nickname) {
 		try {
 			
@@ -74,6 +94,12 @@ public class UserDAO {
 		
 	}
 
+	   /**
+     * 사용자 정보를 데이터베이스에 등록합니다.
+     * 
+     * @param dto 등록할 사용자의 정보가 담긴 UserDTO 객체입니다.
+     * @return 데이터베이스에 등록된 행의 수입니다.
+     */
 	public int signUp(UserDTO dto) {
 		try {
 			String sql = "INSERT INTO tblUser (id, pw, name, tel, address, email, nickname) VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -96,6 +122,12 @@ public class UserDAO {
 		return 0;
 	}
 
+	  /**
+     * 사용자의 로그인을 처리하고 인증 정보를 반환합니다.
+     * 
+     * @param dto 로그인할 사용자의 정보가 담긴 UserDTO 객체입니다.
+     * @return 로그인에 성공한 경우 인증된 사용자 정보를 포함한 UserDTO 객체를 반환합니다. 그렇지 않으면 null을 반환합니다.
+     */
 	public UserDTO login(UserDTO dto) {
 		// queryParamDTOReturn
 		try {
@@ -138,6 +170,12 @@ public class UserDAO {
 		return null;
 	}
 
+	   /**
+     * 사용자의 이름과 전화번호로 ID를 조회합니다.
+     * 
+     * @param dto 사용자의 이름과 전화번호가 담긴 UserDTO 객체입니다.
+     * @return 조회된 사용자의 ID입니다.
+     */
 	public String getId(UserDTO dto) {
 		try {
 			String sql = "select id from tblUser where name=? and tel=?";
@@ -159,6 +197,12 @@ public class UserDAO {
 		return null;
 	}
 
+    /**
+     * 사용자의 비밀번호를 변경합니다.
+     * 
+     * @param dto 비밀번호를 변경할 사용자의 정보가 담긴 UserDTO 객체입니다.
+     * @return 비밀번호 변경에 성공한 경우 변경된 행의 수를 반환합니다. 그렇지 않으면 0을 반환합니다.
+     */
 	public int changePw(UserDTO dto) {
 		try {
 			String sql = "UPDATE tblUser SET PW = ? WHERE ID = ?";
@@ -177,6 +221,12 @@ public class UserDAO {
 		return 0;
 	}
 
+    /**
+     * 사용자의 비밀번호를 확인합니다.
+     * 
+     * @param dto 비밀번호를 확인할 사용자의 정보가 담긴 UserDTO 객체입니다.
+     * @return 비밀번호가 일치하는 경우 1을, 일치하지 않는 경우 0을 반환합니다.
+     */
 	public int getPw(UserDTO dto) {
 		try {
 			String sql = "select count(*) as cnt from tblUser where id = ? and tel = ?";
@@ -198,6 +248,12 @@ public class UserDAO {
 		return 0;
 	}
 
+    /**
+     * 사용자 정보를 수정합니다.
+     * 
+     * @param dto 수정할 사용자의 정보가 담긴 UserDTO 객체입니다.
+     * @return 정보 수정에 성공한 경우 변경된 행의 수를 반환합니다. 그렇지 않으면 0을 반환합니다.
+     */
 	public int edit(UserDTO dto) {
 		
 		try {
@@ -219,6 +275,12 @@ public class UserDAO {
 		return 0;
 	}
 
+    /**
+     * 사용자의 정보를 조회합니다.
+     * 
+     * @param id 조회할 사용자의 ID입니다.
+     * @return 조회된 사용자의 정보가 담긴 UserDTO 객체를 반환합니다. 사용자가 존재하지 않으면 null을 반환합니다.
+     */
 	public UserDTO userInfo(String id) {
 		try {
 			String sql = "select * from tblUser where id = ?";
@@ -241,7 +303,13 @@ public class UserDAO {
 		}
 		return null;
 	}
-
+	
+    /**
+     * 사용자를 탈퇴 처리합니다.
+     * 
+     * @param id 탈퇴할 사용자의 ID입니다.
+     * @return 탈퇴 처리에 성공한 경우 변경된 행의 수를 반환합니다. 그렇지 않으면 0을 반환합니다.
+     */
 	public int unregister(String id) {
 		
 		try {
@@ -259,7 +327,13 @@ public class UserDAO {
 		
 		return 0;
 	}
-	
+
+    /**
+     * 여러 사용자를 탈퇴 처리합니다.
+     * 
+     * @param ids 탈퇴할 사용자들의 ID 배열입니다.
+     * @return 탈퇴 처리에 성공한 경우 변경된 행의 수를 반환합니다. 그렇지 않으면 0을 반환합니다.
+     */
 	public int unregister(String[] ids) {
 	    try {
 	        StringBuilder sql = new StringBuilder("update tblUser set lv = 4 where id in (");
@@ -284,7 +358,12 @@ public class UserDAO {
 	    return 0;
 	}
 	
-	
+    /**
+     * 사용자의 이름을 조회합니다.
+     * 
+     * @param id 조회할 사용자의 ID입니다.
+     * @return 조회된 사용자의 이름입니다.
+     */
 	public String getName(String id) {
 		
 		try {
@@ -309,6 +388,11 @@ public class UserDAO {
 		
 	}
 	
+	/**
+     * 오늘 등록된 신규 사용자 수를 조회합니다.
+     * 
+     * @return 오늘 등록된 신규 사용자 수입니다.
+     */
 	public int getNewSubscriberCount() {
 		
 		try {

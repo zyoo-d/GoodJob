@@ -17,9 +17,16 @@ import com.good.board.model.NoticeDTO;
 import com.good.board.qna.AuthQna;
 import com.good.board.repository.NoticeDAO;
 
+/**
+ * 공지사항을 수정하는 서블릿입니다.
+ */
 @WebServlet("/board/notice/editnotice.do")
 public class EditNotice extends HttpServlet {
 
+    /**
+     * 공지사항 수정 폼을 가져옵니다.
+     * 관리자만 접근할 수 있습니다.
+     */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
@@ -62,6 +69,9 @@ public class EditNotice extends HttpServlet {
 
 	}
 	
+    /**
+     * 공지사항을 수정합니다.
+     */
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		

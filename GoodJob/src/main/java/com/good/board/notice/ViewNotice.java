@@ -12,7 +12,9 @@ import javax.servlet.http.HttpSession;
 
 import com.good.board.model.NoticeDTO;
 import com.good.board.repository.NoticeDAO;
-
+/**
+ * 공지사항을 조회하는 서블릿입니다.
+ */
 @WebServlet("/board/notice/viewnotice.do")
 public class ViewNotice extends HttpServlet {
 

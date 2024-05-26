@@ -8,7 +8,13 @@ import java.util.ArrayList;
 
 import com.good.board.model.CommentDTO;
 import com.test.util.DBUtil;
+/*
+  CommentDAO 클래스
 
+  게시판 댓글 관련 데이터를 데이터베이스에서 CRUD(Create, Read, Update, Delete) 작업을 수행하는 DAO(Data Access Object) 클래스입니다.
+  댓글 작성, 댓글 목록 조회, 최신 댓글 조회 등의 기능을 제공합니다.
+
+ */
 public class CommentDAO {
 	private Connection conn;
 	private Statement stat;
@@ -27,7 +33,12 @@ public class CommentDAO {
 			e.printStackTrace();
 		}
 	}
-	
+	/**
+     * 새로운 댓글을 작성합니다.
+     *
+     * @param dto 작성할 댓글 정보를 담은 CommentDTO 객체
+     * @return 작성 결과 (성공 시 1, 실패 시 0)
+     */
 	public int addComment(CommentDTO dto) {
 	    try {
 	        // SQL 문장 작성
@@ -54,7 +65,12 @@ public class CommentDAO {
 	
 	
 	
-	
+	 /**
+     * 지정된 게시글의 댓글 목록을 조회합니다.
+     *
+     * @param stdSeq 게시글 ID
+     * @return 댓글 목록을 담은 ArrayList
+     */
 	public ArrayList<CommentDTO> getComments(String stdSeq) {
 		
 		 ArrayList<CommentDTO> comments = new ArrayList<>();
@@ -84,7 +100,12 @@ public class CommentDAO {
 	  
 	}
 
-
+	 /**
+     * 지정된 게시글의 최신 댓글을 조회합니다.
+     *
+     * @param sTD_SEQ 게시글 ID
+     * @return 최신 댓글 정보를 담은 CommentDTO 객체
+     */
 	public CommentDTO getComment(String sTD_SEQ) {
 
 			try {

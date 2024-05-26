@@ -191,9 +191,13 @@ public class CompanyDAO {
 	}
 
 	/**
-	 * 지유)기업 목록, 상세 최신 정보 불러오는 메서드
-	 * 
-	 * @return 기업정보(일반/재무/고용)
+	 * 기업 정보 목록을 조회하는 메서드입니다.
+	 * 검색어, 채용 중인 기업, 연봉, 지역 등의 조건을 포함하여 기업 정보를 조회합니다.
+	 * 페이징 처리를 위해 시작 인덱스와 종료 인덱스를 매개변수로 받습니다.
+	 *
+	 * @param map 검색 조건과 페이징 정보가 담긴 HashMap
+	 *            
+	 * @return 조회된 기업 정보 목록을 담고 있는 ArrayList&lt;CompanyDTO&gt;
 	 */
 	public ArrayList<CompanyDTO> comListInfo(HashMap<String, String> map) {
 
@@ -357,108 +361,7 @@ public class CompanyDAO {
 
 		return 0;
 	}
-	/**
-	 * 채용 공고가 있는 기업 목록 조회 메서드
-	 * @return
-	 */
-	/*public ArrayList<CompanyDTO> getCompaniesWithRecruitment() {
-	    try {
-	        LocalDate currentDate = LocalDate.now();
-	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-	        String formatCurrentDate = currentDate.format(formatter);
 
-	        String sql = "SELECT c.cp_seq, c.cp_name, c.cp_address, c.image " +
-	                     "FROM tblCompany c " +
-	                     "INNER JOIN tblRecruit r ON c.cp_seq = r.cp_seq " +
-	                     "WHERE r.enddate >= ? " +
-	                     "GROUP BY c.cp_seq, c.cp_name, c.cp_address, c.image " +
-	                     "HAVING COUNT(r.rcrt_seq) > 0";
-
-	        pstat = conn.prepareStatement(sql);
-	        pstat.setString(1, formatCurrentDate);
-
-	        rs = pstat.executeQuery();
-
-	        ArrayList<CompanyDTO> companiesWithRecruitment = new ArrayList<>();
-
-	        while (rs.next()) {
-	            CompanyDTO dto = new CompanyDTO();
-
-	            dto.setCp_seq(rs.getString("cp_seq"));
-	            dto.setCp_name(rs.getString("cp_name"));
-	            dto.setCp_address(rs.getString("cp_address"));
-	            dto.setImage(rs.getString("image"));
-
-	            companiesWithRecruitment.add(dto);
-	        }
-
-	        return companiesWithRecruitment;
-
-	    } catch (Exception e) {
-	        System.out.println("RecruitDAO.getCompaniesWithRecruitment");
-	        e.printStackTrace();
-	    }
-
-	    return null;
-	}*/
-
-
-	/**
-	 * 검색결과에 따른 기업수를 부러오는 메서드
-	 * 
-	 * @param map
-	 * @return
-	 */
-	/*public int searchCompanyCount(HashMap<String, String> map) {
-
-		try {
-
-			String where = "";
-			String sql = "";
-
-//			if (map.get("search").equals("y")) {
-//				
-//				where = String.format("where cp_name like '%%%s%%'",map.get("word"));
-//				sql = String.format("select count(*) as search_cnt from vwComListInfo %s" , where);
-//				
-//			}
-
-			if (map.get("search").equals("y") && map.get("hiring").equals("y")) {
-
-				where = String.format("where cp_name like '%%%s%%' and com_rcrt_cnt > 0", map.get("word"));
-				sql = String.format("select count(*) as search_cnt from vwNewComListInfo %s", where);
-
-			} else if (map.get("search").equals("y") && map.get("hiring").equals("n")) {
-
-				where = String.format("where cp_name like '%%%s%%'", map.get("word"));
-				sql = String.format("select count(*) as search_cnt from vwNewComListInfo %s", where);
-
-			} else if (map.get("search").equals("n") && map.get("hiring").equals("y")) {
-
-				where = String.format("where com_rcrt_cnt > 0");
-				sql = String.format("select count(*) as search_cnt from vwNewComListInfo %s", where);
-
-			} else {
-
-				sql = String.format("select count(*) as search_cnt from vwNewComListInfo");
-			}
-
-			pstat = conn.prepareStatement(sql);
-			rs = pstat.executeQuery();
-
-			if (rs.next()) {
-
-				return rs.getInt("search_cnt");
-
-			}
-
-		} catch (Exception e) {
-			System.out.println("CompanyDAO.searchCompanyCount");
-			e.getStackTrace();
-		}
-
-		return 0;
-	}*/
 
 	/**
 	    * 주어진 기업 고유 번호에 해당하는 기업 정보를 반환합니다.
@@ -553,11 +456,11 @@ public class CompanyDAO {
 	}
 
 	/**
-	 * 업계평균연봉 조회 메서드
-	 * 
-	 * @param idst_code
-	 * @return
-	 */
+	* 특정 업종의 평균 연봉을 조회하는 메서드입니다.
+	*
+	* @param idst_code 업종 코드
+	* @return 해당 업종의 평균 연봉 (조회 결과가 없을 경우 0을 반환)
+	*/
 	public int getIdstSalary(String idst_code) {
 		try {
 			String sql = "select * from vwIdstAvgSalary where idst_code = ?";
@@ -933,9 +836,10 @@ public class CompanyDAO {
 
 
 	/**
-	 * 지유)등록된 리뷰수 불러오는 메서드
-	 * 
-	 * @return 리뷰수
+	 * 특정 기업의 등록된 리뷰 수를 조회하는 메서드입니다.
+	 *
+	 * @param cp_seq 기업 시퀀스
+	 * @return 해당 기업의 리뷰 수
 	 */
 	public int countRiview(String cp_seq) {
 		try {

@@ -16,16 +16,26 @@ import com.good.company.model.CompanyDTO;
 import com.good.company.model.RecruitDTO;
 import com.test.util.DBUtil;
 
+/**
+ * 채용 관련 데이터베이스 작업을 처리하는 DAO 클래스입니다.
+ */
 public class RecruitDAO {
 	private Connection conn;
 	private Statement stat;
 	private PreparedStatement pstat;
 	private ResultSet rs;
 
+	/** 
+	 * RecruitDAO 생성자입니다.
+	 * 데이터베이스 연결을 초기화합니다.
+	 */
 	public RecruitDAO() {
 		this.conn = DBUtil.open();
 	}
 
+	/**
+	 * 데이터베이스 연결을 닫는 메서드
+	 */
 	public void close() {
 
 		try {
@@ -38,7 +48,11 @@ public class RecruitDAO {
 		}
 
 	}
-
+	/**
+	    * 다음 시퀀스 값을 조회하는 메서드
+	    *
+	    * @return 다음 시퀀스 값
+	    */
 	public String getNextSeq() {
 		try {
 			String sql = "select seqRecruit.nextVal as seq from dual";
@@ -58,6 +72,11 @@ public class RecruitDAO {
 	}
 
 
+	/**
+	    * 채용 목록을 조회하는 메서드
+	    *
+	    * @return 채용 목록
+	    */
 	public ArrayList<RecruitDTO> RecruitList() {
 		try {
 			String sql = "select * from tblRecruit";
@@ -79,6 +98,12 @@ public class RecruitDAO {
 		return null;
 	}
 
+	/**
+	    * 채용 직무를 추가하는 메서드
+	    *
+	    * @param map 채용 직무 정보가 담긴 맵
+	    * @return 추가 성공 여부 (1: 성공, 0: 실패)
+	    */
 	public int addJobRcrt(HashMap<String, String> map) {
 		try {
 			String sql = "insert into tblJobRcrt (rcrt_seq, job_seq) values (?,?)";
@@ -98,6 +123,12 @@ public class RecruitDAO {
 		return 0;
 	}
 
+	/**
+	    * 채용 정보를 추가하는 메서드
+	    *
+	    * @param dto 채용 정보가 담긴 DTO 객체
+	    * @return 추가 성공 여부 (1: 성공, 0: 실패)
+	    */
 	public int addRecruit(RecruitDTO dto) {
 		try {
 			String sql = "insert into tblRecruit (RCRT_SEQ, RCRT_NAME, RCRT_LINK, STARTDATE,ENDDATE,MIN_CAREER,MAX_CAREER,EDU_SEQ, SALARY_SEQ, CP_SEQ) values (?,?,?,?,?,?,?,?,?,?)";
@@ -127,9 +158,11 @@ public class RecruitDAO {
 
 
 	/**
-	 * 기업별 채용공고 목록 조회 메서드
-	 * @param cp_seq
-	 * @return
+	 * 특정 기업의 현재 진행 중인 채용 공고 목록을 조회하는 메서드입니다.
+	 *
+	 * @param cp_seq 기업 코드
+	 * @return 해당 기업의 현재 진행 중인 채용 공고 목록을 담고 있는 ArrayList&lt;RecruitDTO&gt;
+	 *         (조회 결과가 없을 경우 null을 반환)
 	 */
 	public ArrayList<RecruitDTO> comRecruitList(String cp_seq) {
 		try {
@@ -173,9 +206,15 @@ public class RecruitDAO {
 		}
 		return null;
 	}
-	
-	
 
+
+
+	/**
+	 * 채용공고의 총 개수를 조회하는 메서드입니다.
+	 *
+	 * @param map 검색 조건과 페이징 정보가 담긴 HashMap
+	 * @return 검색 조건에 맞는 채용공고의 총 개수
+	 */
 	public int getTotalCount(HashMap<String, Object> map) {
 		try {
 
@@ -270,6 +309,12 @@ public class RecruitDAO {
 		return 0;
 	}
 
+	/**
+	 * 검색 조건에 맞는 채용공고 목록을 조회하는 메서드입니다.
+	 *
+	 * @param map 검색 조건과 페이징 정보가 담긴 HashMap
+	 * @return 검색 조건에 맞는 채용공고 목록을 담고 있는 ArrayList&lt;RecruitDTO&gt;
+	 */
 	public ArrayList<RecruitDTO> getList(HashMap<String, Object> map) {
 		try {
 			String where = "";
@@ -377,6 +422,12 @@ public class RecruitDAO {
 		return null;
 	}
 
+	/**
+	 * 기업 주소를 일부 축약하여 반환하는 메서드입니다.
+	 *
+	 * @param cp_address 기업 주소
+	 * @return 축약된 기업 주소
+	 */
 	private String cutAddress(String cp_address) {
 		String address = cp_address;
 		if(address.contains("서울특별시")) {
@@ -389,6 +440,12 @@ public class RecruitDAO {
 	}
 
 
+	/**
+	 * 날짜 문자열을 포맷팅하여 반환하는 메서드입니다.
+	 *
+	 * @param endDateString 날짜 문자열 (yyyy-MM-dd HH:mm:ss 형식)
+	 * @return 포맷팅된 날짜 문자열 (MM-dd(E) 형식)
+	 */
 	private String formatEndDate(String endDateString) {
 		SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		SimpleDateFormat outputFormat = new SimpleDateFormat("MM-dd(E)", Locale.KOREAN);
@@ -402,6 +459,12 @@ public class RecruitDAO {
 		}
 	}
 
+	/**
+	 * 채용공고에 해당하는 직무 이름을 조회하는 메서드입니다.
+	 *
+	 * @param rcrt_seq 채용공고 시퀀스
+	 * @return 직무 이름 목록을 담고 있는 ArrayList&lt;String&gt;
+	 */
 	private ArrayList<String> foundJob(String rcrt_seq) {
 		ArrayList<String> list = new ArrayList<>();
 
@@ -425,6 +488,12 @@ public class RecruitDAO {
 	}
 
 
+	/**
+	 * 특정 기업이 게시한 채용공고의 직무 이름을 조회하는 메서드입니다.
+	 *
+	 * @param cp_seq 기업 시퀀스
+	 * @return 직무 이름 목록을 담고 있는 ArrayList&lt;String&gt;
+	 */
 	public ArrayList<String> comJob(String cp_seq) {
 		ArrayList<String> jlist = new ArrayList<>();
 
@@ -448,6 +517,11 @@ public class RecruitDAO {
 		return jlist;
 	}
 
+	/**
+	 * 현재 오픈 중인 채용공고의 개수를 조회하는 메서드입니다.
+	 *
+	 * @return 현재 오픈 중인 채용공고의 개수
+	 */
 	public int countOpenJobPostings() {
 
 		try {
@@ -459,9 +533,9 @@ public class RecruitDAO {
 
 			pstat = conn.prepareStatement(sql);
 			pstat.setString(1, formatCurrentDate);
-			
+
 			rs = pstat.executeQuery();
-			
+
 			if(rs.next()) {
 				return rs.getInt("cnt");
 			}
@@ -470,7 +544,7 @@ public class RecruitDAO {
 			System.out.println("(관리자)채용공고 목록 갯수 로드 실패");
 			e.printStackTrace();
 		}
-		
+
 		return 0;
 
 	}

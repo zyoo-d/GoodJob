@@ -23,9 +23,24 @@ import com.good.company.repository.CompanyDAO;
 import com.good.company.repository.ReviewDAO;
 import com.good.company.repository.TagDAO;
 
+/**
+ * 리뷰 추가 서블릿 클래스
+ * 이 클래스는 사용자가 기업 리뷰를 작성하고 제출할 수 있는 기능을 제공합니다.
+ * GET 요청 시 리뷰 작성 페이지를 로드하고, POST 요청 시 사용자가 입력한 리뷰 데이터를 처리하여 데이터베이스에 저장합니다.
+ */
 @WebServlet("/user/company/review/addreview.do")
 public class AddReview extends HttpServlet {
 
+    /**
+     * GET 요청 처리 메서드
+     * 사용자가 리뷰 작성 페이지를 요청할 때 호출됩니다.
+     * 로그인 상태를 확인하고, 필요한 데이터를 조회하여 JSP 페이지로 전달합니다.
+     * 
+     * @param req  HttpServletRequest 객체
+     * @param resp HttpServletResponse 객체
+     * @throws ServletException 서블릿 예외 발생 시
+     * @throws IOException      입출력 예외 발생 시
+     */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		HttpSession session = req.getSession();
@@ -59,6 +74,16 @@ public class AddReview extends HttpServlet {
 		dispatcher.forward(req, resp);
 	}
 
+    /**
+     * POST 요청 처리 메서드
+     * 사용자가 리뷰 작성 폼을 제출할 때 호출됩니다.
+     * 폼 데이터를 받아와 ReviewDTO 객체에 저장하고, 태그 정보를 처리한 후 데이터베이스에 리뷰를 저장합니다.
+     * 
+     * @param req  HttpServletRequest 객체
+     * @param resp HttpServletResponse 객체
+     * @throws ServletException 서블릿 예외 발생 시
+     * @throws IOException      입출력 예외 발생 시
+     */
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		HttpSession session = req.getSession();
 		String id = (String) session.getAttribute("id");
@@ -109,17 +134,16 @@ public class AddReview extends HttpServlet {
 		if (tag_keyword != null && !tag_keyword.equals("")&& !tag_keyword.equals("[]")) {
 			try {
 				
-				//[{"value":"자바"},{"value":"코딩"},{"value":"게시판"}]
-				//System.out.println(tag);
-				JSONParser parser = new JSONParser();				
-				JSONArray arr = (JSONArray)parser.parse(tag_keyword); //배열 > JSONArray
 				
-				for (Object obj : arr) { //arr(JSONObject)이지만 바로 가져오면 오류나서 일단 Object로 가져옴
+				JSONParser parser = new JSONParser();				
+				JSONArray arr = (JSONArray)parser.parse(tag_keyword); 
+				
+				for (Object obj : arr) { 
 					JSONObject tagObj = (JSONObject)obj;
 					String tagKeyword = (String)tagObj.get("value");
-					//System.out.println(tagName);
 					
-					//해시태그 추가 (유니크조건확인)
+					
+					//해시태그 추가
 					if(tdao.existHashtag(tagKeyword)) {					
 					   tdao.addHashtag(tagKeyword);
 					} 

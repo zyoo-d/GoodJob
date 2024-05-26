@@ -15,7 +15,7 @@ import com.good.admin.visitor.VisitorTracker;
 
 /**
 * VisitorTrackingFilter 클래스는 Filter 인터페이스를 구현하여 웹 필터로 동작한다.
-* @WebFilter 애노테이션으로 필터 이름과 URL 패턴을 지정한다.
+* 애노테이션으로 필터 이름과 URL 패턴을 지정한다.
 */
 @WebFilter(filterName = "3.VisitorTrackingFilter", urlPatterns = "*.do")
 public class VisitorTrackingFilter implements Filter{
