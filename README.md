@@ -138,6 +138,9 @@
 ### ✔️Server
 
 <img src="https://img.shields.io/badge/apache tomcat-F8DC75?style=for-the-badge&logo=apachetomcat&logoColor=black">
+
+### ✔️Cloud Platform
+
 <img src="https://img.shields.io/badge/amazon ec2-FF9900?style=for-the-badge&logo=amazonec2&logoColor=white">
 
 </div>
