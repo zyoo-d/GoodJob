@@ -149,8 +149,9 @@
 <img src="https://img.shields.io/badge/notion-000000?style=for-the-badge&logo=notion&logoColor=white"> 
 <img src="https://img.shields.io/badge/ERDCloud-2C2255?style=for-the-badge&logo=erdcloud&logoColor=white">
 </div>
+<br/>
+<br/>
 
-  <hr/>
 
 
 
@@ -160,8 +161,8 @@
   <br/>
   <img src="https://img.shields.io/badge/eclipseide-2C2255?style=for-the-badge&logo=eclipseide&logoColor=white">
   <img src="https://img.shields.io/badge/sql developer-717171?style=for-the-badge&logo=sqldeveloper&logoColor=white">
-
 </div>  
+<br/>
 <br/>
 <hr/>
 
