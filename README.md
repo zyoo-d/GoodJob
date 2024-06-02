@@ -161,7 +161,7 @@
 <br/>
 
 
-## 🗄 Document <br/>
+## 🗄 개발 문서 <br/>
 <div> <a href="https://drive.google.com/drive/folders/1GnLiltk5eB_nJIEgqNC4lF1d_4hd7XoN">1. 기획서 </a> </div>
 <div> <a href="https://drive.google.com/drive/folders/1AFDNDVJQm4uwhYd8ZgJwMRTlYNBR4jBD">2. 요구분석서 </a> </div>
 <div> <a href="https://drive.google.com/drive/folders/1fkD-b0wK0WOahuhjx8ZuIgj2_asGG-Xn">3. 순서도 </a> </div>
@@ -180,13 +180,12 @@
   
 ## 😀  해당 프로젝트 참가 멤버
 
-|<img src="https://avatars.githubusercontent.com/u/155609506?v=4" width="150" height="150"/>|<img src="https://avatars.githubusercontent.com/u/64453121?v=4" width="150" height="150"/>|<img src="https://avatars.githubusercontent.com/u/152785122?v=4" width="150" height="150"/>|<img src="https://avatars.githubusercontent.com/u/157680931?v=4" width="150" height="150"/>|<img src="https://avatars.githubusercontent.com/u/156043182?v=4" width="150" height="150"/>|<img src="https://avatars.githubusercontent.com/u/62318700?v=4" width="150" height="150"/>|
-|:-:|:-:|:-:|:-:|:-:|:-:|
-|[@sol2ee](https://github.com/sol2ee)|[@Kwak-98](https://github.com/Kwak-98)|Bo_Ryong<br/>[@kwonboryong](https://github.com/kwonboryong)|[@Kijun0708](https://github.com/Kijun0708)|SXNGJUNHX<br/>[@SXNGJUNHX](https://github.com/SXNGJUNHX)|juniel1299<br/>[@juniel1299](https://github.com/juniel1299)|
-|김은솔|곽지현|권보령|박기준|송준호|장원준|
-|이용객 통계|PM|회원가|길 찾기|마이 페이지|화면 출력|
-|매출 통계|데이터 로드|로그인|열차 배치|분실물 관리|민원 관리|
-|정기권|데이터 가공|로그아웃|혼잡도 통계|-|스케줄 관리|
-|PPT 제작|DB 설계|PPT 제작|행동 로그|-|클래스 다이어그램|
-|-|열차 시간표|-|-|-|-|
-|-|직원 관리|-|-|-|-|
+|<img src="https://avatars.githubusercontent.com/u/155238712?v=4" width="150" height="150"/>|<img src="https://avatars.githubusercontent.com/u/153978814?v=4" width="150" height="150"/>|<img src="https://avatars.githubusercontent.com/u/72927363?v=4" width="150" height="150"/>|<img src="https://avatars.githubusercontent.com/u/157680931?v=4" width="150" height="150"/>|<img src="https://avatars.githubusercontent.com/u/127924216?v=4" width="150" height="150"/>|
+|:-:|:-:|:-:|:-:|:-:|
+|[@Heey2](https://github.com/Heey2)|[@zyoo-d](https://github.com/zyoo-d)|[@jjjub](https://github.com/jjjub)|[@Kijun0708](https://github.com/Kijun0708)|[@kmggmk](https://github.com/kmggmk)|
+|김희연|이지유|윤준섭|박기준|김민곤|
+|||||
+|||||
+|||||
+|||||
+|||||
