@@ -1,3 +1,4 @@
+
 ![GoodJob Logo](https://github.com/Kijun0708/GoodJob/blob/main/GoodJob/src/main/webapp/assets/logo.png)
 <br/>
 <br/>
@@ -195,6 +196,103 @@
 |기업/설문조사 관리|순서도/PPT|기업 선택기능|방문자수 통계|-|
 |기업/채용 데이터 수집|-|공지사항|유저 관리|-|
 |매칭 알고리즘 프로시저|-|순서도|관리자 접근 필터|-|
+
+<br/>
+<hr/>
+
+## 🖥️ 화면 구성
+
+
+<table>
+  <tr>
+    <td><img src="https://github.com/Kijun0708/GoodJob/blob/main/GoodJob/src/main/webapp/assets/screenshot/%EB%A9%94%EC%9D%B8%ED%8E%98%EC%9D%B4%EC%A7%80.png" alt="Page 1"></td>
+    <td><img src="https://github.com/Kijun0708/GoodJob/blob/main/GoodJob/src/main/webapp/assets/screenshot/%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85.png" alt="Page 2"></td>
+  </tr>
+  <tr>
+    <td>메인 페이지</td>
+    <td>회원 가입</td>
+  </tr>
+  <tr>
+    <td><img src="https://github.com/Kijun0708/GoodJob/blob/main/GoodJob/src/main/webapp/assets/screenshot/%EB%A1%9C%EA%B7%B8%EC%9D%B8.png" alt="Page 3"></td>
+    <td><img src="https://github.com/Kijun0708/GoodJob/blob/main/GoodJob/src/main/webapp/assets/screenshot/%EB%A7%88%EC%9D%B4%ED%8E%98%EC%9D%B4%EC%A7%80%EB%A9%94%EC%9D%B8.png" alt="Page 4"></td>
+  </tr>
+  <tr>
+    <td>로그인</td>
+    <td>마이 페이지</td>
+  </tr>
+   <tr>
+    <td><img src="https://github.com/Kijun0708/GoodJob/blob/main/GoodJob/src/main/webapp/assets/screenshot/%EA%B8%B0%EC%97%85%EB%AA%A9%EB%A1%9D.png" alt="Page 1"></td>
+    <td><img src="https://github.com/Kijun0708/GoodJob/blob/main/GoodJob/src/main/webapp/assets/screenshot/%EA%B8%B0%EC%97%85%EC%83%81%EC%84%B8.png" alt="Page 2"></td>
+  </tr>
+  <tr>
+    <td>기업 목록</td>
+    <td>기업 상세</td>
+  </tr>
+  <tr>
+    <td><img src="https://github.com/Kijun0708/GoodJob/blob/main/GoodJob/src/main/webapp/assets/screenshot/%EA%B8%B0%EC%97%85%EB%B9%84%EA%B5%90.png" alt="Page 3"></td>
+    <td><img src="https://github.com/Kijun0708/GoodJob/blob/main/GoodJob/src/main/webapp/assets/screenshot/%EB%A7%9E%EC%B6%A4%EA%B8%B0%EC%97%85%EC%B6%94%EC%B2%9C.png" alt="Page 4"></td>
+  </tr>
+  <tr>
+    <td>기업 비교</td>
+    <td>맞춤 기업 추천</td>
+  </tr>
+
+  <tr>
+    <td><img src="https://github.com/Kijun0708/GoodJob/blob/main/GoodJob/src/main/webapp/assets/screenshot/%EC%B1%84%EC%9A%A9%EB%AA%A9%EB%A1%9D.png" alt="Page 3"></td>
+    <td><img src="https://github.com/Kijun0708/GoodJob/blob/main/GoodJob/src/main/webapp/assets/screenshot/%EC%84%A4%EB%AC%B8%EC%A1%B0%EC%82%AC%20%EC%84%A0%ED%83%9D%EC%8B%9C.png" alt="Page 4"></td>
+  </tr>
+  <tr>
+    <td>채용 공고 목록</td>
+    <td>설문 조사</td>
+  </tr>
+
+  <tr>
+    <td><img src="https://github.com/Kijun0708/GoodJob/blob/main/GoodJob/src/main/webapp/assets/screenshot/%EA%B8%B0%EC%97%85%EB%A6%AC%EB%B7%B0%EB%93%B1%EB%A1%9D.png" alt="Page 3"></td>
+    <td><img src="https://github.com/Kijun0708/GoodJob/blob/main/GoodJob/src/main/webapp/assets/screenshot/%EB%A9%B4%EC%A0%91%ED%9B%84%EA%B8%B0%20%EA%B8%80%EC%93%B0%EA%B8%B0.png" alt="Page 4"></td>
+  </tr>
+  <tr>
+    <td>기업 리뷰 등록</td>
+    <td>면접 후기 등록</td>
+  </tr>
+
+  <tr>
+    <td><img src="https://github.com/Kijun0708/GoodJob/blob/main/GoodJob/src/main/webapp/assets/screenshot/%EB%A9%B4%EC%A0%91%ED%9B%84%EA%B8%B0%20%EB%A9%94%EC%9D%B8.png" alt="Page 3"></td>
+    <td><img src="https://github.com/Kijun0708/GoodJob/blob/main/GoodJob/src/main/webapp/assets/screenshot/%EC%97%AC%EA%B8%B0%EC%96%B4%EB%95%8C%20%EB%A9%94%EC%9D%B8.png" alt="Page 4"></td>
+  </tr>
+  <tr>
+    <td>면접 후기 목록</td>
+    <td>질문 게시판 목록</td>
+  </tr>
+
+  <tr>
+    <td><img src="https://github.com/Kijun0708/GoodJob/blob/main/GoodJob/src/main/webapp/assets/screenshot/%EC%8A%A4%ED%84%B0%EB%94%94%EB%A9%94%EC%9D%B8.png" alt="Page 3"></td>
+    <td><img src="https://github.com/Kijun0708/GoodJob/blob/main/GoodJob/src/main/webapp/assets/screenshot/%EC%8A%A4%ED%84%B0%EB%94%94%EB%B7%B0.png" alt="Page 4"></td>
+  </tr>
+  <tr>
+    <td>스터디 게시판 목록</td>
+    <td>게시판 상세보기</td>
+  </tr>
+
+  <tr>
+    <td><img src="https://github.com/Kijun0708/GoodJob/blob/main/GoodJob/src/main/webapp/assets/screenshot/%EA%B4%80%EB%A6%AC%EC%9E%90%20%EB%A9%94%EC%9D%B8.png" alt="Page 3"></td>
+    <td><img src="https://github.com/Kijun0708/GoodJob/blob/main/GoodJob/src/main/webapp/assets/screenshot/%EA%B4%80%EB%A6%AC%EC%9E%90%20%EA%B8%B0%EC%97%85%EA%B4%80%EB%A6%AC.png" alt="Page 4"></td>
+  </tr>
+  <tr>
+    <td>관리자 메인페이지</td>
+    <td>관리자 기업 정보</td>
+  </tr>
+
+  <tr>
+    <td><img src="https://github.com/Kijun0708/GoodJob/blob/main/GoodJob/src/main/webapp/assets/screenshot/%EB%A6%AC%EB%B7%B0%20%ED%86%B5%EA%B3%84.png" alt="Page 3"></td>
+    <td><img src="https://github.com/Kijun0708/GoodJob/blob/main/GoodJob/src/main/webapp/assets/screenshot/%EC%8B%A0%EA%B3%A0%20%EA%B2%8C%EC%8B%9C%EA%B8%80%20%EA%B4%80%EB%A6%AC.png" alt="Page 4"></td>
+  </tr>
+  <tr>
+    <td>관리자 리뷰 통계</td>
+    <td>관리자 신고 관리</td>
+  </tr>
+</table>
+
+
 
 
 
