@@ -247,6 +247,15 @@
   </tr>
 
   <tr>
+    <td><img src="https://github.com/Kijun0708/GoodJob/blob/main/GoodJob/src/main/webapp/assets/screenshot/%EC%84%A0%ED%98%B8%EA%B7%BC%EB%AC%B4%EC%A1%B0%EC%82%AC.png" alt="Page 3"></td>
+    <td><img src="https://github.com/Kijun0708/GoodJob/blob/main/GoodJob/src/main/webapp/assets/screenshot/%EA%B3%B5%EC%A7%80%EC%82%AC%ED%95%AD%20%EB%A9%94%EC%9D%B8.png" alt="Page 4"></td>
+  </tr>
+  <tr>
+    <td>선호 근무 조사</td>
+    <td>공지사항 메인</td>
+  </tr>
+
+  <tr>
     <td><img src="https://github.com/Kijun0708/GoodJob/blob/main/GoodJob/src/main/webapp/assets/screenshot/%EA%B8%B0%EC%97%85%EB%A6%AC%EB%B7%B0%EB%93%B1%EB%A1%9D.png" alt="Page 3"></td>
     <td><img src="https://github.com/Kijun0708/GoodJob/blob/main/GoodJob/src/main/webapp/assets/screenshot/%EB%A9%B4%EC%A0%91%ED%9B%84%EA%B8%B0%20%EA%B8%80%EC%93%B0%EA%B8%B0.png" alt="Page 4"></td>
   </tr>
