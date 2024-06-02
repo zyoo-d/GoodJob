@@ -1,9 +1,14 @@
 ![GoodJob Logo](https://github.com/Kijun0708/GoodJob/blob/main/GoodJob/src/main/webapp/assets/logo.png)
 <br/>
+<br/>
+<br/>
+<br/>
+<br/>
 <hr/>
 
 
 # 💻 Servlet/JSP Project(It's Good JoB)
+<br/>
 <b>프로젝트 기간 : 2024년 4월 19일 ~ 2024년 5월 13일 (총 25일)  
 프로젝트 총 인원 : 5명</b><br/>
 <br/>
@@ -11,6 +16,7 @@
 <hr/>
 
 ## 📝 요약
+<br/>
 
 ### It's Good JoB - IT 업종 취업 준비생을 위한 기업 정보 및 채용공고 플랫폼
 
@@ -101,6 +107,7 @@
 
   
 <hr/>
+
 <h2>  🛠️ 기술 스택 </h2>
 <div align=center>
   
@@ -126,25 +133,20 @@
 <img src="https://img.shields.io/badge/apache tomcat-F8DC75?style=for-the-badge&logo=apachetomcat&logoColor=black">
 <img src="https://img.shields.io/badge/amazon ec2-FF9900?style=for-the-badge&logo=amazonec2&logoColor=white">
 
-### ✔️Tools
-
-<img src="https://img.shields.io/badge/eclipse-2C2255?style=for-the-badge&logo=eclipse&logoColor=white">
-<img src="https://img.shields.io/badge/sql developer-717171?style=for-the-badge&logo=sqldeveloper&logoColor=white">
-<img src="https://img.shields.io/badge/notion-000000?style=for-the-badge&logo=notion&logoColor=white">
-<img src="https://img.shields.io/badge/draw.io-000000?style=for-the-badge&logo=drawio&logoColor=white">
-<img src="https://img.shields.io/badge/ERDCloud-2C2255?style=for-the-badge&logo=erdcloud&logoColor=white">
-<img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white">
-
 </div>
+
 <br/>
 
  <h2>  🤝 협업 툴 </h2> <br/>
+<div align=center> 
 <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white">   
 <img src="https://img.shields.io/badge/canva-00C4CC?style=for-the-badge&logo=canva&logoColor=white">   
-<img src="https://img.shields.io/badge/googledocs-4285F4?style=for-the-badge&logo=googledocs&logoColor=white">   
+<img src="https://img.shields.io/badge/draw.io-FF7800?style=for-the-badge&logo=drawio&logoColor=white">
+<img src="https://img.shields.io/badge/googledocs-4285F4?style=for-the-badge&logo=googledocs&logoColor=white"> <br/>   
 <img src="https://img.shields.io/badge/discord-5865F2?style=for-the-badge&logo=discord&logoColor=white"> 
-<img src="https://img.shields.io/badge/notion-000000?style=for-the-badge&logo=notion&logoColor=white">   
-
+<img src="https://img.shields.io/badge/notion-000000?style=for-the-badge&logo=notion&logoColor=white"> 
+<img src="https://img.shields.io/badge/ERDCloud-2C2255?style=for-the-badge&logo=erdcloud&logoColor=white">
+</div>
   <hr/>
 
 
