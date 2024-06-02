@@ -162,17 +162,17 @@
 
 
 ## 🗄 Document <br/>
-<div> <a href="https://github.com/juniel1299/javaConsoleProject/tree/main/SeoulMetro_1%EC%A1%B0_%EC%BD%98%EC%86%94%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/01.%20%EA%B8%B0%ED%9A%8D%EC%84%9C">1. 기획서 </a> </div>
-<div> <a href="https://github.com/juniel1299/javaConsoleProject/tree/main/SeoulMetro_1%EC%A1%B0_%EC%BD%98%EC%86%94%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/02.%20%EC%9A%94%EA%B5%AC%EB%B6%84%EC%84%9D%EC%84%9C">2. 요구분석서 </a> </div>
-<div> <a href="https://github.com/juniel1299/javaConsoleProject/tree/main/SeoulMetro_1%EC%A1%B0_%EC%BD%98%EC%86%94%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/03.%20%EC%88%9C%EC%84%9C%EB%8F%84">3. 순서도 </a> </div>
-<div> <a href="https://github.com/juniel1299/javaConsoleProject/tree/main/SeoulMetro_1%EC%A1%B0_%EC%BD%98%EC%86%94%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/04.%20%ED%99%94%EB%A9%B4%EC%84%A4%EA%B3%84%EC%84%9C">4. 화면설계서 </a> </div>
-<div> <a href="https://github.com/juniel1299/javaConsoleProject/tree/main/SeoulMetro_1%EC%A1%B0_%EC%BD%98%EC%86%94%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/05.%20%EA%B8%B0%EB%8A%A5%EB%AA%85%EC%84%B8%EC%84%9C">5. 기능명세서 </a> </div>
-<div> <a href="https://github.com/juniel1299/javaConsoleProject/tree/main/SeoulMetro_1%EC%A1%B0_%EC%BD%98%EC%86%94%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/06.%20%EB%8D%B0%EC%9D%B4%ED%84%B0">6. 데이터 </a> </div>
-<div> <a href="https://github.com/juniel1299/javaConsoleProject/tree/main/SeoulMetro_1%EC%A1%B0_%EC%BD%98%EC%86%94%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/07.%20%EC%86%8C%EC%8A%A4" >7. 소스 </a></div>
-<div> <a href="https://github.com/juniel1299/javaConsoleProject/tree/main/SeoulMetro_1%EC%A1%B0_%EC%BD%98%EC%86%94%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/08.%20%EB%B0%9C%ED%91%9C">8. PPT 및 시연영상 </a></div>
-<div> <a href="https://github.com/juniel1299/javaConsoleProject/tree/main/SeoulMetro_1%EC%A1%B0_%EC%BD%98%EC%86%94%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/09.%20%ED%99%94%EB%A9%B4%EC%BA%A1%EC%B3%90">9. 화면캡쳐 </a></div>
-<div> <a href="https://github.com/juniel1299/javaConsoleProject/tree/main/SeoulMetro_1%EC%A1%B0_%EC%BD%98%EC%86%94%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/10.%20%EA%B0%9C%EB%B0%9C%EB%AC%B8%EC%84%9C">10. 개발문서 </a></div>
-<div> <a href="https://github.com/juniel1299/javaConsoleProject/tree/main/SeoulMetro_1%EC%A1%B0_%EC%BD%98%EC%86%94%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/11.%20%EC%9A%94%EC%95%BD%EB%B3%B8">11. 요약본 </a></div>
+<div> <a href="https://drive.google.com/drive/folders/1GnLiltk5eB_nJIEgqNC4lF1d_4hd7XoN">1. 기획서 </a> </div>
+<div> <a href="https://drive.google.com/drive/folders/1AFDNDVJQm4uwhYd8ZgJwMRTlYNBR4jBD">2. 요구분석서 </a> </div>
+<div> <a href="https://drive.google.com/drive/folders/1fkD-b0wK0WOahuhjx8ZuIgj2_asGG-Xn">3. 순서도 </a> </div>
+<div> <a href="https://drive.google.com/drive/folders/1JXatWPRudoFh56PkMlIJ3d7WTEaLx9Ao">4. 화면설계서 </a> </div>
+<div> <a href="https://drive.google.com/drive/folders/139riTLfP8Sy-ql_jct3Ypmnu7JPMgobJ">5. ERD </a> </div>
+<div> <a href="https://drive.google.com/drive/folders/1BRVm1EquG4PYh1zE3B1ZBzzo2paeC4VS" >7. 소스 </a></div>
+<div> <a href="https://drive.google.com/drive/folders/1yXB0wBS7vGAckcO3JLEpb2JcqWEG-lbQ">8. 화면캡쳐 </a></div>
+<div> <a href="https://drive.google.com/drive/folders/1dgkKhtPLb1LuoWT_GBSzFch8ALy9ePfS">9. 발표자료 </a></div>
+<div> <a href="https://www.youtube.com/watch?v=19hbE-ysYm4">9. 시연영상 </a></div>
+<div> <a href="https://drive.google.com/drive/folders/1jMtqYOhufPc-tT_cQPkArbbFrfuONGEy">10. 개발문서 </a></div>
+<div> <a href="https://drive.google.com/drive/folders/1A1rUAucEWgnND4H7myorDS-DpATJqHws">11. 요약본 </a></div>
 
 
 
