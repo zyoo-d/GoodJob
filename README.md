@@ -149,8 +149,9 @@
 <img src="https://img.shields.io/badge/notion-000000?style=for-the-badge&logo=notion&logoColor=white"> 
 <img src="https://img.shields.io/badge/ERDCloud-2C2255?style=for-the-badge&logo=erdcloud&logoColor=white">
 </div>
+
   <hr/>
-  <br/>
+
 
 
   
@@ -162,7 +163,7 @@
 
 </div>  
 <br/>
-<br/>
+<hr/>
 
 
 ## 🗄 개발 문서 <br/>
