@@ -22,7 +22,7 @@ public class VisitorTrackingFilter implements Filter{
 
 	/**
 	    * 필터 체인을 통해 요청을 처리합니다.
-	    * 관리자 권한이 있는 경우에만 요청을 통과시키고, 그렇지 않으면 메인 페이지로 리다이렉트합니다.
+	    * 사용자의 IP를 확인하여 방문하지 않았던 회원일 경우 방문자수를 증가시킵니다.
 	    *
 	    * @param request ServletRequest 객체입니다.
 	    * @param response ServletResponse 객체입니다.
